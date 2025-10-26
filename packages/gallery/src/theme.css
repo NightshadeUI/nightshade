@@ -37,7 +37,10 @@ strong {
     );
     background-clip: text;
     color: transparent;
-    filter: drop-shadow(0 0 32px var(--color-primary-600));
+    filter:
+        drop-shadow(-.5px 0 var(--color-secondary-300))
+        drop-shadow(.5px 0 var(--color-primary-300))
+        drop-shadow(0 0 32px var(--color-primary-600));
 }
 
 .pseudo-icon::after {

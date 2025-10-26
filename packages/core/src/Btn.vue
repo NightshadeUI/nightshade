@@ -4,18 +4,18 @@
         ref="button"
         class="Btn button"
         :class="[
-            `Btn-${size}`,
-            `Btn-${effectiveToken}`,
+            `Btn-${effectiveStyle.size}`,
+            `Btn-${effectiveStyle.kind}`,
             `Btn-iconPos-${iconPos}`,
             {
-                'Btn-link': isLink,
-                'Btn-disabled': disabled || blocked,
+                'Btn-ghost': effectiveStyle.ghost,
+                'Btn-round': effectiveStyle.round,
+                'Btn-outline': effectiveStyle.outline,
+                'Btn-flat': effectiveStyle.flat,
+                'Btn-shadow': effectiveStyle.shadow,
                 'Btn-square': square,
-                'Btn-round': round,
-                'Btn-outline': outline,
-                'Btn-flat': flat,
-                'Btn-shadow': shadow,
                 'Btn-block': block,
+                'Btn-disabled': disabled || blocked,
                 'Btn-force-focus': forceFocus,
                 'Btn-force-hover': forceHover,
                 'Btn-force-active': forceActive,
@@ -28,7 +28,9 @@
         @mouseleave="hover = false"
         @mousedown="active = true"
         @mouseup="active = false"
-        @mouseout="active = false">
+        @mouseout="active = false"
+        @focusin="focus = true"
+        @focusout="focus = false">
 
         <slot
             name="icon"
@@ -63,62 +65,78 @@ export default {
         label: { type: String },
         title: { type: String },
 
-        kind: { type: String, default: 'link-base' },
-        hoverKind: { type: String },
-        activeKind: { type: String },
+        kind: { type: String, default: 'base' },
+        size: { type: String, default: 'm' },
+        flat: { type: Boolean, default: false },
+        shadow: { type: Boolean, default: false },
+        outline: { type: Boolean, default: false },
+        round: { type: Boolean, default: false },
+        ghost: { type: Boolean, default: false },
+
+        block: { type: Boolean, default: false },
+        square: { type: Boolean, default: false },
+
+        disabled: { type: Boolean, default: false },
+        forceFocus: { type: Boolean, default: false },
+        forceHover: { type: Boolean, default: false },
+        forceActive: { type: Boolean, default: false },
 
         icon: { type: String },
         iconPos: { type: String, default: 'left' },
 
-        disabled: { type: Boolean, default: false },
-        size: { type: String, default: 'm' },
-        square: { type: Boolean, default: false },
-        block: { type: Boolean, default: false },
-        round: { type: Boolean, default: false },
-        outline: { type: Boolean, default: false },
-        flat: { type: Boolean, default: false },
-        shadow: { type: Boolean, default: false },
-        forceFocus: { type: Boolean, default: false },
-        forceHover: { type: Boolean, default: false },
-        forceActive: { type: Boolean, default: false },
+        hoverOverrides: { type: Object },
+        activeOverrides: { type: Object },
+        focusOverrides: { type: Object },
     },
 
     data() {
         return {
             hover: false,
             active: false,
+            focus: false,
             blocked: false,
         };
     },
 
     computed: {
 
-        effectiveHover() {
-            return this.forceHover || this.hover;
+        baseStyle() {
+            return {
+                kind: this.kind,
+                size: this.size,
+                flat: this.flat,
+                shadow: this.shadow,
+                outline: this.outline,
+                round: this.round,
+                ghost: this.ghost,
+            };
         },
 
-        effectiveActive() {
-            return this.forceActive || this.active;
-        },
-
-        effectiveKind() {
-            const { kind, effectiveHover, effectiveActive, hoverKind, activeKind } = this;
-            if (effectiveHover && hoverKind) {
-                return hoverKind;
+        effectiveStyle() {
+            const {
+                baseStyle,
+                hoverOverrides = {},
+                activeOverrides = {},
+                focusOverrides = {},
+                active,
+                hover,
+                focus,
+                forceActive,
+                forceHover,
+                forceFocus
+            } = this;
+            const style = Object.assign({}, baseStyle);
+            if (active || forceActive) {
+                Object.assign(style, activeOverrides);
             }
-            if (effectiveActive && activeKind) {
-                return activeKind;
+            if (hover || forceHover) {
+                Object.assign(style, hoverOverrides);
             }
-            return kind;
+            if (focus || forceFocus) {
+                Object.assign(style, focusOverrides);
+            }
+            return style;
         },
-
-        effectiveToken() {
-            return this.effectiveKind.replace(/^link-/i, '');
-        },
-
-        isLink() {
-            return this.effectiveKind.startsWith('link-');
-        }
 
     },
 
@@ -197,6 +215,40 @@ export default {
     transition: color .3s, outline .3s, filter .3s, border-radius .3s;
 }
 
+.Label {
+    line-height: var(--Btn-size);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.Icon {
+    width: var(--sp2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--Btn-font-size);
+}
+
+.Btn-iconPos-right .Icon {
+    order: 100;
+}
+
+.Btn-square {
+    padding-left: 0;
+    padding-right: 0;
+    width: var(--Btn-size);
+    justify-content: center;
+}
+
+.Btn-block {
+    flex: 1 1 auto;
+    display: flex;
+    justify-content: center;
+}
+
+/* States */
+
 .Btn:focus, .Btn:active, .Btn:hover {
     transition: none;
 }
@@ -218,50 +270,24 @@ export default {
         0 1px 2px rgba(0,0,0,.12) inset;
 }
 
-.Label {
-    line-height: var(--Btn-size);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.Icon {
-    width: var(--sp2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: var(--Btn-font-size);
-}
-
-.Btn-square {
-    padding-left: 0;
-    padding-right: 0;
-    width: var(--Btn-size);
-    justify-content: center;
-}
-
-.Btn-round {
-    --Btn-border-radius: var(--border-radius-l);
-}
-
 .Btn-disabled {
     opacity: .64;
     filter: saturate(40%);
     cursor: not-allowed;
 }
 
-.Btn-block {
-    flex: 1 1 auto;
-    display: flex;
-    justify-content: center;
+/* Styles */
+
+.Btn-round {
+    --Btn-border-radius: var(--border-radius-l);
 }
 
-.Btn-link {
+.Btn-ghost {
     --Btn-surface: transparent;
     --Btn-surface-top: transparent;
     --Btn-surface-bottom: transparent;
     --Btn-text-color: var(--input-color-text);
-    --Btn-shadow-color: transparent;
+    --Btn-shadow-color: var(--shadow-color-medium);
 }
 
 .Btn-outline {
@@ -275,7 +301,9 @@ export default {
 }
 
 .Btn-shadow {
-    box-shadow: var(--input-shadow-offset-x) var(--input-shadow-offset-y) var(--input-shadow-size) var(--Btn-shadow-color);
+    box-shadow:
+        0 1px 1px var(--Btn-shadow-color),
+        0 0 3px var(--shadow-color-light);
 }
 
 /* Sizes */
@@ -291,10 +319,6 @@ export default {
     --Btn-font-size: var(--font-size-s);
     --Btn-padding: var(--sp);
     --Btn-gap: var(--sp0-5);
-}
-
-.Btn-iconPos-right .Icon {
-    order: 100;
 }
 
 /* Kinds */

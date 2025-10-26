@@ -1,8 +1,8 @@
-@import './tokens/spacing.css';
-@import './tokens/grid.css';
-@import './tokens/font.css';
-@import './tokens/palette.css';
-@import './tokens/border-radius.css';
+@import './variables/base.css';
+@import './variables/spacing.css';
+@import './variables/grid.css';
+@import './variables/font.css';
+@import './variables/palette.css';
 
-@import './base.css';
+@import './commons.css';
 @import './input.css';

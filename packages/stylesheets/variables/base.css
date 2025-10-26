@@ -1,4 +1,10 @@
 :root {
+
+    --text-color: var(--color-base-900);
+    --base-color: var(--color-base-0);
+
+    /* Border radius */
+
     --border-radius: var(--border-radius-s);
 
     --border-radius-none: 0;
@@ -9,5 +15,11 @@
     --border-radius-l: var(--sp-l);
     --border-radius-xl: var(--sp-xl);
     --border-radius-xxl: var(--sp-xxl);
+
+    /* Shadows */
+
+    --shadow-color-light: light-dark(rgba(0,0,0,.16), rgba(0,0,0,.5));
+    --shadow-color-medium: light-dark(rgba(0,0,0,.32), rgba(0,0,0,.75));
+    --shadow-color-heavy: light-dark(rgba(0,0,0,.64), rgba(0,0,0,.9));
 
 }

@@ -9,9 +9,6 @@
 
     --input-border-size: 1px;
     --input-outline-size: 2px;
-    --input-shadow-offset-x: 0;
-    --input-shadow-offset-y: 1px;
-    --input-shadow-size: 1px;
 
     --input-color-text-base: var(--color-base-900);
     --input-color-surface-base: var(--color-base-0);
@@ -21,7 +18,7 @@
     --input-color-border-base: var(--color-base-400);
     --input-color-border-focus-base: var(--color-secondary-500);
     --input-color-outline-base: var(--color-secondary-300);
-    --input-color-shadow-base: light-dark(var(--color-base-500), #000);
+    --input-color-shadow-base: var(--shadow-color-light);
 
     --input-color-text-inverse: var(--color-inverse-0);
     --input-color-surface-inverse: var(--color-inverse-0);
@@ -31,7 +28,7 @@
     --input-color-border-inverse: var(--color-inverse-0);
     --input-color-border-focus-inverse: var(--color-secondary-500);
     --input-color-outline-inverse: var(--color-secondary-300);
-    --input-color-shadow-inverse: #000;
+    --input-color-shadow-inverse: var(--shadow-color-light);
 
     --input-color-text-primary: light-dark(var(--color-primary-500), var(--color-primary-400));
     --input-color-surface-primary: var(--color-primary-500);
@@ -41,7 +38,7 @@
     --input-color-border-primary: light-dark(var(--color-primary-600), var(--color-primary-400));
     --input-color-border-focus-primary: var(--color-primary-700);
     --input-color-outline-primary: var(--color-primary-300);
-    --input-color-shadow-primary: var(--color-primary-900);
+    --input-color-shadow-primary: var(--shadow-color-heavy);
 
     --input-color-text-secondary: light-dark(var(--color-secondary-500), var(--color-secondary-400));
     --input-color-surface-secondary: var(--color-secondary-500);
@@ -51,7 +48,7 @@
     --input-color-border-secondary: light-dark(var(--color-secondary-600), var(--color-secondary-400));
     --input-color-border-focus-secondary: var(--color-secondary-700);
     --input-color-outline-secondary: var(--color-secondary-300);
-    --input-color-shadow-secondary: var(--color-secondary-900);
+    --input-color-shadow-secondary: var(--shadow-color-heavy);
 
     --input-color-text-tertiary: light-dark(var(--color-tertiary-500), var(--color-tertiary-400));
     --input-color-surface-tertiary: var(--color-tertiary-500);
@@ -61,7 +58,7 @@
     --input-color-border-tertiary: light-dark(var(--color-tertiary-600), var(--color-tertiary-400));
     --input-color-border-focus-tertiary: var(--color-tertiary-700);
     --input-color-outline-tertiary: var(--color-tertiary-300);
-    --input-color-shadow-tertiary: var(--color-tertiary-900);
+    --input-color-shadow-tertiary: var(--shadow-color-heavy);
 
     --input-color-text-success: light-dark(var(--color-success-500), var(--color-success-400));
     --input-color-surface-success: var(--color-success-500);
@@ -71,7 +68,7 @@
     --input-color-border-success: light-dark(var(--color-success-600), var(--color-success-400));
     --input-color-border-focus-success: var(--color-success-700);
     --input-color-outline-success: var(--color-success-300);
-    --input-color-shadow-success: var(--color-success-900);
+    --input-color-shadow-success: var(--shadow-color-heavy);
 
     --input-color-text-warning: light-dark(var(--color-warning-500), var(--color-warning-400));
     --input-color-surface-warning: var(--color-warning-500);
@@ -81,7 +78,7 @@
     --input-color-border-warning: light-dark(var(--color-warning-600), var(--color-warning-400));
     --input-color-border-focus-warning: var(--color-warning-700);
     --input-color-outline-warning: var(--color-warning-300);
-    --input-color-shadow-warning: var(--color-warning-900);
+    --input-color-shadow-warning: var(--shadow-color-heavy);
 
     --input-color-text-danger: light-dark(var(--color-danger-500), var(--color-danger-400));
     --input-color-surface-danger: var(--color-danger-500);
@@ -91,6 +88,6 @@
     --input-color-border-danger: light-dark(var(--color-danger-600), var(--color-danger-400));
     --input-color-border-focus-danger: var(--color-danger-700);
     --input-color-outline-danger: var(--color-danger-300);
-    --input-color-shadow-danger: var(--color-danger-900);
+    --input-color-shadow-danger: var(--shadow-color-heavy);
 
 }
