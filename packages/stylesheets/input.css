@@ -1,0 +1,96 @@
+:root {
+
+    --input-size: var(--input-size-m);
+    --input-size-xs: var(--sp2);
+    --input-size-s: var(--sp3);
+    --input-size-m: var(--sp4);
+    --input-size-l: var(--sp5);
+    --input-size-xl: var(--sp6);
+
+    --input-border-size: 1px;
+    --input-outline-size: 2px;
+    --input-shadow-offset-x: 0;
+    --input-shadow-offset-y: 1px;
+    --input-shadow-size: 1px;
+
+    --input-color-text-base: var(--color-base-900);
+    --input-color-surface-base: var(--color-base-0);
+    --input-color-surface-top-base: light-dark(var(--color-base-0), var(--color-base-200));
+    --input-color-surface-bottom-base: light-dark(var(--color-base-200), var(--color-base-0));
+    --input-color-surface-text-base: var(--color-base-900);
+    --input-color-border-base: var(--color-base-400);
+    --input-color-border-focus-base: var(--color-secondary-500);
+    --input-color-outline-base: var(--color-secondary-300);
+    --input-color-shadow-base: light-dark(var(--color-base-500), #000);
+
+    --input-color-text-inverse: var(--color-inverse-0);
+    --input-color-surface-inverse: var(--color-inverse-0);
+    --input-color-surface-top-inverse: light-dark(var(--color-inverse-0), var(--color-inverse-200));
+    --input-color-surface-bottom-inverse: light-dark(var(--color-inverse-200), var(--color-inverse-0));
+    --input-color-surface-text-inverse: var(--color-inverse-900);
+    --input-color-border-inverse: var(--color-inverse-0);
+    --input-color-border-focus-inverse: var(--color-secondary-500);
+    --input-color-outline-inverse: var(--color-secondary-300);
+    --input-color-shadow-inverse: #000;
+
+    --input-color-text-primary: light-dark(var(--color-primary-500), var(--color-primary-400));
+    --input-color-surface-primary: var(--color-primary-500);
+    --input-color-surface-top-primary: var(--color-primary-400);
+    --input-color-surface-bottom-primary: var(--color-primary-600);
+    --input-color-surface-text-primary: #fff;
+    --input-color-border-primary: light-dark(var(--color-primary-600), var(--color-primary-400));
+    --input-color-border-focus-primary: var(--color-primary-700);
+    --input-color-outline-primary: var(--color-primary-300);
+    --input-color-shadow-primary: var(--color-primary-900);
+
+    --input-color-text-secondary: light-dark(var(--color-secondary-500), var(--color-secondary-400));
+    --input-color-surface-secondary: var(--color-secondary-500);
+    --input-color-surface-top-secondary: var(--color-secondary-400);
+    --input-color-surface-bottom-secondary: var(--color-secondary-600);
+    --input-color-surface-text-secondary: #fff;
+    --input-color-border-secondary: light-dark(var(--color-secondary-600), var(--color-secondary-400));
+    --input-color-border-focus-secondary: var(--color-secondary-700);
+    --input-color-outline-secondary: var(--color-secondary-300);
+    --input-color-shadow-secondary: var(--color-secondary-900);
+
+    --input-color-text-tertiary: light-dark(var(--color-tertiary-500), var(--color-tertiary-400));
+    --input-color-surface-tertiary: var(--color-tertiary-500);
+    --input-color-surface-top-tertiary: var(--color-tertiary-400);
+    --input-color-surface-bottom-tertiary: var(--color-tertiary-600);
+    --input-color-surface-text-tertiary: #fff;
+    --input-color-border-tertiary: light-dark(var(--color-tertiary-600), var(--color-tertiary-400));
+    --input-color-border-focus-tertiary: var(--color-tertiary-700);
+    --input-color-outline-tertiary: var(--color-tertiary-300);
+    --input-color-shadow-tertiary: var(--color-tertiary-900);
+
+    --input-color-text-success: light-dark(var(--color-success-500), var(--color-success-400));
+    --input-color-surface-success: var(--color-success-500);
+    --input-color-surface-top-success: var(--color-success-400);
+    --input-color-surface-bottom-success: var(--color-success-600);
+    --input-color-surface-text-success: #fff;
+    --input-color-border-success: light-dark(var(--color-success-600), var(--color-success-400));
+    --input-color-border-focus-success: var(--color-success-700);
+    --input-color-outline-success: var(--color-success-300);
+    --input-color-shadow-success: var(--color-success-900);
+
+    --input-color-text-warning: light-dark(var(--color-warning-500), var(--color-warning-400));
+    --input-color-surface-warning: var(--color-warning-500);
+    --input-color-surface-top-warning: var(--color-warning-400);
+    --input-color-surface-bottom-warning: var(--color-warning-600);
+    --input-color-surface-text-warning: #fff;
+    --input-color-border-warning: light-dark(var(--color-warning-600), var(--color-warning-400));
+    --input-color-border-focus-warning: var(--color-warning-700);
+    --input-color-outline-warning: var(--color-warning-300);
+    --input-color-shadow-warning: var(--color-warning-900);
+
+    --input-color-text-danger: light-dark(var(--color-danger-500), var(--color-danger-400));
+    --input-color-surface-danger: var(--color-danger-500);
+    --input-color-surface-top-danger: var(--color-danger-400);
+    --input-color-surface-bottom-danger: var(--color-danger-600);
+    --input-color-surface-text-danger: #fff;
+    --input-color-border-danger: light-dark(var(--color-danger-600), var(--color-danger-400));
+    --input-color-border-focus-danger: var(--color-danger-700);
+    --input-color-outline-danger: var(--color-danger-300);
+    --input-color-shadow-danger: var(--color-danger-900);
+
+}

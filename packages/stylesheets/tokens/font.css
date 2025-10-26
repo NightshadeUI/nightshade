@@ -1,0 +1,20 @@
+:root {
+    --font-main: sans-serif;
+    --font-alt: var(--font-main);
+    --font-monospace: monospace;
+
+    --font-size: var(--font-size-m);
+    --font-size-xxs: 10px;
+    --font-size-xs: 12px;
+    --font-size-s: 14px;
+    --font-size-m: 16px;
+    --font-size-l: 18px;
+    --font-size-xl: 24px;
+    --font-size-xxl: 48px;
+    --font-size-xxxl: 64px;
+
+    --font-weight: var(--font-weight-normal);
+    --font-weight-normal: 400;
+    --font-weight-light: 300;
+    --font-weight-bold: 500;
+}

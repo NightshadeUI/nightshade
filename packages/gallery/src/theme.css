@@ -1,0 +1,50 @@
+@import './fonts/futura/stylesheet.css';
+
+:root {
+    --font-main: "Futura PT C", Trebuchet MS, Arial, sans-serif;
+    --font-alt: "MonteCarlo", cursive;
+}
+
+h1 {
+    font: 96px/1.2 var(--font-alt);
+    margin: .5em 0;
+}
+
+h2 {
+    font: 80px/1.5 var(--font-alt);
+    margin: .25em 0;
+}
+
+h3 {
+    font: var(--font-weight-light) 36px/1.2 var(--font-main);
+    margin: .5em 0;
+    border-bottom: 3px solid var(--color-base-100);
+}
+
+h4 {
+    font: var(--font-weight-normal) 24px/1.2 var(--font-main);
+    margin: 1em 0 .5em;
+}
+
+strong {
+    display: inline-block;
+    background: linear-gradient(
+        to top right,
+        var(--color-secondary-500) 0%,
+        var(--color-primary-600) 40%,
+        var(--color-primary-500) 60%,
+        var(--color-danger-400) 100%
+    );
+    background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 0 32px var(--color-primary-600));
+}
+
+.pseudo-icon::after {
+    content: '';
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border: 2px solid currentColor;
+    border-radius: 50%;
+}

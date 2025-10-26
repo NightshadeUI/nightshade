@@ -1,0 +1,11 @@
+{
+    "name": "@nightshadeui/gallery",
+    "version": "2.0.0-dev.1",
+    "description": "Development/showcase frontend for Nightshade UI",
+    "private": true,
+    "author": "Boris Okunskiy",
+    "license": "ISC",
+    "scripts": {
+        "dev": "vite dev --host"
+    }
+}

@@ -1,0 +1,33 @@
+{
+    "name": "@nightshadeui/workspace",
+    "version": "2.0.0-dev.1",
+    "description": "Modular and Scalable Design System for Vue",
+    "private": true,
+    "author": "Boris Okunskiy",
+    "license": "ISC",
+    "workspaces": [
+        "packages/*"
+    ],
+    "scripts": {
+        "dev": "cd packages/gallery && npm run dev",
+        "build": "npm run build --workspaces --if-present"
+    },
+    "dependencies": {
+        "@nightshadeui/core": "./packages/core",
+        "@nightshadeui/gallery": "./packages/gallery",
+        "@nightshadeui/stylesheets": "./packages/stylesheets"
+    },
+    "devDependencies": {
+        "@nodescript/eslint-config": "^2.1.0",
+        "@types/node": "^24.9.1",
+        "@vitejs/plugin-vue": "^5.2.4",
+        "eslint": "^9.38.0",
+        "lightningcss": "^1.30.2",
+        "typescript": "^5.9.3",
+        "vite": "^6.4.1",
+        "vite-plugin-dts": "^4.5.4"
+    },
+    "peerDependencies": {
+        "vue": "^3.5.22"
+    }
+}

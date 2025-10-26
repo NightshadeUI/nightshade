@@ -1,0 +1,72 @@
+<template>
+    <component
+        :is="tagName"
+        class="VGroup"
+        :class="[
+            `VGroup-align-${align}`,
+            `VGroup-justify-${justify}`,
+            `VGroup-gap-${gap}`,
+        ]">
+        <slot />
+    </component>
+</template>
+
+<script>
+export default {
+
+    props: {
+        tagName: { type: String, default: 'div' },
+        align: { type: String, default: 'stretch' },
+        justify: { type: String },
+        gap: { type: String, default: 'm' },
+    }
+
+};
+</script>
+
+<style scoped>
+.VGroup {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.VGroup-align-stretch { align-items: stretch; }
+.VGroup-align-baseline { align-items: baseline; }
+.VGroup-align-center { align-items: center; }
+.VGroup-align-start { align-items: flex-start; }
+.VGroup-align-end { align-items: flex-end; }
+
+.VGroup-justify-center { justify-content: center; }
+.VGroup-justify-start { justify-content: flex-start; }
+.VGroup-justify-end { justify-content: flex-end; }
+.VGroup-justify-space-around { justify-content: space-around; }
+.VGroup-justify-space-between { justify-content: space-between; }
+
+.VGroup-gap-xxs { gap: var(--sp-xxs) }
+.VGroup-gap-xs { gap: var(--sp-xs) }
+.VGroup-gap-s { gap: var(--sp-s) }
+.VGroup-gap-m { gap: var(--sp-m) }
+.VGroup-gap-l { gap: var(--sp-l) }
+.VGroup-gap-xl { gap: var(--sp-xl) }
+.VGroup-gap-xxl { gap: var(--sp-xxl) }
+
+.VGroup-gap-0 { gap: 0 }
+.VGroup-gap-0-25 { gap: var(--sp-0-25) }
+.VGroup-gap-0-5 { gap: var(--sp-0-5) }
+.VGroup-gap-1 { gap: var(--sp-1) }
+.VGroup-gap-1-5 { gap: var(--sp-1-5) }
+.VGroup-gap-2 { gap: var(--sp-2) }
+.VGroup-gap-2-5 { gap: var(--sp-2-5) }
+.VGroup-gap-3 { gap: var(--sp-3) }
+.VGroup-gap-4 { gap: var(--sp-4) }
+.VGroup-gap-5 { gap: var(--sp-5) }
+.VGroup-gap-6 { gap: var(--sp-6) }
+.VGroup-gap-7 { gap: var(--sp-7) }
+.VGroup-gap-8 { gap: var(--sp-8) }
+.VGroup-gap-9 { gap: var(--sp-9) }
+.VGroup-gap-10 { gap: var(--sp-10) }
+.VGroup-gap-12 { gap: var(--sp-12) }
+.VGroup-gap-16 { gap: var(--sp-16) }
+.VGroup-gap-24 { gap: var(--sp-24) }
+.VGroup-gap-32 { gap: var(--sp-32) }
+</style>
