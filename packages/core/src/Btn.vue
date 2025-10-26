@@ -157,6 +157,7 @@ export default {
     --Btn-font-size: var(--font-size);
 
     --Btn-text-color: var(--input-color-surface-text);
+    --Btn-text-shadow: var(--Btn-surface-bottom);
 
     --Btn-outline-color: transparent;
     --Btn-outline-size: var(--input-outline-size);
@@ -204,6 +205,7 @@ export default {
     font-size: var(--Btn-font-size);
 
     color: var(--Btn-text-color);
+    text-shadow: 0 1px 1px var(--Btn-text-shadow);
     outline: var(--Btn-outline-size) solid var(--Btn-outline-color);
     outline-offset: var(--Btn-outline-offset);
     background: radial-gradient(
@@ -287,7 +289,7 @@ export default {
     --Btn-surface-top: transparent;
     --Btn-surface-bottom: transparent;
     --Btn-text-color: var(--input-color-text);
-    --Btn-shadow-color: var(--shadow-color-medium);
+    --Btn-shadow-color: var(--shadow-color-light);
 }
 
 .Btn-outline {
