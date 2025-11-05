@@ -1,0 +1,108 @@
+@import '@nightshadeui/stylesheets';
+@import '@nightshadeui/core/css';
+
+:root {
+    --font-main: "Source Sans 3", sans-serif;
+    --font-alt: "MonteCarlo", cursive;
+
+    --font-size-xxs: 10px;
+    --font-size-xs: 12px;
+    --font-size-s: 14px;
+    --font-size-m: 16px;
+    --font-size-l: 20px;
+    --font-size-xl: 28px;
+    --font-size-xxl: 80px;
+    --font-size-xxxl: 120px;
+
+    --font-weight-normal: 400;
+    --font-weight-light: 300;
+    --font-weight-bold: 600;
+
+    --line-height: 1.5;
+}
+
+h1 {
+    font: var(--font-size-xxxl)/1.25 var(--font-alt);
+    margin: .25em 0;
+}
+
+h2 {
+    font: var(--font-size-xxl)/1 var(--font-alt);
+    margin: 1em 0 .5em;
+}
+
+h3 {
+    font: var(--font-weight-light) var(--font-size-xl)/1.2 var(--font-main);
+    margin: 1em 0 .5em;
+    border-bottom: 3px solid var(--color-base-100);
+}
+
+h4 {
+    font: var(--font-weight-normal) var(--font-size-l)/1.2 var(--font-main);
+    margin: 1em 0 .5em;
+}
+
+h2 strong {
+    display: inline-block;
+    padding: .25em 1em;
+    margin: -.25em -1em;
+    background:
+        linear-gradient(
+            to top right,
+            var(--color-secondary-500) 0%,
+            light-dark(var(--color-primary-600), var(--color-primary-500)) 40%,
+            light-dark(var(--color-primary-500), var(--color-primary-400)) 60%,
+            var(--color-danger-400) 100%
+        );
+    text-shadow: 0 2px 4px light-dark(rgba(255,255,255,.5), rgba(0,0,0,.5));
+    background-clip: text;
+    color: transparent;
+    font-weight: var(--font-weight-normal);
+}
+
+small {
+    display: block;
+    font-size: var(--font-size-s);
+}
+
+.pseudo-icon::after {
+    content: '';
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border: 2px solid currentColor;
+    border-radius: 50%;
+}
+
+article {
+
+    p, ul, ol, blockquote, small, h2, h3, h4 {
+        max-width: 640px;
+    }
+
+    blockquote {
+        margin: 2em 0;
+        padding-left: 4em;
+
+        font-size: var(--font-size-l);
+    }
+
+    ul, ol {
+        padding-left: 2em;
+    }
+
+    li {
+        margin: .5em 0;
+    }
+
+    small {
+        display: block;
+        font-size: var(--font-size-s);
+        margin: 1em 0;
+        padding: var(--sp2);
+        border-left: 2px solid var(--color-base-200);
+        color: var(--color-base-700);
+    }
+
+
+}

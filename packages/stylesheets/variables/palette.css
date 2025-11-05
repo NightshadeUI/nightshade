@@ -74,15 +74,15 @@
     --color-tertiary-800: hsl(8deg, 12%, 28%);
     --color-tertiary-900: hsl(8deg, 12%, 16%);
 
-    --color-success-100: hsl(112deg, 25%, 92%);
-    --color-success-200: hsl(112deg, 25%, 88%);
-    --color-success-300: hsl(112deg, 25%, 75%);
-    --color-success-400: hsl(112deg, 25%, 64%);
-    --color-success-500: hsl(112deg, 25%, 50%);
-    --color-success-600: hsl(112deg, 25%, 44%);
-    --color-success-700: hsl(112deg, 25%, 36%);
-    --color-success-800: hsl(112deg, 25%, 28%);
-    --color-success-900: hsl(112deg, 25%, 16%);
+    --color-success-100: hsl(112deg, 36%, 92%);
+    --color-success-200: hsl(112deg, 36%, 88%);
+    --color-success-300: hsl(112deg, 36%, 75%);
+    --color-success-400: hsl(112deg, 36%, 64%);
+    --color-success-500: hsl(112deg, 36%, 50%);
+    --color-success-600: hsl(112deg, 36%, 44%);
+    --color-success-700: hsl(112deg, 36%, 36%);
+    --color-success-800: hsl(112deg, 36%, 28%);
+    --color-success-900: hsl(112deg, 36%, 16%);
 
     --color-warning-100: hsl(40deg, 90%, 92%);
     --color-warning-200: hsl(40deg, 90%, 88%);

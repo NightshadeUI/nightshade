@@ -199,7 +199,6 @@ export default {
     border-radius: var(--Btn-border-radius);
     cursor: pointer;
     user-select: none;
-    overflow: hidden;
 
     font-family: inherit;
     font-size: var(--Btn-font-size);
@@ -268,8 +267,8 @@ export default {
 .Btn:not(:disabled):active, .Btn.Btn-force-active {
     padding-top: 1px;
     box-shadow:
-        0 6px 12px rgba(0,0,0,.08) inset,
-        0 1px 2px rgba(0,0,0,.12) inset;
+        0 6px 12px var(--shadow-color-light) inset,
+        0 1px 2px var(--shadow-color-medium) inset;
 }
 
 .Btn-disabled {
@@ -289,6 +288,7 @@ export default {
     --Btn-surface-top: transparent;
     --Btn-surface-bottom: transparent;
     --Btn-text-color: var(--input-color-text);
+    --Btn-text-shadow: none;
     --Btn-shadow-color: var(--shadow-color-light);
 }
 
@@ -300,12 +300,14 @@ export default {
 .Btn-flat {
     --Btn-surface-top: var(--Btn-surface);
     --Btn-surface-bottom: var(--Btn-surface);
+    --Btn-text-shadow: none;
 }
 
 .Btn-shadow {
     box-shadow:
         0 1px 1px var(--Btn-shadow-color),
-        0 0 3px var(--shadow-color-light);
+        0 1px 3px var(--shadow-color-light),
+        0 0 5px -1px var(--shadow-color-light);
 }
 
 /* Sizes */

@@ -1,4 +1,5 @@
 import vue from '@vitejs/plugin-vue';
+import { Features } from 'lightningcss';
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
 
@@ -16,7 +17,8 @@ export default defineConfig({
     css: {
         transformer: 'lightningcss',
         lightningcss: {
-            cssModules: true
+            cssModules: true,
+            exclude: Features.LightDark
         }
     },
     plugins: [
