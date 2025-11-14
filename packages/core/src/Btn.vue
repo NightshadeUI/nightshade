@@ -6,6 +6,7 @@
         :class="[
             `Btn-${effectiveStyle.size}`,
             `Btn-${effectiveStyle.kind}`,
+            `input-kind-${effectiveStyle.kind}`,
             `Btn-iconPos-${iconPos}`,
             {
                 'Btn-ghost': effectiveStyle.ghost,
@@ -151,21 +152,21 @@ export default {
 
 <style scoped>
 .Btn {
+    --Btn-size: var(--input-size);
     --Btn-padding: var(--sp1-5);
     --Btn-gap: var(--sp);
-    --Btn-size: var(--input-size);
     --Btn-font-size: var(--font-size);
 
-    --Btn-text-color: var(--input-color-surface-text);
+    --Btn-text-color: var(--input-surface-color-text);
     --Btn-text-shadow: var(--Btn-surface-bottom);
 
     --Btn-outline-color: transparent;
     --Btn-outline-size: var(--input-outline-size);
     --Btn-outline-offset: var(--input-outline-offset);
 
-    --Btn-surface: var(--input-color-surface);
-    --Btn-surface-top: var(--input-color-surface-top);
-    --Btn-surface-bottom: var(--input-color-surface-bottom);
+    --Btn-surface: var(--input-surface-color);
+    --Btn-surface-top: var(--input-surface-color-top);
+    --Btn-surface-bottom: var(--input-surface-color-bottom);
 
     --Btn-border-size: 0;
     --Btn-border-color: transparent;
@@ -176,7 +177,7 @@ export default {
     --Btn-gradient-width: 150%;
     --Btn-gradient-height: 150%;
 
-    --Btn-shadow-color: var(--input-color-shadow);
+    --Btn-shadow-color: var(--input-shadow-color);
 
     -webkit-appearance: none;
     appearance: none;
@@ -235,19 +236,6 @@ export default {
     order: 100;
 }
 
-.Btn-square {
-    padding-left: 0;
-    padding-right: 0;
-    width: var(--Btn-size);
-    justify-content: center;
-}
-
-.Btn-block {
-    flex: 1 1 auto;
-    display: flex;
-    justify-content: center;
-}
-
 /* States */
 
 .Btn:focus, .Btn:active, .Btn:hover {
@@ -260,8 +248,8 @@ export default {
 
 .Btn:not(:disabled):focus, .Btn.Btn-force-focus {
     z-index: 10;
-    --Btn-outline-color: var(--input-color-outline);
-    --Btn-border-color: var(--input-color-border-focus);
+    --Btn-outline-color: var(--input-focus-light-color);
+    --Btn-border-color: var(--input-focus-medium-color);
 }
 
 .Btn:not(:disabled):active, .Btn.Btn-force-active {
@@ -287,13 +275,13 @@ export default {
     --Btn-surface: transparent;
     --Btn-surface-top: transparent;
     --Btn-surface-bottom: transparent;
-    --Btn-text-color: var(--input-color-text);
+    --Btn-text-color: var(--input-text-color);
     --Btn-text-shadow: none;
     --Btn-shadow-color: var(--shadow-color-light);
 }
 
 .Btn-outline {
-    --Btn-border-color: var(--input-color-border);
+    --Btn-border-color: var(--input-border-color);
     --Btn-border-size: var(--input-border-size);
 }
 
@@ -310,6 +298,19 @@ export default {
         0 0 5px -1px var(--shadow-color-light);
 }
 
+.Btn-square {
+    padding-left: 0;
+    padding-right: 0;
+    width: var(--Btn-size);
+    justify-content: center;
+}
+
+.Btn-block {
+    flex: 1 1 auto;
+    display: flex;
+    justify-content: center;
+}
+
 /* Sizes */
 
 .Btn-large {
@@ -323,103 +324,5 @@ export default {
     --Btn-font-size: var(--font-size-s);
     --Btn-padding: var(--sp);
     --Btn-gap: var(--sp0-5);
-}
-
-/* Kinds */
-
-.Btn-base {
-    --input-color-text: var(--input-color-text-base);
-    --input-color-surface: var(--input-color-surface-base);
-    --input-color-surface-top: var(--input-color-surface-top-base);
-    --input-color-surface-bottom: var(--input-color-surface-bottom-base);
-    --input-color-surface-text: var(--input-color-surface-text-base);
-    --input-color-border: var(--input-color-border-base);
-    --input-color-border-focus: var(--input-color-border-focus-base);
-    --input-color-outline: var(--input-color-outline-base);
-    --input-color-shadow: var(--input-color-shadow-base);
-}
-
-.Btn-inverse {
-    --input-color-text: var(--input-color-text-inverse);
-    --input-color-surface: var(--input-color-surface-inverse);
-    --input-color-surface-top: var(--input-color-surface-top-inverse);
-    --input-color-surface-bottom: var(--input-color-surface-bottom-inverse);
-    --input-color-surface-text: var(--input-color-surface-text-inverse);
-    --input-color-border: var(--input-color-border-inverse);
-    --input-color-border-focus: var(--input-color-border-focus-inverse);
-    --input-color-outline: var(--input-color-outline-inverse);
-    --input-color-shadow: var(--input-color-shadow-inverse);
-}
-
-.Btn-primary {
-    --input-color-text: var(--input-color-text-primary);
-    --input-color-surface: var(--input-color-surface-primary);
-    --input-color-surface-top: var(--input-color-surface-top-primary);
-    --input-color-surface-bottom: var(--input-color-surface-bottom-primary);
-    --input-color-surface-text: var(--input-color-surface-text-primary);
-    --input-color-border: var(--input-color-border-primary);
-    --input-color-border-focus: var(--input-color-border-focus-primary);
-    --input-color-outline: var(--input-color-outline-primary);
-    --input-color-shadow: var(--input-color-shadow-primary);
-}
-
-.Btn-secondary {
-    --input-color-text: var(--input-color-text-secondary);
-    --input-color-surface: var(--input-color-surface-secondary);
-    --input-color-surface-top: var(--input-color-surface-top-secondary);
-    --input-color-surface-bottom: var(--input-color-surface-bottom-secondary);
-    --input-color-surface-text: var(--input-color-surface-text-secondary);
-    --input-color-border: var(--input-color-border-secondary);
-    --input-color-border-focus: var(--input-color-border-focus-secondary);
-    --input-color-outline: var(--input-color-outline-secondary);
-    --input-color-shadow: var(--input-color-shadow-secondary);
-}
-
-.Btn-tertiary {
-    --input-color-text: var(--input-color-text-tertiary);
-    --input-color-surface: var(--input-color-surface-tertiary);
-    --input-color-surface-top: var(--input-color-surface-top-tertiary);
-    --input-color-surface-bottom: var(--input-color-surface-bottom-tertiary);
-    --input-color-surface-text: var(--input-color-surface-text-tertiary);
-    --input-color-border: var(--input-color-border-tertiary);
-    --input-color-border-focus: var(--input-color-border-focus-tertiary);
-    --input-color-outline: var(--input-color-outline-tertiary);
-    --input-color-shadow: var(--input-color-shadow-tertiary);
-}
-
-.Btn-success {
-    --input-color-text: var(--input-color-text-success);
-    --input-color-surface: var(--input-color-surface-success);
-    --input-color-surface-top: var(--input-color-surface-top-success);
-    --input-color-surface-bottom: var(--input-color-surface-bottom-success);
-    --input-color-surface-text: var(--input-color-surface-text-success);
-    --input-color-border: var(--input-color-border-success);
-    --input-color-border-focus: var(--input-color-border-focus-success);
-    --input-color-outline: var(--input-color-outline-success);
-    --input-color-shadow: var(--input-color-shadow-success);
-}
-
-.Btn-warning {
-    --input-color-text: var(--input-color-text-warning);
-    --input-color-surface: var(--input-color-surface-warning);
-    --input-color-surface-top: var(--input-color-surface-top-warning);
-    --input-color-surface-bottom: var(--input-color-surface-bottom-warning);
-    --input-color-surface-text: var(--input-color-surface-text-warning);
-    --input-color-border: var(--input-color-border-warning);
-    --input-color-border-focus: var(--input-color-border-focus-warning);
-    --input-color-outline: var(--input-color-outline-warning);
-    --input-color-shadow: var(--input-color-shadow-warning);
-}
-
-.Btn-danger {
-    --input-color-text: var(--input-color-text-danger);
-    --input-color-surface: var(--input-color-surface-danger);
-    --input-color-surface-top: var(--input-color-surface-top-danger);
-    --input-color-surface-bottom: var(--input-color-surface-bottom-danger);
-    --input-color-surface-text: var(--input-color-surface-text-danger);
-    --input-color-border: var(--input-color-border-danger);
-    --input-color-border-focus: var(--input-color-border-focus-danger);
-    --input-color-outline: var(--input-color-outline-danger);
-    --input-color-shadow: var(--input-color-shadow-danger);
 }
 </style>

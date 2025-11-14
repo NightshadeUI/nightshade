@@ -34,7 +34,7 @@
     color-scheme: dark;
 }
 
-@container page-content (width < 768px) {
+@container page-content (width < 640px) {
     .DualTheme {
         flex-flow: column;
     }

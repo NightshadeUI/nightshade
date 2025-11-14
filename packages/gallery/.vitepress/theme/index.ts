@@ -1,6 +1,6 @@
 import './theme.css';
 
-import * as coreComponents from '@nightshadeui/core';
+import * as coreComponents from '@nightshadeui/core/src';
 import type { Theme } from 'vitepress';
 
 import RootLayout from './RootLayout.vue';

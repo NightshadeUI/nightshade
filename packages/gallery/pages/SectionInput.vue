@@ -3,16 +3,8 @@
         <HGroup>
             <label class="Label">Style:</label>
             <HGroup tagName="label">
-                <input v-model="flat" type="checkbox" />
-                <div>Flat</div>
-            </HGroup>
-            <HGroup tagName="label">
                 <input v-model="round" type="checkbox" />
                 <div>Round</div>
-            </HGroup>
-            <HGroup tagName="label">
-                <input v-model="outline" type="checkbox" />
-                <div>Outline</div>
             </HGroup>
             <HGroup tagName="label">
                 <input v-model="shadow" type="checkbox" />
@@ -20,22 +12,30 @@
             </HGroup>
         </HGroup>
         <HGroup>
-            <label class="Label">State:</label>
-            <HGroup tagName="label">
-                <input v-model="disabled" type="checkbox" />
-                <div>Disabled</div>
+            <label class="Label">Label:</label>
+            <HGroup>
+                <template
+                    v-for="style in ['inline', 'text', 'tab']"
+                    :key="style">
+                    <Btn
+                        :label="capitalize(style)"
+                        flat
+                        outline
+                        round
+                        :kind="labelStyle === style ? 'primary' : 'base'"
+                        @click="labelStyle = style" />
+                </template>
             </HGroup>
+        </HGroup>
+        <HGroup>
+            <label class="Label">State:</label>
             <HGroup tagName="label">
                 <input v-model="focus" type="checkbox" />
                 <div>Focus</div>
             </HGroup>
             <HGroup tagName="label">
-                <input v-model="hover" type="checkbox" />
-                <div>Hover</div>
-            </HGroup>
-            <HGroup tagName="label">
-                <input v-model="active" type="checkbox" />
-                <div>Active</div>
+                <input v-model="disabled" type="checkbox" />
+                <div>Disabled</div>
             </HGroup>
         </HGroup>
         <HGroup>
@@ -62,42 +62,29 @@
     <DualTheme>
 
         <VGroup>
-            <HGroup wrap>
-                <Btn
-                    v-for="token, index of tokens"
-                    :key="index"
-                    :label="capitalize(token)"
-                    :kind="token"
-                    :disabled="disabled"
-                    :forceFocus="focus"
-                    :forceHover="hover"
-                    :forceActive="active"
-                    :round="round"
-                    :outline="outline"
-                    :shadow="shadow"
-                    :flat="flat"
-                    :size="size"
-                    :icon="icon" />
-            </HGroup>
 
-            <HGroup wrap>
-                <Btn
-                    v-for="token, index of tokens"
-                    :key="index"
-                    :label="capitalize(token)"
-                    :kind="token"
-                    :ghost="true"
-                    :disabled="disabled"
+            <template
+                v-for="kind in tokens"
+                :key="kind">
+
+                <InputText
+                    v-model="text"
+                    :kind="kind"
+                    :label="capitalize(kind)"
+                    :labelStyle="labelStyle"
                     :forceFocus="focus"
-                    :forceHover="hover"
-                    :forceActive="active"
-                    :round="round"
-                    :outline="outline"
                     :shadow="shadow"
-                    :flat="flat"
-                    :size="size"
-                    :icon="icon" />
-            </HGroup>
+                    :round="round"
+                    :disabled="disabled"
+                    :size="size">
+                    <template #after>
+                        <i
+                            v-if="icon"
+                            class="pseudo-icon" />
+                    </template>
+                </InputText>
+            </template>
+
         </VGroup>
     </DualTheme>
 </template>
@@ -109,16 +96,14 @@ export default {
 
     data() {
         return {
+            text: 'Hello world!',
             disabled: false,
             focus: false,
-            hover: false,
-            active: false,
-            round: false,
-            outline: false,
-            shadow: false,
-            flat: false,
             size: undefined,
             icon: undefined,
+            shadow: false,
+            round: false,
+            labelStyle: 'inline',
         };
     },
 
@@ -141,7 +126,7 @@ export default {
 
     methods: {
         capitalize,
-    }
+    },
 
 };
 </script>

@@ -13,3 +13,5 @@ out/
 .logs
 *.tsbuildinfo
 dist/
+
+.vitepress/cache

@@ -52,6 +52,11 @@ requestAnimationFrame(() => {
     ],
     vite: {
         publicDir: fileURLToPath(new URL('../public', import.meta.url)),
+        resolve: {
+            alias: {
+                // '@nightshadeui/core': fileURLToPath(new URL('../../core/src', import.meta.url)),
+            }
+        },
         css: {
             transformer: 'lightningcss',
             lightningcss: {

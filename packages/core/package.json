@@ -16,6 +16,7 @@
         "dist"
     ],
     "scripts": {
+        "build:watch": "vite build --watch",
         "build": "NODE_ENV=production vite build"
     }
 }

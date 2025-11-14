@@ -63,7 +63,7 @@ export default {
     min-height: 100vh;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 960px) {
     .Sidebar {
         display: none;
     }
