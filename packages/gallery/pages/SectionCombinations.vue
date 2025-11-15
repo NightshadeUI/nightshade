@@ -62,6 +62,11 @@
                     round />
             </HGroup>
 
+            <HGroup class="text-s color-subtle">
+                <strong>ProTip™</strong>
+                <span>Press <kbd>⌘</kbd>+<kbd>Enter</kbd> to submit the form.</span>
+            </HGroup>
+
         </VGroup>
     </DualTheme>
 </template>

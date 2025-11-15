@@ -59,11 +59,6 @@ h2 strong {
     font-weight: var(--font-weight-normal);
 }
 
-small {
-    display: block;
-    font-size: var(--font-size-s);
-}
-
 .pseudo-icon::after {
     content: '';
     display: inline-block;
@@ -93,15 +88,5 @@ article {
     li {
         margin: .5em 0;
     }
-
-    small {
-        display: block;
-        font-size: var(--font-size-s);
-        margin: 1em 0;
-        padding: var(--sp2);
-        border-left: 2px solid var(--color-base-200);
-        color: var(--color-base-700);
-    }
-
 
 }

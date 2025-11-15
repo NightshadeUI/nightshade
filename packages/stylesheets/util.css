@@ -1,7 +1,3 @@
-.flex-1 {
-    flex: 1;
-}
-
 .color-primary { color: var(--color-primary-500); }
 .color-secondary { color: var(--color-secondary-500); }
 .color-tertiary { color: var(--color-tertiary-500); }
@@ -11,3 +7,30 @@
 
 .color-subtle { color: var(--color-base-700); }
 .color-sublime { color: var(--color-base-500); }
+
+.flex-1 { flex: 1 }
+.flex-2 { flex: 2 }
+.flex-3 { flex: 3 }
+.flex-4 { flex: 4 }
+.flex-5 { flex: 5 }
+.flex-6 { flex: 6 }
+.flex-7 { flex: 7 }
+.flex-8 { flex: 8 }
+.flex-9 { flex: 9 }
+.flex-10 { flex: 10 }
+.flex-11 { flex: 11 }
+.flex-12 { flex: 12 }
+
+.text-xxs { font-size: var(--font-size-xxs) }
+.text-xs { font-size: var(--font-size-xs) }
+.text-s { font-size: var(--font-size-s) }
+.text-l { font-size: var(--font-size-l) }
+.text-xl { font-size: var(--font-size-xl) }
+.text-xxl { font-size: var(--font-size-xxl) }
+.text-xxxl { font-size: var(--font-size-xxxl) }
+
+.nowrap {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
