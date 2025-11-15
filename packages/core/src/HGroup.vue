@@ -55,24 +55,24 @@ export default {
 .HGroup-gap-xxl { gap: var(--sp-xxl) }
 
 .HGroup-gap-0 { gap: 0 }
-.HGroup-gap-0-25 { gap: var(--sp-0-25) }
-.HGroup-gap-0-5 { gap: var(--sp-0-5) }
-.HGroup-gap-1 { gap: var(--sp-1) }
-.HGroup-gap-1-5 { gap: var(--sp-1-5) }
-.HGroup-gap-2 { gap: var(--sp-2) }
-.HGroup-gap-2-5 { gap: var(--sp-2-5) }
-.HGroup-gap-3 { gap: var(--sp-3) }
-.HGroup-gap-4 { gap: var(--sp-4) }
-.HGroup-gap-5 { gap: var(--sp-5) }
-.HGroup-gap-6 { gap: var(--sp-6) }
-.HGroup-gap-7 { gap: var(--sp-7) }
-.HGroup-gap-8 { gap: var(--sp-8) }
-.HGroup-gap-9 { gap: var(--sp-9) }
-.HGroup-gap-10 { gap: var(--sp-10) }
-.HGroup-gap-12 { gap: var(--sp-12) }
-.HGroup-gap-16 { gap: var(--sp-16) }
-.HGroup-gap-24 { gap: var(--sp-24) }
-.HGroup-gap-32 { gap: var(--sp-32) }
+.HGroup-gap-0-25 { gap: var(--sp0-25) }
+.HGroup-gap-0-5 { gap: var(--sp0-5) }
+.HGroup-gap-1 { gap: var(--sp1) }
+.HGroup-gap-1-5 { gap: var(--sp1-5) }
+.HGroup-gap-2 { gap: var(--sp2) }
+.HGroup-gap-2-5 { gap: var(--sp2-5) }
+.HGroup-gap-3 { gap: var(--sp3) }
+.HGroup-gap-4 { gap: var(--sp4) }
+.HGroup-gap-5 { gap: var(--sp5) }
+.HGroup-gap-6 { gap: var(--sp6) }
+.HGroup-gap-7 { gap: var(--sp7) }
+.HGroup-gap-8 { gap: var(--sp8) }
+.HGroup-gap-9 { gap: var(--sp9) }
+.HGroup-gap-10 { gap: var(--sp10) }
+.HGroup-gap-12 { gap: var(--sp12) }
+.HGroup-gap-16 { gap: var(--sp16) }
+.HGroup-gap-24 { gap: var(--sp24) }
+.HGroup-gap-32 { gap: var(--sp32) }
 
 .HGroup-wrap { flex-wrap: wrap; }
 </style>

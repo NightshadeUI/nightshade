@@ -34,7 +34,6 @@ h2 {
 h3 {
     font: var(--font-weight-light) var(--font-size-xl)/1.2 var(--font-main);
     margin: 1em 0 .5em;
-    border-bottom: 3px solid var(--color-base-100);
 }
 
 h4 {

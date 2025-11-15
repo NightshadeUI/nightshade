@@ -19,6 +19,7 @@
 
 .Column {
     flex: 1;
+    min-width: 0;
     background: var(--color-base-0);
     color: var(--color-base-900);
     padding: var(--sp-m);

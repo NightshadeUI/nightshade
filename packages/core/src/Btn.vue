@@ -2,7 +2,7 @@
     <component
         :is="tagName"
         ref="button"
-        class="Btn button"
+        class="Btn InputElement"
         :class="[
             `Btn-${effectiveStyle.size}`,
             `Btn-${effectiveStyle.kind}`,
@@ -161,8 +161,6 @@ export default {
     --Btn-text-shadow: var(--Btn-surface-bottom);
 
     --Btn-outline-color: transparent;
-    --Btn-outline-size: var(--input-outline-size);
-    --Btn-outline-offset: var(--input-outline-offset);
 
     --Btn-surface: var(--input-surface-color);
     --Btn-surface-top: var(--input-surface-color-top);
@@ -172,18 +170,18 @@ export default {
     --Btn-border-color: transparent;
     --Btn-border-radius: var(--border-radius);
 
+    --Btn-shadow-color: var(--input-shadow-color);
+
     --Btn-gradient-x: 50%;
     --Btn-gradient-y: 0%;
     --Btn-gradient-width: 150%;
     --Btn-gradient-height: 150%;
 
-    --Btn-shadow-color: var(--input-shadow-color);
-
     -webkit-appearance: none;
     appearance: none;
 
     position: relative;
-    z-index: 1;
+    z-index: var(--input-z);
     margin: 0;
     padding: 0 var(--Btn-padding);
     height: var(--Btn-size);
@@ -198,21 +196,22 @@ export default {
 
     border: var(--Btn-border-size) solid var(--Btn-border-color);
     border-radius: var(--Btn-border-radius);
-    cursor: pointer;
-    user-select: none;
-
-    font-family: inherit;
-    font-size: var(--Btn-font-size);
 
     color: var(--Btn-text-color);
     text-shadow: 0 1px 1px var(--Btn-text-shadow);
-    outline: var(--Btn-outline-size) solid var(--Btn-outline-color);
-    outline-offset: var(--Btn-outline-offset);
+    outline: var(--input-outline-size) solid var(--Btn-outline-color);
+    outline-offset: var(--input-outline-offset);
     background: radial-gradient(
         var(--Btn-gradient-width) var(--Btn-gradient-height) at var(--Btn-gradient-x) var(--Btn-gradient-y),
         var(--Btn-surface-top),
         var(--Btn-surface-bottom)
     );
+
+    cursor: pointer;
+    user-select: none;
+
+    font-family: inherit;
+    font-size: var(--Btn-font-size);
 
     transition: color .3s, outline .3s, filter .3s, border-radius .3s;
 }
@@ -268,7 +267,7 @@ export default {
 /* Styles */
 
 .Btn-round {
-    --Btn-border-radius: var(--border-radius-l);
+    --Btn-border-radius: var(--border-radius-m);
 }
 
 .Btn-ghost {
@@ -294,7 +293,6 @@ export default {
 .Btn-shadow {
     box-shadow:
         0 1px 1px var(--Btn-shadow-color),
-        0 1px 3px var(--shadow-color-light),
         0 0 5px -1px var(--shadow-color-light);
 }
 

@@ -84,7 +84,7 @@ export default {
 
 <style scoped>
 .InputTextarea {
-    --InputBase-padding: var(--sp1-5);
+    --InputBase-padding: var(--sp1) var(--sp1-5);
 }
 
 input, textarea {

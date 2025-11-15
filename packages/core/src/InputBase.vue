@@ -3,19 +3,20 @@
         :is="tagName"
         class="InputBase"
         :class="[
-            `InputBase-${kind}`,
-            `input-kind-${kind}`,
-            `InputBase-${size}`,
+            `InputBase-${effectiveStyle.kind}`,
+            `input-kind-${effectiveStyle.kind}`,
+            `InputBase-${effectiveStyle.size}`,
             {
                 'InputBase-fixed-height': fixedHeight,
-                'InputBase-block': block,
-                'InputBase-shadow': shadow,
-                'InputBase-round': round,
+                'InputBase-shadow': effectiveStyle.shadow,
+                'InputBase-round': effectiveStyle.round,
                 'InputBase-disabled': disabled,
                 'InputBase-force-focus': forceFocus,
                 'InputBase-force-hover': forceHover,
             }
         ]"
+        @mouseenter="hover = true"
+        @mouseleave="hover = false"
         @focusin="focus = true"
         @focusout="focus = false">
         <template v-if="label">
@@ -34,7 +35,7 @@
                 {{ label }}
             </div>
         </template>
-        <div class="Container">
+        <div class="InputElement Container">
             <slot />
         </div>
     </component>
@@ -59,18 +60,54 @@ export default {
         fixedHeight: { type: Boolean, default: true },
         shadow: { type: Boolean, default: false },
         round: { type: Boolean, default: false },
-        block: { type: Boolean },
 
         disabled: { type: Boolean, default: false },
         forceFocus: { type: Boolean, default: false },
         forceHover: { type: Boolean, default: false },
+
+        hoverOverrides: { type: Object },
+        focusOverrides: { type: Object },
     },
 
     data() {
         return {
+            hover: false,
             focus: false,
         };
     },
+
+    computed: {
+
+        baseStyle() {
+            return {
+                kind: this.kind,
+                size: this.size,
+                shadow: this.shadow,
+                round: this.round,
+                labelStyle: this.labelStyle,
+            };
+        },
+
+        effectiveStyle() {
+            const {
+                baseStyle,
+                hoverOverrides = {},
+                focusOverrides = {},
+                hover,
+                focus,
+                forceHover,
+                forceFocus
+            } = this;
+            const style = Object.assign({}, baseStyle);
+            if (hover || forceHover) {
+                Object.assign(style, hoverOverrides);
+            }
+            if (focus || forceFocus) {
+                Object.assign(style, focusOverrides);
+            }
+            return style;
+        },
+    }
 
 };
 </script>
@@ -102,6 +139,7 @@ export default {
     display: flex;
     flex-flow: column nowrap;
     outline: 0;
+    z-index: var(--input-z);
 }
 
 .Container {
@@ -136,7 +174,7 @@ export default {
     z-index: 10;
     --InputBase-outline-color: var(--input-focus-light-color);
     --InputBase-border-color: var(--input-focus-medium-color);
-    --InputBase-label-color: var(--input-focus-heavy-color);
+    --InputBase-label-color: var(--input-focus-medium-color);
     /* --InputBase-tab-surface-color: var(--input-focus-light-color); */
     /* --InputBase-tab-text-color: var(--input-surface-text-color); */
 }
@@ -156,17 +194,11 @@ export default {
 }
 
 .InputBase-round {
-    --InputBase-border-radius: var(--border-radius-l);
-}
-
-.InputBase-block {
-    flex: 1 1 auto;
-    display: flex;
+    --InputBase-border-radius: var(--border-radius-m);
 }
 
 .InputBase-shadow .Container {
     box-shadow:
-        0 1px 3px var(--shadow-color-light) inset,
         0 0 5px -1px var(--shadow-color-light) inset;
 }
 
