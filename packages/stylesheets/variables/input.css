@@ -6,7 +6,7 @@
     --input-size-l: var(--sp5);
     --input-size-xl: var(--sp6);
 
-    --input-border-size: 2px;
+    --input-border-size: 1px;
     --input-outline-size: 2px;
     --input-outline-offset: 0;
     --input-z: 0;

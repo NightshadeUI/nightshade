@@ -5,6 +5,9 @@
                 class="Link"
                 :class="[
                     `Link-level-${item.level}`,
+                    {
+                        'Link-active': activeId === item.id
+                    },
                 ]"
                 :href="'#' + item.id"
                 @click.prevent="goto(item.id)">
@@ -20,11 +23,17 @@ export default {
     data() {
         return {
             outline: [],
-        }
+            activeId: '',
+        };
     },
 
     mounted() {
         this.parseOutline();
+        window.addEventListener('scroll', this.onScroll);
+    },
+
+    beforeUnmount() {
+        window.removeEventListener('scroll', this.onScroll);
     },
 
     methods: {
@@ -50,6 +59,28 @@ export default {
                     block: 'start',
                 });
             }
+        },
+
+        updateActive() {
+            this.activeId = '';
+            for (const h of this.outline) {
+                const el = document.getElementById(h.id ?? '');
+                if (!el) continue;
+                const rect = el.getBoundingClientRect();
+                console.log(rect.top);
+                if (rect.top < window.innerHeight / 2) {
+                    this.activeId = h.id;
+                } else {
+                    break;
+                }
+            }
+            if (this.activeId) {
+                history.replaceState(null, '', '#' + this.activeId);
+            }
+        },
+
+        onScroll(ev) {
+            requestAnimationFrame(() => this.updateActive());
         }
 
     }
@@ -67,6 +98,10 @@ export default {
     display: block;
     padding: var(--sp) 0;
     line-height: 1.2;
+}
+
+.Link-active {
+    color: var(--color-primary-500);
 }
 
 .Link-level-2 {

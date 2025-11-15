@@ -2,9 +2,11 @@
     <DualTheme>
         <VGroup>
 
-            <HGroup>
+            <HGroup align="end">
                 <InputText
                     modelValue="someText"
+                    label="What is your name?"
+                    labelStyle="text"
                     class="flex-1"
                     shadow />
                 <Btn
