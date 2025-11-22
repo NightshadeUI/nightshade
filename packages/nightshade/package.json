@@ -6,11 +6,12 @@
     "license": "ISC",
     "sideEffects": false,
     "exports": {
-        ".": "./index.mjs"
+        ".": {
+            "types": "./index.d.ts",
+            "import": "./index.mjs"
+        },
+        "./css": "./index.css"
     },
-    "files": [
-        "index.mjs"
-    ],
     "dependencies": {
         "@nightshadeui/core": "2.0.6",
         "@nightshadeui/stylesheets": "2.0.6"

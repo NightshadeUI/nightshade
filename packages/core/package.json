@@ -8,7 +8,7 @@
     "exports": {
         ".": {
             "types": "./dist/index.d.ts",
-            "import": "./dist/core.js"
+            "import": "./dist/core.mjs"
         },
         "./css": "./dist/core.css",
         "./src": "./src/index.ts"
