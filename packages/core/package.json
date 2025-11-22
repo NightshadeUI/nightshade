@@ -1,6 +1,6 @@
 {
     "name": "@nightshadeui/core",
-    "version": "2.0.0-dev.1",
+    "version": "2.0.0",
     "description": "Core Nightshade UI components",
     "author": "Boris Okunskiy",
     "license": "ISC",
@@ -18,5 +18,8 @@
     "scripts": {
         "build:watch": "vite build --watch",
         "build": "NODE_ENV=production vite build"
+    },
+    "peerDependencies": {
+        "vue": "^3.5.22"
     }
 }

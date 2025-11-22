@@ -216,6 +216,22 @@ export default {
     transition: color .3s, outline .3s, filter .3s, border-radius .3s;
 }
 
+.Btn::after {
+    content: '';
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: var(--Btn-border-radius);
+
+    background: rgba(127,127,127,.05);
+    mix-blend-mode: color-dodge;
+    pointer-events: none;
+    opacity: 0;
+}
+
 .Label {
     line-height: var(--Btn-size);
     white-space: nowrap;
@@ -241,8 +257,8 @@ export default {
     transition: none;
 }
 
-.Btn:not(:disabled):hover, .Btn.Btn-force-hover {
-    filter: brightness(.96);
+.Btn:not(:disabled):hover::after, .Btn.Btn-force-hover::after {
+    opacity: 1;
 }
 
 .Btn:not(:disabled):focus, .Btn.Btn-force-focus {

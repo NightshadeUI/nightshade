@@ -2,6 +2,11 @@
     <div class="Sizer" />
 </template>
 
+<script>
+export default {
+};
+</script>
+
 <style scoped>
 .Sizer {
     flex: 1;

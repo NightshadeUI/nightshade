@@ -8,5 +8,11 @@
 @import './commons.css';
 @import './input.css';
 @import './util.css';
-@import './transitions.css';
 @import './kbd.css';
+
+@import './transitions/fade-directional.css';
+@import './transitions/fade-scale.css';
+@import './transitions/fade-shove.css';
+@import './transitions/fade-squash.css';
+@import './transitions/fade-swipe.css';
+@import './transitions/fade.css';

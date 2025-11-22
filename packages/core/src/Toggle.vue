@@ -113,12 +113,13 @@ export default {
     --Toggle-knob-offset: 4px;
     --Toggle-knob-size: calc(var(--Toggle-size) - 2 * var(--Toggle-knob-offset));
     --Toggle-knob-outline-offset: -2px;
-    --Toggle-knob-radius: calc(var(--Toggle-border-radius) - var(--Toggle-knob-offset));
+    --Toggle-knob-radius: calc(var(--Toggle-border-radius) - 0.5 * var(--Toggle-knob-offset));
 
     --Toggle-outline-color: transparent;
 
-    --Toggle-surface: var(--color-base-100);
+    --Toggle-surface: var(--color-base-200);
     --Toggle-knob-surface: var(--input-text-color);
+    --Toggle-knob-surface: light-dark(var(--color-base-0), var(--color-base-800));
 
     --Toggle-border-size: 0px;
     --Toggle-border-color: transparent;
@@ -137,7 +138,7 @@ export default {
     background: var(--Toggle-surface);
     outline: var(--input-outline-size) solid var(--Toggle-outline-color);
     outline-offset: var(--input-outline-offset);
-    background-clip: padding-box;
+    background-clip: border-box;
 
     cursor: pointer;
     user-select: none;
@@ -153,7 +154,7 @@ export default {
     display: none;
 }
 
-.Toggle::after {
+.Toggle::before {
     content: '';
     position: absolute;
     top: 50%;
@@ -168,7 +169,7 @@ export default {
     transition: transform .3s, border-radius .3s;
 }
 
-.Toggle-knob-outline::after {
+.Toggle-knob-outline::before {
     outline: var(--input-outline-size) solid var(--Toggle-outline-color);
     outline-offset: var(--input-outline-offset);
 }
@@ -195,7 +196,7 @@ export default {
     --Toggle-knob-surface: var(--input-surface-color-text);
 }
 
-.Toggle-active::after {
+.Toggle-active::before {
     transform: translate(calc(var(--Toggle-width) - var(--Toggle-knob-size) - var(--Toggle-knob-offset) - var(--Toggle-border-size)), -50%);
 }
 

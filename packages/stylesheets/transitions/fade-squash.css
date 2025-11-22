@@ -1,0 +1,10 @@
+.fade-squash-enter-active,
+.fade-squash-leave-active {
+    transition: opacity .25s, transform .25s;
+}
+
+.fade-squash-enter-from,
+.fade-squash-leave-to {
+    transform: scale(10, .1);
+    opacity: 0;
+}

@@ -1,0 +1,14 @@
+.fade-scale-enter-active,
+.fade-scale-leave-active {
+    transition: opacity .5s, transform .5s;
+}
+
+.fade-scale-enter-from {
+    transform: scale(.75);
+    opacity: 0;
+}
+
+.fade-scale-leave-to {
+    transform: scale(1.25);
+    opacity: 0;
+}

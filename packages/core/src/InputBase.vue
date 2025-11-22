@@ -184,7 +184,6 @@ export default {
     opacity: .6;
     filter: saturate(40%);
     cursor: not-allowed;
-
 }
 
 /* Styles */

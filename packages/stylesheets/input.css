@@ -19,7 +19,7 @@
     --input-surface-color-bottom: light-dark(var(--color-inverse-200), var(--color-inverse-0));
     --input-surface-color-text: var(--color-inverse-900);
     --input-border-color: var(--color-inverse-0);
-    --input-shadow-color: var(--shadow-color-light);
+    --input-shadow-color: light-dark(var(--color-inverse-700), var(--color-inverse-500));
     --input-focus-light-color: light-dark(var(--color-secondary-300), var(--color-secondary-700));
     --input-focus-medium-color: light-dark(var(--color-secondary-600), var(--color-secondary-400));
 }
@@ -32,7 +32,7 @@
     --input-surface-color-bottom: var(--color-primary-600);
     --input-surface-color-text: #fff;
     --input-border-color: light-dark(var(--color-primary-600), var(--color-primary-400));
-    --input-shadow-color: var(--color-primary-900);
+    --input-shadow-color: var(--color-primary-800);
     --input-focus-light-color: light-dark(var(--color-primary-300), var(--color-primary-700));
     --input-focus-medium-color: light-dark(var(--color-primary-600), var(--color-primary-400));
 }
@@ -45,7 +45,7 @@
     --input-surface-color-bottom: var(--color-secondary-600);
     --input-surface-color-text: #fff;
     --input-border-color: light-dark(var(--color-secondary-600), var(--color-secondary-400));
-    --input-shadow-color: var(--color-secondary-900);
+    --input-shadow-color: var(--color-secondary-800);
     --input-focus-light-color: light-dark(var(--color-secondary-300), var(--color-secondary-700));
     --input-focus-medium-color: light-dark(var(--color-secondary-600), var(--color-secondary-400));
 }
@@ -58,7 +58,7 @@
     --input-surface-color-bottom: var(--color-tertiary-600);
     --input-surface-color-text: #fff;
     --input-border-color: light-dark(var(--color-tertiary-600), var(--color-tertiary-400));
-    --input-shadow-color: var(--color-tertiary-900);
+    --input-shadow-color: var(--color-tertiary-800);
     --input-focus-light-color: light-dark(var(--color-tertiary-300), var(--color-tertiary-700));
     --input-focus-medium-color: light-dark(var(--color-tertiary-600), var(--color-tertiary-400));
 }
@@ -71,7 +71,7 @@
     --input-surface-color-bottom: var(--color-success-600);
     --input-surface-color-text: #fff;
     --input-border-color: light-dark(var(--color-success-600), var(--color-success-400));
-    --input-shadow-color: var(--color-success-900);
+    --input-shadow-color: var(--color-success-800);
     --input-focus-light-color: light-dark(var(--color-success-300), var(--color-success-700));
     --input-focus-medium-color: light-dark(var(--color-success-600), var(--color-success-400));
 }
@@ -84,7 +84,7 @@
     --input-surface-color-bottom: var(--color-warning-600);
     --input-surface-color-text: #fff;
     --input-border-color: light-dark(var(--color-warning-600), var(--color-warning-400));
-    --input-shadow-color: var(--color-warning-900);
+    --input-shadow-color: var(--color-warning-800);
     --input-focus-light-color: light-dark(var(--color-warning-300), var(--color-warning-700));
     --input-focus-medium-color: light-dark(var(--color-warning-600), var(--color-warning-400));
 }
@@ -96,8 +96,8 @@
     --input-surface-color-top: var(--color-danger-400);
     --input-surface-color-bottom: var(--color-danger-600);
     --input-surface-color-text: #fff;
-    --input-border-color: var(--color-danger-600);
-    --input-shadow-color: var(--color-danger-900);
+    --input-border-color: light-dark(var(--color-danger-600), var(--color-danger-400));;
+    --input-shadow-color: var(--color-danger-800);
     --input-focus-light-color: light-dark(var(--color-danger-300), var(--color-danger-700));
     --input-focus-medium-color: light-dark(var(--color-danger-600), var(--color-danger-400));
 }

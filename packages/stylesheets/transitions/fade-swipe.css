@@ -1,0 +1,14 @@
+.fade-swipe-enter-active,
+.fade-swipe-leave-active {
+    transition: opacity .25s, transform .25s;
+}
+
+.fade-swipe-enter-from {
+    transform: translate(-96px, -32px);
+    opacity: 0;
+}
+
+.fade-swipe-leave-to {
+    transform: translate(96px, -32px);
+    opacity: 0;
+}

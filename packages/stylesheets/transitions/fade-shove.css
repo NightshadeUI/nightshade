@@ -1,0 +1,13 @@
+.fade-shove-enter-active,
+.fade-shove-leave-active {
+    transition: opacity .3s, transform .3s;
+}
+
+.fade-shove-enter-from {
+    opacity: 0;
+}
+
+.fade-shove-leave-to {
+    transform: translate(16px, -16px) scale(.95);
+    opacity: 0;
+}
