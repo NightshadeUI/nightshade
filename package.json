@@ -1,6 +1,6 @@
 {
     "name": "@nightshadeui/workspace",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "description": "Scalable System for Vue",
     "private": true,
     "author": "Boris Okunskiy",
