@@ -6,11 +6,13 @@
     "license": "ISC",
     "sideEffects": false,
     "exports": {
-        ".": "./dist/core.mjs",
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/core.js"
+        },
         "./css": "./dist/core.css",
         "./src": "./src/index.ts"
     },
-    "types": "./dist/index.d.ts",
     "files": [
         "dist"
     ],
