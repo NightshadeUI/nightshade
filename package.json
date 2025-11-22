@@ -13,6 +13,7 @@
         "dev:gallery": "cd packages/gallery && npm run dev",
         "preview": "cd packages/gallery && npm run preview",
         "build": "npm run build --workspaces --if-present",
+        "preversion": "npm run build",
         "version": "node ./bump-version.mjs && git add .",
         "postversion": "git push origin main --tags && run-s publish:*",
         "publish:stylesheets": "cd packages/stylesheets && npm publish --access public",
