@@ -9,7 +9,7 @@
         ".": "./index.mjs"
     },
     "files": [
-        "dist"
+        "index.mjs"
     ],
     "dependencies": {
         "@nightshadeui/core": "2.0.0",

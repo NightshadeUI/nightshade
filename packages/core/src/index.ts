@@ -25,3 +25,18 @@ export {
     Toggle,
     VGroup,
 };
+
+export const coreComponents = {
+    Btn,
+    HGroup,
+    InputBase,
+    InputGroup,
+    InputSelect,
+    InputText,
+    InputTextarea,
+    Sizer,
+    Tab,
+    TabCap,
+    Toggle,
+    VGroup,
+};
