@@ -1,6 +1,6 @@
 {
     "name": "@nightshadeui/gallery",
-    "version": "2.0.6",
+    "version": "2.0.7",
     "description": "Development/showcase frontend for Nightshade UI",
     "private": true,
     "type": "module",
