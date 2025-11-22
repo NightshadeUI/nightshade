@@ -17,8 +17,5 @@
     },
     "peerDependencies": {
         "vue": "^3.5.22"
-    },
-    "scripts": {
-        "version": "node bump-version.mjs"
     }
 }

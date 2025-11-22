@@ -13,7 +13,7 @@
         "dev:gallery": "cd packages/gallery && npm run dev",
         "preview": "cd packages/gallery && npm run preview",
         "build": "npm run build --workspaces --if-present",
-        "version": "npm exec --workspaces -- npm version $npm_package_version && git add ."
+        "version": "node ./bump-version.mjs && git add ."
     },
     "dependencies": {
         "@nightshadeui/core": "./packages/core",
