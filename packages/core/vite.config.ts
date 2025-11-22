@@ -22,7 +22,7 @@ export default defineConfig({
         }
     },
     plugins: [
-        vue(),
+        vue({}),
         dts({
             include: ['src/**'],
         }),
