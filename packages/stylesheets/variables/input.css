@@ -6,6 +6,10 @@
     --input-size-l: var(--sp5);
     --input-size-xl: var(--sp6);
 
+    --input-radius: var(--border-radius);
+    --input-radius-round: var(--border-radius-m);
+    --input-radius-full: 32px;
+
     --input-border-size: 1px;
     --input-outline-size: 2px;
     --input-outline-offset: 0;

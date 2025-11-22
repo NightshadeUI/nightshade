@@ -113,7 +113,7 @@ export default {
     --Toggle-knob-offset: 4px;
     --Toggle-knob-size: calc(var(--Toggle-size) - 2 * var(--Toggle-knob-offset));
     --Toggle-knob-outline-offset: -2px;
-    --Toggle-knob-radius: calc(var(--Toggle-border-radius) - 0.5 * var(--Toggle-knob-offset));
+    --Toggle-knob-radius: calc(var(--Toggle-radius) - 0.5 * var(--Toggle-knob-offset));
 
     --Toggle-outline-color: transparent;
 
@@ -123,7 +123,7 @@ export default {
 
     --Toggle-border-size: 0px;
     --Toggle-border-color: transparent;
-    --Toggle-border-radius: var(--border-radius);
+    --Toggle-radius: var(--input-radius);
 
     --Toggle-shadow-color: var(--shadow-color-light);
 
@@ -133,7 +133,7 @@ export default {
     height: var(--Toggle-size);
 
     border: var(--Toggle-border-size) solid var(--Toggle-border-color);
-    border-radius: var(--Toggle-border-radius);
+    border-radius: var(--Toggle-radius);
 
     background: var(--Toggle-surface);
     outline: var(--input-outline-size) solid var(--Toggle-outline-color);
@@ -203,7 +203,8 @@ export default {
 /* Styles */
 
 .Toggle-round {
-    --Toggle-border-radius: var(--border-radius-m);
+    --Toggle-radius: var(--input-radius-full);
+    --Toggle-knob-radius: var(--input-radius-full);
 }
 
 .Toggle-outline {

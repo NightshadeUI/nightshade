@@ -128,7 +128,7 @@ export default {
 
     --InputBase-border-size: var(--input-border-size);
     --InputBase-border-color: var(--input-border-color);
-    --InputBase-border-radius: var(--border-radius);
+    --InputBase-radius: var(--input-radius);
 
     --InputBase-label-color: var(--input-label-color);
     --InputBase-label-font-size: var(--font-size-s);
@@ -161,7 +161,7 @@ export default {
     outline-offset: var(--InputBase-outline-offset);
 
     border: var(--InputBase-border-size) solid var(--InputBase-border-color);
-    border-radius: var(--InputBase-border-radius);
+    border-radius: var(--InputBase-radius);
 
     font-size: var(--InputBase-font-size);
 
@@ -175,8 +175,6 @@ export default {
     --InputBase-outline-color: var(--input-focus-light-color);
     --InputBase-border-color: var(--input-focus-medium-color);
     --InputBase-label-color: var(--input-focus-medium-color);
-    /* --InputBase-tab-surface-color: var(--input-focus-light-color); */
-    /* --InputBase-tab-text-color: var(--input-surface-text-color); */
 }
 
 .InputBase-disabled .Container {
@@ -193,7 +191,7 @@ export default {
 }
 
 .InputBase-round {
-    --InputBase-border-radius: var(--border-radius-m);
+    --InputBase-radius: var(--input-radius-round);
 }
 
 .InputBase-shadow .Container {

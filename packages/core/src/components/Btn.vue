@@ -168,7 +168,7 @@ export default {
 
     --Btn-border-size: 0;
     --Btn-border-color: transparent;
-    --Btn-border-radius: var(--border-radius);
+    --Btn-radius: var(--input-radius);
 
     --Btn-shadow-color: var(--input-shadow-color);
 
@@ -195,7 +195,7 @@ export default {
     gap: var(--Btn-gap);
 
     border: var(--Btn-border-size) solid var(--Btn-border-color);
-    border-radius: var(--Btn-border-radius);
+    border-radius: var(--Btn-radius);
 
     color: var(--Btn-text-color);
     text-shadow: 0 1px 1px var(--Btn-text-shadow);
@@ -224,7 +224,7 @@ export default {
     left: 0;
     width: 100%;
     height: 100%;
-    border-radius: var(--Btn-border-radius);
+    border-radius: var(--Btn-radius);
 
     background: rgba(127,127,127,.05);
     mix-blend-mode: color-dodge;
@@ -283,7 +283,7 @@ export default {
 /* Styles */
 
 .Btn-round {
-    --Btn-border-radius: var(--border-radius-m);
+    --Btn-radius: var(--input-radius-full);
 }
 
 .Btn-ghost {
