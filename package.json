@@ -14,7 +14,10 @@
         "preview": "cd packages/gallery && npm run preview",
         "build": "npm run build --workspaces --if-present",
         "version": "node ./bump-version.mjs && git add .",
-        "postversion": "git push origin main --tags && npm publish --workspaces --access=public"
+        "postversion": "git push origin main --tags && run-s publish:*",
+        "publish:stylesheets": "cd packages/stylesheets && npm publish --access public",
+        "publish:core": "cd packages/core && npm publish --access public",
+        "publish:nightshade": "cd packages/nightshade && npm publish --access public"
     },
     "dependencies": {
         "@nightshadeui/core": "./packages/core",
