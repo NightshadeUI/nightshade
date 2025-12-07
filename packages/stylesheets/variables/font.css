@@ -14,9 +14,11 @@
     --font-size-xxxl: 64px;
 
     --font-weight: var(--font-weight-normal);
-    --font-weight-normal: 400;
+    --font-weight-thin: 200;
     --font-weight-light: 300;
+    --font-weight-normal: 400;
     --font-weight-bold: 500;
+    --font-weight-heavy: 700;
 
     --line-height: 1.5;
 }

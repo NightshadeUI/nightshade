@@ -29,6 +29,13 @@
 .text-xxl { font-size: var(--font-size-xxl) }
 .text-xxxl { font-size: var(--font-size-xxxl) }
 
+.text-thin { font-weight: var(--font-weight-thin); }
+.text-light { font-weight: var(--font-weight-light); }
+.text-bold { font-weight: var(--font-weight-bold); }
+.text-heavy { font-weight: var(--font-weight-heavy); }
+
+.font-alt { font-family: var(--font-alt); }
+
 .nowrap {
     white-space: nowrap;
     overflow: hidden;

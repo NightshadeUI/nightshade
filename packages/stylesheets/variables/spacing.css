@@ -20,8 +20,27 @@
     --sp10: calc(10 * var(--sp));
     --sp12: calc(12 * var(--sp));
     --sp16: calc(16 * var(--sp));
+    --sp20: calc(20 * var(--sp));
     --sp24: calc(24 * var(--sp));
+    --sp28: calc(28 * var(--sp));
     --sp32: calc(32 * var(--sp));
+    --sp36: calc(36 * var(--sp));
+    --sp40: calc(40 * var(--sp));
+    --sp44: calc(44 * var(--sp));
+    --sp48: calc(48 * var(--sp));
+    --sp52: calc(52 * var(--sp));
+    --sp56: calc(56 * var(--sp));
+    --sp60: calc(60 * var(--sp));
+    --sp64: calc(64 * var(--sp));
+    --sp68: calc(68 * var(--sp));
+    --sp72: calc(72 * var(--sp));
+    --sp76: calc(76 * var(--sp));
+    --sp80: calc(80 * var(--sp));
+    --sp84: calc(84 * var(--sp));
+    --sp88: calc(88 * var(--sp));
+    --sp92: calc(92 * var(--sp));
+    --sp96: calc(96 * var(--sp));
+    --sp100: calc(100 * var(--sp));
 
     /* Semantic fixed spacing */
 
