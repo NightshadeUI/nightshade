@@ -31,6 +31,7 @@
 
 .text-thin { font-weight: var(--font-weight-thin); }
 .text-light { font-weight: var(--font-weight-light); }
+.text-normal { font-weight: var(--font-weight-normal); }
 .text-bold { font-weight: var(--font-weight-bold); }
 .text-heavy { font-weight: var(--font-weight-heavy); }
 
