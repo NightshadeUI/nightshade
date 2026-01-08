@@ -4,7 +4,7 @@
         :to="to"
         custom>
         <Btn
-            as="a"
+            tagName="a"
             :href="href"
             v-bind="actualAttrs(isActive, isExactActive)"
             @click="navigate" />
