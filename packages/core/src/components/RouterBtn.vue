@@ -6,7 +6,7 @@
         <Btn
             tagName="a"
             :href="href"
-            v-bind="actualAttrs(isActive, isExactActive)"
+            v-bind="actualProps(isActive, isExactActive)"
             @click="navigate" />
     </RouterLink>
 </template>
@@ -21,18 +21,21 @@ export default {
     },
 
     props: {
+        ...Btn.props,
         to: { required: true },
-        activeOverrides: { type: Object },
-        exactActiveOverrides: { type: Object },
+        baseProps: { type: Object },
+        activeProps: { type: Object },
+        exactActiveProps: { type: Object },
     },
 
     methods: {
 
-        actualAttrs(isActive, isExactActive) {
+        actualProps(isActive, isExactActive) {
             return {
-                ...this.$attrs,
-                ...(isActive ? this.activeOverrides : {}),
-                ...(isExactActive ? this.exactActiveOverrides : {}),
+                ...this.$props,
+                ...this.baseProps,
+                ...(isActive ? this.activeProps : {}),
+                ...(isExactActive ? this.exactActiveProps : {}),
             };
         }
 

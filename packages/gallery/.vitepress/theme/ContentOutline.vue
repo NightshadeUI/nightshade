@@ -67,7 +67,6 @@ export default {
                 const el = document.getElementById(h.id ?? '');
                 if (!el) continue;
                 const rect = el.getBoundingClientRect();
-                console.log(rect.top);
                 if (rect.top < window.innerHeight / 2) {
                     this.activeId = h.id;
                 } else {
