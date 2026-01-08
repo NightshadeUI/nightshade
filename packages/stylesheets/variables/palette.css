@@ -1,6 +1,7 @@
 :root {
 
     --color-base-light-0: hsl(280deg, 5%, 100%);
+    --color-base-light-50: hsl(280deg, 5%, 98%);
     --color-base-light-100: hsl(280deg, 5%, 96%);
     --color-base-light-200: hsl(280deg, 5%, 92%);
     --color-base-light-300: hsl(280deg, 5%, 88%);
@@ -11,7 +12,8 @@
     --color-base-light-800: hsl(280deg, 5%, 32%);
     --color-base-light-900: hsl(280deg, 5%, 16%);
 
-    --color-base-dark-0: hsl(280deg, 5%, 16%);
+    --color-base-dark-0: hsl(280deg, 5%, 12%);
+    --color-base-dark-50: hsl(280deg, 5%, 16%);
     --color-base-dark-100: hsl(280deg, 5%, 24%);
     --color-base-dark-200: hsl(280deg, 5%, 27%);
     --color-base-dark-300: hsl(280deg, 5%, 32%);
@@ -23,6 +25,7 @@
     --color-base-dark-900: hsl(280deg, 5%, 92%);
 
     --color-base-0: light-dark(var(--color-base-light-0), var(--color-base-dark-0));
+    --color-base-50: light-dark(var(--color-base-light-50), var(--color-base-dark-50));
     --color-base-100: light-dark(var(--color-base-light-100), var(--color-base-dark-100));
     --color-base-200: light-dark(var(--color-base-light-200), var(--color-base-dark-200));
     --color-base-300: light-dark(var(--color-base-light-300), var(--color-base-dark-300));
@@ -34,6 +37,7 @@
     --color-base-900: light-dark(var(--color-base-light-900), var(--color-base-dark-900));
 
     --color-inverse-0: light-dark(var(--color-base-dark-0), var(--color-base-light-0));
+    --color-inverse-50: light-dark(var(--color-base-dark-50), var(--color-base-light-50));
     --color-inverse-100: light-dark(var(--color-base-dark-100), var(--color-base-light-100));
     --color-inverse-200: light-dark(var(--color-base-dark-200), var(--color-base-light-200));
     --color-inverse-300: light-dark(var(--color-base-dark-300), var(--color-base-light-300));
@@ -44,6 +48,7 @@
     --color-inverse-800: light-dark(var(--color-base-dark-800), var(--color-base-light-800));
     --color-inverse-900: light-dark(var(--color-base-dark-900), var(--color-base-light-900));
 
+    --color-primary-50: hsl(310deg, 25%, 96%);
     --color-primary-100: hsl(310deg, 25%, 92%);
     --color-primary-200: hsl(310deg, 25%, 88%);
     --color-primary-300: hsl(310deg, 25%, 75%);
@@ -54,6 +59,7 @@
     --color-primary-800: hsl(310deg, 25%, 28%);
     --color-primary-900: hsl(310deg, 25%, 16%);
 
+    --color-secondary-50: hsl(176deg, 25%, 96%);
     --color-secondary-100: hsl(176deg, 25%, 92%);
     --color-secondary-200: hsl(176deg, 25%, 88%);
     --color-secondary-300: hsl(176deg, 25%, 75%);
@@ -64,6 +70,7 @@
     --color-secondary-800: hsl(176deg, 25%, 28%);
     --color-secondary-900: hsl(176deg, 25%, 16%);
 
+    --color-tertiary-50: hsl(8deg, 12%, 96%);
     --color-tertiary-100: hsl(8deg, 12%, 92%);
     --color-tertiary-200: hsl(8deg, 12%, 88%);
     --color-tertiary-300: hsl(8deg, 12%, 75%);
@@ -74,6 +81,7 @@
     --color-tertiary-800: hsl(8deg, 12%, 28%);
     --color-tertiary-900: hsl(8deg, 12%, 16%);
 
+    --color-success-50: hsl(112deg, 36%, 96%);
     --color-success-100: hsl(112deg, 36%, 92%);
     --color-success-200: hsl(112deg, 36%, 88%);
     --color-success-300: hsl(112deg, 36%, 75%);
@@ -84,6 +92,7 @@
     --color-success-800: hsl(112deg, 36%, 28%);
     --color-success-900: hsl(112deg, 36%, 16%);
 
+    --color-warning-50: hsl(40deg, 90%, 96%);
     --color-warning-100: hsl(40deg, 90%, 92%);
     --color-warning-200: hsl(40deg, 90%, 88%);
     --color-warning-300: hsl(40deg, 90%, 75%);
@@ -94,6 +103,7 @@
     --color-warning-800: hsl(40deg, 90%, 28%);
     --color-warning-900: hsl(40deg, 90%, 16%);
 
+    --color-danger-50: hsl(352deg, 64%, 96%);
     --color-danger-100: hsl(352deg, 64%, 92%);
     --color-danger-200: hsl(352deg, 64%, 88%);
     --color-danger-300: hsl(352deg, 64%, 75%);
