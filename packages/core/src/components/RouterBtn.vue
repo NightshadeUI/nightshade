@@ -3,7 +3,7 @@
         v-slot="{ href, navigate, isActive, isExactActive }"
         :to="to"
         custom>
-        <Button
+        <Btn
             as="a"
             :href="href"
             v-bind="actualAttrs(isActive, isExactActive)"
@@ -12,7 +12,13 @@
 </template>
 
 <script>
+import Btn from './Btn.vue';
+
 export default {
+
+    components: {
+        Btn,
+    },
 
     props: {
         to: { required: true },
