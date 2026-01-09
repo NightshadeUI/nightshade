@@ -4,9 +4,10 @@
 @import './variables/font.css';
 @import './variables/palette.css';
 @import './variables/input.css';
+@import './variables/semantics.css';
 
 @import './commons.css';
-@import './semantics.css';
+@import './input-kinds.css';
 @import './util.css';
 @import './kbd.css';
 

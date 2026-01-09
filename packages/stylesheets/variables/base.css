@@ -1,7 +1,9 @@
 :root {
 
-    --text-color: var(--color-base-900);
-    --base-color: var(--color-base-0);
+    --base-color: var(--ns-base-surface-color);
+    --text-color: var(--ns-base-text-color);
+    --text-color-subtle: var(--color-base-700);
+    --text-color-sublime: var(--color-base-600);
 
     /* Border radius */
 
@@ -21,10 +23,5 @@
     --shadow-color-light: light-dark(rgba(0,0,0,.1), rgba(0,0,0,.5));
     --shadow-color-medium: light-dark(rgba(0,0,0,.2), rgba(0,0,0,.75));
     --shadow-color-heavy: light-dark(rgba(0,0,0,.3), rgba(0,0,0,.9));
-
-    /* Misc */
-
-    --color-subtle: var(--color-base-700);
-    --color-sublime: var(--color-base-600);
 
 }

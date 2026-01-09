@@ -1,0 +1,103 @@
+.input-kind-base {
+    --input-z: var(--ns-base-z);
+    --input-text-color: var(--ns-base-text-color);
+    --input-surface-color: var(--ns-base-surface-color);
+    --input-surface-color-top: var(--ns-base-surface-color-top);
+    --input-surface-color-bottom: var(--ns-base-surface-color-bottom);
+    --input-surface-color-text: var(--ns-base-surface-color-text);
+    --input-border-color: var(--ns-base-border-color);
+    --input-shadow-color: var(--ns-base-shadow-color);
+    --input-focus-light-color: var(--ns-base-focus-light-color);
+    --input-focus-medium-color: var(--ns-base-focus-medium-color);
+}
+
+.input-kind-inverse {
+    --input-z: var(--ns-inverse-z);
+    --input-text-color: var(--color-inverse-0);
+    --input-surface-color: var(--ns-inverse-surface-color);
+    --input-surface-color-top: var(--ns-inverse-surface-color-top);
+    --input-surface-color-bottom: var(--ns-inverse-surface-color-bottom);
+    --input-surface-color-text: var(--ns-inverse-surface-color-text);
+    --input-border-color: var(--ns-inverse-border-color);
+    --input-shadow-color: var(--ns-inverse-shadow-color);
+    --input-focus-light-color: var(--ns-inverse-focus-light-color);
+    --input-focus-medium-color: var(--ns-inverse-focus-medium-color);
+}
+
+.input-kind-primary {
+    --input-z: var(--ns-primary-z);
+    --input-text-color: var(--ns-primary-text-color);
+    --input-surface-color: var(--ns-primary-surface-color);
+    --input-surface-color-top: var(--ns-primary-surface-color-top);
+    --input-surface-color-bottom: var(--ns-primary-surface-color-bottom);
+    --input-surface-color-text: var(--ns-primary-surface-color-text);
+    --input-border-color: var(--ns-primary-border-color);
+    --input-shadow-color: var(--ns-primary-shadow-color);
+    --input-focus-light-color: var(--ns-primary-focus-light-color);
+    --input-focus-medium-color: var(--ns-primary-focus-medium-color);
+}
+
+.input-kind-secondary {
+    --input-z: var(--ns-secondary-z);
+    --input-text-color: var(--ns-secondary-text-color);
+    --input-surface-color: var(--ns-secondary-surface-color);
+    --input-surface-color-top: var(--ns-secondary-surface-color-top);
+    --input-surface-color-bottom: var(--ns-secondary-surface-color-bottom);
+    --input-surface-color-text: var(--ns-secondary-surface-color-text);
+    --input-border-color: var(--ns-secondary-border-color);
+    --input-shadow-color: var(--ns-secondary-shadow-color);
+    --input-focus-light-color: var(--ns-secondary-focus-light-color);
+    --input-focus-medium-color: var(--ns-secondary-focus-medium-color);
+}
+
+.input-kind-tertiary {
+    --input-z: var(--ns-tertiary-z);
+    --input-text-color: var(--ns-tertiary-text-color);
+    --input-surface-color: var(--ns-tertiary-surface-color);
+    --input-surface-color-top: var(--ns-tertiary-surface-color-top);
+    --input-surface-color-bottom: var(--ns-tertiary-surface-color-bottom);
+    --input-surface-color-text: var(--ns-tertiary-surface-color-text);
+    --input-border-color: var(--ns-tertiary-border-color);
+    --input-shadow-color: var(--ns-tertiary-shadow-color);
+    --input-focus-light-color: var(--ns-tertiary-focus-light-color);
+    --input-focus-medium-color: var(--ns-tertiary-focus-medium-color);
+}
+
+.input-kind-success {
+    --input-z: var(--ns-success-z);
+    --input-text-color: var(--ns-success-text-color);
+    --input-surface-color: var(--ns-success-surface-color);
+    --input-surface-color-top: var(--ns-success-surface-color-top);
+    --input-surface-color-bottom: var(--ns-success-surface-color-bottom);
+    --input-surface-color-text: var(--ns-success-surface-color-text);
+    --input-border-color: var(--ns-success-border-color);
+    --input-shadow-color: var(--ns-success-shadow-color);
+    --input-focus-light-color: var(--ns-success-focus-light-color);
+    --input-focus-medium-color: var(--ns-success-focus-medium-color);
+}
+
+.input-kind-warning {
+    --input-z: var(--ns-warning-z);
+    --input-text-color: var(--ns-warning-text-color);
+    --input-surface-color: var(--ns-warning-surface-color);
+    --input-surface-color-top: var(--ns-warning-surface-color-top);
+    --input-surface-color-bottom: var(--ns-warning-surface-color-bottom);
+    --input-surface-color-text: var(--ns-warning-surface-color-text);
+    --input-border-color: var(--ns-warning-border-color);
+    --input-shadow-color: var(--ns-warning-shadow-color);
+    --input-focus-light-color: var(--ns-warning-focus-light-color);
+    --input-focus-medium-color: var(--ns-warning-focus-medium-color);
+}
+
+.input-kind-danger {
+    --input-z: var(--ns-danger-z);
+    --input-text-color: var(--ns-danger-text-color);
+    --input-surface-color: var(--ns-danger-surface-color);
+    --input-surface-color-top: var(--ns-danger-surface-color-top);
+    --input-surface-color-bottom: var(--ns-danger-surface-color-bottom);
+    --input-surface-color-text: var(--ns-danger-surface-color-text);
+    --input-border-color: var(--ns-danger-border-color);
+    --input-shadow-color: var(--ns-danger-shadow-color);
+    --input-focus-light-color: var(--ns-danger-focus-light-color);
+    --input-focus-medium-color: var(--ns-danger-focus-medium-color);
+}
