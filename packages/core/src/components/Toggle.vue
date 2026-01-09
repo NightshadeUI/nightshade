@@ -169,11 +169,6 @@ export default {
     transition: transform .3s, border-radius .3s;
 }
 
-.Toggle-knob-outline::before {
-    outline: var(--input-outline-size) solid var(--Toggle-outline-color);
-    outline-offset: var(--input-outline-offset);
-}
-
 /* States */
 
 .Toggle-disabled {

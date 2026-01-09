@@ -8,19 +8,19 @@
     --border-radius: var(--border-radius-s);
 
     --border-radius-none: 0;
-    --border-radius-xxs: var(--sp-xxs);
-    --border-radius-xs: var(--sp-xs);
-    --border-radius-s: var(--sp-s);
-    --border-radius-m: var(--sp-m);
-    --border-radius-l: var(--sp-l);
-    --border-radius-xl: var(--sp-xl);
-    --border-radius-xxl: var(--sp-xxl);
+    --border-radius-xxs: 1px;
+    --border-radius-xs: 2px;
+    --border-radius-s: 4px;
+    --border-radius-m: 8px;
+    --border-radius-l: 16px;
+    --border-radius-xl: 32px;
+    --border-radius-xxl: 64px;
 
     /* Shadows */
 
-    --shadow-color-light: light-dark(rgba(0,0,0,.16), rgba(0,0,0,.5));
-    --shadow-color-medium: light-dark(rgba(0,0,0,.32), rgba(0,0,0,.75));
-    --shadow-color-heavy: light-dark(rgba(0,0,0,.64), rgba(0,0,0,.9));
+    --shadow-color-light: light-dark(rgba(0,0,0,.1), rgba(0,0,0,.5));
+    --shadow-color-medium: light-dark(rgba(0,0,0,.2), rgba(0,0,0,.75));
+    --shadow-color-heavy: light-dark(rgba(0,0,0,.3), rgba(0,0,0,.9));
 
     /* Misc */
 

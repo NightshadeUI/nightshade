@@ -14,4 +14,4 @@ out/
 *.tsbuildinfo
 dist/
 
-.vitepress/cache
+**/.vitepress/cache

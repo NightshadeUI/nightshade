@@ -18,7 +18,11 @@ preamble: Jumbo
 
 <SectionInput />
 
-### Toggles
+### Checkbox
+
+<SectionCheckbox />
+
+### Toggle
 
 <SectionToggle />
 
@@ -32,4 +36,5 @@ import SectionInput from './SectionInput.vue';
 import SectionColors from './SectionColors.vue';
 import SectionCombinations from './SectionCombinations.vue';
 import SectionToggle from './SectionToggle.vue';
+import SectionCheckbox from './SectionCheckbox.vue';
 </script>

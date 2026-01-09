@@ -27,6 +27,22 @@
             </HGroup>
         </HGroup>
         <HGroup>
+            <label class="Label">Mark:</label>
+            <HGroup>
+                <template
+                    v-for="style in ['check', 'xmark', 'dot', 'knob', 'none']"
+                    :key="style">
+                    <Btn
+                        :label="capitalize(style)"
+                        flat
+                        outline
+                        round
+                        :kind="mark === style ? 'primary' : 'base'"
+                        @click="mark = style" />
+                </template>
+            </HGroup>
+        </HGroup>
+        <HGroup>
             <label class="Label">Options:</label>
             <HGroup tagName="label">
                 <input
@@ -46,7 +62,7 @@
             <template
                 v-for="kind in tokens"
                 :key="kind">
-                <Toggle
+                <Checkbox
                     v-model="value"
                     :kind="kind"
                     :forceFocus="focus"
@@ -54,7 +70,8 @@
                     :outline="outline"
                     :round="round"
                     :size="size"
-                    :disabled="disabled" />
+                    :disabled="disabled"
+                    :mark="mark" />
             </template>
         </HGroup>
 
@@ -71,10 +88,11 @@ export default {
             value: true,
             disabled: false,
             focus: false,
-            size: 'small',
+            size: undefined,
             flat: false,
-            round: true,
+            round: false,
             outline: false,
+            mark: 'check',
         };
     },
 

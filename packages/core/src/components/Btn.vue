@@ -286,6 +286,11 @@ export default {
     --Btn-radius: var(--input-radius-full);
 }
 
+.Btn-outline {
+    --Btn-border-color: var(--input-border-color);
+    --Btn-border-size: var(--input-border-size);
+}
+
 .Btn-ghost {
     --Btn-surface: transparent;
     --Btn-surface-top: transparent;
@@ -293,11 +298,7 @@ export default {
     --Btn-text-color: var(--input-text-color);
     --Btn-text-shadow: none;
     --Btn-shadow-color: var(--shadow-color-light);
-}
-
-.Btn-outline {
-    --Btn-border-color: var(--input-border-color);
-    --Btn-border-size: var(--input-border-size);
+    --Btn-border-color: var(--input-text-color);
 }
 
 .Btn-flat {

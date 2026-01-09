@@ -1,4 +1,5 @@
 import Btn from './Btn.vue';
+import Checkbox from './Checkbox.vue';
 import Filler from './Filler.vue';
 import HGroup from './HGroup.vue';
 import InputBase from './InputBase.vue';
@@ -14,6 +15,7 @@ import VGroup from './VGroup.vue';
 
 export {
     Btn,
+    Checkbox,
     Filler,
     HGroup,
     InputBase,
