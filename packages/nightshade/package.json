@@ -1,6 +1,6 @@
 {
     "name": "nightshade",
-    "version": "2.1.1",
+    "version": "2.2.0",
     "description": "Scalabe design system for Vue",
     "author": "Boris Okunskiy",
     "license": "ISC",
@@ -13,8 +13,8 @@
         "./css": "./index.css"
     },
     "dependencies": {
-        "@nightshadeui/core": "2.1.1",
-        "@nightshadeui/stylesheets": "2.1.1"
+        "@nightshadeui/core": "2.2.0",
+        "@nightshadeui/stylesheets": "2.2.0"
     },
     "peerDependencies": {
         "vue": "^3.5.22"
