@@ -1,5 +1,6 @@
 <template>
-    <div
+    <component
+        :is="tagName"
         class="Tab"
         :class="[
             `Tab-${dir}`,
@@ -23,13 +24,14 @@
             class="TabCap"
             :dir="dir"
             type="end" />
-    </div>
+    </component>
 </template>
 
 <script>
 export default {
 
     props: {
+        tagName: { type: String, default: 'div' },
         dir: { type: String, default: 'top' },
         label: { type: String },
     },

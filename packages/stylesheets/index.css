@@ -6,7 +6,7 @@
 @import './variables/input.css';
 
 @import './commons.css';
-@import './input.css';
+@import './semantics.css';
 @import './util.css';
 @import './kbd.css';
 
