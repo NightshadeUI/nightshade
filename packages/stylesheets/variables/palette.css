@@ -1,5 +1,4 @@
 :root {
-
     --color-base-light-0: hsl(280deg, 5%, 100%);
     --color-base-light-50: hsl(280deg, 5%, 98%);
     --color-base-light-100: hsl(280deg, 5%, 96%);
@@ -113,5 +112,4 @@
     --color-danger-700: hsl(352deg, 64%, 36%);
     --color-danger-800: hsl(352deg, 64%, 28%);
     --color-danger-900: hsl(352deg, 64%, 16%);
-
 }

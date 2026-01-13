@@ -125,6 +125,7 @@ export default {
     --Toggle-border-color: transparent;
     --Toggle-radius: var(--input-radius);
 
+    --Toggle-shadow: 0 1px 3px var(--Toggle-shadow-color) inset, 0 0 5px -1px var(--Toggle-shadow-color) inset;
     --Toggle-shadow-color: var(--shadow-color-light);
 
     display: block;
@@ -139,13 +140,10 @@ export default {
     outline: var(--input-outline-size) solid var(--Toggle-outline-color);
     outline-offset: var(--input-outline-offset);
     background-clip: border-box;
+    box-shadow: var(--Toggle-shadow);
 
     cursor: pointer;
     user-select: none;
-
-    box-shadow:
-        0 1px 3px var(--Toggle-shadow-color) inset,
-        0 0 5px -1px var(--Toggle-shadow-color) inset;
 
     transition: background-color .3s, border-radius .3s;
 }
@@ -209,7 +207,7 @@ export default {
 
 .Toggle-flat {
     --Toggle-shadow-color: none;
-    box-shadow: none;
+    --Toggle-shadow: none;
 }
 
 /* Sizes */

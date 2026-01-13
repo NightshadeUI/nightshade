@@ -1,5 +1,4 @@
 :root {
-
     /* 12-column grid */
 
     --gr1: calc(100% / 12);
@@ -27,5 +26,4 @@
     --vgr10: calc(10 * 100vw / 12);
     --vgr11: calc(11 * 100vw / 12);
     --vgr12: 100vw;
-
 }

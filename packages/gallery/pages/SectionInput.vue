@@ -7,8 +7,8 @@
                 <div>Round</div>
             </HGroup>
             <HGroup tagName="label">
-                <input v-model="shadow" type="checkbox" />
-                <div>Shadow</div>
+                <input v-model="flat" type="checkbox" />
+                <div>Flat</div>
             </HGroup>
         </HGroup>
         <HGroup>
@@ -73,7 +73,7 @@
                     :label="capitalize(kind)"
                     :labelStyle="labelStyle"
                     :forceFocus="focus"
-                    :shadow="shadow"
+                    :flat="flat"
                     :round="round"
                     :disabled="disabled"
                     :size="size">
@@ -101,7 +101,7 @@ export default {
             focus: false,
             size: undefined,
             icon: undefined,
-            shadow: false,
+            flat: false,
             round: false,
             labelStyle: 'inline',
         };

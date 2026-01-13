@@ -1,19 +1,18 @@
-@import './variables/base.css';
-@import './variables/spacing.css';
-@import './variables/grid.css';
-@import './variables/font.css';
-@import './variables/palette.css';
-@import './variables/input.css';
-@import './variables/semantics.css';
+@import './variables/base.css' layer(nightshade);
+@import './variables/spacing.css' layer(nightshade);
+@import './variables/grid.css' layer(nightshade);
+@import './variables/font.css' layer(nightshade);
+@import './variables/palette.css' layer(nightshade);
+@import './variables/ui.css' layer(nightshade);
 
-@import './commons.css';
-@import './input-kinds.css';
-@import './util.css';
-@import './kbd.css';
+@import './commons.css' layer(nightshade);
+@import './inputs.css' layer(nightshade);
+@import './util.css' layer(nightshade);
+@import './kbd.css' layer(nightshade);
 
-@import './transitions/fade-directional.css';
-@import './transitions/fade-scale.css';
-@import './transitions/fade-shove.css';
-@import './transitions/fade-squash.css';
-@import './transitions/fade-swipe.css';
-@import './transitions/fade.css';
+@import './transitions/fade-directional.css' layer(nightshade);
+@import './transitions/fade-scale.css' layer(nightshade);
+@import './transitions/fade-shove.css' layer(nightshade);
+@import './transitions/fade-squash.css' layer(nightshade);
+@import './transitions/fade-swipe.css' layer(nightshade);
+@import './transitions/fade.css' layer(nightshade);

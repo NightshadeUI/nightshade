@@ -13,7 +13,6 @@
                 'Btn-round': effectiveStyle.round,
                 'Btn-outline': effectiveStyle.outline,
                 'Btn-flat': effectiveStyle.flat,
-                'Btn-shadow': effectiveStyle.shadow,
                 'Btn-square': square,
                 'Btn-block': block,
                 'Btn-disabled': disabled || blocked,
@@ -69,7 +68,6 @@ export default {
         kind: { type: String, default: 'base' },
         size: { type: String, default: 'm' },
         flat: { type: Boolean, default: false },
-        shadow: { type: Boolean, default: false },
         outline: { type: Boolean, default: false },
         round: { type: Boolean, default: false },
         ghost: { type: Boolean, default: false },
@@ -106,7 +104,6 @@ export default {
                 kind: this.kind,
                 size: this.size,
                 flat: this.flat,
-                shadow: this.shadow,
                 outline: this.outline,
                 round: this.round,
                 ghost: this.ghost,
@@ -171,6 +168,7 @@ export default {
     --Btn-radius: var(--input-radius);
 
     --Btn-shadow-color: var(--input-shadow-color);
+    --Btn-shadow: 0 1px 1px var(--Btn-shadow-color), 0 1px 5px var(--shadow-color-light);
 
     --Btn-gradient-x: 50%;
     --Btn-gradient-y: 0%;
@@ -206,6 +204,7 @@ export default {
         var(--Btn-surface-top),
         var(--Btn-surface-bottom)
     );
+    box-shadow: var(--Btn-shadow);
 
     cursor: pointer;
     user-select: none;
@@ -295,22 +294,17 @@ export default {
     --Btn-surface: transparent;
     --Btn-surface-top: transparent;
     --Btn-surface-bottom: transparent;
+    --Btn-border-color: var(--input-text-color);
     --Btn-text-color: var(--input-text-color);
     --Btn-text-shadow: none;
-    --Btn-shadow-color: var(--shadow-color-light);
-    --Btn-border-color: var(--input-text-color);
+    --Btn-shadow: none;
 }
 
 .Btn-flat {
     --Btn-surface-top: var(--Btn-surface);
     --Btn-surface-bottom: var(--Btn-surface);
     --Btn-text-shadow: none;
-}
-
-.Btn-shadow {
-    box-shadow:
-        0 1px 1px var(--Btn-shadow-color),
-        0 0 5px -1px var(--shadow-color-light);
+    --Btn-shadow: none;
 }
 
 .Btn-square {

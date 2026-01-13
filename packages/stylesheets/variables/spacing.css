@@ -1,7 +1,6 @@
 :root {
-
+    
     /* Fixed spacing */
-
     --sp: 8px;
     --sp0-25: calc(0.25 * var(--sp));
     --sp0-5: calc(0.5 * var(--sp));

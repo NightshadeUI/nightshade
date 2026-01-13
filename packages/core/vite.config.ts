@@ -18,7 +18,7 @@ export default defineConfig({
         transformer: 'lightningcss',
         lightningcss: {
             cssModules: true,
-            exclude: Features.LightDark
+            exclude: Features.LightDark,
         }
     },
     plugins: [
@@ -26,5 +26,18 @@ export default defineConfig({
         dts({
             include: ['src/**'],
         }),
+        {
+            name: 'css-layer',
+            enforce: 'pre',
+            transform(code, id) {
+                if (!id.endsWith('.vue')) {
+                    return;
+                }
+                return code.replace(/<style(\s+[^>]*)?>([\s\S]*?)<\/style>/g,
+                    (_, tag, css) => {
+                        return `<style${tag}>@layer nightshade-core {${css}}</style>`;
+                    });
+            },
+        }
     ],
 });

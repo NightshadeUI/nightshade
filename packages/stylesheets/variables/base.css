@@ -1,7 +1,7 @@
 :root {
 
-    --base-color: var(--ns-base-surface-color);
-    --text-color: var(--ns-base-text-color);
+    --base-color: var(--ui-base-surface-color);
+    --text-color: var(--ui-base-text-color);
     --text-color-subtle: var(--color-base-700);
     --text-color-sublime: var(--color-base-600);
 
@@ -20,8 +20,26 @@
 
     /* Shadows */
 
-    --shadow-color-light: light-dark(rgba(0,0,0,.1), rgba(0,0,0,.5));
-    --shadow-color-medium: light-dark(rgba(0,0,0,.2), rgba(0,0,0,.75));
-    --shadow-color-heavy: light-dark(rgba(0,0,0,.3), rgba(0,0,0,.9));
+    --shadow-color-light: light-dark(rgba(0,0,0,.1), rgba(0,0,0,.2));
+    --shadow-color-medium: light-dark(rgba(0,0,0,.2), rgba(0,0,0,.4));
+    --shadow-color-heavy: light-dark(rgba(0,0,0,.3), rgba(0,0,0,.6));
+
+    /* Inputs */
+
+    --input-size: var(--input-size-m);
+    --input-size-xs: var(--sp2);
+    --input-size-s: var(--sp3);
+    --input-size-m: var(--sp4);
+    --input-size-l: var(--sp5);
+    --input-size-xl: var(--sp6);
+
+    --input-radius: var(--border-radius-s);
+    --input-radius-round: var(--border-radius-l);
+    --input-radius-full: 32px;
+
+    --input-border-size: 1px;
+    --input-outline-size: 2px;
+    --input-outline-offset: 0;
+    --input-z: 0;
 
 }

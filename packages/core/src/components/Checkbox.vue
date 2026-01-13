@@ -120,8 +120,9 @@ export default {
     --Checkbox-border-color: transparent;
     --Checkbox-radius: var(--input-radius);
 
+    --Checkbox-shadow: 0 1px 3px var(--Checkbox-shadow-color) inset, 0 0 5px -1px var(--Checkbox-shadow-color) inset;
     --Checkbox-shadow-color: var(--shadow-color-light);
-    --Checkbox-mark-shadow-color: var(--input-surface-color-bottom);
+    --Checkbox-mark-shadow: 0 2px 1px var(--Checkbox-shadow-color);
 
     display: inline-flex;
     align-items: center;
@@ -142,9 +143,7 @@ export default {
     cursor: pointer;
     user-select: none;
 
-    box-shadow:
-        0 1px 3px var(--Checkbox-shadow-color) inset,
-        0 0 5px -1px var(--Checkbox-shadow-color) inset;
+    box-shadow: var(--Checkbox-shadow);
 
     transition: background-color .3s, border-radius .3s;
 }
@@ -157,7 +156,7 @@ export default {
     opacity: 0;
     font-size: var(--Checkbox-size);
     color: var(--input-surface-color-text);
-    text-shadow: 0 2px 1px var(--Checkbox-mark-shadow-color);
+    text-shadow: var(--Checkbox-mark-shadow);
 
     transition: opacity .1s, border-radius .3s;
 }
@@ -226,9 +225,9 @@ export default {
 }
 
 .Checkbox-flat {
+    --Checkbox-shadow: none;
     --Checkbox-shadow-color: none;
     --Checkbox-mark-shadow-color: none;
-    box-shadow: none;
 }
 
 /* Sizes */

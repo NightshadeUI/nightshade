@@ -8,7 +8,7 @@
             `InputBase-${effectiveStyle.size}`,
             {
                 'InputBase-fixed-height': fixedHeight,
-                'InputBase-shadow': effectiveStyle.shadow,
+                'InputBase-flat': effectiveStyle.flat,
                 'InputBase-round': effectiveStyle.round,
                 'InputBase-disabled': disabled,
                 'InputBase-force-focus': forceFocus,
@@ -58,7 +58,7 @@ export default {
 
         size: { type: String, default: 'normal' },
         fixedHeight: { type: Boolean, default: true },
-        shadow: { type: Boolean, default: false },
+        flat: { type: Boolean, default: false },
         round: { type: Boolean, default: false },
 
         disabled: { type: Boolean, default: false },
@@ -82,7 +82,7 @@ export default {
             return {
                 kind: this.kind,
                 size: this.size,
-                shadow: this.shadow,
+                flat: this.flat,
                 round: this.round,
                 labelStyle: this.labelStyle,
             };
@@ -130,6 +130,9 @@ export default {
     --InputBase-border-color: var(--input-border-color);
     --InputBase-radius: var(--input-radius);
 
+    --InputBase-shadow-color: var(--shadow-color-light);
+    --InputBase-shadow: 0 1px 5px -1px var(--InputBase-shadow-color) inset;
+
     --InputBase-label-color: var(--input-label-color);
     --InputBase-label-font-size: var(--font-size-s);
     --InputBase-tab-surface-color: var(--input-surface-color-top);
@@ -156,6 +159,7 @@ export default {
 
     color: var(--InputBase-text-color);
     background: var(--InputBase-surface);
+    box-shadow: var(--InputBase-shadow);
 
     outline: var(--InputBase-outline-size) solid var(--InputBase-outline-color);
     outline-offset: var(--InputBase-outline-offset);
@@ -194,9 +198,9 @@ export default {
     --InputBase-radius: var(--input-radius-round);
 }
 
-.InputBase-shadow .Container {
-    box-shadow:
-        0 0 5px -1px var(--shadow-color-light) inset;
+.InputBase-flat {
+    --InputBase-shadow-color: none;
+    --InputBase-shadow: none;
 }
 
 /* Sizes */
