@@ -4,7 +4,8 @@
     --input-surface-color: var(--ui-base-surface-color);
     --input-surface-color-top: var(--ui-base-surface-color-top);
     --input-surface-color-bottom: var(--ui-base-surface-color-bottom);
-    --input-surface-color-text: var(--ui-base-surface-color-text);
+    --input-surface-text-color: var(--ui-base-surface-text-color);
+    --input-surface-text-shadow-color: var(--ui-base-surface-text-shadow-color);
     --input-border-color: var(--ui-base-border-color);
     --input-shadow-color: var(--ui-base-shadow-color);
     --input-focus-light-color: var(--ui-base-focus-light-color);
@@ -17,7 +18,8 @@
     --input-surface-color: var(--ui-inverse-surface-color);
     --input-surface-color-top: var(--ui-inverse-surface-color-top);
     --input-surface-color-bottom: var(--ui-inverse-surface-color-bottom);
-    --input-surface-color-text: var(--ui-inverse-surface-color-text);
+    --input-surface-text-color: var(--ui-inverse-surface-text-color);
+    --input-surface-text-shadow-color: var(--ui-inverse-surface-text-shadow-color);
     --input-border-color: var(--ui-inverse-border-color);
     --input-shadow-color: var(--ui-inverse-shadow-color);
     --input-focus-light-color: var(--ui-inverse-focus-light-color);
@@ -30,7 +32,8 @@
     --input-surface-color: var(--ui-primary-surface-color);
     --input-surface-color-top: var(--ui-primary-surface-color-top);
     --input-surface-color-bottom: var(--ui-primary-surface-color-bottom);
-    --input-surface-color-text: var(--ui-primary-surface-color-text);
+    --input-surface-text-color: var(--ui-primary-surface-text-color);
+    --input-surface-text-shadow-color: var(--ui-primary-surface-text-shadow-color);
     --input-border-color: var(--ui-primary-border-color);
     --input-shadow-color: var(--ui-primary-shadow-color);
     --input-focus-light-color: var(--ui-primary-focus-light-color);
@@ -43,7 +46,8 @@
     --input-surface-color: var(--ui-secondary-surface-color);
     --input-surface-color-top: var(--ui-secondary-surface-color-top);
     --input-surface-color-bottom: var(--ui-secondary-surface-color-bottom);
-    --input-surface-color-text: var(--ui-secondary-surface-color-text);
+    --input-surface-text-color: var(--ui-secondary-surface-text-color);
+    --input-surface-text-shadow-color: var(--ui-secondary-surface-text-shadow-color);
     --input-border-color: var(--ui-secondary-border-color);
     --input-shadow-color: var(--ui-secondary-shadow-color);
     --input-focus-light-color: var(--ui-secondary-focus-light-color);
@@ -56,7 +60,8 @@
     --input-surface-color: var(--ui-tertiary-surface-color);
     --input-surface-color-top: var(--ui-tertiary-surface-color-top);
     --input-surface-color-bottom: var(--ui-tertiary-surface-color-bottom);
-    --input-surface-color-text: var(--ui-tertiary-surface-color-text);
+    --input-surface-text-color: var(--ui-tertiary-surface-text-color);
+    --input-surface-text-shadow-color: var(--ui-tertiary-surface-text-shadow-color);
     --input-border-color: var(--ui-tertiary-border-color);
     --input-shadow-color: var(--ui-tertiary-shadow-color);
     --input-focus-light-color: var(--ui-tertiary-focus-light-color);
@@ -69,7 +74,8 @@
     --input-surface-color: var(--ui-success-surface-color);
     --input-surface-color-top: var(--ui-success-surface-color-top);
     --input-surface-color-bottom: var(--ui-success-surface-color-bottom);
-    --input-surface-color-text: var(--ui-success-surface-color-text);
+    --input-surface-text-color: var(--ui-success-surface-text-color);
+    --input-surface-text-shadow-color: var(--ui-success-surface-text-shadow-color);
     --input-border-color: var(--ui-success-border-color);
     --input-shadow-color: var(--ui-success-shadow-color);
     --input-focus-light-color: var(--ui-success-focus-light-color);
@@ -82,7 +88,8 @@
     --input-surface-color: var(--ui-warning-surface-color);
     --input-surface-color-top: var(--ui-warning-surface-color-top);
     --input-surface-color-bottom: var(--ui-warning-surface-color-bottom);
-    --input-surface-color-text: var(--ui-warning-surface-color-text);
+    --input-surface-text-color: var(--ui-warning-surface-text-color);
+    --input-surface-text-shadow-color: var(--ui-warning-surface-text-shadow-color);
     --input-border-color: var(--ui-warning-border-color);
     --input-shadow-color: var(--ui-warning-shadow-color);
     --input-focus-light-color: var(--ui-warning-focus-light-color);
@@ -95,7 +102,8 @@
     --input-surface-color: var(--ui-danger-surface-color);
     --input-surface-color-top: var(--ui-danger-surface-color-top);
     --input-surface-color-bottom: var(--ui-danger-surface-color-bottom);
-    --input-surface-color-text: var(--ui-danger-surface-color-text);
+    --input-surface-text-color: var(--ui-danger-surface-text-color);
+    --input-surface-text-shadow-color: var(--ui-danger-surface-text-shadow-color);
     --input-border-color: var(--ui-danger-border-color);
     --input-shadow-color: var(--ui-danger-shadow-color);
     --input-focus-light-color: var(--ui-danger-focus-light-color);

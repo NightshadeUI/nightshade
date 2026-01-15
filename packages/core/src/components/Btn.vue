@@ -154,8 +154,8 @@ export default {
     --Btn-gap: var(--sp);
     --Btn-font-size: var(--font-size);
 
-    --Btn-text-color: var(--input-surface-color-text);
-    --Btn-text-shadow: var(--Btn-surface-bottom);
+    --Btn-text-color: var(--input-surface-text-color);
+    --Btn-text-shadow: var(--input-surface-text-shadow-color);
 
     --Btn-outline-color: transparent;
 

@@ -122,7 +122,7 @@ export default {
 
     --Checkbox-shadow: 0 1px 3px var(--Checkbox-shadow-color) inset, 0 0 5px -1px var(--Checkbox-shadow-color) inset;
     --Checkbox-shadow-color: var(--shadow-color-light);
-    --Checkbox-mark-shadow: 0 2px 1px var(--Checkbox-shadow-color);
+    --Checkbox-mark-shadow: 0 1px 1px var(--input-surface-text-shadow-color);
 
     display: inline-flex;
     align-items: center;
@@ -155,7 +155,7 @@ export default {
 .Checkbox::after {
     opacity: 0;
     font-size: var(--Checkbox-size);
-    color: var(--input-surface-color-text);
+    color: var(--input-surface-text-color);
     text-shadow: var(--Checkbox-mark-shadow);
 
     transition: opacity .1s, border-radius .3s;
@@ -184,8 +184,8 @@ export default {
     width: calc(var(--Checkbox-size) - var(--sp));
     height: calc(var(--Checkbox-size) - var(--sp));
     border-radius: calc(var(--Checkbox-radius) - 2px);
-    background: var(--input-surface-color-text);
-    box-shadow: 0 1px 3px var(--Checkbox-shadow-color);
+    background: var(--input-surface-text-color);
+    box-shadow: 0 1px 2px var(--Checkbox-shadow-color);
 }
 
 .Checkbox-mark-none::after {

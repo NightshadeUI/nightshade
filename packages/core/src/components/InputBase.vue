@@ -32,7 +32,9 @@
             <div
                 v-if="labelStyle === 'inline'"
                 class="Label InlineLabel">
-                {{ label }}
+                <div class="InlineLabelText">
+                    {{ label }}
+                </div>
             </div>
         </template>
         <div class="InputElement Container">
@@ -136,7 +138,7 @@ export default {
     --InputBase-label-color: var(--input-label-color);
     --InputBase-label-font-size: var(--font-size-s);
     --InputBase-tab-surface-color: var(--input-surface-color-top);
-    --InputBase-tab-text-color: var(--input-surface-color-text);
+    --InputBase-tab-text-color: var(--input-surface-text-color);
 
     position: relative;
     display: flex;
@@ -181,8 +183,11 @@ export default {
     --InputBase-label-color: var(--input-focus-medium-color);
 }
 
-.InputBase-disabled .Container {
+.InputBase-disabled {
     --InputBase-surface: var(--color-base-100);
+}
+
+.InputBase-disabled .Container {
     opacity: .6;
     filter: saturate(40%);
     cursor: not-allowed;
@@ -251,30 +256,23 @@ export default {
 
 .Label.InlineLabel {
     position: absolute;
-    top: 0;
+    top: calc(-1 * var(--InputBase-outline-size));
     left: 0;
-    transform: translateY(-50%);
+    height: calc(var(--InputBase-border-size) + var(--InputBase-outline-size));
     z-index: 2;
     margin: 0 var(--InputBase-padding);
     padding: 0 2px;
 
+    background: var(--InputBase-surface);
+    user-select: none;
+}
+
+.InlineLabelText {
     color: var(--InputBase-label-color);
+    transform: translateY(-50%);
 
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-}
-
-.Label.InlineLabel::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 50%;
-    height: var(--sp);
-    transform: translateY(-50%);
-    z-index: -1;
-
-    background: var(--InputBase-surface);
 }
 </style>

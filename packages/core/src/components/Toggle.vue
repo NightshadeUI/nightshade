@@ -186,7 +186,7 @@ export default {
 
 .Toggle-active {
     --Toggle-surface: var(--input-surface-color);
-    --Toggle-knob-surface: var(--input-surface-color-text);
+    --Toggle-knob-surface: var(--input-surface-text-color);
 }
 
 .Toggle-active::before {
