@@ -2,16 +2,9 @@
 @import './variables/spacing.css' layer(nightshade);
 @import './variables/grid.css' layer(nightshade);
 @import './variables/font.css' layer(nightshade);
-@import './variables/palette.css' layer(nightshade);
 @import './variables/ui.css' layer(nightshade);
+@import './variables/colors.css' layer(nightshade);
 
 @import './commons.css' layer(nightshade);
 @import './util.css' layer(nightshade);
-@import './kbd.css' layer(nightshade);
 
-@import './transitions/fade-directional.css' layer(nightshade);
-@import './transitions/fade-scale.css' layer(nightshade);
-@import './transitions/fade-shove.css' layer(nightshade);
-@import './transitions/fade-squash.css' layer(nightshade);
-@import './transitions/fade-swipe.css' layer(nightshade);
-@import './transitions/fade.css' layer(nightshade);

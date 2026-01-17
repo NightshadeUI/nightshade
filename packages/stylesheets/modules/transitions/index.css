@@ -1,0 +1,6 @@
+@import './fade-directional.css' layer(nightshade);
+@import './fade-scale.css' layer(nightshade);
+@import './fade-shove.css' layer(nightshade);
+@import './fade-squash.css' layer(nightshade);
+@import './fade-swipe.css' layer(nightshade);
+@import './fade.css' layer(nightshade);
