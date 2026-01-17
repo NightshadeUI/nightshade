@@ -4,7 +4,7 @@
         class="InputBase"
         :class="[
             `InputBase-${effectiveStyle.kind}`,
-            `input-kind-${effectiveStyle.kind}`,
+            `ui-${effectiveStyle.kind}`,
             `InputBase-${effectiveStyle.size}`,
             {
                 'InputBase-fixed-height': fixedHeight,
@@ -129,22 +129,22 @@ export default {
     --InputBase-outline-offset: var(--input-outline-offset);
 
     --InputBase-border-size: var(--input-border-size);
-    --InputBase-border-color: var(--input-border-color);
+    --InputBase-border-color: var(--ui-border-color);
     --InputBase-radius: var(--input-radius);
 
     --InputBase-shadow-color: var(--shadow-color-light);
     --InputBase-shadow: 0 1px 5px -1px var(--InputBase-shadow-color) inset;
 
-    --InputBase-label-color: var(--input-label-color);
+    --InputBase-label-color: var(--ui-label-color);
     --InputBase-label-font-size: var(--font-size-s);
-    --InputBase-tab-surface-color: var(--input-surface-color-top);
-    --InputBase-tab-text-color: var(--input-surface-text-color);
+    --InputBase-tab-surface-color: var(--ui-surface-top-color);
+    --InputBase-tab-text-color: var(--ui-surface-text-color);
 
     position: relative;
     display: flex;
     flex-flow: column nowrap;
     outline: 0;
-    z-index: var(--input-z);
+    z-index: var(--ui-z);
 }
 
 .Container {
@@ -178,9 +178,9 @@ export default {
 
 .InputBase:not(.InputBase-disabled):focus-within, .InputBase.InputBase-force-focus {
     z-index: 10;
-    --InputBase-outline-color: var(--input-focus-light-color);
-    --InputBase-border-color: var(--input-focus-medium-color);
-    --InputBase-label-color: var(--input-focus-medium-color);
+    --InputBase-outline-color: var(--ui-focus-light-color);
+    --InputBase-border-color: var(--ui-focus-medium-color);
+    --InputBase-label-color: var(--ui-focus-medium-color);
 }
 
 .InputBase-disabled {

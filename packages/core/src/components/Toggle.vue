@@ -3,7 +3,7 @@
         class="Toggle InputElement"
         :class="[
             `Toggle-${effectiveStyle.kind}`,
-            `input-kind-${effectiveStyle.kind}`,
+            `ui-${effectiveStyle.kind}`,
             `Toggle-${effectiveStyle.size}`,
             {
                 'Toggle-active': !!modelValue,
@@ -118,7 +118,7 @@ export default {
     --Toggle-outline-color: transparent;
 
     --Toggle-surface: var(--color-base-200);
-    --Toggle-knob-surface: var(--input-text-color);
+    --Toggle-knob-surface: var(--ui-text-color);
     --Toggle-knob-surface: light-dark(var(--color-base-0), var(--color-base-800));
 
     --Toggle-border-size: 0px;
@@ -180,13 +180,13 @@ export default {
 
 .Toggle:not(:disabled):focus, .Toggle.Toggle-force-focus {
     z-index: 10;
-    --Toggle-outline-color: var(--input-focus-light-color);
-    --Toggle-border-color: var(--input-focus-medium-color);
+    --Toggle-outline-color: var(--ui-focus-light-color);
+    --Toggle-border-color: var(--ui-focus-medium-color);
 }
 
 .Toggle-active {
-    --Toggle-surface: var(--input-surface-color);
-    --Toggle-knob-surface: var(--input-surface-text-color);
+    --Toggle-surface: var(--ui-surface-color);
+    --Toggle-knob-surface: var(--ui-surface-text-color);
 }
 
 .Toggle-active::before {
@@ -201,7 +201,7 @@ export default {
 }
 
 .Toggle-outline {
-    --Toggle-border-color: var(--input-border-color);
+    --Toggle-border-color: var(--ui-border-color);
     --Toggle-border-size: var(--input-border-size);
 }
 

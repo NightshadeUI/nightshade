@@ -6,7 +6,7 @@
         :class="[
             `Btn-${effectiveStyle.size}`,
             `Btn-${effectiveStyle.kind}`,
-            `input-kind-${effectiveStyle.kind}`,
+            `ui-${effectiveStyle.kind}`,
             `Btn-iconPos-${iconPos}`,
             {
                 'Btn-ghost': effectiveStyle.ghost,
@@ -154,20 +154,20 @@ export default {
     --Btn-gap: var(--sp);
     --Btn-font-size: var(--font-size);
 
-    --Btn-text-color: var(--input-surface-text-color);
-    --Btn-text-shadow: var(--input-surface-text-shadow-color);
+    --Btn-text-color: var(--ui-surface-text-color);
+    --Btn-text-shadow: var(--ui-surface-text-shadow-color);
 
     --Btn-outline-color: transparent;
 
-    --Btn-surface: var(--input-surface-color);
-    --Btn-surface-top: var(--input-surface-color-top);
-    --Btn-surface-bottom: var(--input-surface-color-bottom);
+    --Btn-surface: var(--ui-surface-color);
+    --Btn-surface-top: var(--ui-surface-top-color);
+    --Btn-surface-bottom: var(--ui-surface-bottom-color);
 
     --Btn-border-size: 0;
     --Btn-border-color: transparent;
     --Btn-radius: var(--input-radius);
 
-    --Btn-shadow-color: var(--input-shadow-color);
+    --Btn-shadow-color: var(--ui-shadow-color);
     --Btn-shadow: 0 1px 1px var(--Btn-shadow-color), 0 1px 5px var(--shadow-color-light);
 
     --Btn-gradient-x: 50%;
@@ -179,7 +179,7 @@ export default {
     appearance: none;
 
     position: relative;
-    z-index: var(--input-z);
+    z-index: var(--ui-z);
     margin: 0;
     padding: 0 var(--Btn-padding);
     height: var(--Btn-size);
@@ -262,8 +262,8 @@ export default {
 
 .Btn:not(:disabled):focus, .Btn.Btn-force-focus {
     z-index: 10;
-    --Btn-outline-color: var(--input-focus-light-color);
-    --Btn-border-color: var(--input-focus-medium-color);
+    --Btn-outline-color: var(--ui-focus-light-color);
+    --Btn-border-color: var(--ui-focus-medium-color);
 }
 
 .Btn:not(:disabled):active, .Btn.Btn-force-active {
@@ -286,7 +286,7 @@ export default {
 }
 
 .Btn-outline {
-    --Btn-border-color: var(--input-border-color);
+    --Btn-border-color: var(--ui-border-color);
     --Btn-border-size: var(--input-border-size);
 }
 
@@ -294,8 +294,8 @@ export default {
     --Btn-surface: transparent;
     --Btn-surface-top: transparent;
     --Btn-surface-bottom: transparent;
-    --Btn-border-color: var(--input-text-color);
-    --Btn-text-color: var(--input-text-color);
+    --Btn-border-color: var(--ui-text-color);
+    --Btn-text-color: var(--ui-text-color);
     --Btn-text-shadow: none;
     --Btn-shadow: none;
 }

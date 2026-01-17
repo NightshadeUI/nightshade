@@ -1,9 +1,9 @@
 :root {
-    --ui-base--z: 0;
+    --ui-base-z: 0;
     --ui-base-text-color: var(--color-base-900);
     --ui-base-surface-color: var(--color-base-0);
-    --ui-base-surface-color-top: light-dark(var(--color-base-0), var(--color-base-200));
-    --ui-base-surface-color-bottom: light-dark(var(--color-base-200), var(--color-base-0));
+    --ui-base-surface-top-color: light-dark(var(--color-base-0), var(--color-base-200));
+    --ui-base-surface-bottom-color: light-dark(var(--color-base-200), var(--color-base-0));
     --ui-base-surface-text-color: var(--color-base-text);
     --ui-base-surface-text-shadow-color: var(--color-base-200);
     --ui-base-border-color: var(--color-base-400);
@@ -14,8 +14,8 @@
     --ui-inverse-z: 1;
     --ui-inverse-text-color: var(--color-inverse-0);
     --ui-inverse-surface-color: var(--color-inverse-0);
-    --ui-inverse-surface-color-top: light-dark(var(--color-inverse-200), var(--color-inverse-0));
-    --ui-inverse-surface-color-bottom: light-dark(var(--color-inverse-0), var(--color-inverse-200));
+    --ui-inverse-surface-top-color: light-dark(var(--color-inverse-200), var(--color-inverse-0));
+    --ui-inverse-surface-bottom-color: light-dark(var(--color-inverse-0), var(--color-inverse-200));
     --ui-inverse-surface-text-color: var(--color-inverse-text);
     --ui-inverse-surface-text-shadow-color: var(--color-inverse-200);
     --ui-inverse-border-color: var(--color-inverse-0);
@@ -26,8 +26,8 @@
     --ui-primary-z: 5;
     --ui-primary-text-color: light-dark(var(--color-primary-500), var(--color-primary-400));
     --ui-primary-surface-color: var(--color-primary-500);
-    --ui-primary-surface-color-top: var(--color-primary-400);
-    --ui-primary-surface-color-bottom: var(--color-primary-600);
+    --ui-primary-surface-top-color: var(--color-primary-400);
+    --ui-primary-surface-bottom-color: var(--color-primary-600);
     --ui-primary-surface-text-color: var(--color-primary-text);
     --ui-primary-surface-text-shadow-color: var(--color-primary-600);
     --ui-primary-border-color: light-dark(var(--color-primary-600), var(--color-primary-400));
@@ -38,8 +38,8 @@
     --ui-secondary-z: 4;
     --ui-secondary-text-color: light-dark(var(--color-secondary-500), var(--color-secondary-400));
     --ui-secondary-surface-color: var(--color-secondary-500);
-    --ui-secondary-surface-color-top: var(--color-secondary-400);
-    --ui-secondary-surface-color-bottom: var(--color-secondary-600);
+    --ui-secondary-surface-top-color: var(--color-secondary-400);
+    --ui-secondary-surface-bottom-color: var(--color-secondary-600);
     --ui-secondary-surface-text-color: var(--color-secondary-text);
     --ui-secondary-surface-text-shadow-color: var(--color-secondary-600);
     --ui-secondary-border-color: light-dark(var(--color-secondary-600), var(--color-secondary-400));
@@ -50,8 +50,8 @@
     --ui-tertiary-z: 3;
     --ui-tertiary-text-color: light-dark(var(--color-tertiary-500), var(--color-tertiary-400));
     --ui-tertiary-surface-color: var(--color-tertiary-500);
-    --ui-tertiary-surface-color-top: var(--color-tertiary-400);
-    --ui-tertiary-surface-color-bottom: var(--color-tertiary-600);
+    --ui-tertiary-surface-top-color: var(--color-tertiary-400);
+    --ui-tertiary-surface-bottom-color: var(--color-tertiary-600);
     --ui-tertiary-surface-text-color: var(--color-tertiary-text);
     --ui-tertiary-surface-text-shadow-color: var(--color-tertiary-600);
     --ui-tertiary-border-color: light-dark(var(--color-tertiary-600), var(--color-tertiary-400));
@@ -62,8 +62,8 @@
     --ui-success-z: 3;
     --ui-success-text-color: light-dark(var(--color-success-500), var(--color-success-400));
     --ui-success-surface-color: var(--color-success-500);
-    --ui-success-surface-color-top: var(--color-success-400);
-    --ui-success-surface-color-bottom: var(--color-success-600);
+    --ui-success-surface-top-color: var(--color-success-400);
+    --ui-success-surface-bottom-color: var(--color-success-600);
     --ui-success-surface-text-color: var(--color-success-text);
     --ui-success-surface-text-shadow-color: var(--color-success-600);
     --ui-success-border-color: light-dark(var(--color-success-600), var(--color-success-400));
@@ -74,8 +74,8 @@
     --ui-warning-z: 3;
     --ui-warning-text-color: light-dark(var(--color-warning-500), var(--color-warning-400));
     --ui-warning-surface-color: var(--color-warning-500);
-    --ui-warning-surface-color-top: var(--color-warning-400);
-    --ui-warning-surface-color-bottom: var(--color-warning-600);
+    --ui-warning-surface-top-color: var(--color-warning-400);
+    --ui-warning-surface-bottom-color: var(--color-warning-600);
     --ui-warning-surface-text-color: var(--color-warning-text);
     --ui-warning-surface-text-shadow-color: var(--color-warning-600);
     --ui-warning-border-color: light-dark(var(--color-warning-600), var(--color-warning-400));
@@ -86,12 +86,124 @@
     --ui-danger-z: 3;
     --ui-danger-text-color: light-dark(var(--color-danger-500), var(--color-danger-400));
     --ui-danger-surface-color: var(--color-danger-500);
-    --ui-danger-surface-color-top: var(--color-danger-400);
-    --ui-danger-surface-color-bottom: var(--color-danger-600);
+    --ui-danger-surface-top-color: var(--color-danger-400);
+    --ui-danger-surface-bottom-color: var(--color-danger-600);
     --ui-danger-surface-text-color: var(--color-danger-text);
     --ui-danger-surface-text-shadow-color: var(--color-danger-600);
     --ui-danger-border-color: light-dark(var(--color-danger-600), var(--color-danger-400));;
     --ui-danger-shadow-color: var(--color-danger-800);
     --ui-danger-focus-light-color: light-dark(var(--color-danger-300), var(--color-danger-700));
     --ui-danger-focus-medium-color: light-dark(var(--color-danger-600), var(--color-danger-400));
+}
+
+.ui-base {
+    --ui-z: var(--ui-base-z);
+    --ui-text-color: var(--ui-base-text-color);
+    --ui-surface-color: var(--ui-base-surface-color);
+    --ui-surface-top-color: var(--ui-base-surface-top-color);
+    --ui-surface-bottom-color: var(--ui-base-surface-bottom-color);
+    --ui-surface-text-color: var(--ui-base-surface-text-color);
+    --ui-surface-text-shadow-color: var(--ui-base-surface-text-shadow-color);
+    --ui-border-color: var(--ui-base-border-color);
+    --ui-shadow-color: var(--ui-base-shadow-color);
+    --ui-focus-light-color: var(--ui-base-focus-light-color);
+    --ui-focus-medium-color: var(--ui-base-focus-medium-color);
+}
+
+.ui-inverse {
+    --ui-z: var(--ui-inverse-z);
+    --ui-text-color: var(--color-inverse-0);
+    --ui-surface-color: var(--ui-inverse-surface-color);
+    --ui-surface-top-color: var(--ui-inverse-surface-top-color);
+    --ui-surface-bottom-color: var(--ui-inverse-surface-bottom-color);
+    --ui-surface-text-color: var(--ui-inverse-surface-text-color);
+    --ui-surface-text-shadow-color: var(--ui-inverse-surface-text-shadow-color);
+    --ui-border-color: var(--ui-inverse-border-color);
+    --ui-shadow-color: var(--ui-inverse-shadow-color);
+    --ui-focus-light-color: var(--ui-inverse-focus-light-color);
+    --ui-focus-medium-color: var(--ui-inverse-focus-medium-color);
+}
+
+.ui-primary {
+    --ui-z: var(--ui-primary-z);
+    --ui-text-color: var(--ui-primary-text-color);
+    --ui-surface-color: var(--ui-primary-surface-color);
+    --ui-surface-top-color: var(--ui-primary-surface-top-color);
+    --ui-surface-bottom-color: var(--ui-primary-surface-bottom-color);
+    --ui-surface-text-color: var(--ui-primary-surface-text-color);
+    --ui-surface-text-shadow-color: var(--ui-primary-surface-text-shadow-color);
+    --ui-border-color: var(--ui-primary-border-color);
+    --ui-shadow-color: var(--ui-primary-shadow-color);
+    --ui-focus-light-color: var(--ui-primary-focus-light-color);
+    --ui-focus-medium-color: var(--ui-primary-focus-medium-color);
+}
+
+.ui-secondary {
+    --ui-z: var(--ui-secondary-z);
+    --ui-text-color: var(--ui-secondary-text-color);
+    --ui-surface-color: var(--ui-secondary-surface-color);
+    --ui-surface-top-color: var(--ui-secondary-surface-top-color);
+    --ui-surface-bottom-color: var(--ui-secondary-surface-bottom-color);
+    --ui-surface-text-color: var(--ui-secondary-surface-text-color);
+    --ui-surface-text-shadow-color: var(--ui-secondary-surface-text-shadow-color);
+    --ui-border-color: var(--ui-secondary-border-color);
+    --ui-shadow-color: var(--ui-secondary-shadow-color);
+    --ui-focus-light-color: var(--ui-secondary-focus-light-color);
+    --ui-focus-medium-color: var(--ui-secondary-focus-medium-color);
+}
+
+.ui-tertiary {
+    --ui-z: var(--ui-tertiary-z);
+    --ui-text-color: var(--ui-tertiary-text-color);
+    --ui-surface-color: var(--ui-tertiary-surface-color);
+    --ui-surface-top-color: var(--ui-tertiary-surface-top-color);
+    --ui-surface-bottom-color: var(--ui-tertiary-surface-bottom-color);
+    --ui-surface-text-color: var(--ui-tertiary-surface-text-color);
+    --ui-surface-text-shadow-color: var(--ui-tertiary-surface-text-shadow-color);
+    --ui-border-color: var(--ui-tertiary-border-color);
+    --ui-shadow-color: var(--ui-tertiary-shadow-color);
+    --ui-focus-light-color: var(--ui-tertiary-focus-light-color);
+    --ui-focus-medium-color: var(--ui-tertiary-focus-medium-color);
+}
+
+.ui-success {
+    --ui-z: var(--ui-success-z);
+    --ui-text-color: var(--ui-success-text-color);
+    --ui-surface-color: var(--ui-success-surface-color);
+    --ui-surface-top-color: var(--ui-success-surface-top-color);
+    --ui-surface-bottom-color: var(--ui-success-surface-bottom-color);
+    --ui-surface-text-color: var(--ui-success-surface-text-color);
+    --ui-surface-text-shadow-color: var(--ui-success-surface-text-shadow-color);
+    --ui-border-color: var(--ui-success-border-color);
+    --ui-shadow-color: var(--ui-success-shadow-color);
+    --ui-focus-light-color: var(--ui-success-focus-light-color);
+    --ui-focus-medium-color: var(--ui-success-focus-medium-color);
+}
+
+.ui-warning {
+    --ui-z: var(--ui-warning-z);
+    --ui-text-color: var(--ui-warning-text-color);
+    --ui-surface-color: var(--ui-warning-surface-color);
+    --ui-surface-top-color: var(--ui-warning-surface-top-color);
+    --ui-surface-bottom-color: var(--ui-warning-surface-bottom-color);
+    --ui-surface-text-color: var(--ui-warning-surface-text-color);
+    --ui-surface-text-shadow-color: var(--ui-warning-surface-text-shadow-color);
+    --ui-border-color: var(--ui-warning-border-color);
+    --ui-shadow-color: var(--ui-warning-shadow-color);
+    --ui-focus-light-color: var(--ui-warning-focus-light-color);
+    --ui-focus-medium-color: var(--ui-warning-focus-medium-color);
+}
+
+.ui-danger {
+    --ui-z: var(--ui-danger-z);
+    --ui-text-color: var(--ui-danger-text-color);
+    --ui-surface-color: var(--ui-danger-surface-color);
+    --ui-surface-top-color: var(--ui-danger-surface-top-color);
+    --ui-surface-bottom-color: var(--ui-danger-surface-bottom-color);
+    --ui-surface-text-color: var(--ui-danger-surface-text-color);
+    --ui-surface-text-shadow-color: var(--ui-danger-surface-text-shadow-color);
+    --ui-border-color: var(--ui-danger-border-color);
+    --ui-shadow-color: var(--ui-danger-shadow-color);
+    --ui-focus-light-color: var(--ui-danger-focus-light-color);
+    --ui-focus-medium-color: var(--ui-danger-focus-medium-color);
 }

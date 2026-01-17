@@ -3,7 +3,7 @@
         class="Checkbox InputElement"
         :class="[
             `Checkbox-${effectiveStyle.kind}`,
-            `input-kind-${effectiveStyle.kind}`,
+            `ui-${effectiveStyle.kind}`,
             `Checkbox-${effectiveStyle.size}`,
             `Checkbox-mark-${mark}`,
             {
@@ -122,7 +122,7 @@ export default {
 
     --Checkbox-shadow: 0 1px 3px var(--Checkbox-shadow-color) inset, 0 0 5px -1px var(--Checkbox-shadow-color) inset;
     --Checkbox-shadow-color: var(--shadow-color-light);
-    --Checkbox-mark-shadow: 0 1px 1px var(--input-surface-text-shadow-color);
+    --Checkbox-mark-shadow: 0 1px 1px var(--ui-surface-text-shadow-color);
 
     display: inline-flex;
     align-items: center;
@@ -155,7 +155,7 @@ export default {
 .Checkbox::after {
     opacity: 0;
     font-size: var(--Checkbox-size);
-    color: var(--input-surface-text-color);
+    color: var(--ui-surface-text-color);
     text-shadow: var(--Checkbox-mark-shadow);
 
     transition: opacity .1s, border-radius .3s;
@@ -184,7 +184,7 @@ export default {
     width: calc(var(--Checkbox-size) - var(--sp));
     height: calc(var(--Checkbox-size) - var(--sp));
     border-radius: calc(var(--Checkbox-radius) - 2px);
-    background: var(--input-surface-text-color);
+    background: var(--ui-surface-text-color);
     box-shadow: 0 1px 2px var(--Checkbox-shadow-color);
 }
 
@@ -205,12 +205,12 @@ export default {
 
 .Checkbox:not(:disabled):focus, .Checkbox.Checkbox-force-focus {
     z-index: 10;
-    --Checkbox-outline-color: var(--input-focus-light-color);
-    --Checkbox-border-color: var(--input-focus-medium-color);
+    --Checkbox-outline-color: var(--ui-focus-light-color);
+    --Checkbox-border-color: var(--ui-focus-medium-color);
 }
 
 .Checkbox-active {
-    --Checkbox-surface: var(--input-surface-color);
+    --Checkbox-surface: var(--ui-surface-color);
 }
 
 /* Styles */
@@ -220,7 +220,7 @@ export default {
 }
 
 .Checkbox-outline {
-    --Checkbox-border-color: var(--input-border-color);
+    --Checkbox-border-color: var(--ui-border-color);
     --Checkbox-border-size: var(--input-border-size);
 }
 

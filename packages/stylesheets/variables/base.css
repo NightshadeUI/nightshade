@@ -35,11 +35,10 @@
 
     --input-radius: var(--border-radius-s);
     --input-radius-round: var(--border-radius-l);
-    --input-radius-full: 32px;
+    --input-radius-full: var(--border-radius-xl);
 
     --input-border-size: 1px;
     --input-outline-size: 2px;
     --input-outline-offset: 0;
-    --input-z: 0;
 
 }

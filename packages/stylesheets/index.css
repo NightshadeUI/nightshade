@@ -6,7 +6,6 @@
 @import './variables/ui.css' layer(nightshade);
 
 @import './commons.css' layer(nightshade);
-@import './inputs.css' layer(nightshade);
 @import './util.css' layer(nightshade);
 @import './kbd.css' layer(nightshade);
 
