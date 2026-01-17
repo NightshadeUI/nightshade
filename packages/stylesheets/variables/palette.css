@@ -28,7 +28,7 @@
 
     --color-base-text: var(--color-base-900);
     --color-base-hue: 340deg;
-    --color-base-int: .16;
+    --color-base-int: .2;
     --color-base-lum: 1;
 
     --color-inverse-text: var(--color-inverse-900);
