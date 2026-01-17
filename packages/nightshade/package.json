@@ -10,10 +10,7 @@
             "types": "./index.d.ts",
             "import": "./index.mjs"
         },
-        "./css": "./index.css",
-        "/css/dynamic-palette": "@nightshadeui/stylesheets/dynamic-palette",
-        "/css/kbd": "@nightshadeui/stylesheets/kbd",
-        "/css/transitions": "@nightshadeui/stylesheets/transitions"
+        "./css": "./index.css"
     },
     "dependencies": {
         "@nightshadeui/core": "2.6.0",
