@@ -2,8 +2,8 @@
 
     --base-color: var(--ui-base-surface-color);
     --text-color: var(--ui-base-text-color);
-    --text-color-subtle: var(--color-base-700);
-    --text-color-sublime: var(--color-base-600);
+    --text-color-subtle: var(--color-base-600);
+    --text-color-sublime: var(--color-base-500);
 
     /* Border radius */
 
