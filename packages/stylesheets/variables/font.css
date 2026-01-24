@@ -4,14 +4,14 @@
     --font-monospace: monospace;
 
     --font-size: var(--font-size-m);
-    --font-size-xxs: 10px;
-    --font-size-xs: 12px;
-    --font-size-s: 14px;
+    --font-size-xxs: calc(var(--font-size-m) - 6px);
+    --font-size-xs: calc(var(--font-size-m) - 4px);
+    --font-size-s: calc(var(--font-size-m) - 2px);
     --font-size-m: 16px;
-    --font-size-l: 18px;
-    --font-size-xl: 24px;
-    --font-size-xxl: 48px;
-    --font-size-xxxl: 64px;
+    --font-size-l: calc(var(--font-size-m) * 1.25);
+    --font-size-xl: calc(var(--font-size-m) * 1.5);
+    --font-size-xxl: calc(var(--font-size-m) * 1.875);
+    --font-size-xxxl: calc(var(--font-size-m) * 2.25);
 
     --font-weight: var(--font-weight-normal);
     --font-weight-thin: 200;

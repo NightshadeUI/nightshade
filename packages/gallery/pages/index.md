@@ -1,5 +1,6 @@
 ---
 preamble: Jumbo
+showAppearance: true
 ---
 
 ## **Variables**

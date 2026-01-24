@@ -1,44 +1,4 @@
 <template>
-    <VGroup>
-        <HGroup>
-            <label class="Label">Style:</label>
-            <HGroup tagName="label">
-                <input v-model="round" type="checkbox" />
-                <div>Round</div>
-            </HGroup>
-            <HGroup tagName="label">
-                <input v-model="flat" type="checkbox" />
-                <div>Flat</div>
-            </HGroup>
-            <HGroup tagName="label">
-                <input v-model="outline" type="checkbox" />
-                <div>Outline</div>
-            </HGroup>
-        </HGroup>
-        <HGroup>
-            <label class="Label">State:</label>
-            <HGroup tagName="label">
-                <input v-model="focus" type="checkbox" />
-                <div>Focus</div>
-            </HGroup>
-            <HGroup tagName="label">
-                <input v-model="disabled" type="checkbox" />
-                <div>Disabled</div>
-            </HGroup>
-        </HGroup>
-        <HGroup>
-            <label class="Label">Options:</label>
-            <HGroup tagName="label">
-                <input
-                    v-model="size"
-                    type="checkbox"
-                    true-value="small"
-                    false-value="" />
-                <div>Small</div>
-            </HGroup>
-        </HGroup>
-    </VGroup>
-
     <DualTheme>
 
         <HGroup wrap>
@@ -49,12 +9,13 @@
                 <Toggle
                     v-model="value"
                     :kind="kind"
-                    :forceFocus="focus"
-                    :flat="flat"
-                    :outline="outline"
-                    :round="round"
-                    :size="size"
-                    :disabled="disabled" />
+                    :forceFocus="commonOptions.forceFocus"
+                    :forceHover="commonOptions.forceHover"
+                    :forceActive="commonOptions.forceActive"
+                    :round="commonOptions.round"
+                    :outline="commonOptions.outline"
+                    :flat="commonOptions.flat"
+                    :disabled="commonOptions.disabled" />
             </template>
         </HGroup>
 
@@ -63,34 +24,24 @@
 
 <script>
 import { capitalize } from '../utils/capitalize.js';
+import { uiTokens } from '../utils/commons.js';
 
 export default {
+
+    inject: [
+        'commonOptions'
+    ],
 
     data() {
         return {
             value: true,
-            disabled: false,
-            focus: false,
-            size: 'small',
-            flat: false,
-            round: true,
-            outline: false,
         };
     },
 
     computed: {
 
         tokens() {
-            return [
-                'base',
-                'inverse',
-                'primary',
-                'secondary',
-                'tertiary',
-                'success',
-                'warning',
-                'danger',
-            ];
+            return uiTokens;
         }
 
     },
@@ -101,10 +52,3 @@ export default {
 
 };
 </script>
-
-<style scoped>
-.Label {
-    font-weight: var(--font-weight-bold);
-    width: var(--sp8);
-}
-</style>

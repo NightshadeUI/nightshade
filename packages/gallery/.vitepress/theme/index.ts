@@ -5,6 +5,17 @@ import type { Theme } from 'vitepress';
 
 import RootLayout from './RootLayout.vue';
 import DualTheme from './DualTheme.vue';
+import { reactive } from 'vue';
+
+const commonOptions = reactive({
+    round: false,
+    flat: false,
+    outline: false,
+    disabled: false,
+    forceFocus: false,
+    forceHover: false,
+    forceActive: false,
+});
 
 const theme: Theme = {
     Layout: RootLayout,
@@ -13,6 +24,7 @@ const theme: Theme = {
             app.component(name, component);
         }
         app.component('DualTheme', DualTheme);
+        app.provide('commonOptions', commonOptions);
     },
 };
 

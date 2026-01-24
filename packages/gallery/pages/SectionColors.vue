@@ -20,26 +20,18 @@
 
 <script>
 import { capitalize } from '../utils/capitalize.js';
+import { paletteScale, uiTokens } from '../utils/commons.js';
 
 export default {
 
     computed: {
 
         scales() {
-            return [50, 100, 200, 300, 400, 500, 600, 700, 800, 900];
+            return paletteScale;
         },
 
         tokens() {
-            return [
-                'base',
-                'inverse',
-                'primary',
-                'secondary',
-                'tertiary',
-                'success',
-                'warning',
-                'danger',
-            ];
+            return uiTokens;
         }
 
     },

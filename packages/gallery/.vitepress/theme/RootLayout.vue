@@ -6,6 +6,7 @@
         <div class="Layout">
             <div class="Sidebar">
                 <ContentOutline />
+                <Appearance v-if="frontmatter.showAppearance" />
             </div>
             <article
                 id="page-content"
@@ -20,12 +21,14 @@
 import { useData } from 'vitepress';
 import Jumbo from './Jumbo.vue';
 import ContentOutline from './ContentOutline.vue';
+import Appearance from './Appearance.vue';
 
 export default {
 
     components: {
         Jumbo,
         ContentOutline,
+        Appearance,
     },
 
     setup() {
