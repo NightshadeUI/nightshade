@@ -1,4 +1,6 @@
 <template>
+    <h3 id="checkboxes">Checkboxes</h3>
+
     <VGroup>
         <HGroup>
             <label class="Label">Mark:</label>
@@ -19,6 +21,7 @@
     </VGroup>
 
     <DualTheme>
+        <h4>Styles</h4>
         <HGroup wrap>
             <template
                 v-for="kind in tokens"
@@ -26,22 +29,43 @@
                 <Checkbox
                     v-model="value"
                     :kind="kind"
-                    :forceFocus="commonOptions.forceFocus"
-                    :forceHover="commonOptions.forceHover"
-                    :forceActive="commonOptions.forceActive"
+                    :mark="mark"
                     :round="commonOptions.round"
-                    :outline="commonOptions.outline"
                     :flat="commonOptions.flat"
+                    :outline="commonOptions.outline"
                     :disabled="commonOptions.disabled"
-                    :mark="mark" />
+                    :forceFocus="commonOptions.forceFocus"
+                    :forceHover="commonOptions.forceHover" />
             </template>
         </HGroup>
+
+        <h4>Sizes</h4>
+        <VGroup>
+            <HGroup
+                v-for="size of inputSizes"
+                :key="size"
+                tagName="label">
+                <div class="Label">Size {{ size }}</div>
+                <Filler fill="dotted" />
+                <Checkbox
+                    v-model="value"
+                    kind="secondary"
+                    :size="size"
+                    :mark="mark"
+                    :round="commonOptions.round"
+                    :flat="commonOptions.flat"
+                    :outline="commonOptions.outline"
+                    :disabled="commonOptions.disabled"
+                    :forceFocus="commonOptions.forceFocus"
+                    :forceHover="commonOptions.forceHover" />
+            </HGroup>
+        </VGroup>
     </DualTheme>
 </template>
 
 <script>
 import { capitalize } from '../utils/capitalize.js';
-import { uiTokens } from '../utils/commons.js';
+import { inputSizes, uiTokens } from '../utils/commons.js';
 
 export default {
 
@@ -60,7 +84,11 @@ export default {
 
         tokens() {
             return uiTokens;
-        }
+        },
+
+        inputSizes() {
+            return inputSizes;
+        },
 
     },
 

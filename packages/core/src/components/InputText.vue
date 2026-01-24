@@ -65,10 +65,6 @@ export default {
 </script>
 
 <style scoped>
-.InputText {
-    --InputBase-padding: var(--sp1-5);
-}
-
 input, textarea {
     -webkit-appearance: none;
     box-sizing: border-box;

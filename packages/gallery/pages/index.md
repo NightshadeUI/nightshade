@@ -5,29 +5,17 @@ showAppearance: true
 
 ## **Variables**
 
-### Colors
-
 <SectionColors />
 
 ## **Components**
 
-### Buttons
-
 <SectionBtn />
-
-### Inputs
 
 <SectionInput />
 
-### Checkbox
-
 <SectionCheckbox />
 
-### Toggle
-
 <SectionToggle />
-
-### Combinations
 
 <SectionCombinations />
 

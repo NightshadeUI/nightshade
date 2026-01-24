@@ -4,9 +4,9 @@
         ref="button"
         class="Btn InputElement"
         :class="[
-            `Btn-${effectiveStyle.size}`,
             `Btn-${effectiveStyle.kind}`,
             `ui-${effectiveStyle.kind}`,
+            `input-size-${effectiveStyle.size}`,
             `Btn-iconPos-${iconPos}`,
             {
                 'Btn-ghost': effectiveStyle.ghost,
@@ -16,9 +16,9 @@
                 'Btn-square': square,
                 'Btn-block': block,
                 'Btn-disabled': disabled || blocked,
-                'Btn-force-focus': forceFocus,
-                'Btn-force-hover': forceHover,
-                'Btn-force-active': forceActive,
+                'Btn-forceFocus': forceFocus,
+                'Btn-forceHover': forceHover,
+                'Btn-forceActive': forceActive,
             },
         ]"
         :disabled="disabled || blocked"
@@ -149,10 +149,10 @@ export default {
 
 <style scoped>
 .Btn {
-    --Btn-size: var(--input-size);
-    --Btn-padding: var(--sp1-5);
-    --Btn-gap: var(--sp);
-    --Btn-font-size: var(--font-size);
+    --Btn-size: var(--input-height);
+    --Btn-padding: var(--input-padding);
+    --Btn-gap: var(--input-gap);
+    --Btn-font-size: var(--input-font-size);
 
     --Btn-text-color: var(--ui-surface-text-color);
     --Btn-text-shadow: var(--ui-surface-text-shadow-color);
@@ -256,17 +256,17 @@ export default {
     transition: none;
 }
 
-.Btn:not(:disabled):hover::after, .Btn.Btn-force-hover::after {
+.Btn:not(:disabled):hover::after, .Btn.Btn-forceHover::after {
     opacity: 1;
 }
 
-.Btn:not(:disabled):focus, .Btn.Btn-force-focus {
+.Btn:not(:disabled):focus, .Btn.Btn-forceFocus {
     z-index: 10;
     --Btn-outline-color: var(--ui-focus-light-color);
     --Btn-border-color: var(--ui-focus-medium-color);
 }
 
-.Btn:not(:disabled):active, .Btn.Btn-force-active {
+.Btn:not(:disabled):active, .Btn.Btn-forceActive {
     padding-top: 1px;
     box-shadow:
         0 6px 12px var(--shadow-color-light) inset,

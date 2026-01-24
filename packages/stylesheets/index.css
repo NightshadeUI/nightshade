@@ -4,6 +4,7 @@
 @import './variables/font.css' layer(nightshade);
 @import './variables/ui.css' layer(nightshade);
 @import './variables/colors.css' layer(nightshade);
+@import './variables/input-sizes.css' layer(nightshade);
 
 @import './commons.css' layer(nightshade);
 @import './util.css' layer(nightshade);

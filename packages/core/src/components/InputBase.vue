@@ -5,14 +5,14 @@
         :class="[
             `InputBase-${effectiveStyle.kind}`,
             `ui-${effectiveStyle.kind}`,
-            `InputBase-${effectiveStyle.size}`,
+            `input-size-${effectiveStyle.size}`,
             {
-                'InputBase-fixed-height': fixedHeight,
+                'InputBase-fixedHeight': fixedHeight,
                 'InputBase-flat': effectiveStyle.flat,
                 'InputBase-round': effectiveStyle.round,
                 'InputBase-disabled': disabled,
-                'InputBase-force-focus': forceFocus,
-                'InputBase-force-hover': forceHover,
+                'InputBase-forceFocus': forceFocus,
+                'InputBase-forceHover': forceHover,
             }
         ]"
         @mouseenter="hover = true"
@@ -58,7 +58,7 @@ export default {
         label: { type: String },
         labelStyle: { type: String, default: 'inline' },
 
-        size: { type: String, default: 'normal' },
+        size: { type: String, default: 'm' },
         fixedHeight: { type: Boolean, default: true },
         flat: { type: Boolean, default: false },
         round: { type: Boolean, default: false },
@@ -116,10 +116,10 @@ export default {
 
 <style scoped>
 .InputBase {
-    --InputBase-size: var(--input-size);
-    --InputBase-padding: var(--sp1-5);
-    --InputBase-gap: var(--sp);
-    --InputBase-font-size: var(--font-size);
+    --InputBase-size: var(--input-height);
+    --InputBase-padding: var(--input-padding);
+    --InputBase-gap: var(--input-gap);
+    --InputBase-font-size: var(--input-font-size);
 
     --InputBase-text-color: var(--text-color);
     --InputBase-surface: var(--base-color);
@@ -137,6 +137,7 @@ export default {
 
     --InputBase-label-color: var(--ui-label-color);
     --InputBase-label-font-size: var(--font-size-s);
+    --InputBase-tab-size: var(--sp3);
     --InputBase-tab-surface-color: var(--ui-surface-top-color);
     --InputBase-tab-text-color: var(--ui-surface-text-color);
 
@@ -154,7 +155,7 @@ export default {
     display: flex;
     align-items: center;
     box-sizing: border-box;
-    padding: var(--InputBase-padding);
+    padding: 0 var(--InputBase-padding);
     gap: var(--InputBase-gap);
     width: 100%;
     min-height: var(--InputBase-size);
@@ -176,7 +177,7 @@ export default {
 
 /* States */
 
-.InputBase:not(.InputBase-disabled):focus-within, .InputBase.InputBase-force-focus {
+.InputBase:not(.InputBase-disabled):focus-within, .InputBase.InputBase-forceFocus {
     z-index: 10;
     --InputBase-outline-color: var(--ui-focus-light-color);
     --InputBase-border-color: var(--ui-focus-medium-color);
@@ -195,7 +196,7 @@ export default {
 
 /* Styles */
 
-.InputBase-fixed-height .Container {
+.InputBase-fixedHeight .Container {
     height: var(--InputBase-size);
 }
 
@@ -206,21 +207,6 @@ export default {
 .InputBase-flat {
     --InputBase-shadow-color: none;
     --InputBase-shadow: none;
-}
-
-/* Sizes */
-
-.InputBase-small {
-    --InputBase-size: var(--input-size-s);
-    --InputBase-font-size: var(--font-size-s);
-    --InputBase-label-font-size: var(--font-size-xs);
-    --InputBase-padding: var(--sp);
-}
-
-.InputBase-large {
-    --InputBase-size: var(--input-size-l);
-    --InputBase-font-size: var(--font-size-l);
-    --InputBase-padding: var(--sp2);
 }
 
 /* Labels */
@@ -238,8 +224,8 @@ export default {
 
     --Tab-surface: var(--InputBase-tab-surface-color);
     --Tab-color: var(--InputBase-tab-text-color);
-    --Tab-size: calc(.75 * var(--InputBase-size));
-    --Tab-cap-size: calc(.75 * var(--InputBase-size));
+    --Tab-size: var(--InputBase-tab-size);
+    --Tab-cap-size: var(--InputBase-tab-cap-size);
 }
 
 .Label.TextLabel {

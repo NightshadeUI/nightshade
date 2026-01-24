@@ -1,4 +1,6 @@
 <template>
+    <h3 id="combinations">Combinations</h3>
+
     <DualTheme>
         <VGroup>
 

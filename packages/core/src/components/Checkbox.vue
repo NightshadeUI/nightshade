@@ -4,7 +4,7 @@
         :class="[
             `Checkbox-${effectiveStyle.kind}`,
             `ui-${effectiveStyle.kind}`,
-            `Checkbox-${effectiveStyle.size}`,
+            `input-size-${effectiveStyle.size}`,
             `Checkbox-mark-${mark}`,
             {
                 'Checkbox-active': !!modelValue,
@@ -38,7 +38,7 @@ export default {
         disabled: { type: Boolean },
         kind: { type: String, default: 'base' },
         activeKind: { type: String },
-        size: { type: String, default: 'normal' },
+        size: { type: String, default: 'm' },
         round: { type: Boolean, default: false },
         flat: { type: Boolean, default: false },
         outline: { type: Boolean, default: false },
@@ -110,7 +110,7 @@ export default {
 
 <style scoped>
 .Checkbox {
-    --Checkbox-size: var(--sp3);
+    --Checkbox-size: var(--input-height);
 
     --Checkbox-outline-color: transparent;
 
@@ -228,15 +228,5 @@ export default {
     --Checkbox-shadow: none;
     --Checkbox-shadow-color: none;
     --Checkbox-mark-shadow-color: none;
-}
-
-/* Sizes */
-
-.Checkbox-small {
-    --Checkbox-size: var(--sp2);
-}
-
-.Checkbox-large {
-    --Checkbox-size: var(--sp4);
 }
 </style>

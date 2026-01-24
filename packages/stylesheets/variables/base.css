@@ -26,13 +26,6 @@
 
     /* Inputs */
 
-    --input-size: var(--input-size-m);
-    --input-size-xs: var(--sp2);
-    --input-size-s: var(--sp3);
-    --input-size-m: var(--sp4);
-    --input-size-l: var(--sp5);
-    --input-size-xl: var(--sp6);
-
     --input-radius: var(--border-radius-s);
     --input-radius-round: var(--border-radius-l);
     --input-radius-full: var(--border-radius-xl);

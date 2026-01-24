@@ -1,0 +1,86 @@
+:root {
+
+    /* Default size */
+
+    --input-height: var(--input-size-m);
+    --input-font-size: var(--font-size-m);
+    --input-padding: var(--sp1-5);
+    --input-gap: var(--sp1);
+
+    /* Sizes */
+
+    --input-size-xs-height: var(--sp2-5);
+    --input-size-xs-font-size: var(--font-size-xs);
+    --input-size-xs-padding: var(--sp);
+    --input-size-xs-gap: var(--sp0-5);
+
+    --input-size-s-height: var(--sp3);
+    --input-size-s-font-size: var(--font-size-s);
+    --input-size-s-padding: var(--sp1);
+    --input-size-s-gap: var(--sp0-5);
+
+    --input-size-m-height: var(--sp4);
+    --input-size-m-font-size: var(--font-size-m);
+    --input-size-m-padding: var(--sp1-5);
+    --input-size-m-gap: var(--sp1);
+
+    --input-size-l-height: var(--sp5);
+    --input-size-l-font-size: var(--font-size-m);
+    --input-size-l-padding: var(--sp2);
+    --input-size-l-gap: var(--sp1);
+
+    --input-size-xl-height: var(--sp6);
+    --input-size-xl-font-size: var(--font-size-l);
+    --input-size-xl-padding: var(--sp2-5);
+    --input-size-xl-gap: var(--sp1-5);
+
+}
+
+.input-size-xxs {
+    --input-height: var(--input-size-xxs-height);
+    --input-font-size: var(--input-size-xxs-font-size);
+    --input-padding: var(--input-size-xxs-padding);
+    --input-gap: var(--input-size-xxs-gap);
+}
+
+.input-size-xs {
+    --input-height: var(--input-size-xs-height);
+    --input-font-size: var(--input-size-xs-font-size);
+    --input-padding: var(--input-size-xs-padding);
+    --input-gap: var(--input-size-xs-gap);
+}
+
+.input-size-s, .input-size-small {
+    --input-height: var(--input-size-s-height);
+    --input-font-size: var(--input-size-s-font-size);
+    --input-padding: var(--input-size-s-padding);
+    --input-gap: var(--input-size-s-gap);
+}
+
+.input-size-m, .input-size-medium, .input-size-normal {
+    --input-height: var(--input-size-m-height);
+    --input-font-size: var(--input-size-m-font-size);
+    --input-padding: var(--input-size-m-padding);
+    --input-gap: var(--input-size-m-gap);
+}
+
+.input-size-l, .input-size-large {
+    --input-height: var(--input-size-l-height); 
+    --input-font-size: var(--input-size-l-font-size);
+    --input-padding: var(--input-size-l-padding);
+    --input-gap: var(--input-size-l-gap);
+}
+
+.input-size-xl {
+    --input-height: var(--input-size-xl-height);
+    --input-font-size: var(--input-size-xl-font-size);
+    --input-padding: var(--input-size-xl-padding);
+    --input-gap: var(--input-size-xl-gap);
+}
+
+.input-size-xxl {
+    --input-height: var(--input-size-xxl-height);
+    --input-font-size: var(--input-size-xxl-font-size);
+    --input-padding: var(--input-size-xxl-padding);
+    --input-gap: var(--input-size-xxl-gap);
+}   

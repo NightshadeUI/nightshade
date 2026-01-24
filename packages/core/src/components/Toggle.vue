@@ -4,7 +4,7 @@
         :class="[
             `Toggle-${effectiveStyle.kind}`,
             `ui-${effectiveStyle.kind}`,
-            `Toggle-${effectiveStyle.size}`,
+            `input-size-${effectiveStyle.size}`,
             {
                 'Toggle-active': !!modelValue,
                 'Toggle-outline': effectiveStyle.outline,
@@ -36,7 +36,7 @@ export default {
         disabled: { type: Boolean },
         kind: { type: String, default: 'base' },
         activeKind: { type: String },
-        size: { type: String, default: 'normal' },
+        size: { type: String, default: 'm' },
         round: { type: Boolean, default: false },
         flat: { type: Boolean, default: false },
         outline: { type: Boolean, default: false },
@@ -108,7 +108,7 @@ export default {
 
 <style scoped>
 .Toggle {
-    --Toggle-size: var(--input-size);
+    --Toggle-size: var(--input-height);
     --Toggle-width: calc(1.618 * var(--Toggle-size));
     --Toggle-knob-offset: 4px;
     --Toggle-knob-size: calc(var(--Toggle-size) - 2 * var(--Toggle-knob-offset));
@@ -208,15 +208,5 @@ export default {
 .Toggle-flat {
     --Toggle-shadow-color: none;
     --Toggle-shadow: none;
-}
-
-/* Sizes */
-
-.Toggle-small {
-    --Toggle-size: var(--input-size-s);
-}
-
-.Toggle-large {
-    --Toggle-size: var(--input-size-l);
 }
 </style>

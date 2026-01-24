@@ -1,4 +1,6 @@
 <template>
+    <h3 id="inputs">Inputs</h3>
+
     <VGroup>
         <HGroup>
             <label class="Label">Label:</label>
@@ -20,37 +22,50 @@
 
     <DualTheme>
 
-        <VGroup>
+        <h4>Styles</h4>
 
+        <VGroup>
             <template
                 v-for="kind in tokens"
                 :key="kind">
-
                 <InputText
                     v-model="text"
                     :kind="kind"
                     :label="capitalize(kind)"
                     :labelStyle="labelStyle"
-                    :disabled="commonOptions.disabled"
-                    :forceFocus="commonOptions.forceFocus"
                     :round="commonOptions.round"
+                    :flat="commonOptions.flat"
                     :outline="commonOptions.outline"
-                    :flat="commonOptions.flat">
-                    <template #after>
-                        <i
-                            v-if="icon"
-                            class="pseudo-icon" />
-                    </template>
-                </InputText>
+                    :disabled="commonOptions.disabled"
+                    :forceFocus="commonOptions.forceFocus" />
             </template>
-
         </VGroup>
+
+        <h4>Sizes</h4>
+
+        <VGroup>
+            <template
+                v-for="size of inputSizes"
+                :key="size">
+                <InputText
+                    v-model="text"
+                    :size="size"
+                    :label="`Size ${size}`"
+                    :labelStyle="labelStyle"
+                    :round="commonOptions.round"
+                    :flat="commonOptions.flat"
+                    :outline="commonOptions.outline"
+                    :disabled="commonOptions.disabled"
+                    :forceFocus="commonOptions.forceFocus" />
+            </template>
+        </VGroup>
+
     </DualTheme>
 </template>
 
 <script>
 import { capitalize } from '../utils/capitalize.js';
-import { uiTokens } from '../utils/commons.js';
+import { inputSizes, uiTokens } from '../utils/commons.js';
 
 export default {
 
@@ -69,7 +84,11 @@ export default {
 
         tokens() {
             return uiTokens;
-        }
+        },
+
+        inputSizes() {
+            return inputSizes;
+        },
 
     },
 

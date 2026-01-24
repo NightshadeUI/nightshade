@@ -1,4 +1,6 @@
 <template>
+    <h3 id="colors">Colors</h3>
+
     <DualTheme>
         <template
             v-for="token of tokens"

@@ -23,3 +23,11 @@ export const paletteScale = [
     900,
     950,
 ];
+
+export const inputSizes = [
+    'xs',
+    's',
+    'm',
+    'l',
+    'xl',
+];

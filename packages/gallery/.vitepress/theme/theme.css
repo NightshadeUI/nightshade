@@ -41,7 +41,7 @@ h3 {
 
 h4 {
     font: var(--font-weight-normal) var(--font-size-l)/1.2 var(--font-main);
-    margin: 1em 0 .5em;
+    margin: 1em 0 .75em;
 }
 
 h2 strong {
