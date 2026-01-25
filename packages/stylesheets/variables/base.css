@@ -1,35 +1,22 @@
 :root {
 
+    /* Main colors */
+
     --base-color: var(--ui-base-surface-color);
     --text-color: var(--ui-base-text-color);
     --text-color-subtle: var(--color-base-600);
     --text-color-sublime: var(--color-base-500);
-
-    /* Border radius */
-
-    --border-radius: var(--border-radius-s);
-
-    --border-radius-none: 0;
-    --border-radius-xxs: 1px;
-    --border-radius-xs: 2px;
-    --border-radius-s: 4px;
-    --border-radius-m: 8px;
-    --border-radius-l: 16px;
-    --border-radius-xl: 32px;
-    --border-radius-xxl: 64px;
-
+    
     /* Shadows */
-
+    
     --shadow-color-light: light-dark(rgba(0,0,0,.1), rgba(0,0,0,.2));
     --shadow-color-medium: light-dark(rgba(0,0,0,.2), rgba(0,0,0,.4));
     --shadow-color-heavy: light-dark(rgba(0,0,0,.3), rgba(0,0,0,.6));
-
+    
     /* Inputs */
-
-    --input-radius: var(--border-radius-s);
-    --input-radius-round: var(--border-radius-l);
-    --input-radius-full: var(--border-radius-xl);
-
+    
+    --border-radius: 4px;
+    --input-radius: var(--border-radius);
     --input-border-size: 1px;
     --input-outline-size: 2px;
     --input-outline-offset: 0;

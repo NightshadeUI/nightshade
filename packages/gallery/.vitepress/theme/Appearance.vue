@@ -71,7 +71,7 @@ export default {
 .Appearance {
     margin: var(--sp2) 0;
     padding: var(--sp2);
-    border-radius: var(--border-radius-m);
+    border-radius: var(--border-radius);
     background: var(--color-base-50);
     border: 1px solid var(--color-base-100);
 }

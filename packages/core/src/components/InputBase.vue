@@ -3,7 +3,6 @@
         :is="tagName"
         class="InputBase"
         :class="[
-            `InputBase-${effectiveStyle.kind}`,
             `ui-${effectiveStyle.kind}`,
             `input-size-${effectiveStyle.size}`,
             {
@@ -62,6 +61,7 @@ export default {
         fixedHeight: { type: Boolean, default: true },
         flat: { type: Boolean, default: false },
         round: { type: Boolean, default: false },
+        outline: { type: Boolean, default: false },
 
         disabled: { type: Boolean, default: false },
         forceFocus: { type: Boolean, default: false },

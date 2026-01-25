@@ -4,7 +4,6 @@
         ref="button"
         class="Btn InputElement"
         :class="[
-            `Btn-${effectiveStyle.kind}`,
             `ui-${effectiveStyle.kind}`,
             `input-size-${effectiveStyle.size}`,
             `Btn-iconPos-${iconPos}`,
@@ -170,11 +169,6 @@ export default {
     --Btn-shadow-color: var(--ui-shadow-color);
     --Btn-shadow: 0 1px 1px var(--Btn-shadow-color), 0 1px 5px var(--shadow-color-light);
 
-    --Btn-gradient-x: 50%;
-    --Btn-gradient-y: 0%;
-    --Btn-gradient-width: 150%;
-    --Btn-gradient-height: 150%;
-
     -webkit-appearance: none;
     appearance: none;
 
@@ -199,8 +193,8 @@ export default {
     text-shadow: 0 1px 1px var(--Btn-text-shadow);
     outline: var(--input-outline-size) solid var(--Btn-outline-color);
     outline-offset: var(--input-outline-offset);
-    background: radial-gradient(
-        var(--Btn-gradient-width) var(--Btn-gradient-height) at var(--Btn-gradient-x) var(--Btn-gradient-y),
+    background: linear-gradient(
+        to bottom,
         var(--Btn-surface-top),
         var(--Btn-surface-bottom)
     );
@@ -282,7 +276,7 @@ export default {
 /* Styles */
 
 .Btn-round {
-    --Btn-radius: var(--input-radius-full);
+    --Btn-radius: var(--input-radius-round);
 }
 
 .Btn-outline {

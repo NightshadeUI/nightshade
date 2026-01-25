@@ -2,7 +2,6 @@
     <label
         class="Checkbox InputElement"
         :class="[
-            `Checkbox-${effectiveStyle.kind}`,
             `ui-${effectiveStyle.kind}`,
             `input-size-${effectiveStyle.size}`,
             `Checkbox-mark-${mark}`,
@@ -216,7 +215,7 @@ export default {
 /* Styles */
 
 .Checkbox-round {
-    --Checkbox-radius: var(--input-radius-full);
+    --Checkbox-radius: var(--input-radius-round);
 }
 
 .Checkbox-outline {

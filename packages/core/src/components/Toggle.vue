@@ -2,7 +2,6 @@
     <label
         class="Toggle InputElement"
         :class="[
-            `Toggle-${effectiveStyle.kind}`,
             `ui-${effectiveStyle.kind}`,
             `input-size-${effectiveStyle.size}`,
             {
@@ -161,7 +160,7 @@ export default {
     height: var(--Toggle-knob-size);
     border-radius: var(--Toggle-knob-radius);
     background: var(--Toggle-knob-surface);
-    box-shadow: 0 1px 3px var(--Toggle-shadow-color);
+    box-shadow: 0 1px 3px var(--Toggle-shadow-color), 0 1px 5px var(--Toggle-shadow-color);
 
     transform: translate(calc(var(--Toggle-knob-offset) - var(--Toggle-border-size)), -50%);
     transition: transform .3s, border-radius .3s;
@@ -196,8 +195,7 @@ export default {
 /* Styles */
 
 .Toggle-round {
-    --Toggle-radius: var(--input-radius-full);
-    --Toggle-knob-radius: var(--input-radius-full);
+    --Toggle-radius: var(--input-radius-round);
 }
 
 .Toggle-outline {
