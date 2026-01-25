@@ -32,24 +32,33 @@
         @focusout="focus = false">
 
         <slot
-            name="icon"
+            name="before"
             :hover="hover"
+            :active="active"
+            :focus="focus"
+            :blocked="blocked" />
+
+        <slot
+            :hover="hover"
+            :active="active"
+            :focus="focus"
             :blocked="blocked">
             <i
                 v-if="icon"
                 :class="icon"
                 class="Icon" />
+            <span
+                v-if="label"
+                class="Label">
+                {{ label }}
+            </span>
         </slot>
 
-        <span
-            v-if="label"
-            class="Label">
-            {{ label }}
-        </span>
-
         <slot
+            name="after"
             :hover="hover"
             :active="active"
+            :focus="focus"
             :blocked="blocked" />
 
     </component>

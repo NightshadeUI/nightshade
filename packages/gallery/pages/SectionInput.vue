@@ -60,6 +60,26 @@
             </template>
         </VGroup>
 
+        <h4>Before / After</h4>
+
+        <VGroup>
+            <InputText
+                v-model="text"
+                :labelStyle="labelStyle"
+                :round="commonOptions.round"
+                :flat="commonOptions.flat"
+                :outline="commonOptions.outline"
+                :disabled="commonOptions.disabled"
+                :forceFocus="commonOptions.forceFocus">
+                <template #before>
+                    💬
+                </template>
+                <template #after>
+                    ✅
+                </template>
+            </InputText>
+        </VGroup>
+
     </DualTheme>
 </template>
 
