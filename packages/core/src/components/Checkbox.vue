@@ -20,6 +20,10 @@
         @mouseleave="hover = false"
         @focusin="focus = true"
         @focusout="focus = false">
+        <slot v-if="modelValue" name="active">
+            <div class="Mark" />
+        </slot>
+        <slot v-if="!modelValue" name="inactive" />
         <input
             type="checkbox"
             :checked="modelValue"
@@ -139,10 +143,13 @@ export default {
     outline-offset: var(--input-outline-offset);
     background-clip: border-box;
 
+    font-size: var(--Checkbox-size);
+    color: var(--ui-surface-text-color);
+    text-shadow: var(--Checkbox-mark-shadow);
+    box-shadow: var(--Checkbox-shadow);
+
     cursor: pointer;
     user-select: none;
-
-    box-shadow: var(--Checkbox-shadow);
 
     transition: background-color .3s, border-radius .3s;
 }
@@ -151,44 +158,37 @@ export default {
     display: none;
 }
 
-.Checkbox::after {
+.Mark {
     opacity: 0;
-    font-size: var(--Checkbox-size);
-    color: var(--ui-surface-text-color);
-    text-shadow: var(--Checkbox-mark-shadow);
 
     transition: opacity .1s, border-radius .3s;
 }
 
-.Checkbox-active::after {
+.Checkbox-active .Mark {
     opacity: 1;
 }
 
 /* Marks */
 
-.Checkbox-mark-check::after {
+.Checkbox-mark-check .Mark::after {
     content: '✓';
 }
 
-.Checkbox-mark-xmark::after {
+.Checkbox-mark-xmark .Mark::after {
     content: '✗';
 }
 
-.Checkbox-mark-dot::after {
+.Checkbox-mark-dot .Mark::after {
     content: '●';
 }
 
-.Checkbox-mark-knob::after {
+.Checkbox-mark-knob .Mark {
     content: '';
     width: calc(var(--Checkbox-size) - var(--sp));
     height: calc(var(--Checkbox-size) - var(--sp));
     border-radius: calc(var(--Checkbox-radius) - 2px);
     background: var(--ui-surface-text-color);
     box-shadow: 0 1px 2px var(--Checkbox-shadow-color);
-}
-
-.Checkbox-mark-none::after {
-    content: '';
 }
 
 /* States */

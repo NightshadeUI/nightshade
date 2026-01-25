@@ -60,6 +60,21 @@
                     :forceHover="commonOptions.forceHover" />
             </HGroup>
         </VGroup>
+
+        <h4>Custom Content</h4>
+
+        <Checkbox
+            v-model="value"
+            kind="secondary"
+            :round="commonOptions.round"
+            :flat="commonOptions.flat"
+            :outline="commonOptions.outline"
+            :disabled="commonOptions.disabled"
+            :forceFocus="commonOptions.forceFocus"
+            :forceHover="commonOptions.forceHover">
+            <template #active>Y</template>
+            <template #inactive>N</template>
+        </Checkbox>
     </DualTheme>
 </template>
 
