@@ -31,9 +31,7 @@
             <div
                 v-if="labelStyle === 'inline'"
                 class="Label InlineLabel">
-                <div class="InlineLabelText">
-                    {{ label }}
-                </div>
+                {{ label }}
             </div>
         </template>
         <div class="InputElement Container">
@@ -191,7 +189,7 @@ export default {
 
 .InputBase-disabled .Container {
     opacity: .6;
-    filter: saturate(40%);
+    filter: saturate(50%);
     cursor: not-allowed;
 }
 
@@ -243,21 +241,28 @@ export default {
 
 .Label.InlineLabel {
     position: absolute;
-    top: calc(-1 * var(--InputBase-outline-size));
+    top: -2px;
     left: 0;
-    height: calc(var(--InputBase-border-size) + var(--InputBase-outline-size));
+    transform: translateY(-50%);
+    height: var(--sp2);
+    line-height: var(--sp2);
+    border-radius: var(--input-radius);
     z-index: 2;
     margin: 0 var(--InputBase-padding-x);
     padding: 0 2px;
 
-    background: var(--InputBase-surface);
-    user-select: none;
-}
-
-.InlineLabelText {
     color: var(--InputBase-label-color);
-    transform: translateY(-50%);
+    text-shadow:
+        -1px 0 0 var(--InputBase-surface),
+        1px 0 0 var(--InputBase-surface),
+        0 1px 0 var(--InputBase-surface),
+        0 -1px 0 var(--InputBase-surface),
+        0 0 4px var(--InputBase-surface),
+        0 0 4px var(--InputBase-surface),
+        0 0 4px var(--InputBase-surface),
+        0 0 4px var(--InputBase-surface);
 
+    user-select: none;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
