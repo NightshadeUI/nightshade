@@ -150,7 +150,7 @@ export default {
 <style scoped>
 .Btn {
     --Btn-size: var(--input-height);
-    --Btn-padding: var(--input-padding);
+    --Btn-padding: var(--input-padding-x);
     --Btn-gap: var(--input-gap);
     --Btn-font-size: var(--input-font-size);
 

@@ -117,7 +117,8 @@ export default {
 <style scoped>
 .InputBase {
     --InputBase-size: var(--input-height);
-    --InputBase-padding: var(--input-padding);
+    --InputBase-padding-x: var(--input-padding-x);
+    --InputBase-padding-y: var(--input-padding-y);
     --InputBase-gap: var(--input-gap);
     --InputBase-font-size: var(--input-font-size);
 
@@ -155,7 +156,7 @@ export default {
     display: flex;
     align-items: center;
     box-sizing: border-box;
-    padding: 0 var(--InputBase-padding);
+    padding: var(--InputBase-padding-y) var(--InputBase-padding-x);
     gap: var(--InputBase-gap);
     width: 100%;
     min-height: var(--InputBase-size);
@@ -229,7 +230,7 @@ export default {
 }
 
 .Label.TextLabel {
-    margin: 0 var(--InputBase-padding);
+    margin: 0 var(--InputBase-padding-x);
     line-height: 1.5;
     height: var(--sp3);
 
@@ -246,7 +247,7 @@ export default {
     left: 0;
     height: calc(var(--InputBase-border-size) + var(--InputBase-outline-size));
     z-index: 2;
-    margin: 0 var(--InputBase-padding);
+    margin: 0 var(--InputBase-padding-x);
     padding: 0 2px;
 
     background: var(--InputBase-surface);
