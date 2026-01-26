@@ -22,7 +22,8 @@
             <Tab
                 v-if="labelStyle === 'tab'"
                 class="Label TabLabel"
-                :label="label" />
+                :label="label"
+                :kind="kind" />
             <div
                 v-if="labelStyle === 'text'"
                 class="Label TextLabel">
@@ -136,9 +137,6 @@ export default {
 
     --InputBase-label-color: var(--ui-label-color);
     --InputBase-label-font-size: var(--font-size-s);
-    --InputBase-tab-size: var(--sp3);
-    --InputBase-tab-surface-color: var(--ui-surface-top-color);
-    --InputBase-tab-text-color: var(--ui-surface-text-color);
 
     position: relative;
     display: flex;
@@ -211,7 +209,6 @@ export default {
 /* Labels */
 
 .Label {
-    font-size: var(--InputBase-label-font-size);
     max-width: calc(100% - 2 * var(--sp2));
 }
 
@@ -221,16 +218,16 @@ export default {
     z-index: 0;
     margin: 0 var(--sp2);
 
-    --Tab-surface: var(--InputBase-tab-surface-color);
-    --Tab-color: var(--InputBase-tab-text-color);
-    --Tab-size: var(--InputBase-tab-size);
-    --Tab-cap-size: var(--InputBase-tab-cap-size);
+    --Tab-size: calc(.75 * var(--InputBase-size));
+    --Tab-cap-size: calc(.75 * var(--InputBase-size));
+    --Tab-font-size: var(--InputBase-font-size);
 }
 
 .Label.TextLabel {
     margin: 0 var(--InputBase-padding-x);
-    line-height: 1.5;
     height: var(--sp3);
+    line-height: 1.5;
+    font-size: var(--InputBase-label-font-size);
 
     color: var(--InputBase-text-color);
 
@@ -241,15 +238,17 @@ export default {
 
 .Label.InlineLabel {
     position: absolute;
+    z-index: 2;
     top: -2px;
-    left: 0;
+    left: -2px;
+    margin: 0 var(--InputBase-padding-x);
+    padding: 0 2px;
     transform: translateY(-50%);
     height: var(--sp2);
     line-height: var(--sp2);
+
+    font-size: var(--InputBase-label-font-size);
     border-radius: var(--input-radius);
-    z-index: 2;
-    margin: 0 var(--InputBase-padding-x);
-    padding: 0 2px;
 
     color: var(--InputBase-label-color);
     text-shadow:

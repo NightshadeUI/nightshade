@@ -3,6 +3,8 @@
         :is="tagName"
         class="Tab"
         :class="[
+            `ui-${kind}`,
+            `input-size-${size}`,
             `Tab-${dir}`,
             `Tab-${orientation}`,
         ]">
@@ -34,6 +36,9 @@ export default {
         tagName: { type: String, default: 'div' },
         dir: { type: String, default: 'top' },
         label: { type: String },
+
+        size: { type: String, default: 'm' },
+        kind: { type: String, default: 'base' },
     },
 
     computed: {
@@ -49,19 +54,24 @@ export default {
 
 <style scoped>
 .Tab {
-    --Tab-size: var(--sp3);
-    --Tab-cap-size: var(--sp4);
-    --Tab-surface: var(--color-base-1);
-    --Tab-color: var(--color-text-0);
-    --Tab-shadow-size: 0.5px;
+    --Tab-size: var(--input-height);
+    --Tab-cap-size: var(--input-height);
+    --Tab-font-size: var(--input-font-size);
+
+    --Tab-surface: var(--ui-surface-color);
+    --Tab-text-color: var(--ui-surface-text-color);
+
     --Tab-shadow-color: var(--shadow-color-medium);
-    --Tab-shadow-offset-x: 0;
-    --Tab-shadow-offset-y: 0;
+    --Tab-shadow: 0 0 .5px var(--Tab-shadow-color);
 
     display: flex;
     cursor: pointer;
     position: relative;
-    filter: drop-shadow(var(--Tab-shadow-offset-x) var(--Tab-shadow-offset-y) var(--Tab-shadow-size) var(--Tab-shadow-color));
+
+    color: var(--Tab-text-color);
+    filter: drop-shadow(var(--Tab-shadow));
+
+    font-size: var(--Tab-font-size);
 }
 
 .TabCap, .Content {

@@ -5,7 +5,7 @@
     --ui-base-surface-top-color: light-dark(var(--color-base-0), var(--color-base-200));
     --ui-base-surface-bottom-color: light-dark(var(--color-base-200), var(--color-base-0));
     --ui-base-surface-text-color: var(--color-base-text);
-    --ui-base-surface-text-shadow-color: var(--color-base-200);
+    --ui-base-surface-text-shadow-color: var(--color-base-50);
     --ui-base-border-color: var(--color-base-400);
     --ui-base-shadow-color: var(--shadow-color-medium);
     --ui-base-focus-light-color: light-dark(var(--color-secondary-300), var(--color-secondary-700));
