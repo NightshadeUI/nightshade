@@ -2,6 +2,7 @@
     <div
         class="ToolPanel"
         :class="[
+            `ToolPanel-size-${size}`,
             `input-size-${size}`,
             {
                 'ToolPanel-flat': flat,
@@ -54,6 +55,10 @@ export default {
     background: var(--ToolPanel-surface);
 
     transition: color .3s, background-color .3s, border-radius .3s, filter .3s;
+}
+
+.ToolPanel-size-s {
+    --ToolPanel-padding: var(--sp0-25);
 }
 
 /* Styles */

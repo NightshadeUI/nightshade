@@ -4,8 +4,9 @@
 
     --input-height: var(--input-size-m-height);
     --input-font-size: var(--font-size-m);
-    --input-padding-x: var(--sp1-5);
-    --input-padding-y: var(--sp1);
+    --input-padding-md: var(--sp1-5);
+    --input-padding-sm: var(--sp1);
+    --input-gap: var(--sp1);
 
     --input-radius-round: var(--border-radius-l);
 
@@ -13,36 +14,36 @@
 
     --input-size-xs-height: var(--sp2-5);
     --input-size-xs-font-size: var(--font-size-xs);
-    --input-size-xs-padding-x: var(--sp1);
-    --input-size-xs-padding-y: var(--sp0-5);
-    --input-size-xs-gap: var(--sp0-5);
+    --input-size-xs-padding-md: var(--sp1);
+    --input-size-xs-padding-sm: var(--sp0-25);
+    --input-size-xs-gap: var(--sp0-25);
     --input-size-xs-radius-round: var(--sp1-5);
 
     --input-size-s-height: var(--sp3);
     --input-size-s-font-size: var(--font-size-s);
-    --input-size-s-padding-x: var(--sp1);
-    --input-size-s-padding-y: var(--sp0-5);
+    --input-size-s-padding-md: var(--sp1);
+    --input-size-s-padding-sm: var(--sp0-5);
     --input-size-s-gap: var(--sp0-5);
     --input-size-s-radius-round: var(--sp1-5);
 
     --input-size-m-height: var(--sp4);
     --input-size-m-font-size: var(--font-size-m);
-    --input-size-m-padding-x: var(--sp1-5);
-    --input-size-m-padding-y: var(--sp1);
+    --input-size-m-padding-md: var(--sp1-5);
+    --input-size-m-padding-sm: var(--sp1);
     --input-size-m-gap: var(--sp1);
     --input-size-m-radius-round: var(--sp2);
 
     --input-size-l-height: var(--sp5);
     --input-size-l-font-size: var(--font-size-m);
-    --input-size-l-padding-x: var(--sp2);
-    --input-size-l-padding-y: var(--sp1);
+    --input-size-l-padding-md: var(--sp2);
+    --input-size-l-padding-sm: var(--sp1);
     --input-size-l-gap: var(--sp1);
     --input-size-l-radius-round: var(--sp2-5);
 
     --input-size-xl-height: var(--sp6);
     --input-size-xl-font-size: var(--font-size-l);
-    --input-size-xl-padding-x: var(--sp2-5);
-    --input-size-xl-padding-y: var(--sp1-5);
+    --input-size-xl-padding-md: var(--sp2-5);
+    --input-size-xl-padding-sm: var(--sp1-5);
     --input-size-xl-gap: var(--sp1-5);
     --input-size-xl-radius-round: var(--sp3);
 
@@ -51,8 +52,8 @@
 .input-size-xs {
     --input-height: var(--input-size-xs-height);
     --input-font-size: var(--input-size-xs-font-size);
-    --input-padding-x: var(--input-size-xs-padding-x);
-    --input-padding-y: var(--input-size-xs-padding-y);
+    --input-padding-md: var(--input-size-xs-padding-md);
+    --input-padding-sm: var(--input-size-xs-padding-sm);
     --input-gap: var(--input-size-xs-gap);
     --input-radius-round: var(--input-size-xs-radius-round);
 }
@@ -60,8 +61,8 @@
 .input-size-s, .input-size-small {
     --input-height: var(--input-size-s-height);
     --input-font-size: var(--input-size-s-font-size);
-    --input-padding-x: var(--input-size-s-padding-x);
-    --input-padding-y: var(--input-size-s-padding-y);
+    --input-padding-md: var(--input-size-s-padding-md);
+    --input-padding-sm: var(--input-size-s-padding-sm);
     --input-gap: var(--input-size-s-gap);
     --input-radius-round: var(--input-size-s-radius-round);
 }
@@ -69,8 +70,8 @@
 .input-size-m, .input-size-medium, .input-size-normal {
     --input-height: var(--input-size-m-height);
     --input-font-size: var(--input-size-m-font-size);
-    --input-padding-x: var(--input-size-m-padding-x);
-    --input-padding-y: var(--input-size-m-padding-y);
+    --input-padding-md: var(--input-size-m-padding-md);
+    --input-padding-sm: var(--input-size-m-padding-sm);
     --input-gap: var(--input-size-m-gap);
     --input-radius-round: var(--input-size-m-radius-round);
 }
@@ -78,8 +79,8 @@
 .input-size-l, .input-size-large {
     --input-height: var(--input-size-l-height); 
     --input-font-size: var(--input-size-l-font-size);
-    --input-padding-x: var(--input-size-l-padding-x);
-    --input-padding-y: var(--input-size-l-padding-y);
+    --input-padding-md: var(--input-size-l-padding-md);
+    --input-padding-sm: var(--input-size-l-padding-sm);
     --input-gap: var(--input-size-l-gap);
     --input-radius-round: var(--input-size-l-radius-round);
 }
@@ -87,8 +88,8 @@
 .input-size-xl {
     --input-height: var(--input-size-xl-height);
     --input-font-size: var(--input-size-xl-font-size);
-    --input-padding-x: var(--input-size-xl-padding-x);
-    --input-padding-y: var(--input-size-xl-padding-y);
+    --input-padding-md: var(--input-size-xl-padding-md);
+    --input-padding-sm: var(--input-size-xl-padding-sm);
     --input-gap: var(--input-size-xl-gap);
     --input-radius-round: var(--input-size-xl-radius-round);
 }

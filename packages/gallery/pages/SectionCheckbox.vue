@@ -113,10 +113,3 @@ export default {
 
 };
 </script>
-
-<style scoped>
-.Label {
-    font-weight: var(--font-weight-bold);
-    width: var(--sp8);
-}
-</style>

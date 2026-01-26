@@ -115,8 +115,8 @@ export default {
 <style scoped>
 .InputBase {
     --InputBase-size: var(--input-height);
-    --InputBase-padding-x: var(--input-padding-x);
-    --InputBase-padding-y: var(--input-padding-y);
+    --InputBase-padding-x: var(--input-padding-md);
+    --InputBase-padding-y: var(--input-padding-sm);
     --InputBase-gap: var(--input-gap);
     --InputBase-font-size: var(--input-font-size);
 
@@ -253,14 +253,16 @@ export default {
 
     color: var(--InputBase-label-color);
     text-shadow:
-        -1px 0 0 var(--InputBase-surface),
-        1px 0 0 var(--InputBase-surface),
-        0 1px 0 var(--InputBase-surface),
-        0 -1px 0 var(--InputBase-surface),
-        0 0 4px var(--InputBase-surface),
-        0 0 4px var(--InputBase-surface),
-        0 0 4px var(--InputBase-surface),
-        0 0 4px var(--InputBase-surface);
+        0 0 3px var(--InputBase-surface),
+        0 0 3px var(--InputBase-surface),
+        0 0 3px var(--InputBase-surface),
+        0 0 3px var(--InputBase-surface),
+        0 0 3px var(--InputBase-surface),
+        0 0 3px var(--InputBase-surface),
+        0 0 3px var(--InputBase-surface),
+        0 0 3px var(--InputBase-surface),
+        0 0 3px var(--InputBase-surface),
+        0 0 3px var(--InputBase-surface);
 
     user-select: none;
     white-space: nowrap;
