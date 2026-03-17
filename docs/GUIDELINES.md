@@ -16,6 +16,7 @@
 - Emit `update:modelValue` for v-model compatible controls.
 - For modifiers use explicit state class names with component prefixing (`Component-modifier`).
 - Use PascalCase for component names and sub-elements. Unlike modifiers, sub-elements are NOT prefixed with component name (e.g. use `Label` instead of `Btn-Label`).
+- Use concise, contextual sub-element names and avoid redundant semantics in one class name (e.g. `BodyContent` -> `Content`, `ButtonLabel` -> `Label`, `HeaderTitle` -> `Title`). Prefer not to use the same name for multiple elements in the same component.
 - Maintain slot names (`before`, default, `after`) where relevant.
 
 ## CSS Guidelines
@@ -28,6 +29,8 @@
   - `--sp*`
 - Keep utilities single-purpose and low-specificity.
 - Keep component-local variables prefixed by component name (`--Btn-*`, `--InputBase-*`, `--Toggle-*`).
+- Prefer tokenized sizing/spacing (`--sp*`, `--input-*`, `--ui-*`) over literal `px` values when an equivalent token exists.
+- Avoid redundant wrapper elements when one container can express structure and styling.
 - Group styles in readable blocks: base, states, variants/modifiers.
 
 ## Docs Guidelines

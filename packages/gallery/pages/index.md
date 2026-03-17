@@ -19,6 +19,8 @@ showAppearance: true
 
 <SectionToolPanel />
 
+<SectionBubble />
+
 <SectionCombinations />
 
 <script setup>
@@ -29,4 +31,5 @@ import SectionCombinations from './SectionCombinations.vue';
 import SectionToggle from './SectionToggle.vue';
 import SectionToolPanel from './SectionToolPanel.vue';
 import SectionCheckbox from './SectionCheckbox.vue';
+import SectionBubble from './SectionBubble.vue';
 </script>

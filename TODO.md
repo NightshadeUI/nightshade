@@ -1,5 +1,4 @@
-- [ ] BubbleArrow
-- [ ] Bubble
+- [x] Bubble
 - [ ] ContextPopup
 - [ ] NavMenu
 - [ ] ContextMenu
