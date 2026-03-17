@@ -19,15 +19,16 @@ Nightshade is a Vue-focused UI system workspace containing core components, styl
   - `packages/nightshade/AGENTS.md`
 - If rules conflict, apply the stricter/package-specific constraint.
 
+## Commit Style
+
+- Use Conventional Commits for every commit message.
+- Format: type: short summary (lowercased, no dot at the end)`
+- Allowed types: `feat`, `fix`, `docs`, `chore`, `style`, `refactor`, `build`.
+
 ## Change Checklist
 
 - [ ] Scope changes to the correct package(s); keep modules focused.
 - [ ] Follow package-local requirements in the corresponding `packages/*/AGENTS.md`.
 - [ ] Keep docs concise and scannable with proper fenced code blocks.
 - [ ] Run relevant build/dev checks before finishing (`npm run build` or package-specific scripts).
-
-## Commit Style
-
-- Use Conventional Commits for every commit message.
-- Format: `type(scope): short summary` (or `type: short summary` if no scope fits).
-- Allowed types: `feat`, `fix`, `docs`, `chore`, `refactor`, `test`, `build`, `ci`, `perf`.
+- [ ] Commit messages follow the Commit Style.
