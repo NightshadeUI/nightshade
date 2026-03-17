@@ -50,12 +50,11 @@ export default {
 <style scoped>
 .BubbleCard {
     position: relative;
-    width: 220px;
-    min-height: 140px;
+    min-width: 192px;
+    min-height: 120px;
     border-radius: var(--border-radius);
     border: 1px dashed var(--color-base-300);
     background: var(--color-base-200);
-    overflow: hidden;
 }
 
 .Anchor {

@@ -1,6 +1,6 @@
 - [x] Bubble
 - [x] ContextPopup
-- [ ] BaseMenu
+- [x] BaseMenu
 - [ ] ContextMenu
 - [ ] InputSelect
 - [ ] Palette Generator
