@@ -1,5 +1,6 @@
 <template>
     <div class="RootLayout">
+        <div id="overlays" />
         <template v-if="frontmatter.preamble === 'Jumbo'">
             <Jumbo />
         </template>

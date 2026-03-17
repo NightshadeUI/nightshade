@@ -6,6 +6,7 @@
     --text-color: var(--ui-base-text-color);
     --text-color-subtle: var(--color-base-600);
     --text-color-sublime: var(--color-base-500);
+    --overlay-surface: light-dark(rgba(0,0,0,.1), rgba(0,0,0,.2));
     
     /* Shadows */
     

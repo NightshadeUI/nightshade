@@ -1,6 +1,7 @@
 import Btn from './Btn.vue';
 import Bubble from './Bubble.vue';
 import Checkbox from './Checkbox.vue';
+import ContextPopup from './ContextPopup.vue';
 import Filler from './Filler.vue';
 import HGroup from './HGroup.vue';
 import InputBase from './InputBase.vue';
@@ -18,6 +19,7 @@ export {
     Btn,
     Bubble,
     Checkbox,
+    ContextPopup,
     Filler,
     HGroup,
     InputBase,

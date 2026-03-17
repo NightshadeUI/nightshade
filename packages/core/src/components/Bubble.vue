@@ -34,7 +34,7 @@ export default {
 .Bubble {
     position: absolute;
     z-index: 10;
-    filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.2));
+    filter: drop-shadow(0 1px 3px var(--shadow-color-light));
 }
 
 .Body {

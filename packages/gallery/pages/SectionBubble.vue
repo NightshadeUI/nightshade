@@ -71,7 +71,7 @@ export default {
 }
 
 .Content {
-    padding: var(--sp0-25) var(--sp0-5);
+    padding: var(--sp);
     white-space: nowrap;
 }
 
