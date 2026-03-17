@@ -40,6 +40,7 @@ All edits in this package must follow the shared repository guidelines in `docs/
 - Do demonstrate token classes (`ui-*`, `input-size-*`) and component props.
 - Don’t introduce app-specific business logic.
 - Don’t duplicate component behavior that should live in `@nightshadeui/core`.
+- Check your work by running `npm run dev` locally and using Chrome DevTools MCP to inspect the page.
 
 ## Useful Commands
 
