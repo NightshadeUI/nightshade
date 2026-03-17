@@ -29,6 +29,7 @@
   - `--sp*`
 - Keep utilities single-purpose and low-specificity.
 - Keep component-local variables prefixed by component name (`--Btn-*`, `--InputBase-*`, `--Toggle-*`).
+- Define component-local variable defaults on the component root class (e.g. `.Btn`, `.Bubble`) and reference those variables without per-usage fallbacks; avoid `var(--Component-foo, ...)` in descendants so CSS layer overrides work consistently.
 - Prefer tokenized sizing/spacing (`--sp*`, `--input-*`, `--ui-*`) over literal `px` values when an equivalent token exists.
 - Avoid redundant wrapper elements when one container can express structure and styling.
 - Group styles in readable blocks: base, states, variants/modifiers.

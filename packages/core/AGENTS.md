@@ -24,6 +24,7 @@ All edits in this package must follow the shared repository guidelines in `docs/
   - `ui-${kind}`
   - `input-size-${size}`
 - Component-local CSS variables use `--<Component>-*` naming and delegate to shared tokens (`--ui-*`, `--color-*`, `--input-*`, `--sp*`).
+- Put component-local default values on the component root class, then consume them without inline fallbacks in descendants (prefer `var(--Component-foo)` over `var(--Component-foo, ...)`) to keep CSS layer overrides predictable.
 - Modifier/state classes follow `Component-modifier` naming:
   - examples: `Btn-round`, `InputBase-flat`, `Toggle-active`.
 - Styles are `scoped` by default.
