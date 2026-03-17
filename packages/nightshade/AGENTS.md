@@ -6,6 +6,10 @@
 - JS exports from `@nightshadeui/core`
 - CSS entrypoint combining core CSS and stylesheets
 
+## Shared Repository Guidelines (Required)
+
+All edits in this package must follow the shared repository guidelines in `docs/GUIDELINES.md`.
+
 ## Existing Architecture
 
 - `index.mjs`: re-export all from `@nightshadeui/core`.

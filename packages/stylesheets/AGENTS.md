@@ -4,6 +4,10 @@
 
 `@nightshadeui/stylesheets` defines Nightshade’s CSS foundation: variables, semantic mappings, base element styles, utility classes, and optional modules.
 
+## Shared Repository Guidelines (Required)
+
+All edits in this package must follow the shared repository guidelines in `docs/GUIDELINES.md`.
+
 ## Existing Architecture
 
 - Entry: `index.css` imports all core variable and utility files.

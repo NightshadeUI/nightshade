@@ -4,6 +4,10 @@
 
 `@nightshadeui/gallery` is the documentation/showcase app for Nightshade components and token behavior. It demonstrates patterns; it is not a production component package.
 
+## Shared Repository Guidelines (Required)
+
+All edits in this package must follow the shared repository guidelines in `docs/GUIDELINES.md`.
+
 ## Existing Architecture
 
 - Tooling: VitePress (`vitepress dev/build/preview`).

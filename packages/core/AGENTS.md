@@ -4,6 +4,10 @@
 
 `@nightshadeui/core` contains Nightshade Vue UI primitives and layout helpers. It is intentionally small and built around the same styling model as the CSS package.
 
+## Shared Repository Guidelines (Required)
+
+All edits in this package must follow the shared repository guidelines in `docs/GUIDELINES.md`.
+
 ## Existing Architecture
 
 - Component style: Vue SFCs in `src/components/*.vue`.
