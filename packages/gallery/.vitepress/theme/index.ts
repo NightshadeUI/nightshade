@@ -1,3 +1,4 @@
+import '@fortawesome/fontawesome-free/css/all.css';
 import './theme.css';
 
 import * as coreComponents from '@nightshadeui/core/src';

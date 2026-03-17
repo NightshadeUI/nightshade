@@ -1,3 +1,4 @@
+import BaseMenu from './BaseMenu.vue';
 import Btn from './Btn.vue';
 import Bubble from './Bubble.vue';
 import Checkbox from './Checkbox.vue';
@@ -16,6 +17,7 @@ import ToolPanel from './ToolPanel.vue';
 import VGroup from './VGroup.vue';
 
 export {
+    BaseMenu,
     Btn,
     Bubble,
     Checkbox,

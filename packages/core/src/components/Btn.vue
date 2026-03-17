@@ -47,11 +47,18 @@
                 v-if="icon"
                 :class="icon"
                 class="Icon" />
-            <span
-                v-if="label"
-                class="Label">
-                {{ label }}
-            </span>
+            <slot
+                name="label"
+                :hover="hover"
+                :active="active"
+                :focus="focus"
+                :blocked="blocked">
+                <span
+                    v-if="label"
+                    class="Label">
+                    {{ label }}
+                </span>
+            </slot>
         </slot>
 
         <slot
