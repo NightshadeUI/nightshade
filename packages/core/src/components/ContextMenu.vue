@@ -40,11 +40,11 @@ export default {
     computed: {
 
         contextPopupProps() {
-            return collectProps(this, Object.keys(ContextPopup.props || {}));
+            return collectProps(this, ContextPopup);
         },
 
         baseMenuProps() {
-            return collectProps(this, Object.keys(BaseMenu.props || {}));
+            return collectProps(this, BaseMenu);
         }
 
     },

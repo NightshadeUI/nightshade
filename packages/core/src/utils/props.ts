@@ -1,7 +1,8 @@
-export function collectProps(component: any, propKeys: string[]): Record<string, any> {
+export function collectProps(instance: any, targetComponent: any): Record<string, any> {
     const props: Record<string, any> = {};
+    const propKeys = Object.keys(targetComponent.props || {});
     for (const key of propKeys) {
-        props[key] = (component as any)[key];
+        props[key] = (instance.$props as any)[key];
     }
     return props;
 }

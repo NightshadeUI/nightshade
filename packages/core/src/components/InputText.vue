@@ -1,9 +1,7 @@
 <template>
     <InputBase
         class="InputText"
-        v-bind="{
-            ...$props
-        }">
+        v-bind="inputBaseProps">
         <slot name="before" />
         <input
             ref="input"
@@ -24,9 +22,14 @@
 </template>
 
 <script>
+import { collectProps } from '../utils/props';
 import InputBase from './InputBase.vue';
 
 export default {
+
+    components: {
+        InputBase,
+    },
 
     props: {
         ...InputBase.props,
@@ -46,6 +49,12 @@ export default {
         'input',
         'update:modelValue'
     ],
+
+    computed: {
+        inputBaseProps() {
+            return collectProps(this, InputBase);
+        }
+    },
 
     mounted() {
         if (this.autoFocus) {

@@ -1,9 +1,7 @@
 <template>
     <InputBase
         class="InputTextarea"
-        v-bind="{
-            ...$props
-        }"
+        v-bind="inputBaseProps"
         :fixedHeight="false">
         <slot name="before" />
         <textarea
@@ -23,9 +21,14 @@
 </template>
 
 <script>
+import { collectProps } from '../utils/props';
 import InputBase from './InputBase.vue';
 
 export default {
+
+    components: {
+        InputBase,
+    },
 
     props: {
         ...InputBase.props,
@@ -43,6 +46,12 @@ export default {
         'input',
         'update:modelValue'
     ],
+
+    computed: {
+        inputBaseProps() {
+            return collectProps(this, InputBase);
+        }
+    },
 
     watch: {
 

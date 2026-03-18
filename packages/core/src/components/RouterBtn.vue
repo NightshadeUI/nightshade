@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import { collectProps } from '../utils/props';
 import Btn from './Btn.vue';
 
 export default {
@@ -31,8 +32,9 @@ export default {
     methods: {
 
         actualProps(isActive, isExactActive) {
+            const btnProps = collectProps(this, Btn);
             return {
-                ...this.$props,
+                ...btnProps,
                 ...this.baseProps,
                 ...(isActive ? this.activeProps : {}),
                 ...(isExactActive ? this.exactActiveProps : {}),
