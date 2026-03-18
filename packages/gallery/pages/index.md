@@ -25,6 +25,8 @@ showAppearance: true
 
 <SectionBaseMenu />
 
+<SectionContextMenu />
+
 <SectionCombinations />
 
 <script setup>
@@ -37,5 +39,6 @@ import SectionToolPanel from './SectionToolPanel.vue';
 import SectionCheckbox from './SectionCheckbox.vue';
 import SectionBubble from './SectionBubble.vue';
 import SectionContextPopup from './SectionContextPopup.vue';
+import SectionContextMenu from './SectionContextMenu.vue';
 import SectionBaseMenu from './SectionBaseMenu.vue';
 </script>

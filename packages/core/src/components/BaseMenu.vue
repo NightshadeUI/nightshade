@@ -134,9 +134,11 @@ export default {
 .BaseMenu {
     --BaseMenu-padding: var(--sp0-5) var(--sp);
     --BaseMenu-gap: var(--sp0-5);
+    --BaseMenu-min-width: 192px;
 
     padding: var(--BaseMenu-padding);
     gap: var(--BaseMenu-gap);
+    min-width: var(--BaseMenu-min-width);
 }
 
 .Header {
@@ -157,5 +159,11 @@ export default {
     flex: 1;
     align-self: flex-start;
     text-align: left;
+}
+
+.Item {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 </style>

@@ -2,6 +2,7 @@ import BaseMenu from './BaseMenu.vue';
 import Btn from './Btn.vue';
 import Bubble from './Bubble.vue';
 import Checkbox from './Checkbox.vue';
+import ContextMenu from './ContextMenu.vue';
 import ContextPopup from './ContextPopup.vue';
 import Filler from './Filler.vue';
 import HGroup from './HGroup.vue';
@@ -21,6 +22,7 @@ export {
     Btn,
     Bubble,
     Checkbox,
+    ContextMenu,
     ContextPopup,
     Filler,
     HGroup,

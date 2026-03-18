@@ -54,6 +54,5 @@ export default {
     background: var(--ui-surface-color);
     border-radius: var(--input-radius);
     border: var(--input-border-size) solid var(--color-base-100);
-    min-width: 240px;
 }
 </style>
