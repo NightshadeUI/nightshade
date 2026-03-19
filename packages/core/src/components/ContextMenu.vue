@@ -30,6 +30,7 @@ export default {
     props: {
         ...ContextPopup.props,
         ...BaseMenu.props,
+        autoFocus: { type: Boolean, default: true },
     },
 
     emits: [
