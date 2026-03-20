@@ -21,6 +21,7 @@ Nightshade is a Vue-focused UI system workspace containing core components, styl
 
 ## Commit Style
 
+- Do not commit changes unless explicitly instructed to do so.
 - Use Conventional Commits for every commit message.
 - Format: type: short summary (lowercased, no dot at the end)`
 - Allowed types: `feat`, `fix`, `docs`, `chore`, `style`, `refactor`, `build`.
