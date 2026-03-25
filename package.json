@@ -22,6 +22,7 @@
         "publish:nightshade": "cd packages/nightshade && npm publish --access public"
     },
     "dependencies": {
+        "@nightshadeui/content-editor": "./packages/content-editor",
         "@nightshadeui/core": "./packages/core",
         "@nightshadeui/gallery": "./packages/gallery",
         "@nightshadeui/stylesheets": "./packages/stylesheets"
