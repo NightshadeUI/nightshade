@@ -22,7 +22,8 @@ export class BlockRenderer {
             }
             const classAttr = blockDef.className ? ` class="${escapeHtmlAttr(blockDef.className)}"` : '';
             const inlineHtml = this.inlineSanitizer.sanitizeHtml(block.text);
-            result.push(`<${blockDef.tag}${classAttr}>${inlineHtml}</${blockDef.tag}>`);
+            const blockHtml = inlineHtml === '' ? '<br>' : inlineHtml;
+            result.push(`<${blockDef.tag}${classAttr}>${blockHtml}</${blockDef.tag}>`);
         }
         return result.join('\n');
     }

@@ -1,7 +1,7 @@
 <template>
-    <div class="ContentEditor" style="position: relative;">
+    <div class="ContentEditor">
         <ContentEditorToolbar :controller="controller" />
-        <div ref="editorEl" class="ContentEditorEditable" />
+        <div ref="editorEl" class="EditableContent" />
     </div>
 </template>
 
@@ -61,3 +61,13 @@ export default {
     },
 };
 </script>
+
+<style scoped>
+.ContentEditor {
+    position: relative;
+}
+
+.EditableContent {
+    outline: 0;
+}
+</style>
