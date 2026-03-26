@@ -1,7 +1,6 @@
-import type { ContentEditorOptions, ContentValue } from '../types.js';
+import type { ContentBlock, ContentEditorOptions, ContentValue } from '../types.js';
 import { BlockParser } from './BlockParser.js';
 import { BlockRenderer } from './BlockRenderer.js';
-import { createEmptyValue } from './defaults.js';
 import { HtmlInlineSanitizer } from './HtmlInlineSanitizer.js';
 
 export function sanitizeContentValue(input: unknown, options: ContentEditorOptions): ContentValue {
@@ -26,4 +25,15 @@ export function renderContentValue(value: ContentValue, options: ContentEditorOp
     const inlineSanitizer = new HtmlInlineSanitizer(options.inlines);
     const renderer = new BlockRenderer(options.blocks, fallbackType, inlineSanitizer);
     return renderer.render(sanitized);
+}
+
+function createEmptyBlock(options: ContentEditorOptions): ContentBlock {
+    return {
+        type: options.defaultBlockType ?? options.blocks[0].type,
+        text: '',
+    };
+}
+
+function createEmptyValue(options: ContentEditorOptions): ContentValue {
+    return [createEmptyBlock(options)];
 }

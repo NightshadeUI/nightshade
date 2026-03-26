@@ -1,13 +1,14 @@
 import { Event } from 'nanoevent';
 
 import type {
+    BlockMarkupConfig,
     ContentEditorOptions,
     ContentInlineType,
     ContentValue,
+    InlineMarkupConfig,
     ToolbarState,
 } from './types.js';
 import { parseEditorElement, renderContentValue, sanitizeContentValue } from './utils/content.js';
-import { normalizeOptions } from './utils/defaults.js';
 import { getSelectionOffsets, restoreSelectionOffsets } from './utils/selection.js';
 
 export class ContentEditorController {
@@ -30,12 +31,32 @@ export class ContentEditorController {
 
     public onUpdate = new Event<ContentValue>();
     public onToolbar = new Event<ToolbarState>();
+    private listeners = {
+        onInput: () => this.onInput(),
+        onFocusIn: () => this.onFocusIn(),
+        onFocusOut: () => this.onFocusOut(),
+        onSelectionRelevantEvent: () => this.onSelectionRelevantEvent(),
+        onSelectionChange: () => this.onSelectionChange(),
+    };
+
+    private static readonly DEFAULT_BLOCKS: BlockMarkupConfig[] = [
+        { type: 'p1', tag: 'p', label: 'Paragraph' },
+        { type: 'p2', tag: 'p', label: 'Kicker' },
+        { type: 'p3', tag: 'p', label: '' },
+        { type: 'h1', tag: 'h1', label: 'Paragraph' },
+    ];
+
+    private static readonly DEFAULT_INLINES: InlineMarkupConfig[] = [
+        { type: 'bold', tag: 'strong', label: 'Bold' },
+        { type: 'italic', tag: 'em', label: 'Italic' },
+        { type: 'underline', tag: 'u', label: 'Underline' },
+    ];
 
     constructor(
         modelValue: ContentValue | null | undefined,
         options: Partial<ContentEditorOptions> | undefined,
     ) {
-        this.options = normalizeOptions(options);
+        this.options = this.normalizeOptions(options);
         this.value = sanitizeContentValue(modelValue, this.options);
     }
 
@@ -53,12 +74,12 @@ export class ContentEditorController {
         this.rootEl.setAttribute('contenteditable', 'true');
         this.rootEl.setAttribute('spellcheck', 'true');
         this.renderToEditor();
-        this.rootEl.addEventListener('input', this.onInput);
-        this.rootEl.addEventListener('focusin', this.onFocusIn);
-        this.rootEl.addEventListener('focusout', this.onFocusOut);
-        this.rootEl.addEventListener('keyup', this.onSelectionRelevantEvent);
-        this.rootEl.addEventListener('mouseup', this.onSelectionRelevantEvent);
-        document.addEventListener('selectionchange', this.onSelectionChange);
+        this.rootEl.addEventListener('input', this.listeners.onInput);
+        this.rootEl.addEventListener('focusin', this.listeners.onFocusIn);
+        this.rootEl.addEventListener('focusout', this.listeners.onFocusOut);
+        this.rootEl.addEventListener('keyup', this.listeners.onSelectionRelevantEvent);
+        this.rootEl.addEventListener('mouseup', this.listeners.onSelectionRelevantEvent);
+        document.addEventListener('selectionchange', this.listeners.onSelectionChange);
     }
 
     public unmount(): void {
@@ -66,12 +87,12 @@ export class ContentEditorController {
             return;
         }
         this.isMounted = false;
-        this.rootEl.removeEventListener('input', this.onInput);
-        this.rootEl.removeEventListener('focusin', this.onFocusIn);
-        this.rootEl.removeEventListener('focusout', this.onFocusOut);
-        this.rootEl.removeEventListener('keyup', this.onSelectionRelevantEvent);
-        this.rootEl.removeEventListener('mouseup', this.onSelectionRelevantEvent);
-        document.removeEventListener('selectionchange', this.onSelectionChange);
+        this.rootEl.removeEventListener('input', this.listeners.onInput);
+        this.rootEl.removeEventListener('focusin', this.listeners.onFocusIn);
+        this.rootEl.removeEventListener('focusout', this.listeners.onFocusOut);
+        this.rootEl.removeEventListener('keyup', this.listeners.onSelectionRelevantEvent);
+        this.rootEl.removeEventListener('mouseup', this.listeners.onSelectionRelevantEvent);
+        document.removeEventListener('selectionchange', this.listeners.onSelectionChange);
         this.rootEl = null;
     }
 
@@ -164,16 +185,16 @@ export class ContentEditorController {
         this.onUpdate.emit(this.value);
     }
 
-    private onInput = (): void => {
+    private onInput(): void {
         this.applyEditorDomAsSourceOfTruth();
-    };
+    }
 
-    private onFocusIn = (): void => {
+    private onFocusIn(): void {
         this.hasEditorFocus = true;
         this.syncToolbar();
-    };
+    }
 
-    private onFocusOut = (): void => {
+    private onFocusOut(): void {
         window.setTimeout(() => {
             if (!this.rootEl) {
                 return;
@@ -182,15 +203,15 @@ export class ContentEditorController {
             this.hasEditorFocus = !!activeElement && this.rootEl.contains(activeElement);
             this.syncToolbar();
         }, 0);
-    };
+    }
 
-    private onSelectionRelevantEvent = (): void => {
+    private onSelectionRelevantEvent(): void {
         this.syncToolbar();
-    };
+    }
 
-    private onSelectionChange = (): void => {
+    private onSelectionChange(): void {
         this.syncToolbar();
-    };
+    }
 
     private getActiveBlockElement(): HTMLElement | null {
         if (!this.rootEl) {
@@ -294,6 +315,17 @@ export class ContentEditorController {
             return;
         }
         this.onToolbar.emit(this.toolbarState);
+    }
+
+    private normalizeOptions(options?: Partial<ContentEditorOptions>): ContentEditorOptions {
+        const blocks = options?.blocks?.length ? options.blocks : ContentEditorController.DEFAULT_BLOCKS;
+        const inlines = options?.inlines?.length ? options.inlines : ContentEditorController.DEFAULT_INLINES;
+        const defaultBlockType = options?.defaultBlockType ?? blocks[0].type;
+        return {
+            blocks,
+            inlines,
+            defaultBlockType,
+        };
     }
 
 }
