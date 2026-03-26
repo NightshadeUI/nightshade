@@ -24,11 +24,10 @@ export default {
     emits: ['update:modelValue'],
 
     data() {
-        const controller = new ContentEditorController(this.modelValue, this.options, {
-            onModelValue: doc => {
-                this.isInternalUpdatePending = true;
-                this.$emit('update:modelValue', doc);
-            },
+        const controller = new ContentEditorController(this.modelValue, this.options);
+        controller.onUpdate.on(doc => {
+            this.isInternalUpdatePending = true;
+            this.$emit('update:modelValue', doc);
         });
         return {
             controller,

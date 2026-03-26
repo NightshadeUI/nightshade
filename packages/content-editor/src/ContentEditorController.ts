@@ -1,3 +1,5 @@
+import { Event } from 'nanoevent';
+
 import type {
     ContentDocument,
     ContentEditorOptions,
@@ -8,17 +10,12 @@ import { parseEditorElement, renderDocument, sanitizeDocument } from './utils/co
 import { normalizeOptions } from './utils/defaults.js';
 import { getSelectionOffsets, restoreSelectionOffsets } from './utils/selection.js';
 
-interface ControllerCallbacks {
-    onModelValue: (doc: ContentDocument) => void;
-}
-
 export class ContentEditorController {
 
     public isApplyingExternalUpdate = false;
 
     private rootEl: HTMLElement | null = null;
     private options: ContentEditorOptions;
-    private callbacks: ControllerCallbacks;
     private documentValue: ContentDocument;
     private hasEditorFocus = false;
     private toolbarState: ToolbarState = {
@@ -30,13 +27,13 @@ export class ContentEditorController {
         hasSelection: false,
     };
 
+    onUpdate = new Event<ContentDocument>();
+
     constructor(
         modelValue: ContentDocument | null | undefined,
         options: Partial<ContentEditorOptions> | undefined,
-        callbacks: ControllerCallbacks,
     ) {
         this.options = normalizeOptions(options);
-        this.callbacks = callbacks;
         this.documentValue = sanitizeDocument(modelValue, this.options);
     }
 
@@ -156,7 +153,7 @@ export class ContentEditorController {
     }
 
     private emitModel(): void {
-        this.callbacks.onModelValue(this.documentValue);
+        this.onUpdate.emit(this.documentValue);
     }
 
     private onInput = (): void => {
