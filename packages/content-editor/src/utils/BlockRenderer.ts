@@ -1,15 +1,11 @@
 import type { BlockMarkupConfig, ContentBlock, ContentBlockType } from '../types.js';
 import { escapeHtmlAttr } from './escape.js';
-import { HtmlInlineSanitizer } from './HtmlInlineSanitizer.js';
 
 export class BlockRenderer {
 
     private blockMap: Map<ContentBlockType, BlockMarkupConfig>;
 
-    constructor(
-        public config: BlockMarkupConfig[],
-        public inlineSanitizer: HtmlInlineSanitizer,
-    ) {
+    constructor(public config: BlockMarkupConfig[]) {
         this.blockMap = new Map(config.map(item => [item.type, item]));
     }
 
@@ -21,7 +17,10 @@ export class BlockRenderer {
                 continue;
             }
             const classAttr = blockDef.className ? ` class="${escapeHtmlAttr(blockDef.className)}"` : '';
-            const inlineHtml = this.inlineSanitizer.sanitizeHtml(block.text);
+            // Important: block.text is assumed to already be sanitized
+            const inlineHtml = block.text;
+            // <br> is inserted for empty paragraphs,
+            // so that the browser doesn't collapse them
             const blockHtml = inlineHtml === '' ? '<br>' : inlineHtml;
             result.push(`<${blockDef.tag}${classAttr}>${blockHtml}</${blockDef.tag}>`);
         }

@@ -6,7 +6,11 @@ import type {
     ContentEditorOptions,
     InlineMarkupConfig,
 } from './types.js';
-import { fixEditorElementDom, normalizeEditorHtml, parseEditorElement, renderContentValue, sanitizeContentValue } from './utils/content.js';
+import { BlockParser } from './utils/BlockParser.js';
+import { BlockRenderer } from './utils/BlockRenderer.js';
+import { DomFixer } from './utils/DomFixer.js';
+import { HtmlBlockSanitizer } from './utils/HtmlBlockSanitizer.js';
+import { HtmlInlineSanitizer } from './utils/HtmlInlineSanitizer.js';
 
 export class ContentEditorController {
 
@@ -36,6 +40,12 @@ export class ContentEditorController {
     private options: ContentEditorOptions;
     private value: ContentBlock[];
 
+    private inlineSanitizer: HtmlInlineSanitizer;
+    private blockSanitizer: HtmlBlockSanitizer;
+    private parser: BlockParser;
+    private renderer: BlockRenderer;
+    private domFixer: DomFixer;
+
     onUpdate = new Event<ContentBlock[]>();
 
     private listeners = {
@@ -47,7 +57,13 @@ export class ContentEditorController {
         options: Partial<ContentEditorOptions> | undefined,
     ) {
         this.options = this.normalizeOptions(options);
-        this.value = sanitizeContentValue(modelValue, this.options);
+        this.inlineSanitizer = new HtmlInlineSanitizer(this.options.inlines ?? []);
+        this.blockSanitizer = new HtmlBlockSanitizer(this.options.blocks, this.inlineSanitizer);
+        this.parser = new BlockParser(this.options.blocks, this.options.defaultBlockType);
+        this.renderer = new BlockRenderer(this.options.blocks);
+        this.domFixer = new DomFixer(this.options.blocks, this.options.defaultBlockType);
+
+        this.value = this.sanitizeContentValue(modelValue);
     }
 
     getOptions(): ContentEditorOptions {
@@ -71,7 +87,7 @@ export class ContentEditorController {
     }
 
     setValue(value: ContentBlock[] | null | undefined): void {
-        this.value = sanitizeContentValue(value, this.options);
+        this.value = this.sanitizeContentValue(value);
         this.renderToEditor();
     }
 
@@ -79,21 +95,21 @@ export class ContentEditorController {
         if (!this.rootEl) {
             return;
         }
-        this.rootEl.innerHTML = renderContentValue(this.value, this.options);
+        this.rootEl.innerHTML = this.renderer.render(this.value);
     }
 
     private applyEditorDomAsSourceOfTruth(): void {
         if (!this.rootEl) {
             return;
         }
-        fixEditorElementDom(this.rootEl, this.options);
-        const nextValue = parseEditorElement(this.rootEl, this.options);
-        const renderedNextHtml = renderContentValue(nextValue, this.options);
+        this.domFixer.fixRoot(this.rootEl);
+        const parsedBlocks = this.parser.parseRoot(this.rootEl);
+        const nextValue = this.sanitizeParsedValue(parsedBlocks);
+        const renderedNextHtml = this.renderer.render(nextValue);
         const hasChanges = JSON.stringify(nextValue) !== JSON.stringify(this.value);
-        const needsRerender = normalizeEditorHtml(this.rootEl.innerHTML) !== normalizeEditorHtml(renderedNextHtml);
+        const needsRerender = ContentEditorController.normalizeEditorHtml(this.rootEl.innerHTML) !== ContentEditorController.normalizeEditorHtml(renderedNextHtml);
         this.value = nextValue;
         if (needsRerender) {
-            console.log('NEEDS RERENDER', this.rootEl.innerHTML, renderedNextHtml);
             this.rootEl.innerHTML = renderedNextHtml;
         }
         if (hasChanges) {
@@ -107,6 +123,34 @@ export class ContentEditorController {
 
     private onInput(): void {
         this.applyEditorDomAsSourceOfTruth();
+    }
+
+    private sanitizeContentValue(input: unknown): ContentBlock[] {
+        const blocks = this.blockSanitizer.sanitizeValue(input);
+        return blocks.length ? blocks : this.createEmptyValue();
+    }
+
+    private sanitizeParsedValue(blocks: ContentBlock[]): ContentBlock[] {
+        // BlockParser returns ContentBlock items, but inline HTML inside `text` may still contain unsupported markup.
+        // BlockSanitizer sanitizes inline HTML into the canonical form we store as the source of truth.
+        const sanitized = this.blockSanitizer.sanitizeValue(blocks);
+        return sanitized.length ? sanitized : this.createEmptyValue();
+    }
+
+    private createEmptyValue(): ContentBlock[] {
+        return [
+            {
+                type: this.options.defaultBlockType,
+                text: '',
+            },
+        ];
+    }
+
+    private static normalizeEditorHtml(html: string): string {
+        return html
+            .replaceAll(/>\s+</g, '><')
+            .replaceAll(/<br\s*\/?>/g, '<br>')
+            .trim();
     }
 
     private normalizeOptions(options?: Partial<ContentEditorOptions>): ContentEditorOptions {
