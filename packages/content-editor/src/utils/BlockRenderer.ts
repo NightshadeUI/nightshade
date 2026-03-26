@@ -1,40 +1,30 @@
-import type { BlockMarkupConfig, ContentBlockType, ContentValue } from '../types.js';
+import type { BlockMarkupConfig, ContentBlock, ContentBlockType } from '../types.js';
+import { escapeHtmlAttr } from './escape.js';
 import { HtmlInlineSanitizer } from './HtmlInlineSanitizer.js';
-
-function escapeHtmlAttr(input: string): string {
-    return input
-        .replaceAll('&', '&amp;')
-        .replaceAll('"', '&quot;')
-        .replaceAll('<', '&lt;')
-        .replaceAll('>', '&gt;');
-}
 
 export class BlockRenderer {
 
-    private readonly blockMap: Map<ContentBlockType, BlockMarkupConfig>;
-    private readonly fallbackType: ContentBlockType;
-    private readonly inlineSanitizer: HtmlInlineSanitizer;
+    private blockMap: Map<ContentBlockType, BlockMarkupConfig>;
 
     constructor(
-        config: BlockMarkupConfig[],
-        fallbackType: ContentBlockType,
-        inlineSanitizer: HtmlInlineSanitizer,
+        public config: BlockMarkupConfig[],
+        public inlineSanitizer: HtmlInlineSanitizer,
     ) {
         this.blockMap = new Map(config.map(item => [item.type, item]));
-        this.fallbackType = fallbackType;
-        this.inlineSanitizer = inlineSanitizer;
     }
 
-    public render(value: ContentValue): string {
-        return value.map(block => {
-            const blockDef = this.blockMap.get(block.type) ?? this.blockMap.get(this.fallbackType);
+    public render(blocks: ContentBlock[]): string {
+        const result: string[] = [];
+        for (const block of blocks) {
+            const blockDef = this.blockMap.get(block.type);
             if (!blockDef) {
-                return '';
+                continue;
             }
             const classAttr = blockDef.className ? ` class="${escapeHtmlAttr(blockDef.className)}"` : '';
             const inlineHtml = this.inlineSanitizer.sanitizeHtml(block.text);
-            return `<${blockDef.tag}${classAttr}>${inlineHtml}</${blockDef.tag}>`;
-        }).join('');
+            result.push(`<${blockDef.tag}${classAttr}>${inlineHtml}</${blockDef.tag}>`);
+        }
+        return result.join('\n');
     }
 
 }

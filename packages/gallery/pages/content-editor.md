@@ -23,9 +23,8 @@ const serializedDoc = computed(() => JSON.stringify(doc.value, null, 2));
 
 <style scoped>
 .ContentEditorDoc {
-    max-width: 960px;
     padding: var(--sp);
-    border-radius: var(--radius);
+    border-radius: var(--input-radius);
     border: 1px solid var(--color-base-200);
     background: var(--color-base-50);
     overflow: auto;
