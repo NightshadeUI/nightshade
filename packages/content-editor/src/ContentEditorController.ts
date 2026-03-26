@@ -33,8 +33,6 @@ export class ContentEditorController {
         { type: 'underline', tag: 'u', label: 'Underline' },
     ];
 
-    isApplyingExternalUpdate = false;
-
     private rootEl: HTMLElement | null = null;
     private options: ContentEditorOptions;
     private value: ContentBlock[];
@@ -105,11 +103,9 @@ export class ContentEditorController {
     }
 
     setValue(value: ContentBlock[] | null | undefined): void {
-        this.isApplyingExternalUpdate = true;
         this.value = sanitizeContentValue(value, this.options);
         this.renderToEditor();
         this.syncToolbar();
-        this.isApplyingExternalUpdate = false;
     }
 
     applyBlockType(type: string): void {

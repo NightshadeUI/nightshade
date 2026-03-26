@@ -1,7 +1,10 @@
 <template>
     <div class="ContentEditor">
-        <ContentEditorToolbar :controller="controller" />
-        <div ref="editorEl" class="EditableContent" />
+        <ContentEditorToolbar
+            :controller="controller" />
+        <div
+            ref="editorEl"
+            class="EditableContent" />
     </div>
 </template>
 
@@ -25,13 +28,8 @@ export default {
 
     data() {
         const controller = new ContentEditorController(this.modelValue, this.options);
-        const unsubscribe = controller.onUpdate.on(value => {
-            this.isInternalUpdatePending = true;
-            this.$emit('update:modelValue', value);
-        });
         return {
             controller,
-            unsubscribe,
             isInternalUpdatePending: false,
         };
     },
@@ -42,23 +40,29 @@ export default {
                 this.isInternalUpdatePending = false;
                 return;
             }
-            if (this.controller.isApplyingExternalUpdate) {
-                return;
-            }
             this.controller.setValue(newValue);
         },
     },
 
     mounted() {
         this.controller.mount(this.$refs.editorEl);
+        this.controller.onUpdate.on(this.onUpdate, this);
     },
 
     beforeUnmount() {
-        if (this.unsubscribe) {
-            this.unsubscribe();
-        }
         this.controller.unmount();
+        this.controller.onUpdate.removeAll(this);
     },
+
+    methods: {
+
+        onUpdate(value) {
+            this.isInternalUpdatePending = true;
+            this.$emit('update:modelValue', value);
+        },
+
+    },
+
 };
 </script>
 
