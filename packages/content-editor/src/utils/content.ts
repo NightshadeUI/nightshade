@@ -1,6 +1,7 @@
 import type { ContentBlock, ContentEditorOptions } from '../types.js';
 import { BlockParser } from './BlockParser.js';
 import { BlockRenderer } from './BlockRenderer.js';
+import { DomFixer } from './DomFixer.js';
 import { HtmlBlockSanitizer } from './HtmlBlockSanitizer.js';
 import { HtmlInlineSanitizer } from './HtmlInlineSanitizer.js';
 
@@ -20,11 +21,23 @@ export function parseEditorElement(root: HTMLElement, options: ContentEditorOpti
     return blocks.length ? blocks : createEmptyValue(options);
 }
 
+export function fixEditorElementDom(root: HTMLElement, options: ContentEditorOptions): void {
+    const fixer = new DomFixer(options.blocks, options.defaultBlockType);
+    fixer.fixRoot(root);
+}
+
 export function renderContentValue(value: ContentBlock[], options: ContentEditorOptions): string {
     const sanitized = sanitizeContentValue(value, options);
     const inlineSanitizer = new HtmlInlineSanitizer(options.inlines ?? []);
     const renderer = new BlockRenderer(options.blocks, inlineSanitizer);
     return renderer.render(sanitized);
+}
+
+export function normalizeEditorHtml(html: string): string {
+    return html
+        .replaceAll(/>\s+</g, '><')
+        .replaceAll(/<br\s*\/?>/g, '<br>')
+        .trim();
 }
 
 function createEmptyBlock(options: ContentEditorOptions): ContentBlock {

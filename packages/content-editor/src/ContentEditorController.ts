@@ -6,8 +6,7 @@ import type {
     ContentEditorOptions,
     InlineMarkupConfig,
 } from './types.js';
-import { parseEditorElement, renderContentValue, sanitizeContentValue } from './utils/content.js';
-import { getSelectionOffsets, restoreSelectionOffsets } from './utils/selection.js';
+import { fixEditorElementDom, normalizeEditorHtml, parseEditorElement, renderContentValue, sanitizeContentValue } from './utils/content.js';
 
 export class ContentEditorController {
 
@@ -87,17 +86,19 @@ export class ContentEditorController {
         if (!this.rootEl) {
             return;
         }
-        const offsets = getSelectionOffsets(this.rootEl);
+        fixEditorElementDom(this.rootEl, this.options);
         const nextValue = parseEditorElement(this.rootEl, this.options);
+        const renderedNextHtml = renderContentValue(nextValue, this.options);
         const hasChanges = JSON.stringify(nextValue) !== JSON.stringify(this.value);
+        const needsRerender = normalizeEditorHtml(this.rootEl.innerHTML) !== normalizeEditorHtml(renderedNextHtml);
         this.value = nextValue;
+        if (needsRerender) {
+            console.log('NEEDS RERENDER', this.rootEl.innerHTML, renderedNextHtml);
+            this.rootEl.innerHTML = renderedNextHtml;
+        }
         if (hasChanges) {
-            this.renderToEditor();
+            this.emitModel();
         }
-        if (offsets) {
-            restoreSelectionOffsets(this.rootEl, offsets);
-        }
-        this.emitModel();
     }
 
     private emitModel(): void {
