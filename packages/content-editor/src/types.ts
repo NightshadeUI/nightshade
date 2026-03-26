@@ -23,14 +23,5 @@ export interface InlineMarkupConfig {
 export interface ContentEditorOptions {
     blocks: BlockMarkupConfig[];
     inlines?: InlineMarkupConfig[];
-    defaultBlockType?: ContentBlockType;
-}
-
-export interface ToolbarState {
-    visible: boolean;
-    x: number;
-    y: number;
-    activeBlockType: ContentBlockType | null;
-    activeInlineTypes: ContentInlineType[];
-    hasSelection: boolean;
+    defaultBlockType: ContentBlockType;
 }

@@ -12,7 +12,7 @@ export function sanitizeContentValue(input: unknown, options: ContentEditorOptio
 }
 
 export function parseEditorElement(root: HTMLElement, options: ContentEditorOptions): ContentBlock[] {
-    const parser = new BlockParser(options.blocks, options.defaultBlockType ?? options.blocks[0].type);
+    const parser = new BlockParser(options.blocks, options.defaultBlockType);
     const inlineSanitizer = new HtmlInlineSanitizer(options.inlines ?? []);
     const blockSanitizer = new HtmlBlockSanitizer(options.blocks, inlineSanitizer);
     const parsedBlocks = parser.parseRoot(root);
@@ -29,7 +29,7 @@ export function renderContentValue(value: ContentBlock[], options: ContentEditor
 
 function createEmptyBlock(options: ContentEditorOptions): ContentBlock {
     return {
-        type: options.defaultBlockType ?? options.blocks[0].type,
+        type: options.defaultBlockType,
         text: '',
     };
 }

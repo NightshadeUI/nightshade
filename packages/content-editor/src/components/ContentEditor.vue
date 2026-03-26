@@ -1,7 +1,5 @@
 <template>
     <div class="ContentEditor">
-        <ContentEditorToolbar
-            :controller="controller" />
         <div
             ref="editorEl"
             class="EditableContent" />
@@ -10,13 +8,8 @@
 
 <script>
 import { ContentEditorController } from '../ContentEditorController.js';
-import ContentEditorToolbar from './ContentEditorToolbar.vue';
 
 export default {
-
-    components: {
-        ContentEditorToolbar,
-    },
 
     props: {
         modelValue: { type: Array, default: () => [] },
