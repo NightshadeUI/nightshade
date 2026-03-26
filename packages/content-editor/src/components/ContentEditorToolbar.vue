@@ -19,7 +19,6 @@ import ContentEditorBlockToolbar from './ContentEditorBlockToolbar.vue';
 import ContentEditorInlineToolbar from './ContentEditorInlineToolbar.vue';
 
 export default {
-    name: 'ContentEditorToolbar',
 
     components: {
         ContentEditorBlockToolbar,

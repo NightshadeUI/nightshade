@@ -17,7 +17,6 @@
 import { Btn } from '@nightshadeui/core/src';
 
 export default {
-    name: 'ContentEditorInlineToolbar',
 
     components: {
         Btn,

@@ -13,7 +13,6 @@ import { ContentEditorController } from '../ContentEditorController.js';
 import ContentEditorToolbar from './ContentEditorToolbar.vue';
 
 export default {
-    name: 'ContentEditor',
 
     components: {
         ContentEditorToolbar,

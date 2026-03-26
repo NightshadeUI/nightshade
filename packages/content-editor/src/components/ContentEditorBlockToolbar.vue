@@ -24,7 +24,6 @@
 import { Btn, ContextMenu } from '@nightshadeui/core/src';
 
 export default {
-    name: 'ContentEditorBlockToolbar',
 
     components: {
         Btn,
