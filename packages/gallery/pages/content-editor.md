@@ -5,13 +5,7 @@ description: Content editor prototype playground
 
 # Content Editor
 
-<ContentEditor
-    v-model="doc"
-    @focus-node-change="focusedNode = $event" />
-
-<p><strong>Focused block:</strong> {{ focusedNode?.type || 'none' }}</p>
-
-<pre class="ContentEditorDoc">{{ serializedDoc }}</pre>
+<ContentEditor v-model="doc" />
 
 <script setup>
 import { computed, ref } from 'vue';
@@ -19,8 +13,24 @@ import { ContentEditor } from '@nightshadeui/content-editor/src';
 
 const doc = ref({
     nodes: [
-        { id: 'intro', type: 'h2', content: [{ kind: 'text', text: 'Nightshade Content Editor' }] },
-        { id: 'paragraph', type: 'p1', content: [{ kind: 'text', text: 'Edit this content and switch block types with the toolbar.' }] },
+        {
+            type: 'h2',
+            content: [
+                {
+                    kind: 'text',
+                    text: 'Nightshade Content Editor'
+                }
+            ]
+            },
+        {
+            type: 'p1',
+            content: [
+                {
+                    kind: 'text',
+                    text: 'Edit this content and switch block types with the toolbar.'
+                }
+            ]
+        },
     ],
 });
 
