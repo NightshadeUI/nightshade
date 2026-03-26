@@ -1,4 +1,5 @@
 import type { InlineMarkupConfig } from '../types.js';
+import { removeNode, unwrap } from './dom.js';
 
 const DEFAULT_FORBIDDEN_TAGS = [
     'script',
@@ -20,61 +21,70 @@ export class HtmlInlineSanitizer {
     sanitizeHtml(input: string): string {
         const template = document.createElement('template');
         template.innerHTML = input;
-        const root = document.createElement('div');
-        for (const node of template.content.childNodes) {
-            const sanitized = this.sanitizeNode(node);
-            if (sanitized) {
-                root.appendChild(sanitized);
-            }
+        for (const node of Array.from(template.content.childNodes)) {
+            this.sanitizeNodeInPlace(node);
         }
+        const root = document.createElement('div');
+        root.appendChild(template.content.cloneNode(true));
         return root.innerHTML;
     }
 
-    sanitizeNode(node: Node): Node | null {
+    private sanitizeNodeInPlace(node: Node): void {
         if (node.nodeType === Node.TEXT_NODE) {
-            return document.createTextNode(node.textContent ?? '');
+            return;
         }
+        const removed = this.removeUnsupported(node);
+        if (removed) {
+            return;
+        }
+        const el = node as HTMLElement;
+        for (const child of [...el.childNodes]) {
+            this.sanitizeNodeInPlace(child);
+        }
+        const inlineDef = this.findInlineDefinition(el);
+        if (!inlineDef) {
+            unwrap(el);
+            return;
+        }
+        this.sanitizeSupportedEl(el, inlineDef);
+    }
+
+    private sanitizeSupportedEl(el: HTMLElement, inlineDef: InlineMarkupConfig): void {
+        while (el.attributes.length > 0) {
+            el.removeAttribute(el.attributes[0].name);
+        }
+        el.className = inlineDef.className ?? '';
+    }
+
+    private removeUnsupported(node: Node): boolean {
         if (node.nodeType !== Node.ELEMENT_NODE) {
-            return null;
+            removeNode(node);
+            return true;
         }
         const el = node as HTMLElement;
         if (el.namespaceURI !== 'http://www.w3.org/1999/xhtml') {
-            return null;
+            removeNode(el);
+            return true;
         }
         const tagName = el.tagName.toLowerCase();
         if (this.forbiddenTags.includes(tagName)) {
-            return null;
+            removeNode(el);
+            return true;
         }
-        const fragment = document.createDocumentFragment();
-        for (const child of el.childNodes) {
-            const sanitizedChild = this.sanitizeNode(child);
-            if (sanitizedChild) {
-                fragment.appendChild(sanitizedChild);
-            }
-        }
-        const inline = this.findInlineDefinition(el);
-        if (!inline) {
-            return fragment;
-        }
-        const safeElement = document.createElement(inline.tag);
-        if (inline.className) {
-            safeElement.className = inline.className;
-        }
-        safeElement.appendChild(fragment);
-        return safeElement;
+        return false;
     }
 
     private findInlineDefinition(element: HTMLElement): InlineMarkupConfig | null {
         const tag = element.tagName.toLowerCase();
-        const classList = Array.from(element.classList);
-        for (const inline of this.inlines) {
-            if (inline.tag.toLowerCase() !== tag) {
+        const classList = [...element.classList];
+        for (const inlineDef of this.inlines) {
+            if (inlineDef.tag.toLowerCase() !== tag) {
                 continue;
             }
-            if (inline.className && !classList.includes(inline.className)) {
+            if (inlineDef.className && !classList.includes(inlineDef.className)) {
                 continue;
             }
-            return inline;
+            return inlineDef;
         }
         return null;
     }
