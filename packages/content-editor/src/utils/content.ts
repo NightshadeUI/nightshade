@@ -1,25 +1,26 @@
-import type { ContentBlock, ContentEditorOptions, ContentValue } from '../types.js';
+import type { ContentBlock, ContentEditorOptions } from '../types.js';
 import { BlockParser } from './BlockParser.js';
 import { BlockRenderer } from './BlockRenderer.js';
+import { HtmlBlockSanitizer } from './HtmlBlockSanitizer.js';
 import { HtmlInlineSanitizer } from './HtmlInlineSanitizer.js';
 
-export function sanitizeContentValue(input: unknown, options: ContentEditorOptions): ContentValue {
-    const fallbackType = options.defaultBlockType ?? options.blocks[0].type;
+export function sanitizeContentValue(input: unknown, options: ContentEditorOptions): ContentBlock[] {
     const inlineSanitizer = new HtmlInlineSanitizer(options.inlines ?? []);
-    const parser = new BlockParser(options.blocks, fallbackType, inlineSanitizer);
-    const blocks = parser.sanitizeValue(input);
+    const blockSanitizer = new HtmlBlockSanitizer(options.blocks, inlineSanitizer);
+    const blocks = blockSanitizer.sanitizeValue(input);
     return blocks.length ? blocks : createEmptyValue(options);
 }
 
-export function parseEditorElement(root: HTMLElement, options: ContentEditorOptions): ContentValue {
-    const fallbackType = options.defaultBlockType ?? options.blocks[0].type;
+export function parseEditorElement(root: HTMLElement, options: ContentEditorOptions): ContentBlock[] {
+    const parser = new BlockParser(options.blocks, options.defaultBlockType ?? options.blocks[0].type);
     const inlineSanitizer = new HtmlInlineSanitizer(options.inlines ?? []);
-    const parser = new BlockParser(options.blocks, fallbackType, inlineSanitizer);
-    const blocks = parser.parseRoot(root);
-    return sanitizeContentValue(blocks, options);
+    const blockSanitizer = new HtmlBlockSanitizer(options.blocks, inlineSanitizer);
+    const parsedBlocks = parser.parseRoot(root);
+    const blocks = blockSanitizer.sanitizeValue(parsedBlocks);
+    return blocks.length ? blocks : createEmptyValue(options);
 }
 
-export function renderContentValue(value: ContentValue, options: ContentEditorOptions): string {
+export function renderContentValue(value: ContentBlock[], options: ContentEditorOptions): string {
     const sanitized = sanitizeContentValue(value, options);
     const inlineSanitizer = new HtmlInlineSanitizer(options.inlines ?? []);
     const renderer = new BlockRenderer(options.blocks, inlineSanitizer);
@@ -33,6 +34,6 @@ function createEmptyBlock(options: ContentEditorOptions): ContentBlock {
     };
 }
 
-function createEmptyValue(options: ContentEditorOptions): ContentValue {
+function createEmptyValue(options: ContentEditorOptions): ContentBlock[] {
     return [createEmptyBlock(options)];
 }

@@ -13,7 +13,7 @@ export class BlockRenderer {
         this.blockMap = new Map(config.map(item => [item.type, item]));
     }
 
-    public render(blocks: ContentBlock[]): string {
+    render(blocks: ContentBlock[]): string {
         const result: string[] = [];
         for (const block of blocks) {
             const blockDef = this.blockMap.get(block.type);

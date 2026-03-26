@@ -6,8 +6,6 @@ export interface ContentBlock {
     text: string;
 }
 
-export type ContentValue = ContentBlock[];
-
 export interface BlockMarkupConfig {
     type: ContentBlockType;
     tag: string;

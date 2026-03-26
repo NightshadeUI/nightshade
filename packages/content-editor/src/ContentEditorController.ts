@@ -2,9 +2,9 @@ import { Event } from 'nanoevent';
 
 import type {
     BlockMarkupConfig,
+    ContentBlock,
     ContentEditorOptions,
     ContentInlineType,
-    ContentValue,
     InlineMarkupConfig,
     ToolbarState,
 } from './types.js';
@@ -33,11 +33,11 @@ export class ContentEditorController {
         { type: 'underline', tag: 'u', label: 'Underline' },
     ];
 
-    public isApplyingExternalUpdate = false;
+    isApplyingExternalUpdate = false;
 
     private rootEl: HTMLElement | null = null;
     private options: ContentEditorOptions;
-    private value: ContentValue;
+    private value: ContentBlock[];
     private hasEditorFocus = false;
     private isMounted = false;
     private toolbarState: ToolbarState = {
@@ -49,8 +49,9 @@ export class ContentEditorController {
         hasSelection: false,
     };
 
-    public onUpdate = new Event<ContentValue>();
-    public onToolbar = new Event<ToolbarState>();
+    onUpdate = new Event<ContentBlock[]>();
+    onToolbar = new Event<ToolbarState>();
+
     private listeners = {
         onInput: () => this.onInput(),
         onFocusIn: () => this.onFocusIn(),
@@ -60,22 +61,22 @@ export class ContentEditorController {
     };
 
     constructor(
-        modelValue: ContentValue | null | undefined,
+        modelValue: ContentBlock[] | null | undefined,
         options: Partial<ContentEditorOptions> | undefined,
     ) {
         this.options = this.normalizeOptions(options);
         this.value = sanitizeContentValue(modelValue, this.options);
     }
 
-    public getOptions(): ContentEditorOptions {
+    getOptions(): ContentEditorOptions {
         return this.options;
     }
 
-    public getToolbarState(): ToolbarState {
+    getToolbarState(): ToolbarState {
         return this.toolbarState;
     }
 
-    public mount(rootEl: HTMLElement): void {
+    mount(rootEl: HTMLElement): void {
         this.rootEl = rootEl;
         this.isMounted = true;
         this.rootEl.setAttribute('contenteditable', 'true');
@@ -89,7 +90,7 @@ export class ContentEditorController {
         document.addEventListener('selectionchange', this.listeners.onSelectionChange);
     }
 
-    public unmount(): void {
+    unmount(): void {
         if (!this.rootEl) {
             return;
         }
@@ -103,7 +104,7 @@ export class ContentEditorController {
         this.rootEl = null;
     }
 
-    public setValue(value: ContentValue | null | undefined): void {
+    setValue(value: ContentBlock[] | null | undefined): void {
         this.isApplyingExternalUpdate = true;
         this.value = sanitizeContentValue(value, this.options);
         this.renderToEditor();
@@ -111,7 +112,7 @@ export class ContentEditorController {
         this.isApplyingExternalUpdate = false;
     }
 
-    public applyBlockType(type: string): void {
+    applyBlockType(type: string): void {
         if (!this.rootEl) {
             return;
         }
@@ -133,7 +134,7 @@ export class ContentEditorController {
         this.syncToolbar();
     }
 
-    public applyInlineType(type: ContentInlineType): void {
+    applyInlineType(type: ContentInlineType): void {
         if (!this.rootEl) {
             return;
         }

@@ -1,87 +1,54 @@
-import type { BlockMarkupConfig, ContentBlock, ContentBlockType, ContentValue } from '../types.js';
-import { escapeHtml } from './escape.js';
-import { HtmlInlineSanitizer } from './HtmlInlineSanitizer.js';
+import type { BlockMarkupConfig, ContentBlock, ContentBlockType } from '../types.js';
 
 export class BlockParser {
 
-    private readonly blocks: BlockMarkupConfig[];
-    private readonly fallbackType: ContentBlockType;
-    private readonly blockMap: Map<string, BlockMarkupConfig>;
-    private readonly inlineSanitizer: HtmlInlineSanitizer;
-
     constructor(
-        config: BlockMarkupConfig[],
-        fallbackType: ContentBlockType,
-        inlineSanitizer: HtmlInlineSanitizer,
-    ) {
-        this.blocks = config;
-        this.fallbackType = fallbackType;
-        this.blockMap = new Map(config.map(item => [item.type, item]));
-        this.inlineSanitizer = inlineSanitizer;
-    }
+        public config: BlockMarkupConfig[],
+        public defaultType: ContentBlockType,
+    ) {}
 
-    public parseRoot(root: HTMLElement): ContentValue {
+    parseRoot(root: HTMLElement): ContentBlock[] {
         const blocks: ContentBlock[] = [];
-        Array.from(root.childNodes).forEach(child => {
+        for (const child of root.childNodes) {
             if (child.nodeType === Node.TEXT_NODE) {
                 const text = child.textContent ?? '';
                 if (!text.trim()) {
-                    return;
+                    continue;
                 }
                 blocks.push({
-                    type: this.fallbackType,
-                    text: escapeHtml(text),
+                    type: this.defaultType,
+                    text,
                 });
-                return;
+                continue;
+            }
+            if (child.nodeType !== Node.ELEMENT_NODE) {
+                continue;
             }
             const element = child as HTMLElement;
+            const blockDef = this.findBlockDefinition(element);
+            if (!blockDef) {
+                continue;
+            }
             blocks.push({
-                type: this.findBlockTypeForElement(element) ?? this.fallbackType,
-                text: this.inlineSanitizer.sanitizeHtml(element.innerHTML),
+                type: blockDef.type,
+                text: element.innerHTML,
             });
-        });
+        }
         return blocks;
     }
 
-    public sanitizeValue(input: unknown): ContentValue {
-        if (!Array.isArray(input)) {
-            return [];
-        }
-        return input
-            .map(block => this.normalizeBlockInput(block))
-            .filter((block): block is ContentBlock => !!block);
-    }
-
-    public findBlockTypeForElement(element: HTMLElement | null): ContentBlockType | null {
-        if (!element) {
-            return null;
-        }
+    findBlockDefinition(element: HTMLElement): BlockMarkupConfig | null {
         const tag = element.tagName.toLowerCase();
-        const match = this.blocks.find(block => {
-            if (block.tag.toLowerCase() !== tag) {
-                return false;
+        for (const blockDef of this.config) {
+            if (blockDef.tag.toLowerCase() !== tag) {
+                continue;
             }
-            if (!block.className) {
-                return true;
+            if (blockDef.className && !element.classList.contains(blockDef.className)) {
+                continue;
             }
-            return element.classList.contains(block.className);
-        });
-        return match?.type ?? null;
-    }
-
-    private normalizeBlockInput(block: unknown): ContentBlock | null {
-        if (!block || typeof block !== 'object') {
-            return null;
+            return blockDef;
         }
-        const candidate = block as Partial<ContentBlock>;
-        const type = typeof candidate.type === 'string' && this.blockMap.has(candidate.type) ?
-            candidate.type :
-            this.fallbackType;
-        const text = typeof candidate.text === 'string' ? candidate.text : '';
-        return {
-            type,
-            text: this.inlineSanitizer.sanitizeHtml(text),
-        };
+        return null;
     }
 
 }
