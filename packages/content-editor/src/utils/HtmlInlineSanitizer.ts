@@ -50,10 +50,13 @@ export class HtmlInlineSanitizer {
     }
 
     private sanitizeSupportedEl(el: HTMLElement, inlineDef: InlineMarkupConfig): void {
+        // TODO preserve allowed attributes
         while (el.attributes.length > 0) {
             el.removeAttribute(el.attributes[0].name);
         }
-        el.className = inlineDef.className ?? '';
+        if (inlineDef.className) {
+            el.className = inlineDef.className;
+        }
     }
 
     private removeUnsupported(node: Node): boolean {
