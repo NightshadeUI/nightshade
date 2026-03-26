@@ -1,42 +1,58 @@
 import type { InlineMarkupConfig } from '../types.js';
 
+const DEFAULT_FORBIDDEN_TAGS = [
+    'script',
+    'style',
+    'iframe',
+    'object',
+    'embed',
+    'noscript',
+    'template',
+];
+
 export class HtmlInlineSanitizer {
 
-    private readonly inlines: InlineMarkupConfig[];
+    constructor(
+        public inlines: InlineMarkupConfig[],
+        public forbiddenTags = DEFAULT_FORBIDDEN_TAGS,
+    ) {}
 
-    constructor(config: InlineMarkupConfig[] | undefined) {
-        this.inlines = config ?? [];
-    }
-
-    public sanitizeHtml(input: string): string {
+    sanitizeHtml(input: string): string {
         const template = document.createElement('template');
         template.innerHTML = input;
         const root = document.createElement('div');
-        Array.from(template.content.childNodes).forEach(node => {
+        for (const node of template.content.childNodes) {
             const sanitized = this.sanitizeNode(node);
             if (sanitized) {
                 root.appendChild(sanitized);
             }
-        });
+        }
         return root.innerHTML;
     }
 
-    public sanitizeNode(node: Node): Node | null {
+    sanitizeNode(node: Node): Node | null {
         if (node.nodeType === Node.TEXT_NODE) {
             return document.createTextNode(node.textContent ?? '');
         }
         if (node.nodeType !== Node.ELEMENT_NODE) {
             return null;
         }
-        const element = node as HTMLElement;
+        const el = node as HTMLElement;
+        if (el.namespaceURI !== 'http://www.w3.org/1999/xhtml') {
+            return null;
+        }
+        const tagName = el.tagName.toLowerCase();
+        if (this.forbiddenTags.includes(tagName)) {
+            return null;
+        }
         const fragment = document.createDocumentFragment();
-        Array.from(element.childNodes).forEach(child => {
+        for (const child of el.childNodes) {
             const sanitizedChild = this.sanitizeNode(child);
             if (sanitizedChild) {
                 fragment.appendChild(sanitizedChild);
             }
-        });
-        const inline = this.findInlineDefinitionForElement(element);
+        }
+        const inline = this.findInlineDefinition(el);
         if (!inline) {
             return fragment;
         }
@@ -48,21 +64,19 @@ export class HtmlInlineSanitizer {
         return safeElement;
     }
 
-    private findInlineDefinitionForElement(element: HTMLElement): InlineMarkupConfig | null {
+    private findInlineDefinition(element: HTMLElement): InlineMarkupConfig | null {
         const tag = element.tagName.toLowerCase();
         const classList = Array.from(element.classList);
-        const matching = this.inlines.filter(inline => inline.tag.toLowerCase() === tag);
-        if (!matching.length) {
-            return null;
+        for (const inline of this.inlines) {
+            if (inline.tag.toLowerCase() !== tag) {
+                continue;
+            }
+            if (inline.className && !classList.includes(inline.className)) {
+                continue;
+            }
+            return inline;
         }
-        const strictClassMatch = matching.find(inline => inline.className && element.classList.contains(inline.className));
-        if (strictClassMatch) {
-            return strictClassMatch;
-        }
-        if (classList.length > 0) {
-            return null;
-        }
-        return matching.find(inline => !inline.className) ?? null;
+        return null;
     }
 
 }
