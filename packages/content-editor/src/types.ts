@@ -1,30 +1,21 @@
 export type ContentInlineType = string;
 export type ContentBlockType = string;
 
-export interface ContentTextNode {
-    type: 'text';
-    text: string;
-    marks?: ContentInlineType[];
-}
-
-export interface ContentBlockNode {
+export interface ContentBlock {
     type: ContentBlockType;
-    children: ContentTextNode[];
+    text: string;
 }
 
-export interface ContentDocument {
-    type: 'doc';
-    children: ContentBlockNode[];
-}
+export type ContentValue = ContentBlock[];
 
-export interface ContentBlockDefinition {
+export interface BlockMarkupConfig {
     type: ContentBlockType;
     tag: string;
     className?: string;
     label?: string;
 }
 
-export interface ContentInlineDefinition {
+export interface InlineMarkupConfig {
     type: ContentInlineType;
     tag: string;
     className?: string;
@@ -32,8 +23,8 @@ export interface ContentInlineDefinition {
 }
 
 export interface ContentEditorOptions {
-    blocks: ContentBlockDefinition[];
-    inlines?: ContentInlineDefinition[];
+    blocks: BlockMarkupConfig[];
+    inlines?: InlineMarkupConfig[];
     defaultBlockType?: ContentBlockType;
 }
 

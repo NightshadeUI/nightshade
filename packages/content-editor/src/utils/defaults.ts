@@ -1,15 +1,16 @@
 import type {
-    ContentBlockDefinition,
-    ContentDocument,
+    BlockMarkupConfig,
+    ContentBlock,
     ContentEditorOptions,
-    ContentInlineDefinition,
+    ContentValue,
+    InlineMarkupConfig,
 } from '../types.js';
 
-const DEFAULT_BLOCKS: ContentBlockDefinition[] = [
+const DEFAULT_BLOCKS: BlockMarkupConfig[] = [
     { type: 'paragraph', tag: 'p', label: 'Paragraph' },
 ];
 
-const DEFAULT_INLINES: ContentInlineDefinition[] = [
+const DEFAULT_INLINES: InlineMarkupConfig[] = [
     { type: 'bold', tag: 'strong', label: 'Bold' },
     { type: 'italic', tag: 'em', label: 'Italic' },
     { type: 'underline', tag: 'u', label: 'Underline' },
@@ -26,14 +27,13 @@ export function normalizeOptions(options?: Partial<ContentEditorOptions>): Conte
     };
 }
 
-export function createEmptyDocument(options: ContentEditorOptions): ContentDocument {
+export function createEmptyBlock(options: ContentEditorOptions): ContentBlock {
     return {
-        type: 'doc',
-        children: [
-            {
-                type: options.defaultBlockType ?? options.blocks[0].type,
-                children: [{ type: 'text', text: '' }],
-            },
-        ],
+        type: options.defaultBlockType ?? options.blocks[0].type,
+        text: '',
     };
+}
+
+export function createEmptyValue(options: ContentEditorOptions): ContentValue {
+    return [createEmptyBlock(options)];
 }

@@ -7,34 +7,16 @@ description: Content editor prototype playground
 
 <ContentEditor v-model="doc" />
 
+<pre class="ContentEditorDoc">{{ serializedDoc }}</pre>
+
 <script setup>
 import { computed, ref } from 'vue';
 import { ContentEditor } from '@nightshadeui/content-editor/src';
 
-const doc = ref({
-    nodes: [
-        {
-            type: 'h2',
-            content: [
-                {
-                    kind: 'text',
-                    text: 'Nightshade Content Editor'
-                }
-            ]
-            },
-        {
-            type: 'p1',
-            content: [
-                {
-                    kind: 'text',
-                    text: 'Edit this content and switch block types with the toolbar.'
-                }
-            ]
-        },
-    ],
-});
-
-const focusedNode = ref(null);
+const doc = ref([
+    { type: 'h2', text: 'Nightshade Content Editor' },
+    { type: 'p1', text: 'Edit this <strong>content</strong> and switch block types with the toolbar.' },
+]);
 
 const serializedDoc = computed(() => JSON.stringify(doc.value, null, 2));
 </script>

@@ -1,5 +1,5 @@
 <template>
-    <div class="ContentEditor">
+    <div class="ContentEditor" style="position: relative;">
         <ContentEditorToolbar :controller="controller" />
         <div ref="editorEl" class="ContentEditorEditable" />
     </div>
@@ -17,7 +17,7 @@ export default {
     },
 
     props: {
-        modelValue: { type: Object, default: null },
+        modelValue: { type: Array, default: () => [] },
         options: { type: Object, default: () => ({}) },
     },
 
@@ -25,12 +25,13 @@ export default {
 
     data() {
         const controller = new ContentEditorController(this.modelValue, this.options);
-        controller.onUpdate.on(doc => {
+        const unsubscribe = controller.onUpdate.on(value => {
             this.isInternalUpdatePending = true;
-            this.$emit('update:modelValue', doc);
+            this.$emit('update:modelValue', value);
         });
         return {
             controller,
+            unsubscribe,
             isInternalUpdatePending: false,
         };
     },
@@ -44,7 +45,7 @@ export default {
             if (this.controller.isApplyingExternalUpdate) {
                 return;
             }
-            this.controller.setDocument(newValue);
+            this.controller.setValue(newValue);
         },
     },
 
@@ -53,18 +54,10 @@ export default {
     },
 
     beforeUnmount() {
+        if (this.unsubscribe) {
+            this.unsubscribe();
+        }
         this.controller.unmount();
     },
-
 };
 </script>
-
-<style>
-.ContentEditor {
-    position: relative;
-}
-
-.ContentEditorEditable {
-    outline: none;
-}
-</style>

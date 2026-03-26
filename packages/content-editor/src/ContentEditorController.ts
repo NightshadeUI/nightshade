@@ -1,12 +1,12 @@
 import { Event } from 'nanoevent';
 
 import type {
-    ContentDocument,
     ContentEditorOptions,
     ContentInlineType,
+    ContentValue,
     ToolbarState,
 } from './types.js';
-import { parseEditorElement, renderDocument, sanitizeDocument } from './utils/content.js';
+import { parseEditorElement, renderContentValue, sanitizeContentValue } from './utils/content.js';
 import { normalizeOptions } from './utils/defaults.js';
 import { getSelectionOffsets, restoreSelectionOffsets } from './utils/selection.js';
 
@@ -16,8 +16,9 @@ export class ContentEditorController {
 
     private rootEl: HTMLElement | null = null;
     private options: ContentEditorOptions;
-    private documentValue: ContentDocument;
+    private value: ContentValue;
     private hasEditorFocus = false;
+    private isMounted = false;
     private toolbarState: ToolbarState = {
         visible: false,
         x: 0,
@@ -27,14 +28,15 @@ export class ContentEditorController {
         hasSelection: false,
     };
 
-    onUpdate = new Event<ContentDocument>();
+    public onUpdate = new Event<ContentValue>();
+    public onToolbar = new Event<ToolbarState>();
 
     constructor(
-        modelValue: ContentDocument | null | undefined,
+        modelValue: ContentValue | null | undefined,
         options: Partial<ContentEditorOptions> | undefined,
     ) {
         this.options = normalizeOptions(options);
-        this.documentValue = sanitizeDocument(modelValue, this.options);
+        this.value = sanitizeContentValue(modelValue, this.options);
     }
 
     public getOptions(): ContentEditorOptions {
@@ -47,6 +49,7 @@ export class ContentEditorController {
 
     public mount(rootEl: HTMLElement): void {
         this.rootEl = rootEl;
+        this.isMounted = true;
         this.rootEl.setAttribute('contenteditable', 'true');
         this.rootEl.setAttribute('spellcheck', 'true');
         this.renderToEditor();
@@ -62,6 +65,7 @@ export class ContentEditorController {
         if (!this.rootEl) {
             return;
         }
+        this.isMounted = false;
         this.rootEl.removeEventListener('input', this.onInput);
         this.rootEl.removeEventListener('focusin', this.onFocusIn);
         this.rootEl.removeEventListener('focusout', this.onFocusOut);
@@ -71,9 +75,9 @@ export class ContentEditorController {
         this.rootEl = null;
     }
 
-    public setDocument(value: ContentDocument | null | undefined): void {
+    public setValue(value: ContentValue | null | undefined): void {
         this.isApplyingExternalUpdate = true;
-        this.documentValue = sanitizeDocument(value, this.options);
+        this.value = sanitizeContentValue(value, this.options);
         this.renderToEditor();
         this.syncToolbar();
         this.isApplyingExternalUpdate = false;
@@ -88,10 +92,10 @@ export class ContentEditorController {
             return;
         }
         const blockIndex = Array.from(this.rootEl.children).indexOf(activeBlock);
-        if (blockIndex < 0 || !this.documentValue.children[blockIndex]) {
+        if (blockIndex < 0 || !this.value[blockIndex]) {
             return;
         }
-        this.documentValue.children[blockIndex].type = type;
+        this.value[blockIndex].type = type;
         const offsets = getSelectionOffsets(this.rootEl);
         this.renderToEditor();
         if (offsets) {
@@ -135,7 +139,7 @@ export class ContentEditorController {
         if (!this.rootEl) {
             return;
         }
-        this.rootEl.innerHTML = renderDocument(this.documentValue, this.options);
+        this.rootEl.innerHTML = renderContentValue(this.value, this.options);
     }
 
     private applyEditorDomAsSourceOfTruth(): void {
@@ -143,8 +147,12 @@ export class ContentEditorController {
             return;
         }
         const offsets = getSelectionOffsets(this.rootEl);
-        this.documentValue = parseEditorElement(this.rootEl, this.options);
-        this.renderToEditor();
+        const nextValue = parseEditorElement(this.rootEl, this.options);
+        const hasChanges = JSON.stringify(nextValue) !== JSON.stringify(this.value);
+        this.value = nextValue;
+        if (hasChanges) {
+            this.renderToEditor();
+        }
         if (offsets) {
             restoreSelectionOffsets(this.rootEl, offsets);
         }
@@ -153,7 +161,7 @@ export class ContentEditorController {
     }
 
     private emitModel(): void {
-        this.onUpdate.emit(this.documentValue);
+        this.onUpdate.emit(this.value);
     }
 
     private onInput = (): void => {
@@ -282,6 +290,10 @@ export class ContentEditorController {
 
     private updateToolbar(next: ToolbarState): void {
         this.toolbarState = next;
+        if (!this.isMounted) {
+            return;
+        }
+        this.onToolbar.emit(this.toolbarState);
     }
 
 }
