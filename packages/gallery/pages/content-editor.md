@@ -15,7 +15,7 @@ import { ContentEditor } from '@nightshadeui/content-editor/src';
 
 const doc = ref([
     { type: 'h2', text: 'Nightshade Content Editor' },
-    { type: 'p1', text: 'Edit this <strong>content</strong> and switch block types with the toolbar.' },
+    { type: 'p', text: 'Edit this <strong>content</strong> and switch block types with the toolbar.' },
 ]);
 
 const serializedDoc = computed(() => JSON.stringify(doc.value, null, 2));

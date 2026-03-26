@@ -13,6 +13,26 @@ import { getSelectionOffsets, restoreSelectionOffsets } from './utils/selection.
 
 export class ContentEditorController {
 
+    static readonly DEFAULT_BLOCKS: BlockMarkupConfig[] = [
+        { type: 'h1', tag: 'h1', label: 'Page Title' },
+        { type: 'h2', tag: 'h2', label: 'Section Header' },
+        { type: 'h3', tag: 'h3', label: 'Subsection Header' },
+        { type: 'h4', tag: 'h4', label: 'Minor Header' },
+        { type: 'h5', tag: 'h5', label: 'Caption' },
+        { type: 'h6', tag: 'h6', label: 'Small Caption' },
+        { type: 'p', tag: 'p', label: 'Paragraph' },
+        { type: 'kicker', tag: 'p', label: 'Kicker', className: 'kicker' },
+        { type: 'callout', tag: 'p', label: 'Callout', className: 'callout' },
+        { type: 'small', tag: 'p', label: 'Small Text', className: 'small' },
+        { type: 'fine', tag: 'p', label: 'Fine Print', className: 'fine' },
+    ];
+
+    static readonly DEFAULT_INLINES: InlineMarkupConfig[] = [
+        { type: 'bold', tag: 'strong', label: 'Bold' },
+        { type: 'italic', tag: 'em', label: 'Italic' },
+        { type: 'underline', tag: 'u', label: 'Underline' },
+    ];
+
     public isApplyingExternalUpdate = false;
 
     private rootEl: HTMLElement | null = null;
@@ -38,19 +58,6 @@ export class ContentEditorController {
         onSelectionRelevantEvent: () => this.onSelectionRelevantEvent(),
         onSelectionChange: () => this.onSelectionChange(),
     };
-
-    private static readonly DEFAULT_BLOCKS: BlockMarkupConfig[] = [
-        { type: 'p1', tag: 'p', label: 'Paragraph' },
-        { type: 'p2', tag: 'p', label: 'Kicker' },
-        { type: 'p3', tag: 'p', label: '' },
-        { type: 'h1', tag: 'h1', label: 'Paragraph' },
-    ];
-
-    private static readonly DEFAULT_INLINES: InlineMarkupConfig[] = [
-        { type: 'bold', tag: 'strong', label: 'Bold' },
-        { type: 'italic', tag: 'em', label: 'Italic' },
-        { type: 'underline', tag: 'u', label: 'Underline' },
-    ];
 
     constructor(
         modelValue: ContentValue | null | undefined,
