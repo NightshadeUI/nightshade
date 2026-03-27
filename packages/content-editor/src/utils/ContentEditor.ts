@@ -8,6 +8,7 @@ import { BlockMap } from './BlockMap.js';
 import { BlockParser } from './BlockParser.js';
 import { BlockRenderer } from './BlockRenderer.js';
 import { BlockSanitizer } from './BlockSanitizer.js';
+import { deepEquals } from './compare.js';
 import { DEFAULT_BLOCKS, DEFAULT_INLINES } from './constants.js';
 import { DomFixer } from './DomFixer.js';
 import { DomSelection } from './DomSelection.js';
@@ -100,7 +101,7 @@ export class ContentEditor {
     }
 
     assignValue(value: ContentBlock[]) {
-        const hasChanges = JSON.stringify(value) !== JSON.stringify(this.value);
+        const hasChanges = !deepEquals(value, this.value);
         if (hasChanges) {
             this.value = value;
             this.emitUpdate();
