@@ -1,5 +1,5 @@
-import type { ContentEditor } from '../ContentEditor.js';
 import type { InlineMarkupConfig } from '../types.js';
+import type { ContentEditor } from './ContentEditor.js';
 import { removeNode, unwrap } from './dom.js';
 
 const FORBIDDEN_TAGS = [

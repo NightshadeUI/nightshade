@@ -3,15 +3,15 @@ import { Event } from 'nanoevent';
 import type {
     ContentBlock,
     ContentEditorConfig,
-} from './types.js';
-import { BlockMap } from './utils/BlockMap.js';
-import { BlockParser } from './utils/BlockParser.js';
-import { BlockRenderer } from './utils/BlockRenderer.js';
-import { BlockSanitizer } from './utils/BlockSanitizer.js';
-import { DEFAULT_BLOCKS, DEFAULT_INLINES, SAFE_TYPING_INPUT_TYPES } from './utils/constants.js';
-import { DomFixer } from './utils/DomFixer.js';
-import { DomSelection } from './utils/DomSelection.js';
-import { InlineSanitizer } from './utils/InlineSanitizer.js';
+} from '../types.js';
+import { BlockMap } from './BlockMap.js';
+import { BlockParser } from './BlockParser.js';
+import { BlockRenderer } from './BlockRenderer.js';
+import { BlockSanitizer } from './BlockSanitizer.js';
+import { DEFAULT_BLOCKS, DEFAULT_INLINES, SAFE_TYPING_INPUT_TYPES } from './constants.js';
+import { DomFixer } from './DomFixer.js';
+import { DomSelection } from './DomSelection.js';
+import { InlineSanitizer } from './InlineSanitizer.js';
 
 interface EditorListeners {
     onInput: (e: globalThis.Event) => void;

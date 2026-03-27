@@ -1,4 +1,4 @@
-import type { ContentEditor } from '../ContentEditor.js';
+import type { ContentEditor } from './ContentEditor.js';
 
 export class DomFixer {
 
