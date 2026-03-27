@@ -1,4 +1,4 @@
-import type { ContentEditorController } from '../ContentEditorController.js';
+import type { ContentEditor } from '../ContentEditor.js';
 import type { InlineMarkupConfig } from '../types.js';
 import { removeNode, unwrap } from './dom.js';
 
@@ -15,7 +15,7 @@ const FORBIDDEN_TAGS = [
 export class InlineSanitizer {
 
     constructor(
-        public controller: ContentEditorController,
+        public editor: ContentEditor,
     ) {}
 
     sanitizeHtml(input: string): string {
@@ -80,7 +80,7 @@ export class InlineSanitizer {
     private findInlineDefinition(element: HTMLElement): InlineMarkupConfig | null {
         const tag = element.tagName.toLowerCase();
         const classList = [...element.classList];
-        for (const inlineDef of this.controller.config.inlines) {
+        for (const inlineDef of this.editor.config.inlines) {
             if (inlineDef.tag.toLowerCase() !== tag) {
                 continue;
             }

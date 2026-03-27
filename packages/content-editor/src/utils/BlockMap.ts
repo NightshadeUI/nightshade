@@ -1,21 +1,21 @@
-import type { ContentEditorController } from '../ContentEditorController.js';
+import type { ContentEditor } from '../ContentEditor.js';
 import type { ContentBlock } from '../types.js';
 
 export class BlockMap {
 
-    constructor(public controller: ContentEditorController) {}
+    constructor(public editor: ContentEditor) {}
 
     size(): number {
-        const rootEl = this.controller.getRootElement();
+        const rootEl = this.editor.getRootElement();
         return rootEl?.children.length ?? 0;
     }
 
     getContentBlockByIndex(idx: number): ContentBlock | null {
-        return this.controller.getValue()[idx] ?? null;
+        return this.editor.getValue()[idx] ?? null;
     }
 
     getContentElementByIndex(idx: number): HTMLElement | null {
-        const rootEl = this.controller.getRootElement();
+        const rootEl = this.editor.getRootElement();
         if (!rootEl) {
             return null;
         }
@@ -23,7 +23,7 @@ export class BlockMap {
     }
 
     getContentElementIndex(el: HTMLElement): number {
-        const rootEl = this.controller.getRootElement();
+        const rootEl = this.editor.getRootElement();
         if (!rootEl || el.parentElement !== rootEl) {
             return -1;
         }

@@ -1,4 +1,4 @@
-import type { ContentEditorController } from '../ContentEditorController.js';
+import type { ContentEditor } from '../ContentEditor.js';
 import type { BlockMarkupConfig, ContentBlock, ContentBlockType } from '../types.js';
 import { InlineSanitizer } from './InlineSanitizer.js';
 
@@ -6,13 +6,13 @@ export class BlockSanitizer {
 
     private blockMap: Map<ContentBlockType, BlockMarkupConfig>;
 
-    constructor(public controller: ContentEditorController) {
-        const blocks = controller.config.blocks;
+    constructor(public editor: ContentEditor) {
+        const blocks = editor.config.blocks;
         this.blockMap = new Map(blocks.map(block => [block.type, block]));
     }
 
     get inlineSanitizer(): InlineSanitizer {
-        return this.controller.inlineSanitizer;
+        return this.editor.inlineSanitizer;
     }
 
     sanitizeValue(input: unknown): ContentBlock[] {

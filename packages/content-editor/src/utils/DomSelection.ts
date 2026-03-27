@@ -1,10 +1,10 @@
-import type { ContentEditorController } from '../ContentEditorController.js';
+import type { ContentEditor } from '../ContentEditor.js';
 
 export class DomSelection {
 
     selectedBlockIndexes: number[] = [];
 
-    constructor(public controller: ContentEditorController) {}
+    constructor(public editor: ContentEditor) {}
 
     onSelectionChanged() {
         this.selectedBlockIndexes = this.computeSelectedBlockIndexes();
@@ -15,7 +15,7 @@ export class DomSelection {
     }
 
     private computeSelectedBlockIndexes(): number[] {
-        const rootEl = this.controller.getRootElement();
+        const rootEl = this.editor.getRootElement();
         const selection = window.getSelection();
         if (!rootEl || !selection || selection.rangeCount === 0) {
             return [];
@@ -25,7 +25,7 @@ export class DomSelection {
         if (!startContentElement) {
             return [];
         }
-        const startIdx = this.controller.blockMap.getContentElementIndex(startContentElement);
+        const startIdx = this.editor.blockMap.getContentElementIndex(startContentElement);
         if (startIdx === -1) {
             return [];
         }
@@ -37,7 +37,7 @@ export class DomSelection {
         if (!endContentElement) {
             return [startIdx];
         }
-        const endIdx = this.controller.blockMap.getContentElementIndex(endContentElement);
+        const endIdx = this.editor.blockMap.getContentElementIndex(endContentElement);
         if (endIdx === -1) {
             return [startIdx];
         }

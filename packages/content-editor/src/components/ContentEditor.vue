@@ -1,6 +1,6 @@
 <template>
     <div class="ContentEditor">
-        {{ controller.domSelection.selectedBlockIndexes }}
+        {{ editor.domSelection.selectedBlockIndexes }}
         <div
             ref="editorEl"
             class="EditableContent" />
@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { ContentEditorController } from '../ContentEditorController.js';
+import { ContentEditor } from '../ContentEditor.js';
 
 export default {
 
@@ -20,9 +20,9 @@ export default {
     emits: ['update:modelValue'],
 
     data() {
-        const controller = new ContentEditorController(this.options);
+        const editor = new ContentEditor(this.options);
         return {
-            controller,
+            editor,
             isInternalUpdatePending: false,
         };
     },
@@ -33,19 +33,19 @@ export default {
                 this.isInternalUpdatePending = false;
                 return;
             }
-            this.controller.setValue(newValue);
+            this.editor.setValue(newValue);
         },
     },
 
     mounted() {
-        this.controller.setModelValue(this.modelValue);
-        this.controller.mount(this.$refs.editorEl);
-        this.controller.onUpdate.on(this.onUpdate, this);
+        this.editor.setModelValue(this.modelValue);
+        this.editor.mount(this.$refs.editorEl);
+        this.editor.onUpdate.on(this.onUpdate, this);
     },
 
     beforeUnmount() {
-        this.controller.unmount();
-        this.controller.onUpdate.removeAll(this);
+        this.editor.unmount();
+        this.editor.onUpdate.removeAll(this);
     },
 
     methods: {

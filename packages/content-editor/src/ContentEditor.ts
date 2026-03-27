@@ -19,7 +19,7 @@ interface EditorListeners {
     onSelectionChange: () => void;
 }
 
-export class ContentEditorController {
+export class ContentEditor {
 
     readonly config: ContentEditorConfig;
 
@@ -123,7 +123,7 @@ export class ContentEditorController {
         const nextValue = this.sanitizeParsedValue(parsedBlocks);
         const renderedNextHtml = this.blockRenderer.render(nextValue);
         const hasChanges = JSON.stringify(nextValue) !== JSON.stringify(this.value);
-        const needsRerender = ContentEditorController.normalizeEditorHtml(this.rootEl.innerHTML) !== ContentEditorController.normalizeEditorHtml(renderedNextHtml);
+        const needsRerender = ContentEditor.normalizeEditorHtml(this.rootEl.innerHTML) !== ContentEditor.normalizeEditorHtml(renderedNextHtml);
         this.value = nextValue;
         if (needsRerender) {
             this.rootEl.innerHTML = renderedNextHtml;
@@ -211,8 +211,8 @@ export class ContentEditorController {
 
         // Ensure DOM inline markup is canonical. If it already is, we do not touch DOM (caret-safe).
         const expectedInner = nextBlock.text === '' ? '<br>' : nextBlock.text;
-        const currentInnerNormalized = ContentEditorController.normalizeEditorHtml(blockEl.innerHTML);
-        const expectedInnerNormalized = ContentEditorController.normalizeEditorHtml(expectedInner);
+        const currentInnerNormalized = ContentEditor.normalizeEditorHtml(blockEl.innerHTML);
+        const expectedInnerNormalized = ContentEditor.normalizeEditorHtml(expectedInner);
         if (currentInnerNormalized !== expectedInnerNormalized) {
             // Only patch if the textual content stays the same (caret offset mapping safety).
             const currentText = blockEl.textContent ?? '';

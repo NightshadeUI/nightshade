@@ -1,8 +1,8 @@
-import type { ContentEditorController } from '../ContentEditorController.js';
+import type { ContentEditor } from '../ContentEditor.js';
 
 export class DomFixer {
 
-    constructor(public controller: ContentEditorController) {}
+    constructor(public editor: ContentEditor) {}
 
     fixRoot(root: HTMLElement): void {
         this.stripStyleAttributes(root);
@@ -61,8 +61,8 @@ export class DomFixer {
     }
 
     private createDefaultBlockElement(): HTMLElement {
-        const defaultBlockType = this.controller.config.defaultBlockType;
-        const defaultBlock = this.controller.config.blocks
+        const defaultBlockType = this.editor.config.defaultBlockType;
+        const defaultBlock = this.editor.config.blocks
             .find(block => block.type === defaultBlockType);
         const tag = defaultBlock?.tag ?? 'p';
         const block = document.createElement(tag);

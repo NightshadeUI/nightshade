@@ -1,13 +1,13 @@
-import type { ContentEditorController } from '../ContentEditorController.js';
+import type { ContentEditor } from '../ContentEditor.js';
 import type { BlockMarkupConfig, ContentBlock } from '../types.js';
 
 export class BlockParser {
 
-    constructor(public controller: ContentEditorController) {}
+    constructor(public editor: ContentEditor) {}
 
     parseRoot(root: HTMLElement): ContentBlock[] {
         const blocks: ContentBlock[] = [];
-        const defaultType = this.controller.config.defaultBlockType;
+        const defaultType = this.editor.config.defaultBlockType;
         for (const child of root.childNodes) {
             if (child.nodeType === Node.TEXT_NODE) {
                 const text = child.textContent ?? '';
@@ -38,7 +38,7 @@ export class BlockParser {
 
     findBlockDefinition(element: HTMLElement): BlockMarkupConfig | null {
         const tag = element.tagName.toLowerCase();
-        for (const blockDef of this.controller.config.blocks) {
+        for (const blockDef of this.editor.config.blocks) {
             if (blockDef.tag.toLowerCase() !== tag) {
                 continue;
             }
