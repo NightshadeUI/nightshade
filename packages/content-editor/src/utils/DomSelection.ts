@@ -6,7 +6,7 @@ export class DomSelection {
 
     constructor(public controller: ContentEditorController) {}
 
-    onSelectionChanged(): void {
+    onSelectionChanged() {
         this.selectedBlockIndexes = this.computeSelectedBlockIndexes();
     }
 
@@ -20,13 +20,11 @@ export class DomSelection {
         if (!rootEl || !selection || selection.rangeCount === 0) {
             return [];
         }
-
         const range = selection.getRangeAt(0);
         const startContentElement = this.getTopLevelContentElement(range.startContainer, rootEl);
         if (!startContentElement) {
             return [];
         }
-
         const startIdx = this.controller.blockMap.getContentElementIndex(startContentElement);
         if (startIdx === -1) {
             return [];
@@ -35,17 +33,14 @@ export class DomSelection {
         if (range.collapsed) {
             return [startIdx];
         }
-
         const endContentElement = this.getTopLevelContentElement(range.endContainer, rootEl);
         if (!endContentElement) {
             return [startIdx];
         }
-
         const endIdx = this.controller.blockMap.getContentElementIndex(endContentElement);
         if (endIdx === -1) {
             return [startIdx];
         }
-
         const minIdx = Math.min(startIdx, endIdx);
         const maxIdx = Math.max(startIdx, endIdx);
         const indexes: number[] = [];

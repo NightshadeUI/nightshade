@@ -13,6 +13,12 @@ import { DomFixer } from './utils/DomFixer.js';
 import { DomSelection } from './utils/DomSelection.js';
 import { InlineSanitizer } from './utils/InlineSanitizer.js';
 
+interface EditorListeners {
+    onInput: (e: globalThis.Event) => void;
+    onBeforeInput: (e: globalThis.InputEvent) => void;
+    onSelectionChange: () => void;
+}
+
 export class ContentEditorController {
 
     readonly config: ContentEditorConfig;
@@ -28,18 +34,13 @@ export class ContentEditorController {
     onUpdate = new Event<ContentBlock[]>();
 
     private rootEl: HTMLElement | null = null;
-    private value: ContentBlock[];
+    private value: ContentBlock[] = [];
     private lastInputType: string | null = null;
     private lastIsComposing = false;
 
-    private listeners = {
-        onBeforeInput: (e: globalThis.Event) => this.onBeforeInput(e as InputEvent),
-        onInput: (e: globalThis.Event) => this.onInput(e as InputEvent),
-        onSelectionChange: () => this.onSelectionChanged(),
-    };
+    private listeners!: EditorListeners;
 
     constructor(
-        modelValue: ContentBlock[] | null | undefined,
         options?: Partial<ContentEditorConfig>,
     ) {
         this.config = {
@@ -55,8 +56,11 @@ export class ContentEditorController {
         this.domFixer = new DomFixer(this);
         this.blockMap = new BlockMap(this);
         this.domSelection = new DomSelection(this);
+    }
 
+    setModelValue(modelValue: ContentBlock[] | null | undefined): void {
         this.value = this.sanitizeContentValue(modelValue);
+        this.renderToEditor();
     }
 
     mount(rootEl: HTMLElement): void {
@@ -64,6 +68,11 @@ export class ContentEditorController {
         this.rootEl.setAttribute('contenteditable', 'true');
         this.rootEl.setAttribute('spellcheck', 'true');
         this.renderToEditor();
+        this.listeners = {
+            onBeforeInput: (e: globalThis.Event) => this.onBeforeInput(e as InputEvent),
+            onInput: (e: globalThis.Event) => this.onInput(e as InputEvent),
+            onSelectionChange: () => this.onSelectionChanged(),
+        };
         this.rootEl.addEventListener('input', this.listeners.onInput);
         this.rootEl.addEventListener('beforeinput', this.listeners.onBeforeInput);
         document.addEventListener('selectionchange', this.listeners.onSelectionChange);
