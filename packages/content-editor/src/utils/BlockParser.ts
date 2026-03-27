@@ -1,5 +1,6 @@
 import type { BlockMarkupConfig, ContentBlock } from '../types.js';
 import type { ContentEditor } from './ContentEditor.js';
+import { escapeHtml } from './escape.js';
 
 export class BlockParser {
 
@@ -16,7 +17,7 @@ export class BlockParser {
                 }
                 blocks.push({
                     type: defaultType,
-                    text,
+                    text: escapeHtml(text),
                 });
                 continue;
             }
