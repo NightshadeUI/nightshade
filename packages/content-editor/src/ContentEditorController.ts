@@ -50,7 +50,7 @@ export class ContentEditorController {
         this.blockParser = new BlockParser(this);
         this.blockRenderer = new BlockRenderer(this);
         this.domFixer = new DomFixer(this);
-        this.domMap = new DomMap();
+        this.domMap = new DomMap(this);
 
         this.value = this.sanitizeContentValue(modelValue);
     }
@@ -73,6 +73,10 @@ export class ContentEditorController {
         this.rootEl = null;
     }
 
+    getRootElement(): HTMLElement | null {
+        return this.rootEl;
+    }
+
     setValue(value: ContentBlock[] | null | undefined): void {
         this.value = this.sanitizeContentValue(value);
         this.renderToEditor();
@@ -83,7 +87,6 @@ export class ContentEditorController {
             return;
         }
         this.rootEl.innerHTML = this.blockRenderer.render(this.value);
-        this.domMap.rebuild(this.rootEl);
     }
 
     private applyEditorDomAsSourceOfTruth(): void {
@@ -99,7 +102,6 @@ export class ContentEditorController {
         this.value = nextValue;
         if (needsRerender) {
             this.rootEl.innerHTML = renderedNextHtml;
-            this.domMap.rebuild(this.rootEl);
         }
         if (hasChanges) {
             this.emitModel();
@@ -123,9 +125,9 @@ export class ContentEditorController {
         this.lastInputType = null;
         this.lastIsComposing = false;
 
-        if (inputType && !isComposing && this.tryApplyTypingFastPath(inputType)) {
-            return;
-        }
+        // if (inputType && !isComposing && this.tryApplyTypingFastPath(inputType)) {
+        //     return;
+        // }
 
         this.applyEditorDomAsSourceOfTruth();
     }
@@ -138,7 +140,6 @@ export class ContentEditorController {
             return false;
         }
 
-        this.domMap.rebuild(this.rootEl);
         if (this.domMap.size() !== this.value.length) {
             // Split/merge or unexpected DOM structure: fallback.
             return false;

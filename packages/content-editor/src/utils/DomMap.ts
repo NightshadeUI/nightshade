@@ -1,29 +1,35 @@
+import type { ContentEditorController } from '../ContentEditorController.js';
+
 export class DomMap {
 
-    private indexByElement = new WeakMap<Element, number>();
-    private elements: HTMLElement[] = [];
+    constructor(public controller: ContentEditorController) {}
 
-    rebuild(root: HTMLElement): void {
-        this.elements = Array.from(root.childNodes).filter(
-            node => node.nodeType === Node.ELEMENT_NODE,
-        ) as HTMLElement[];
-
-        this.indexByElement = new WeakMap<Element, number>();
-        for (let i = 0; i < this.elements.length; i++) {
-            this.indexByElement.set(this.elements[i], i);
-        }
+    private get rootEl(): HTMLElement | null {
+        return this.controller.getRootElement();
     }
 
     size(): number {
-        return this.elements.length;
+        return this.rootEl?.children.length ?? 0;
     }
 
     getBlockIndex(el: Element): number | null {
-        return this.indexByElement.get(el) ?? null;
+        if (!this.rootEl || el.parentElement !== this.rootEl) {
+            return null;
+        }
+        let index = 0;
+        let node: Element | null = el;
+        while (node && node.previousElementSibling) {
+            index += 1;
+            node = node.previousElementSibling;
+        }
+        return index;
     }
 
     getElementByBlock(index: number): HTMLElement | null {
-        return this.elements[index] ?? null;
+        if (!this.rootEl) {
+            return null;
+        }
+        return this.rootEl.children.item(index) as HTMLElement | null;
     }
 
 }
