@@ -1,15 +1,8 @@
-import type { BlockMarkupConfig, ContentBlockType } from '../types.js';
+import type { ContentEditorController } from '../ContentEditorController.js';
 
 export class DomFixer {
 
-    private defaultBlock: BlockMarkupConfig | undefined;
-
-    constructor(
-        private blocks: BlockMarkupConfig[],
-        private defaultBlockType: ContentBlockType,
-    ) {
-        this.defaultBlock = this.blocks.find(block => block.type === this.defaultBlockType);
-    }
+    constructor(public controller: ContentEditorController) {}
 
     fixRoot(root: HTMLElement): void {
         this.stripStyleAttributes(root);
@@ -68,10 +61,13 @@ export class DomFixer {
     }
 
     private createDefaultBlockElement(): HTMLElement {
-        const tag = this.defaultBlock?.tag ?? 'p';
+        const defaultBlockType = this.controller.config.defaultBlockType;
+        const defaultBlock = this.controller.config.blocks
+            .find(block => block.type === defaultBlockType);
+        const tag = defaultBlock?.tag ?? 'p';
         const block = document.createElement(tag);
-        if (this.defaultBlock?.className) {
-            block.className = this.defaultBlock.className;
+        if (defaultBlock?.className) {
+            block.className = defaultBlock.className;
         }
         return block;
     }

@@ -1,7 +1,8 @@
+import type { ContentEditorController } from '../ContentEditorController.js';
 import type { InlineMarkupConfig } from '../types.js';
 import { removeNode, unwrap } from './dom.js';
 
-const DEFAULT_FORBIDDEN_TAGS = [
+const FORBIDDEN_TAGS = [
     'script',
     'style',
     'iframe',
@@ -11,11 +12,10 @@ const DEFAULT_FORBIDDEN_TAGS = [
     'template',
 ];
 
-export class HtmlInlineSanitizer {
+export class InlineSanitizer {
 
     constructor(
-        public inlines: InlineMarkupConfig[],
-        public forbiddenTags = DEFAULT_FORBIDDEN_TAGS,
+        public controller: ContentEditorController,
     ) {}
 
     sanitizeHtml(input: string): string {
@@ -70,7 +70,7 @@ export class HtmlInlineSanitizer {
             return true;
         }
         const tagName = el.tagName.toLowerCase();
-        if (this.forbiddenTags.includes(tagName)) {
+        if (FORBIDDEN_TAGS.includes(tagName)) {
             removeNode(el);
             return true;
         }
@@ -80,7 +80,7 @@ export class HtmlInlineSanitizer {
     private findInlineDefinition(element: HTMLElement): InlineMarkupConfig | null {
         const tag = element.tagName.toLowerCase();
         const classList = [...element.classList];
-        for (const inlineDef of this.inlines) {
+        for (const inlineDef of this.controller.config.inlines) {
             if (inlineDef.tag.toLowerCase() !== tag) {
                 continue;
             }

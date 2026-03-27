@@ -20,8 +20,8 @@ export interface InlineMarkupConfig {
     label?: string;
 }
 
-export interface ContentEditorOptions {
+export interface ContentEditorConfig {
     blocks: BlockMarkupConfig[];
-    inlines?: InlineMarkupConfig[];
+    inlines: InlineMarkupConfig[];
     defaultBlockType: ContentBlockType;
 }

@@ -1,3 +1,4 @@
+import type { ContentEditorController } from '../ContentEditorController.js';
 import type { BlockMarkupConfig, ContentBlock, ContentBlockType } from '../types.js';
 import { escapeHtmlAttr } from './escape.js';
 
@@ -5,8 +6,9 @@ export class BlockRenderer {
 
     private blockMap: Map<ContentBlockType, BlockMarkupConfig>;
 
-    constructor(public config: BlockMarkupConfig[]) {
-        this.blockMap = new Map(config.map(item => [item.type, item]));
+    constructor(public controller: ContentEditorController) {
+        const blocks = controller.config.blocks;
+        this.blockMap = new Map(blocks.map(block => [block.type, block]));
     }
 
     render(blocks: ContentBlock[]): string {
