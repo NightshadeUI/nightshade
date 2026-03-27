@@ -4,12 +4,13 @@ import type {
     ContentBlock,
     ContentEditorConfig,
 } from './types.js';
+import { BlockMap } from './utils/BlockMap.js';
 import { BlockParser } from './utils/BlockParser.js';
 import { BlockRenderer } from './utils/BlockRenderer.js';
 import { BlockSanitizer } from './utils/BlockSanitizer.js';
 import { DEFAULT_BLOCKS, DEFAULT_INLINES, SAFE_TYPING_INPUT_TYPES } from './utils/constants.js';
 import { DomFixer } from './utils/DomFixer.js';
-import { DomMap } from './utils/DomMap.js';
+import { DomSelection } from './utils/DomSelection.js';
 import { InlineSanitizer } from './utils/InlineSanitizer.js';
 
 export class ContentEditorController {
@@ -21,7 +22,8 @@ export class ContentEditorController {
     blockParser: BlockParser;
     blockRenderer: BlockRenderer;
     domFixer: DomFixer;
-    domMap: DomMap;
+    blockMap: BlockMap;
+    domSelection: DomSelection;
 
     onUpdate = new Event<ContentBlock[]>();
 
@@ -33,6 +35,7 @@ export class ContentEditorController {
     private listeners = {
         onBeforeInput: (e: globalThis.Event) => this.onBeforeInput(e as InputEvent),
         onInput: (e: globalThis.Event) => this.onInput(e as InputEvent),
+        onSelectionChange: () => this.onSelectionChanged(),
     };
 
     constructor(
@@ -50,7 +53,8 @@ export class ContentEditorController {
         this.blockParser = new BlockParser(this);
         this.blockRenderer = new BlockRenderer(this);
         this.domFixer = new DomFixer(this);
-        this.domMap = new DomMap(this);
+        this.blockMap = new BlockMap(this);
+        this.domSelection = new DomSelection(this);
 
         this.value = this.sanitizeContentValue(modelValue);
     }
@@ -62,6 +66,8 @@ export class ContentEditorController {
         this.renderToEditor();
         this.rootEl.addEventListener('input', this.listeners.onInput);
         this.rootEl.addEventListener('beforeinput', this.listeners.onBeforeInput);
+        document.addEventListener('selectionchange', this.listeners.onSelectionChange);
+        this.onSelectionChanged();
     }
 
     unmount(): void {
@@ -70,6 +76,7 @@ export class ContentEditorController {
         }
         this.rootEl.removeEventListener('input', this.listeners.onInput);
         this.rootEl.removeEventListener('beforeinput', this.listeners.onBeforeInput);
+        document.removeEventListener('selectionchange', this.listeners.onSelectionChange);
         this.rootEl = null;
     }
 
@@ -80,6 +87,15 @@ export class ContentEditorController {
     setValue(value: ContentBlock[] | null | undefined): void {
         this.value = this.sanitizeContentValue(value);
         this.renderToEditor();
+        this.onSelectionChanged();
+    }
+
+    getValue(): ContentBlock[] {
+        return this.value;
+    }
+
+    onSelectionChanged(): void {
+        this.domSelection.onSelectionChanged();
     }
 
     private renderToEditor(): void {
@@ -106,6 +122,7 @@ export class ContentEditorController {
         if (hasChanges) {
             this.emitModel();
         }
+        this.onSelectionChanged();
     }
 
     private emitModel(): void {
@@ -140,7 +157,7 @@ export class ContentEditorController {
             return false;
         }
 
-        if (this.domMap.size() !== this.value.length) {
+        if (this.blockMap.size() !== this.value.length) {
             // Split/merge or unexpected DOM structure: fallback.
             return false;
         }
@@ -150,12 +167,12 @@ export class ContentEditorController {
             return false;
         }
 
-        const caretBlockIndex = this.domMap.getBlockIndex(caretBlockEl);
-        if (caretBlockIndex == null) {
+        const caretBlockIndex = this.blockMap.getContentElementIndex(caretBlockEl);
+        if (caretBlockIndex === -1) {
             return false;
         }
 
-        const mappedBlockEl = this.domMap.getElementByBlock(caretBlockIndex);
+        const mappedBlockEl = this.blockMap.getContentElementByIndex(caretBlockIndex);
         if (!mappedBlockEl || mappedBlockEl !== caretBlockEl) {
             return false;
         }
