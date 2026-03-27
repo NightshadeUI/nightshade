@@ -22,10 +22,9 @@ export const DEFAULT_INLINES: InlineMarkupConfig[] = [
     { type: 'a', tag: 'a', label: 'Link' },
 ];
 
-export const SAFE_TYPING_INPUT_TYPES = new Set<string>([
+export const FAST_UPDATE_INPUT_TYPES = new Set<string>([
     'insertText',
     'deleteContentBackward',
     'deleteContentForward',
-    // Some browsers classify IME text with this type.
     'insertCompositionText',
 ]);

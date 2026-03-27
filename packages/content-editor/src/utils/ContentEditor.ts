@@ -59,11 +59,6 @@ export class ContentEditor {
         this.editorInputHandler = new EditorInputHandler(this);
     }
 
-    setModelValue(modelValue: ContentBlock[] | null | undefined): void {
-        this.value = this.sanitizeContentValue(modelValue);
-        this.renderToEditor();
-    }
-
     mount(rootEl: HTMLElement): void {
         this.rootEl = rootEl;
         this.rootEl.setAttribute('contenteditable', 'true');
@@ -98,22 +93,26 @@ export class ContentEditor {
         return this.value;
     }
 
-    setValue(value: ContentBlock[] | null | undefined): void {
-        this.value = this.sanitizeContentValue(value);
+    setModelValue(value: ContentBlock[] | null | undefined) {
+        this.value = this.sanitizeInputBlocks(value);
         this.renderToEditor();
         this.domSelection.onSelectionChanged();
     }
 
-    assignValue(value: ContentBlock[]): void {
-        this.value = value;
+    assignValue(value: ContentBlock[]) {
+        const hasChanges = JSON.stringify(value) !== JSON.stringify(this.value);
+        if (hasChanges) {
+            this.value = value;
+            this.emitUpdate();
+        }
     }
 
-    emitUpdate(): void {
+    emitUpdate() {
         this.onUpdate.emit(this.value);
     }
 
-    private sanitizeContentValue(input: unknown): ContentBlock[] {
-        const blocks = this.blockSanitizer.sanitizeValue(input);
+    private sanitizeInputBlocks(input: unknown): ContentBlock[] {
+        const blocks = this.blockSanitizer.sanitizeInputBlocks(input);
         return blocks.length ?
             blocks :
             [

@@ -1,6 +1,5 @@
 <template>
     <div class="ContentEditor">
-        {{ editor.domSelection.selectedBlockIndexes }}
         <div
             ref="editorEl"
             class="EditableContent" />
@@ -33,7 +32,7 @@ export default {
                 this.isInternalUpdatePending = false;
                 return;
             }
-            this.editor.setValue(newValue);
+            this.editor.setModelValue(newValue);
         },
     },
 

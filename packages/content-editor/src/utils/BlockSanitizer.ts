@@ -15,7 +15,7 @@ export class BlockSanitizer {
         return this.editor.inlineSanitizer;
     }
 
-    sanitizeValue(input: unknown): ContentBlock[] {
+    sanitizeInputBlocks(input: unknown): ContentBlock[] {
         if (!Array.isArray(input)) {
             return [];
         }

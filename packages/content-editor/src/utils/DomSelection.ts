@@ -29,7 +29,6 @@ export class DomSelection {
         if (startIdx === -1) {
             return [];
         }
-
         if (range.collapsed) {
             return [startIdx];
         }

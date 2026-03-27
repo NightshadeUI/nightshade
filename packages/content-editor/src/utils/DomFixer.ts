@@ -4,10 +4,10 @@ export class DomFixer {
 
     constructor(public editor: ContentEditor) {}
 
-    fixRoot(root: HTMLElement): void {
-        this.stripStyleAttributes(root);
-        this.cleanupEmptySpans(root);
-        this.normalizeEmptyDivs(root);
+    fixElement(el: HTMLElement): void {
+        this.stripStyleAttributes(el);
+        this.cleanupEmptySpans(el);
+        this.normalizeEmptyDivs(el);
     }
 
     private stripStyleAttributes(root: HTMLElement): void {
