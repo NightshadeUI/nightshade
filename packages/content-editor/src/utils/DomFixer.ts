@@ -1,4 +1,5 @@
 import type { ContentEditor } from './ContentEditor.js';
+import { hasEqualAttributes } from './dom.js';
 
 export class DomFixer {
 
@@ -17,22 +18,23 @@ export class DomFixer {
 
     fixBlockElement(el: HTMLElement): void {
         this.normalizeEmpty(el);
-        this.ensureSupportedType(el);
+        this.ensureSupportedBlockType(el);
         this.stripStyleAttributes(el);
         this.cleanupEmptySpans(el);
+        this.mergeAdjacentInlineMarkup(el);
     }
 
-    private stripStyleAttributes(root: HTMLElement): void {
-        if (root.hasAttribute('style')) {
-            root.removeAttribute('style');
-        }
-        for (const el of root.querySelectorAll('[style]')) {
+    private stripStyleAttributes(el: HTMLElement): void {
+        if (el.hasAttribute('style')) {
             el.removeAttribute('style');
         }
+        for (const child of el.querySelectorAll('[style]')) {
+            child.removeAttribute('style');
+        }
     }
 
-    private cleanupEmptySpans(root: HTMLElement): void {
-        const spans = Array.from(root.querySelectorAll('span')).reverse();
+    private cleanupEmptySpans(el: HTMLElement): void {
+        const spans = Array.from(el.querySelectorAll('span')).reverse();
         for (const span of spans) {
             if (span.attributes.length > 0) {
                 continue;
@@ -48,6 +50,40 @@ export class DomFixer {
         }
     }
 
+    private mergeAdjacentInlineMarkup(node: Node): void {
+        let current: ChildNode | null = node.firstChild;
+        while (current) {
+            if (current.nodeType === Node.ELEMENT_NODE) {
+                this.mergeAdjacentInlineMarkup(current);
+            }
+            const next = current.nextSibling;
+            if (this.canMergeAdjacentInlineElements(current, next)) {
+                this.mergeSiblingElements(current as HTMLElement, next as HTMLElement);
+                continue;
+            }
+            current = next;
+        }
+    }
+
+    private canMergeAdjacentInlineElements(
+        left: ChildNode | null,
+        right: ChildNode | null,
+    ): boolean {
+        if (left?.nodeType !== Node.ELEMENT_NODE || right?.nodeType !== Node.ELEMENT_NODE) {
+            return false;
+        }
+        const leftEl = left as HTMLElement;
+        const rightEl = right as HTMLElement;
+        return hasEqualAttributes(leftEl, rightEl);
+    }
+
+    private mergeSiblingElements(left: HTMLElement, right: HTMLElement): void {
+        while (right.firstChild) {
+            left.appendChild(right.firstChild);
+        }
+        right.remove();
+    }
+
     /**
      * <div><br></div> is inserted by browser when user presses Enter in non-paragraph.
      * Additionally, if split is done inside inline markup like <strong>,
@@ -61,7 +97,7 @@ export class DomFixer {
         }
     }
 
-    private ensureSupportedType(el: HTMLElement): void {
+    private ensureSupportedBlockType(el: HTMLElement): void {
         const blockDef = this.editor.blockParser.findBlockDefinition(el);
         if (!blockDef) {
             const replacementEl = document.createElement(this.editor.config.defaultBlockType);
