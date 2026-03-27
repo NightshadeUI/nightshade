@@ -4,10 +4,22 @@ export class DomFixer {
 
     constructor(public editor: ContentEditor) {}
 
-    fixElement(el: HTMLElement): void {
+    fixRoot(root: HTMLElement): void {
+        for (const node of [...root.childNodes]) {
+            if (node.nodeType !== Node.ELEMENT_NODE) {
+                root.removeChild(node);
+                continue;
+            }
+            const el = node as HTMLElement;
+            this.fixBlockElement(el);
+        }
+    }
+
+    fixBlockElement(el: HTMLElement): void {
+        this.normalizeEmpty(el);
+        this.ensureSupportedType(el);
         this.stripStyleAttributes(el);
         this.cleanupEmptySpans(el);
-        this.normalizeEmptyDivs(el);
     }
 
     private stripStyleAttributes(root: HTMLElement): void {
@@ -36,40 +48,26 @@ export class DomFixer {
         }
     }
 
-    // <div><br></div> is inserted by browser when user presses Enter in non-paragraph
-    private normalizeEmptyDivs(root: HTMLElement): void {
-        const divs = Array.from(root.querySelectorAll('div'));
-        for (const div of divs) {
-            const childNodes = Array.from(div.childNodes);
-            if (childNodes.length !== 1) {
-                continue;
-            }
-            const onlyChild = childNodes[0];
-            if (onlyChild.nodeType !== Node.ELEMENT_NODE) {
-                continue;
-            }
-            const onlyElement = onlyChild as HTMLElement;
-            if (onlyElement.tagName !== 'BR') {
-                continue;
-            }
-            const replacement = this.createDefaultBlockElement();
-            replacement.innerHTML = '<BR/>';
-            if (div.parentNode) {
-                div.parentNode.replaceChild(replacement, div);
-            }
+    /**
+     * <div><br></div> is inserted by browser when user presses Enter in non-paragraph.
+     * Additionally, if split is done inside inline markup like <strong>,
+     * the next empty block will contain something like <p><strong><br/></strong></p> which
+     * we normalize to <p><br/></p>
+     */
+    private normalizeEmpty(el: HTMLElement): void {
+        const text = el.textContent ?? '';
+        if (text.trim() === '') {
+            el.innerHTML = '<br>';
         }
     }
 
-    private createDefaultBlockElement(): HTMLElement {
-        const defaultBlockType = this.editor.config.defaultBlockType;
-        const defaultBlock = this.editor.config.blocks
-            .find(block => block.type === defaultBlockType);
-        const tag = defaultBlock?.tag ?? 'p';
-        const block = document.createElement(tag);
-        if (defaultBlock?.className) {
-            block.className = defaultBlock.className;
+    private ensureSupportedType(el: HTMLElement): void {
+        const blockDef = this.editor.blockParser.findBlockDefinition(el);
+        if (!blockDef) {
+            const replacementEl = document.createElement(this.editor.config.defaultBlockType);
+            replacementEl.innerHTML = el.innerHTML;
+            el.parentNode?.replaceChild(replacementEl, el);
         }
-        return block;
     }
 
 }

@@ -29,13 +29,18 @@ export class EditorInputHandler {
         if (!rootEl) {
             return;
         }
-        this.editor.domFixer.fixElement(rootEl);
+        this.editor.domFixer.fixRoot(rootEl);
         const parsedBlocks = this.editor.blockParser.parseRoot(rootEl);
         const nextValue = this.sanitizeParsedValue(parsedBlocks);
         const renderedNextHtml = this.editor.blockRenderer.render(nextValue);
         const needsRerender = this.normalizeHtml(rootEl.innerHTML) !== this.normalizeHtml(renderedNextHtml);
         this.editor.assignValue(nextValue);
         if (needsRerender) {
+            // eslint-disable-next-line no-console
+            console.debug('Rerender', {
+                before: this.normalizeHtml(rootEl.innerHTML),
+                after: this.normalizeHtml(renderedNextHtml),
+            });
             rootEl.innerHTML = renderedNextHtml;
         }
         this.editor.domSelection.onSelectionChanged();
@@ -66,7 +71,7 @@ export class EditorInputHandler {
         if (!selectedEl || !selectedBlock) {
             return false;
         }
-        this.editor.domFixer.fixElement(selectedEl);
+        this.editor.domFixer.fixBlockElement(selectedEl);
         const blockContent = this.editor.inlineSanitizer.sanitizeHtml(selectedEl.innerHTML);
         selectedBlock.text = blockContent;
         this.editor.emitUpdate();
