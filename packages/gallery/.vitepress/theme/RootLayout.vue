@@ -9,7 +9,7 @@
             <div class="Sidebar">
                 <ContentOutline />
                 <Appearance v-if="frontmatter.showAppearance" />
-                <AdjustPalette v-if="frontmatter.showAppearance" />
+                <PaletteBuilder v-if="frontmatter.showAppearance" />
             </div>
             <article
                 id="page-content"
@@ -25,13 +25,13 @@ import { useData } from 'vitepress';
 import Jumbo from './Jumbo.vue';
 import ContentOutline from './ContentOutline.vue';
 import Appearance from './Appearance.vue';
-import AdjustPalette from './AdjustPalette.vue';
+import PaletteBuilder from './PaletteBuilder.vue';
 import GalleryPaletteInject from './GalleryPaletteInject.vue';
 
 export default {
 
     components: {
-        AdjustPalette,
+        PaletteBuilder,
         GalleryPaletteInject,
         Jumbo,
         ContentOutline,
@@ -62,6 +62,10 @@ export default {
 
     padding: var(--sp);
     width: 240px;
+    max-height: 100vh;
+
+    display: flex;
+    flex-flow: column;
 }
 
 .Content {

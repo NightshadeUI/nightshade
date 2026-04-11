@@ -3,6 +3,7 @@ import { onMounted, watchEffect } from 'vue';
 import { generatePaletteCss } from '@nightshadeui/palette-generator/src';
 
 import {
+    effectivePaletteForGalleryCss,
     galleryPaletteOverrides,
     loadGalleryPaletteFromStorage,
 } from '../../utils/palette-theme.js';
@@ -17,7 +18,7 @@ watchEffect(() => {
     if (typeof document === 'undefined' || typeof document.getElementById !== 'function') {
         return;
     }
-    const css = generatePaletteCss(galleryPaletteOverrides.value);
+    const css = generatePaletteCss(effectivePaletteForGalleryCss(galleryPaletteOverrides.value));
     let el = document.getElementById(STYLE_ID);
     if (!el) {
         el = document.createElement('style');

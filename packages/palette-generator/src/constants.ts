@@ -12,13 +12,13 @@ export const DEFAULT_CHROMA_SCALE = [
     0.01, 0.02, 0.03, 0.06, 0.09, 0.12, 0.12, 0.09, 0.06, 0.03, 0.02, 0.01,
 ];
 
-export const DEFAULT_SCALE_SPECS: Record<string, PaletteScaleSpec> = {
-    baseLight: { hue: 320, int: 0.2, lum: 1 },
-    baseDark: { hue: 340, int: 0.2, lum: 1, reverse: true },
-    primary: { hue: 340, int: 1.2, lum: 1 },
-    secondary: { hue: 172, int: 0.72, lum: 1 },
-    tertiary: { hue: 20, int: 0.25, lum: 1 },
-    success: { hue: 140, int: 1.2, lum: 1 },
-    warning: { hue: 72, int: 1.33, lum: 1.12 },
-    danger: { hue: 24, int: 1.5, lum: 0.9 },
-};
+export const DEFAULT_SCALE_SPECS: PaletteScaleSpec[] = [
+    { name: 'base-light', hue: 320, int: 0.2, lum: 1 },
+    { name: 'base-dark', hue: 340, int: 0.2, lum: 1, reverse: true },
+    { name: 'primary', hue: 340, int: 1.2, lum: 1 },
+    { name: 'secondary', hue: 172, int: 0.72, lum: 1 },
+    { name: 'tertiary', hue: 20, int: 0.25, lum: 1 },
+    { name: 'success', hue: 140, int: 1.2, lum: 1 },
+    { name: 'warning', hue: 72, int: 1.33, lum: 1.12 },
+    { name: 'danger', hue: 24, int: 1.5, lum: 0.9 },
+];

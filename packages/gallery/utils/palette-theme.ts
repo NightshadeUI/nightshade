@@ -1,10 +1,26 @@
-import { PaletteSpec } from '@nightshadeui/palette-generator/src';
+import { DEFAULT_SCALE_SPECS, type PaletteSpec } from '@nightshadeui/palette-generator/src';
 import { ref } from 'vue';
 
 const STORAGE_KEY = 'nightshade-gallery-palette';
 
-/** Live overrides merged with package defaults by the generator. */
+/** Live palette spec; partial `scales` are expanded in `effectivePaletteForGalleryCss`. */
 export const galleryPaletteOverrides = ref<PaletteSpec>({});
+
+/** Fills in default gallery rows when `scales` is missing or only partially overridden. */
+export function effectivePaletteForGalleryCss(spec: PaletteSpec): PaletteSpec {
+    if (!spec.scales?.length) {
+        return { ...spec, scales: [...DEFAULT_SCALE_SPECS] };
+    }
+    const byName = new Map(spec.scales.map(s => [s.name, s]));
+    return {
+        ...spec,
+        scales: DEFAULT_SCALE_SPECS.map(def => ({
+            ...def,
+            ...byName.get(def.name),
+            name: def.name,
+        })),
+    };
+}
 
 export function loadGalleryPaletteFromStorage() {
     if (typeof localStorage === 'undefined') {
