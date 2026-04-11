@@ -1,0 +1,24 @@
+{
+    "name": "@nightshadeui/cli",
+    "version": "2.8.1",
+    "description": "Nightshade UI command-line tools",
+    "author": "Boris Okunskiy",
+    "license": "ISC",
+    "type": "module",
+    "bin": {
+        "nightshade": "./dist/cli.js"
+    },
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "build": "tsc"
+    },
+    "dependencies": {
+        "@nightshadeui/palette-generator": "*",
+        "commander": "^13.1.0"
+    },
+    "devDependencies": {
+        "typescript": "^5.9.3"
+    }
+}

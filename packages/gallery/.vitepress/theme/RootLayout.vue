@@ -1,5 +1,6 @@
 <template>
     <div class="RootLayout">
+        <GalleryPaletteInject />
         <div id="overlays" />
         <template v-if="frontmatter.preamble === 'Jumbo'">
             <Jumbo />
@@ -8,6 +9,7 @@
             <div class="Sidebar">
                 <ContentOutline />
                 <Appearance v-if="frontmatter.showAppearance" />
+                <AdjustPalette v-if="frontmatter.showAppearance" />
             </div>
             <article
                 id="page-content"
@@ -23,10 +25,14 @@ import { useData } from 'vitepress';
 import Jumbo from './Jumbo.vue';
 import ContentOutline from './ContentOutline.vue';
 import Appearance from './Appearance.vue';
+import AdjustPalette from './AdjustPalette.vue';
+import GalleryPaletteInject from './GalleryPaletteInject.vue';
 
 export default {
 
     components: {
+        AdjustPalette,
+        GalleryPaletteInject,
         Jumbo,
         ContentOutline,
         Appearance,

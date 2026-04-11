@@ -1,0 +1,23 @@
+{
+    "name": "@nightshadeui/palette-generator",
+    "version": "2.8.1",
+    "description": "OKLCH palette CSS variable generator for Nightshade",
+    "author": "Boris Okunskiy",
+    "license": "ISC",
+    "type": "module",
+    "sideEffects": false,
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js"
+        },
+        "./src": "./src/index.ts"
+    },
+    "files": [
+        "dist",
+        "src"
+    ],
+    "scripts": {
+        "build": "tsc"
+    }
+}
