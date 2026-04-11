@@ -13,6 +13,7 @@
         "dev:gallery": "cd packages/gallery && npm run dev",
         "preview": "cd packages/gallery && npm run preview",
         "build": "npm run build --workspaces --if-present",
+        "lint": "eslint --cache",
         "preversion": "npm run build",
         "version": "node ./bump-version.mjs && git add .",
         "postversion": "git push origin main --tags && run-s publish:*",
@@ -21,6 +22,9 @@
         "publish:core": "cd packages/core && npm publish --access public",
         "publish:nightshade": "cd packages/nightshade && npm publish --access public"
     },
+    "pre-commit": [
+        "lint"
+    ],
     "dependencies": {
         "@nightshadeui/cli": "./packages/cli",
         "@nightshadeui/content-editor": "./packages/content-editor",
@@ -30,7 +34,9 @@
         "@nightshadeui/stylesheets": "./packages/stylesheets"
     },
     "devDependencies": {
-        "@luminable/eslint-config": "^1.3.2",
+        "@fastify/pre-commit": "^2.2.1",
+        "@luminable/eslint-config": "^1.3.5",
+        "@luminable/eslint-config-vue": "^1.3.5",
         "@types/node": "^24.9.1",
         "@vitejs/plugin-vue": "^6.0.1",
         "eslint": "^9.38.0",
