@@ -8,24 +8,76 @@
     <ContextPopup
         v-if="shown"
         anchor-ref="paletteAnchor"
-        @hide="shown = false">
+        @hide="shown = false"
+        :overlayShown="false"
+        :overlayEnabled="false">
         <VGroup
             gap="m"
             class="Panel">
-            <div class="HueList">
-                <div
-                    v-for="row in rows"
-                    :key="row.name"
-                    class="HueRow">
-                    <span class="HueLabel">{{ row.label }}</span>
+            <HGroup
+                v-for="row in rows"
+                :key="row.name"
+                class="PaletteRow">
+                <div class="PaletteLabel">
+                    {{ row.label }}
+                </div>
+                <div class="ControlCell">
+                    <input
+                        type="number"
+                        class="NumInput"
+                        min="0"
+                        max="360"
+                        step="1"
+                        :value="hue(row.name)"
+                        :aria-label="`${row.label} hue (numeric)`"
+                        @input="commitScaleNumber(row.name, 'hue', 0, 360, $event)" />
                     <input
                         type="range"
                         min="0"
                         max="360"
                         :value="hue(row.name)"
-                        @input="onHue(row.name, Number(($event.target).value))" />
+                        :aria-label="`${row.label} hue`"
+                        @input="onScaleProp(row.name, { hue: Number(($event.target).value) })" />
                 </div>
-            </div>
+                <div class="ControlCell">
+                    <input
+                        type="number"
+                        class="NumInput"
+                        min="0"
+                        max="2"
+                        step="0.01"
+                        :value="intensity(row.name)"
+                        :aria-label="`${row.label} intensity (numeric)`"
+                        @input="commitScaleNumber(row.name, 'int', 0, 2, $event)" />
+                    <input
+                        type="range"
+                        min="0"
+                        max="2"
+                        step="0.01"
+                        :value="intensity(row.name)"
+                        :aria-label="`${row.label} intensity`"
+                        @input="onScaleProp(row.name, { int: Number(($event.target).value) })" />
+                </div>
+                <div class="ControlCell">
+                    <input
+                        type="number"
+                        class="NumInput"
+                        min="0.5"
+                        max="1.5"
+                        step="0.01"
+                        :value="luminance(row.name)"
+                        :aria-label="`${row.label} luminance (numeric)`"
+                        @input="commitScaleNumber(row.name, 'lum', 0.5, 1.5, $event)" />
+                    <input
+                        type="range"
+                        min="0.5"
+                        max="1.5"
+                        step="0.01"
+                        :value="luminance(row.name)"
+                        :aria-label="`${row.label} luminance`"
+                        @input="onScaleProp(row.name, { lum: Number(($event.target).value) })" />
+                </div>
+            </HGroup>
             <textarea
                 class="CssOut"
                 readonly
@@ -93,11 +145,23 @@ export default {
             return o?.hue ?? d.hue;
         },
 
-        onHue(name, value) {
+        intensity(name) {
+            const d = DEFAULT_SCALE_SPECS.find((s) => s.name === name);
+            const o = galleryPaletteOverrides.value.scales?.find((s) => s.name === name);
+            return o?.int ?? d.int;
+        },
+
+        luminance(name) {
+            const d = DEFAULT_SCALE_SPECS.find((s) => s.name === name);
+            const o = galleryPaletteOverrides.value.scales?.find((s) => s.name === name);
+            return o?.lum ?? d.lum;
+        },
+
+        onScaleProp(name, partial) {
             const d = DEFAULT_SCALE_SPECS.find((s) => s.name === name);
             const scales = [...(galleryPaletteOverrides.value.scales ?? [])];
             const idx = scales.findIndex((s) => s.name === name);
-            const merged = { ...d, ...scales[idx], hue: value, name };
+            const merged = { ...d, ...scales[idx], ...partial, name };
             if (idx >= 0) {
                 scales[idx] = merged;
             } else {
@@ -106,6 +170,19 @@ export default {
             const next = { ...galleryPaletteOverrides.value, scales };
             galleryPaletteOverrides.value = next;
             saveGalleryPaletteToStorage(next);
+        },
+
+        commitScaleNumber(name, key, min, max, event) {
+            const raw = event.target.value;
+            if (raw === '' || raw === '-') {
+                return;
+            }
+            const n = Number(raw);
+            if (!Number.isFinite(n)) {
+                return;
+            }
+            const v = Math.min(max, Math.max(min, n));
+            this.onScaleProp(name, { [key]: v });
         },
 
         onReset() {
@@ -118,35 +195,41 @@ export default {
 </script>
 
 <style scoped>
-.PaletteBuilder {
-    margin: var(--sp2) 0;
-}
-
 .Panel {
-    padding: var(--sp2);
-    min-width: min(90vw, 20rem);
-    max-width: min(90vw, 24rem);
-}
-
-.HueList {
-    display: flex;
-    flex-direction: column;
-    gap: var(--sp-xs);
-    max-height: 40vh;
-    overflow-y: auto;
-    padding-right: var(--sp-xxs);
-}
-
-.HueRow {
-    display: grid;
-    grid-template-columns: 6.5rem 1fr;
-    align-items: center;
-    gap: var(--sp);
     font-size: var(--font-size-s);
+    padding: var(--sp2);
 }
 
-.HueLabel {
+.PaletteLabel {
+    width: 120px;
     color: var(--color-base-600);
+}
+
+.PaletteRow {
+    align-items: baseline;
+}
+
+.ControlCell {
+    display: flex;
+    flex-flow: column;
+    flex: 0 0 96px;
+    width: 96px;
+    gap: var(--sp-xs);
+}
+
+.ControlCell input[type='range'] {
+    height: 8px;
+}
+
+.NumInput {
+    box-sizing: border-box;
+    padding: var(--sp-xxs) var(--sp-xs);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--color-base-200);
+    background: var(--color-base-50);
+    font-size: var(--font-size-xs);
+    font-variant-numeric: tabular-nums;
+    color: var(--color-base-800);
 }
 
 .CssOut {
