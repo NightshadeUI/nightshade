@@ -60,3 +60,7 @@ button {
 b, strong {
     font-weight: var(--font-weight-bold);
 }
+
+code {
+    font-family: var(--font-monospace);
+}

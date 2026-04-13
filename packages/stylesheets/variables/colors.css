@@ -25,5 +25,5 @@
     --color-inverse-800: light-dark(var(--color-base-dark-800), var(--color-base-light-800));
     --color-inverse-900: light-dark(var(--color-base-dark-900), var(--color-base-light-900));
     --color-inverse-950: light-dark(var(--color-base-dark-950), var(--color-base-light-950));
-    
+
 }

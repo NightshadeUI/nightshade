@@ -7,16 +7,19 @@
     --text-color-subtle: var(--color-base-600);
     --text-color-sublime: var(--color-base-500);
     --overlay-surface: light-dark(rgba(0,0,0,.1), rgba(0,0,0,.2));
-    
+
     /* Shadows */
-    
+
     --shadow-color-light: light-dark(rgba(0,0,0,.1), rgba(0,0,0,.2));
     --shadow-color-medium: light-dark(rgba(0,0,0,.2), rgba(0,0,0,.4));
     --shadow-color-heavy: light-dark(rgba(0,0,0,.3), rgba(0,0,0,.6));
-    
-    /* Inputs */
-    
+
+    /* Border Radius */
+
     --border-radius: 4px;
+
+    /* Inputs */
+
     --input-radius: var(--border-radius);
     --input-border-size: 1px;
     --input-outline-size: 2px;
