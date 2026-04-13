@@ -1,6 +1,6 @@
 {
     "name": "@nightshadeui/gallery",
-    "version": "2.9.0",
+    "version": "2.10.0",
     "description": "Development/showcase frontend for Nightshade UI",
     "private": true,
     "type": "module",
@@ -17,6 +17,6 @@
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^7.2.0",
-        "@nightshadeui/palette-generator": "2.9.0"
+        "@nightshadeui/palette-generator": "2.10.0"
     }
 }
