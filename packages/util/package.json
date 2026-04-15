@@ -1,0 +1,12 @@
+{
+    "name": "@nightshadeui/util",
+    "version": "2.10.0",
+    "description": "Shared utility helpers for Nightshade packages",
+    "author": "Boris Okunskiy",
+    "license": "ISC",
+    "sideEffects": false,
+    "exports": {
+        ".": "./src/index.ts",
+        "./src": "./src/index.ts"
+    }
+}

@@ -1,0 +1,31 @@
+{
+    "name": "@nightshadeui/canvas",
+    "version": "2.10.0",
+    "description": "Nightshade canvas viewport primitives",
+    "author": "Boris Okunskiy",
+    "license": "ISC",
+    "sideEffects": false,
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/canvas.mjs"
+        },
+        "./src": "./src/index.ts"
+    },
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "build:watch": "vite build --watch",
+        "build": "NODE_ENV=production vite build"
+    },
+    "peerDependencies": {
+        "vue": "^3.5.22"
+    },
+    "dependencies": {
+        "@nightshadeui/util": "2.10.0",
+        "@luminable/init-decorator": "^1.3.5",
+        "mesh-ioc": "^4.3.1",
+        "nanoevent": "^1.0.0"
+    }
+}

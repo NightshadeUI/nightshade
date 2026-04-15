@@ -2,21 +2,29 @@
     <div class="RootLayout">
         <GalleryPaletteInject />
         <div id="overlays" />
-        <template v-if="frontmatter.preamble === 'Jumbo'">
-            <Jumbo />
-        </template>
-        <div class="Layout">
-            <div class="Sidebar">
-                <ContentOutline />
-                <Appearance v-if="frontmatter.showAppearance" />
-                <PaletteBuilder v-if="frontmatter.showAppearance" />
+
+        <template v-if="!useCustomLayout">
+            <template v-if="frontmatter.preamble === 'Jumbo'">
+                <Jumbo />
+            </template>
+            <div class="Layout">
+                <div class="Sidebar">
+                    <ContentOutline />
+                    <Appearance v-if="frontmatter.showAppearance" />
+                    <PaletteBuilder v-if="frontmatter.showAppearance" />
+                </div>
+                <article
+                    id="page-content"
+                    class="Content">
+                    <Content />
+                </article>
             </div>
-            <article
-                id="page-content"
-                class="Content">
-                <Content />
-            </article>
-        </div>
+        </template>
+
+        <template v-if="useCustomLayout">
+            <Content />
+        </template>
+
     </div>
 </template>
 
@@ -41,7 +49,15 @@ export default {
     setup() {
         const { frontmatter, page } = useData();
         return { frontmatter, page };
-    }
+    },
+
+    computed: {
+
+        useCustomLayout() {
+            return this.frontmatter.useCustomLayout;
+        },
+
+    },
 
 }
 </script>
