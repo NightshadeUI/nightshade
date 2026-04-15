@@ -5,7 +5,9 @@ import { reactive } from 'vue';
 import { CanvasConfig, CanvasConfigSpec } from './CanvasConfig.js';
 import { CanvasEvents } from './CanvasEvents.js';
 import { CanvasInputState } from './CanvasInputState.js';
+import { CanvasObjectRegistry } from './CanvasObjectRegistry.js';
 import { CanvasPan } from './CanvasPan.js';
+import { CanvasSelection } from './CanvasSelection.js';
 import { CanvasSpace } from './CanvasSpace.js';
 import { CanvasUiEvents } from './CanvasUiEvents.js';
 import { CanvasViewport } from './CanvasViewport.js';
@@ -20,6 +22,8 @@ export class CanvasController {
     pan = dependency(this, CanvasPan);
     events = dependency(this, CanvasEvents);
     inputState = dependency(this, CanvasInputState);
+    objectRegistry = dependency(this, CanvasObjectRegistry);
+    selection = dependency(this, CanvasSelection);
     uiEvents = dependency(this, CanvasUiEvents);
     zoom = dependency(this, CanvasZoom);
 
@@ -32,6 +36,8 @@ export class CanvasController {
         this.mesh.service(CanvasSpace);
         this.mesh.service(CanvasEvents);
         this.mesh.service(CanvasInputState);
+        this.mesh.service(CanvasObjectRegistry);
+        this.mesh.service(CanvasSelection);
         this.mesh.service(CanvasUiEvents);
         this.mesh.service(CanvasZoom);
         this.config.set(config);

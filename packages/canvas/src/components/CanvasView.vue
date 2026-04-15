@@ -3,18 +3,19 @@
         <div
             ref="viewport"
             class="Viewport"
-            @mousedown="controller.pan.onMouseDown"
-            @scroll="controller.viewport.onScroll"
-            @wheel="controller.zoom.onWheel">
+            @mousedown="canvas.pan.onMouseDown"
+            @uiclick="onCanvasUiClick"
+            @scroll="canvas.viewport.onScroll"
+            @wheel="canvas.zoom.onWheel">
             <div
                 class="Sizer"
-                :style="controller.viewport.getSizerStyle()" />
+                :style="canvas.viewport.getSizerStyle()" />
             <div
                 class="Canvas"
-                :style="controller.viewport.getCanvasStyle()">
+                :style="canvas.viewport.getCanvasStyle()">
                 <div
                     class="Origin"
-                    :style="controller.viewport.getOriginStyle()">
+                    :style="canvas.viewport.getOriginStyle()">
                     <slot />
                 </div>
             </div>
@@ -29,15 +30,23 @@
 export default {
 
     props: {
-        controller: { type: Object, required: true },
+        canvas: { type: Object, required: true },
     },
 
     mounted() {
-        this.controller.mount(this.$refs.viewport);
+        this.canvas.mount(this.$refs.viewport);
     },
 
     unmounted() {
-        this.controller.unmount();
+        this.canvas.unmount();
+    },
+
+    methods: {
+
+        onCanvasUiClick() {
+            this.canvas.selection.deselectAll();
+        },
+
     },
 
 };
