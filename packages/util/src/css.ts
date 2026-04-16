@@ -6,7 +6,7 @@ export function getCssVar(el: HTMLElement | null | undefined, name: string, fall
 
 export function getCssVarNumber(el: HTMLElement | null | undefined, name: string, fallback: number) {
     const raw = getCssVar(el, name, String(fallback));
-    const parsed = Number(raw.replace(/[^\d.-]/g, '').trim());
+    const parsed = Number(raw.replace(/px|em|%|vh|vw/g, ''));
     return Number.isFinite(parsed) ? parsed : fallback;
 }
 

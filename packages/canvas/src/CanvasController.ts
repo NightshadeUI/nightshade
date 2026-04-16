@@ -2,7 +2,7 @@ import { invokeInitHandlers } from '@luminable/init-decorator';
 import { dependency, Mesh } from 'mesh-ioc';
 import { reactive } from 'vue';
 
-import { CanvasConfig, CanvasConfigSpec } from './CanvasConfig.js';
+import { CanvasConfig, type CanvasConfigSpec } from './CanvasConfig.js';
 import { CanvasEvents } from './CanvasEvents.js';
 import { CanvasInputState } from './CanvasInputState.js';
 import { CanvasMove } from './CanvasMove.js';

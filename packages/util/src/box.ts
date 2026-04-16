@@ -1,5 +1,5 @@
 import { clamp } from './math.js';
-import { Point, pointsEqual, scalePoint } from './point.js';
+import { type Point, pointsEqual, scalePoint } from './point.js';
 
 export type Box = [Point, Point];
 

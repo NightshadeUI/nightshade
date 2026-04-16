@@ -4,167 +4,164 @@
         :canvas="canvas">
         <CanvasObject
             v-model:pos="testNode.pos"
+            v-model:isSelected="testNode.isSelected"
             objectId="test-node"
             :canvas="canvas"
             :selectable="testNode.selectable"
             :movable="testNode.movable"
             :snapToGrid="testNode.snapToGrid"
             :resizable="testNode.resizable"
-            :bounds="testNode.bounds">
-            <template #default="{ isSelected }">
-                <VGroup
-                    class="TestNode"
-                    :class="{ 'TestNode-selected': isSelected }">
-                    <HGroup gap="1" align="stretch">
-                        <InputText
-                            class="ControlInput"
-                            size="s"
-                            label="x"
-                            :modelValue="testNode.pos.x"
-                            type="number"
-                            @update:modelValue="testNode.pos.x = toNumber($event, testNode.pos.x)" />
-                        <InputText
-                            class="ControlInput"
-                            size="s"
-                            label="y"
-                            :modelValue="testNode.pos.y"
-                            type="number"
-                            @update:modelValue="testNode.pos.y = toNumber($event, testNode.pos.y)" />
-                        <InputText
-                            class="ControlInput"
-                            size="s"
-                            label="w"
-                            :modelValue="testNode.pos.w"
-                            type="number"
-                            :min="1"
-                            @update:modelValue="testNode.pos.w = toNumber($event, testNode.pos.w)" />
-                        <InputText
-                            class="ControlInput"
-                            size="s"
-                            label="h"
-                            :modelValue="testNode.pos.h"
-                            type="number"
-                            :min="1"
-                            @update:modelValue="testNode.pos.h = toNumber($event, testNode.pos.h)" />
-                    </HGroup>
+            :bounds="testNode.bounds"
+            class="TestNode"
+            :class="{ 'TestNode-selected': testNode.isSelected }">
+            <VGroup>
+                <HGroup gap="1" align="stretch">
+                    <InputText
+                        v-model="testNode.pos.x"
+                        class="ControlInput"
+                        size="s"
+                        label="x"
+                        type="number" />
+                    <InputText
+                        v-model="testNode.pos.y"
+                        class="ControlInput"
+                        size="s"
+                        label="y"
+                        type="number" />
+                    <InputText
+                        v-model="testNode.pos.w"
+                        class="ControlInput"
+                        size="s"
+                        label="w"
+                        type="number"
+                        :min="1" />
+                    <InputText
+                        v-model="testNode.pos.h"
+                        class="ControlInput"
+                        size="s"
+                        label="h"
+                        type="number"
+                        :min="1" />
+                </HGroup>
 
-                    <HGroup>
-                        <InputText
-                            class="ControlInput"
-                            size="s"
-                            label="minW"
-                            :modelValue="testNode.bounds[0].x"
-                            type="number"
-                            :min="1"
-                            @update:modelValue="testNode.bounds[0].x = toNumber($event, testNode.bounds[0].x)" />
-                        <InputText
-                            class="ControlInput"
-                            size="s"
-                            label="minH"
-                            :modelValue="testNode.bounds[0].y"
-                            type="number"
-                            :min="1"
-                            @update:modelValue="testNode.bounds[0].y = toNumber($event, testNode.bounds[0].y)" />
-                        <InputText
-                            class="ControlInput"
-                            size="s"
-                            label="maxW"
-                            :modelValue="testNode.bounds[1].x"
-                            type="number"
-                            :min="1"
-                            @update:modelValue="testNode.bounds[1].x = toNumber($event, testNode.bounds[1].x)" />
-                        <InputText
-                            class="ControlInput"
-                            size="s"
-                            label="maxH"
-                            :modelValue="testNode.bounds[1].y"
-                            type="number"
-                            :min="1"
-                            @update:modelValue="testNode.bounds[1].y = toNumber($event, testNode.bounds[1].y)" />
-                    </HGroup>
+                <HGroup>
+                    <InputText
+                        v-model="testNode.bounds[0].x"
+                        class="ControlInput"
+                        size="s"
+                        label="minW"
+                        type="number"
+                        :min="1" />
+                    <InputText
+                        v-model="testNode.bounds[0].y"
+                        class="ControlInput"
+                        size="s"
+                        label="minH"
+                        type="number"
+                        :min="1" />
+                    <InputText
+                        v-model="testNode.bounds[1].x"
+                        class="ControlInput"
+                        size="s"
+                        label="maxW"
+                        type="number"
+                        :min="1" />
+                    <InputText
+                        v-model="testNode.bounds[1].y"
+                        class="ControlInput"
+                        size="s"
+                        label="maxH"
+                        type="number"
+                        :min="1" />
+                </HGroup>
 
-                    <HGroup>
-                        <InputGroup>
-                            <Btn
-                                label="H"
-                                size="s"
-                                :kind="testNode.resizable === 'horizontal' ? 'primary' : 'base'"
-                                flat
-                                outline
-                                @click="testNode.resizable = 'horizontal'" />
-                            <Btn
-                                label="V"
-                                size="s"
-                                :kind="testNode.resizable === 'vertical' ? 'primary' : 'base'"
-                                flat
-                                outline
-                                @click="testNode.resizable = 'vertical'" />
-                            <Btn
-                                label="Both"
-                                size="s"
-                                :kind="testNode.resizable === 'both' ? 'primary' : 'base'"
-                                flat
-                                outline
-                                @click="testNode.resizable = 'both'" />
-                            <Btn
-                                label="None"
-                                size="s"
-                                :kind="testNode.resizable === 'none' ? 'primary' : 'base'"
-                                flat
-                                outline
-                                @click="testNode.resizable = 'none'" />
-                        </InputGroup>
+                <InputGroup>
+                    <Btn
+                        label="H"
+                        size="s"
+                        :kind="testNode.resizable === 'horizontal' ? 'primary' : 'base'"
+                        flat
+                        outline
+                        @click="testNode.resizable = 'horizontal'" />
+                    <Btn
+                        label="V"
+                        size="s"
+                        :kind="testNode.resizable === 'vertical' ? 'primary' : 'base'"
+                        flat
+                        outline
+                        @click="testNode.resizable = 'vertical'" />
+                    <Btn
+                        label="Both"
+                        size="s"
+                        :kind="testNode.resizable === 'both' ? 'primary' : 'base'"
+                        flat
+                        outline
+                        @click="testNode.resizable = 'both'" />
+                    <Btn
+                        label="None"
+                        size="s"
+                        :kind="testNode.resizable === 'none' ? 'primary' : 'base'"
+                        flat
+                        outline
+                        @click="testNode.resizable = 'none'" />
+                </InputGroup>
 
-                        <HGroup>
-                            <HGroup tagName="label">
-                                <Checkbox
-                                    v-model="testNode.selectable"
-                                    kind="primary"
-                                    outline
-                                    flat
-                                    size="xs" />
-                                Selectable
-                            </HGroup>
-                            <HGroup tagName="label">
-                                <Checkbox
-                                    v-model="testNode.movable"
-                                    kind="primary"
-                                    outline
-                                    flat
-                                    size="xs" />
-                                Movable
-                            </HGroup>
-                            <HGroup tagName="label">
-                                <Checkbox
-                                    v-model="testNode.snapToGrid"
-                                    kind="primary"
-                                    outline
-                                    flat
-                                    size="xs" />
-                                Snap to grid
-                            </HGroup>
-                        </HGroup>
+                <HGroup>
+                    <HGroup tagName="label">
+                        <Checkbox
+                            v-model="testNode.isSelected"
+                            kind="primary"
+                            outline
+                            flat
+                            size="xs" />
+                        Is Selected
                     </HGroup>
-                </VGroup>
-            </template>
+                    <HGroup tagName="label">
+                        <Checkbox
+                            v-model="testNode.selectable"
+                            kind="primary"
+                            outline
+                            flat
+                            size="xs" />
+                        Selectable
+                    </HGroup>
+                    <HGroup tagName="label">
+                        <Checkbox
+                            v-model="testNode.movable"
+                            kind="primary"
+                            outline
+                            flat
+                            size="xs" />
+                        Movable
+                    </HGroup>
+                    <HGroup tagName="label">
+                        <Checkbox
+                            v-model="testNode.snapToGrid"
+                            kind="primary"
+                            outline
+                            flat
+                            size="xs" />
+                        Snap to grid
+                    </HGroup>
+                </HGroup>
+            </VGroup>
         </CanvasObject>
 
+        <!--
         <CanvasObject
             v-for="sticky in stickies"
             :key="sticky.id"
             v-model:pos="sticky.pos"
+            v-model:isSelected="sticky.isSelected"
             :objectId="sticky.id"
             :canvas="canvas"
             resizable="both"
-            :bounds="sticky.bounds">
-            <template #default="{ isSelected }">
-                <div
-                    class="StickyNote"
-                    :class="{ 'StickyNote-selected': isSelected }">
-                    {{ sticky.text }}
-                </div>
-            </template>
+            :bounds="[{ x: 3, y: 3 }, { x: 12, y: 12 }]"
+            class="StickyNote"
+            :class="{ 'StickyNote-selected': isSelected }">
+            {{ sticky.text }}
         </CanvasObject>
+    -->
 
         <template #overlays>
             <DebugCoords :controller="canvas" />
@@ -204,49 +201,41 @@ export default {
         return {
             canvas: new CanvasController(),
             testNode: {
-                pos: { x: 0, y: 0, w: 6, h: 6 },
+                pos: { x: 0, y: 0, w: 20, h: 6 },
                 selectable: true,
+                isSelected: false,
                 movable: true,
                 snapToGrid: true,
                 resizable: 'both',
-                bounds: [{ x: 2, y: 2 }, { x: 12, y: 12 }],
+                bounds: [{ x: 5, y: 5 }, { x: 20, y: 20 }],
             },
             stickies: [
                 {
                     id: 'sticky-1',
                     pos: { x: -8, y: -8, w: 5, h: 4 },
                     text: 'Hello',
-                    bounds: [{ x: 3, y: 3 }, { x: 12, y: 12 }],
+                    isSelected: false,
                 },
                 {
                     id: 'sticky-2',
-                    pos: { x: -8, y: -4, w: 6, h: 5 },
+                    pos: { x: -8, y: -4, w: 6, h: 4 },
                     text: 'Drag me around',
-                    bounds: [{ x: 3, y: 3 }, { x: 12, y: 12 }],
+                    isSelected: false,
                 },
                 {
                     id: 'sticky-3',
-                    pos: { x: -8, y: 4, w: 5, h: 5 },
+                    pos: { x: -8, y: 4, w: 5, h: 4 },
                     text: 'Resize from corners',
-                    bounds: [{ x: 3, y: 3 }, { x: 12, y: 12 }],
+                    isSelected: false,
                 },
                 {
                     id: 'sticky-4',
                     pos: { x: -8, y: 8, w: 7, h: 4 },
                     text: 'Shift/Cmd for multi select',
-                    bounds: [{ x: 3, y: 3 }, { x: 12, y: 12 }],
+                    isSelected: false,
                 },
             ],
         };
-    },
-
-    methods: {
-
-        toNumber(value, fallback) {
-            const parsed = Number(value);
-            return Number.isFinite(parsed) ? parsed : fallback;
-        },
-
     },
 
 };
@@ -255,7 +244,7 @@ export default {
 <style scoped>
 .CanvasPlayground {
     --canvas-margin-cells: 64;
-    --canvas-grid-cell-size: var(--sp2);
+    --canvas-grid-cell-size: 32px;
     --canvas-grid-subdivisions: 4;
     --canvas-grid-major-color: var(--color-base-200);
     --canvas-grid-minor-color: var(--color-base-100);

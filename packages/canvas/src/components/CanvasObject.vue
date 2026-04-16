@@ -2,7 +2,7 @@
     <div
         ref="rootEl"
         class="CanvasObject"
-        :style="objectStyle"
+        :style="canvasObject.getStyle()"
         @uiclick.stop.prevent="canvasObject.onUiClick"
         @uidragstart.stop.prevent="canvasObject.onUiDragStart"
         @uidragmove.stop.prevent="canvasObject.onUiDragMove"
@@ -55,16 +55,11 @@ export default {
             return this.canvasObject.getCanvasCoords();
         },
 
-        objectStyle() {
-            return this.canvasObject.getStyle();
-        },
-
         slotProps() {
-            const selected = this.canvas.selection.isSelected(this.objectId);
             return {
                 canvas: this.canvas,
                 objectId: this.objectId,
-                isSelected: selected,
+                isSelected: this.canvas.selection.isSelected(this.objectId),
                 coords: this.coords,
                 pos: this.pos,
             };
@@ -119,6 +114,12 @@ export default {
                 this.$emit('update:pos', pos);
             }
         }, this);
+        this.canvas.events.selectionChanged.on(selectedIds => {
+            const isSelected = selectedIds.includes(this.objectId);
+            if (this.isSelected !== isSelected) {
+                this.$emit('update:isSelected', isSelected);
+            }
+        }, this);
     },
 
     mounted() {
@@ -139,6 +140,7 @@ export default {
         this.canvasObject.setElement(null);
         this.canvas.selection.removeFromSelection(this.objectId);
         this.canvas.events.objectPosUpdated.removeAll(this);
+        this.canvas.events.selectionChanged.removeAll(this);
     },
 
 };

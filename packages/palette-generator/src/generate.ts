@@ -4,7 +4,7 @@ import {
     DEFAULT_SCALE_SPECS,
     SCALE_STEPS,
 } from './constants.js';
-import { PaletteScaleSpec, PaletteSpec } from './types.js';
+import { type PaletteScaleSpec, type PaletteSpec } from './types.js';
 
 export function generatePaletteOklch(palette: PaletteSpec = {}) {
     const lightnessScale = palette.lightnessScale ?? DEFAULT_LIGHTNESS_SCALE;

@@ -1,4 +1,4 @@
-import { type Box, type Point } from '@nightshadeui/util';
+import { type Box, type Point, subtractPoints } from '@nightshadeui/util';
 import { clamp } from '@nightshadeui/util';
 import { dependency } from 'mesh-ioc';
 
@@ -7,7 +7,7 @@ import { CanvasEvents } from './CanvasEvents.js';
 import { CanvasMove } from './CanvasMove.js';
 import { CanvasSelection } from './CanvasSelection.js';
 import { CanvasSpace } from './CanvasSpace.js';
-import { CanvasResizeDirection, CanvasResizeMode } from './types.js';
+import { type CanvasResizeDirection, type CanvasResizeMode } from './types.js';
 
 export interface CanvasObjectPos {
     x: number;
@@ -121,8 +121,11 @@ export class CanvasObjectController {
 
     getCanvasCoords(): CanvasObjectPos {
         const canvasPos = this.space.localToCanvas({ x: this.localPos.x, y: this.localPos.y });
-        const w = this.pos.w === undefined ? undefined : this.localPos.w;
-        const h = this.pos.h === undefined ? undefined : this.localPos.h;
+        const canvasSize = subtractPoints(
+            this.space.localToCanvas({ x: this.localPos.w, y: this.localPos.h }),
+            canvasPos);
+        const w = this.pos.w === undefined ? undefined : canvasSize.x;
+        const h = this.pos.h === undefined ? undefined : canvasSize.y;
         return {
             x: canvasPos.x,
             y: canvasPos.y,

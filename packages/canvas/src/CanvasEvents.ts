@@ -1,6 +1,6 @@
 import { Event } from 'nanoevent';
 
-import { CanvasObjectPos } from './CanvasObjectController.js';
+import { type CanvasObjectPos } from './CanvasObjectController.js';
 
 export class CanvasEvents {
 

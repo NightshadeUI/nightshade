@@ -189,7 +189,13 @@ export default {
 }
 
 .Toggle-active::before {
-    transform: translate(calc(var(--Toggle-width) - var(--Toggle-knob-size) - var(--Toggle-knob-offset) - var(--Toggle-border-size)), -50%);
+    transform: translate(
+        calc(
+            var(--Toggle-width) -
+            var(--Toggle-knob-size) -
+            var(--Toggle-knob-offset) -
+            var(--Toggle-border-size)
+        ), -50%);
 }
 
 /* Styles */
