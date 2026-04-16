@@ -2,6 +2,7 @@ import { invokeInitHandlers } from '@luminable/init-decorator';
 import { dependency, Mesh } from 'mesh-ioc';
 import { reactive } from 'vue';
 
+import { CanvasBoxSelect } from './CanvasBoxSelect.js';
 import { CanvasConfig, type CanvasConfigSpec } from './CanvasConfig.js';
 import { CanvasEvents } from './CanvasEvents.js';
 import { CanvasInputState } from './CanvasInputState.js';
@@ -17,6 +18,7 @@ import { CanvasZoom } from './CanvasZoom.js';
 export class CanvasController {
 
     mesh = new Mesh();
+    boxSelect = dependency(this, CanvasBoxSelect);
     config = dependency(this, CanvasConfig);
     space = dependency(this, CanvasSpace);
     viewport = dependency(this, CanvasViewport);
@@ -31,6 +33,7 @@ export class CanvasController {
     constructor(config: CanvasConfigSpec = {}) {
         this.mesh.connect(this);
         this.mesh.use(_ => reactive(_));
+        this.mesh.service(CanvasBoxSelect);
         this.mesh.service(CanvasViewport);
         this.mesh.service(CanvasPan);
         this.mesh.service(CanvasConfig);

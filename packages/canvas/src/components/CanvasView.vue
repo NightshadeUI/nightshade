@@ -4,6 +4,9 @@
             ref="viewport"
             class="Viewport"
             @mousedown="canvas.pan.onMouseDown"
+            @uidragstart="canvas.boxSelect.onUiDragStart"
+            @uidragmove="canvas.boxSelect.onUiDragMove"
+            @uidragend="canvas.boxSelect.onUiDragEnd"
             @uiclick="onCanvasUiClick"
             @scroll="canvas.viewport.onScroll"
             @wheel="canvas.zoom.onWheel">
@@ -20,13 +23,20 @@
                     <slot name="origin" />
                 </div>
             </div>
+            <CanvasBoxSelect :canvas="canvas" />
         </div>
         <slot name="overlays" />
     </div>
 </template>
 
 <script>
+import CanvasBoxSelect from './CanvasBoxSelect.vue';
+
 export default {
+
+    components: {
+        CanvasBoxSelect,
+    },
 
     props: {
         canvas: { type: Object, required: true },

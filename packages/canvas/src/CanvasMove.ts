@@ -15,7 +15,7 @@ export class CanvasMove {
     private space = dependency(this, CanvasSpace);
 
     private movingIds = new Set<string>();
-    private moveOriginPagePos: Point | null = null;
+    private moveOriginPos: Point | null = null;
 
     @init()
     init() {
@@ -30,7 +30,7 @@ export class CanvasMove {
 
     startMovingSelection(ev: MouseEvent) {
         this.movingIds = new Set(this.selection.getSelectedIds());
-        this.moveOriginPagePos = { x: ev.pageX, y: ev.pageY };
+        this.moveOriginPos = { x: ev.pageX, y: ev.pageY };
         for (const objectId of this.movingIds) {
             const controller = this.objectRegistry.get(objectId);
             controller?.onMoveStart();
@@ -38,10 +38,10 @@ export class CanvasMove {
     }
 
     private onDragMove(ev: MouseEvent) {
-        if (!this.moveOriginPagePos) {
+        if (!this.moveOriginPos) {
             return;
         }
-        const localFrom = this.space.pageToLocal(this.moveOriginPagePos);
+        const localFrom = this.space.pageToLocal(this.moveOriginPos);
         const localTo = this.space.pageToLocal({ x: ev.pageX, y: ev.pageY });
         const offset = subtractPoints(localTo, localFrom);
         for (const objectId of this.movingIds) {
@@ -56,7 +56,7 @@ export class CanvasMove {
             controller?.onMoveEnd();
         }
         this.movingIds.clear();
-        this.moveOriginPagePos = null;
+        this.moveOriginPos = null;
     }
 
 }

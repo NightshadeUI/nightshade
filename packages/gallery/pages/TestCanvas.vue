@@ -210,25 +210,19 @@ export default {
             stickies: [
                 {
                     id: 'sticky-1',
-                    pos: { x: -8, y: -8, w: 5, h: 4 },
-                    text: 'Hello',
-                    isSelected: false,
-                },
-                {
-                    id: 'sticky-2',
-                    pos: { x: -8, y: -4, w: 6, h: 4 },
+                    pos: { x: -8, y: -5, w: 4, h: 4 },
                     text: 'Drag me around',
                     isSelected: false,
                 },
                 {
-                    id: 'sticky-3',
-                    pos: { x: -8, y: 4, w: 5, h: 4 },
+                    id: 'sticky-2',
+                    pos: { x: -8, y: 0, w: 4, h: 4 },
                     text: 'Resize from corners',
                     isSelected: false,
                 },
                 {
-                    id: 'sticky-4',
-                    pos: { x: -8, y: 8, w: 7, h: 4 },
+                    id: 'sticky-3',
+                    pos: { x: -8, y: 5, w: 4, h: 4 },
                     text: 'Shift/Cmd for multi select',
                     isSelected: false,
                 },
@@ -257,10 +251,7 @@ export default {
 
 .TestNode {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    inset: 0;
 
     padding: var(--sp2);
     border: var(--input-border-size) solid var(--color-base-300);

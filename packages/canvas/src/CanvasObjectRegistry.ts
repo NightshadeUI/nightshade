@@ -16,4 +16,8 @@ export class CanvasObjectRegistry {
         return this.objects.get(objectId) ?? null;
     }
 
+    getAll() {
+        return [...this.objects.values()];
+    }
+
 }
