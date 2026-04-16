@@ -13,7 +13,7 @@
             :resizable="testNode.resizable"
             :bounds="testNode.bounds">
             <VGroup
-                class="TestNode"
+                class="TestNode ui-primary"
                 :class="{ 'TestNode-selected': testNode.isSelected }">
                 <HGroup gap="1" align="stretch">
                     <InputText
@@ -156,7 +156,7 @@
             :canvas="canvas"
             resizable="both"
             :bounds="[{ x: 3, y: 3 }, { x: 12, y: 12 }]"
-            class="StickyNote"
+            class="StickyNote ui-primary"
             :class="{ 'StickyNote-selected': sticky.isSelected }">
             {{ sticky.text }}
         </CanvasObject>
@@ -262,7 +262,9 @@ export default {
 }
 
 .TestNode-selected {
-    border-color: var(--color-primary-500);
+    border-color: var(--ui-focus-medium-color);
+    outline: var(--input-outline-size) solid var(--ui-focus-light-color);
+    outline-offset: var(--input-outline-offset);
 }
 
 .ControlInput {
@@ -280,8 +282,9 @@ export default {
 }
 
 .StickyNote-selected {
-    border-color: var(--color-primary-500);
-    box-shadow: 0 0 0 var(--input-border-size) var(--color-primary-200);
+    border-color: var(--ui-focus-medium-color);
+    outline: var(--input-outline-size) solid var(--ui-focus-light-color);
+    outline-offset: var(--input-outline-offset);
 }
 
 .OverlayControls {
