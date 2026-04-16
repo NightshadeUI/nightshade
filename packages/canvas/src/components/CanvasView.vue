@@ -21,9 +21,7 @@
                 </div>
             </div>
         </div>
-        <div class="Overlays">
-            <slot name="overlays" />
-        </div>
+        <slot name="overlays" />
     </div>
 </template>
 
@@ -57,6 +55,7 @@ export default {
 .CanvasView {
     position: relative;
     display: flex;
+    user-select: none;
 }
 
 .Viewport {
@@ -82,13 +81,5 @@ export default {
 .Origin {
     position: absolute;
     transform: translate(-50%, -50%);
-}
-
-.Overlays {
-    position: absolute;
-    z-index: 2;
-    top: 0;
-    left: 0;
-    pointer-events: none;
 }
 </style>
