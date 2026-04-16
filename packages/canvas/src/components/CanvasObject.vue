@@ -18,7 +18,7 @@ export default {
         objectId: { type: String, required: true },
         pos: { type: Object, required: true },
         isSelected: { type: Boolean, default: false },
-        isSelectable: { type: Boolean, default: true },
+        selectable: { type: Boolean, default: true },
     },
 
     data() {
@@ -69,8 +69,8 @@ export default {
             this.objectController.setSelected(nextSelected);
         },
 
-        isSelectable(nextIsSelectable) {
-            this.objectController.setSelectable(nextIsSelectable);
+        selectable(nextSelectable) {
+            this.objectController.setSelectable(nextSelectable);
         },
 
     },
@@ -82,7 +82,7 @@ export default {
 
     mounted() {
         this.objectController.setElement(this.$refs.rootEl);
-        this.objectController.setSelectable(this.isSelectable);
+        this.objectController.setSelectable(this.selectable);
         this.canvas.objectRegistry.register(this.objectController);
         this.objectController.setSelected(this.isSelected);
     },
