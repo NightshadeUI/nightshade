@@ -18,6 +18,7 @@ export default {
         objectId: { type: String, required: true },
         pos: { type: Object, required: true },
         isSelected: { type: Boolean, default: false },
+        isSelectable: { type: Boolean, default: true },
     },
 
     data() {
@@ -62,6 +63,18 @@ export default {
 
     },
 
+    watch: {
+
+        isSelected(nextSelected) {
+            this.objectController.setSelected(nextSelected);
+        },
+
+        isSelectable(nextIsSelectable) {
+            this.objectController.setSelectable(nextIsSelectable);
+        },
+
+    },
+
     created() {
         this.objectController = new CanvasObjectController(this.objectId);
         this.canvas.mesh.connect(this.objectController);
@@ -69,10 +82,9 @@ export default {
 
     mounted() {
         this.objectController.setElement(this.$refs.rootEl);
+        this.objectController.setSelectable(this.isSelectable);
         this.canvas.objectRegistry.register(this.objectController);
-        if (this.isSelected) {
-            this.canvas.selection.addToSelection(this.objectId);
-        }
+        this.objectController.setSelected(this.isSelected);
     },
 
     unmounted() {

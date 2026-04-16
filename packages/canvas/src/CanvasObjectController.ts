@@ -14,6 +14,7 @@ export class CanvasObjectController {
 
     objectId: string;
     element: HTMLElement | null = null;
+    isSelectable = true;
 
     private config = dependency(this, CanvasConfig);
     private selection = dependency(this, CanvasSelection);
@@ -26,15 +27,28 @@ export class CanvasObjectController {
         this.element = element;
     }
 
+    setSelectable(isSelectable: boolean) {
+        this.isSelectable = isSelectable;
+        if (!isSelectable) {
+            this.selection.removeFromSelection(this.objectId);
+        }
+    }
+
     isSelected() {
         return this.selection.isSelected(this.objectId);
     }
 
     setSelected(isSelected: boolean) {
+        if (isSelected && !this.isSelectable) {
+            return;
+        }
         this.selection.setSelected(this.objectId, isSelected);
     }
 
     handleUiClick(ev: MouseEvent) {
+        if (!this.isSelectable) {
+            return;
+        }
         const multiSelectIntent = ev.shiftKey || ev.ctrlKey || ev.metaKey;
         if (this.config.allowMultiSelect && multiSelectIntent) {
             this.selection.toggleSelection(this.objectId);
