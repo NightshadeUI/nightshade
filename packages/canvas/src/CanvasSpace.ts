@@ -1,4 +1,4 @@
-import { type Box, boxCenter, type Point } from '@nightshadeui/util/src';
+import { type Box, boxCenter, type Point } from '@nightshadeui/util';
 
 export class CanvasSpace {
 

@@ -3,15 +3,28 @@
         ref="rootEl"
         class="CanvasObject"
         :style="objectStyle"
-        @uiclick.stop.prevent="onUiClick">
+        @uiclick.stop.prevent="canvasObject.onUiClick"
+        @uidragstart.stop.prevent="canvasObject.onUiDragStart"
+        @uidragmove.stop.prevent="canvasObject.onUiDragMove"
+        @uidragend.stop.prevent="canvasObject.onUiDragEnd">
+        <CanvasObjectResize
+            v-for="direction in resizeDirections"
+            :key="direction"
+            :canvasObject="canvasObject"
+            :direction="direction" />
         <slot v-bind="slotProps" />
     </div>
 </template>
 
 <script>
 import { CanvasObjectController } from '../CanvasObjectController.js';
+import CanvasObjectResize from './CanvasObjectResize.vue';
 
 export default {
+
+    components: {
+        CanvasObjectResize,
+    },
 
     props: {
         canvas: { type: Object, required: true },
@@ -19,18 +32,26 @@ export default {
         pos: { type: Object, required: true },
         isSelected: { type: Boolean, default: false },
         selectable: { type: Boolean, default: true },
+        movable: { type: Boolean, default: true },
+        resizable: { type: String, default: 'none' },
+        bounds: { type: Array },
     },
+
+    emits: [
+        'update:pos',
+        'update:isSelected',
+    ],
 
     data() {
         return {
-            objectController: null,
+            canvasObject: null,
         };
     },
 
     computed: {
 
         coords() {
-            const { x, y, w, h } = this.pos;
+            const { x, y, w, h } = this.canvasObject.getRenderPos();
             const { cellSize } = this.canvas.space;
             return {
                 x: x * cellSize,
@@ -61,44 +82,70 @@ export default {
             };
         },
 
+        resizeDirections() {
+            if (!this.canvas.selection.isSelected(this.objectId)) {
+                return [];
+            }
+            return this.canvasObject.getResizeDirections();
+        },
+
     },
 
     watch: {
 
-        isSelected(nextSelected) {
-            this.objectController.setSelected(nextSelected);
+        pos(newPos) {
+            this.canvasObject.setPos(newPos);
         },
 
-        selectable(nextSelectable) {
-            this.objectController.setSelectable(nextSelectable);
+        isSelected(newSelected) {
+            this.canvasObject.setSelected(newSelected);
+        },
+
+        selectable(newSelectable) {
+            this.canvasObject.setSelectable(newSelectable);
+        },
+
+        movable(newMovable) {
+            this.canvasObject.setMovable(newMovable);
+        },
+
+        resizable(newResizable) {
+            this.canvasObject.setResizable(newResizable);
+        },
+
+        bounds(newBounds) {
+            this.canvasObject.setBounds(newBounds);
         },
 
     },
 
     created() {
-        this.objectController = new CanvasObjectController(this.objectId);
-        this.canvas.mesh.connect(this.objectController);
+        this.canvasObject = new CanvasObjectController(this.objectId);
+        this.canvas.mesh.connect(this.canvasObject);
+        this.canvas.events.objectPosUpdated.on(({ objectId, pos }) => {
+            if (objectId === this.objectId) {
+                this.$emit('update:pos', pos);
+            }
+        }, this);
     },
 
     mounted() {
-        this.objectController.setElement(this.$refs.rootEl);
-        this.objectController.setSelectable(this.selectable);
-        this.canvas.objectRegistry.register(this.objectController);
-        this.objectController.setSelected(this.isSelected);
+        const ctl = this.canvasObject;
+        this.canvas.objectRegistry.register(ctl);
+        ctl.setElement(this.$refs.rootEl);
+        ctl.setPos(this.pos);
+        ctl.setSelectable(this.selectable);
+        ctl.setMovable(this.movable);
+        ctl.setResizable(this.resizable);
+        ctl.setBounds(this.bounds);
+        ctl.setSelected(this.isSelected);
     },
 
     unmounted() {
         this.canvas.objectRegistry.unregister(this.objectId);
-        this.objectController.setElement(null);
+        this.canvasObject.setElement(null);
         this.canvas.selection.removeFromSelection(this.objectId);
-    },
-
-    methods: {
-
-        onUiClick(ev) {
-            this.objectController.handleUiClick(ev);
-        },
-
+        this.canvas.events.objectPosUpdated.removeAll(this);
     },
 
 };

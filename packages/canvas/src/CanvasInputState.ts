@@ -1,5 +1,5 @@
 import { init } from '@luminable/init-decorator';
-import { DomEventProxy } from '@nightshadeui/util/src';
+import { DomEventProxy } from '@nightshadeui/util';
 import { dependency } from 'mesh-ioc';
 
 import { CanvasEvents } from './CanvasEvents.js';

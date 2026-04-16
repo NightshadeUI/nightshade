@@ -23,9 +23,9 @@ export class CanvasZoom {
         this.setZoom(this.space.zoom * zoomFactor);
     }
 
-    setZoom(nextZoom: number) {
+    setZoom(newZoom: number) {
         const viewCenter = this.space.getViewportCenterInLocal();
-        this.space.zoom = clamp(nextZoom, ZOOM_MIN, ZOOM_MAX);
+        this.space.zoom = clamp(newZoom, ZOOM_MIN, ZOOM_MAX);
         this.viewport.scrollToLocalPoint(viewCenter);
     }
 
