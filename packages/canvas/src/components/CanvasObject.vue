@@ -7,12 +7,12 @@
         @uidragstart.stop.prevent="canvasObject.onUiDragStart"
         @uidragmove.stop.prevent="canvasObject.onUiDragMove"
         @uidragend.stop.prevent="canvasObject.onUiDragEnd">
+        <slot v-bind="slotProps" />
         <CanvasObjectResize
             v-for="direction in resizeDirections"
             :key="direction"
             :canvasObject="canvasObject"
             :direction="direction" />
-        <slot v-bind="slotProps" />
     </div>
 </template>
 
@@ -66,9 +66,6 @@ export default {
         },
 
         resizeDirections() {
-            if (!this.canvas.selection.isSelected(this.objectId)) {
-                return [];
-            }
             return this.canvasObject.getResizeDirections();
         },
 

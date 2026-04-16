@@ -20,7 +20,7 @@ export default {
 <style scoped>
 .ResizeHandle {
     --canvas-resize-handle-size: var(--sp2);
-    --canvas-resize-handle-offset: calc(-1 * var(--canvas-resize-handle-size) / 2);
+    --canvas-resize-handle-offset: calc(-.5 * var(--canvas-resize-handle-size));
     position: absolute;
     z-index: 3;
 }
@@ -39,6 +39,7 @@ export default {
     width: var(--canvas-resize-handle-size);
     height: var(--canvas-resize-handle-size);
     cursor: nesw-resize;
+    z-index: 4;
 }
 
 .ResizeHandle-e {
@@ -55,6 +56,7 @@ export default {
     width: var(--canvas-resize-handle-size);
     height: var(--canvas-resize-handle-size);
     cursor: nwse-resize;
+    z-index: 4;
 }
 
 .ResizeHandle-s {
@@ -71,6 +73,7 @@ export default {
     width: var(--canvas-resize-handle-size);
     height: var(--canvas-resize-handle-size);
     cursor: nesw-resize;
+    z-index: 4;
 }
 
 .ResizeHandle-w {
@@ -87,5 +90,6 @@ export default {
     width: var(--canvas-resize-handle-size);
     height: var(--canvas-resize-handle-size);
     cursor: nwse-resize;
+    z-index: 4;
 }
 </style>

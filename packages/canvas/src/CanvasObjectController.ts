@@ -120,15 +120,17 @@ export class CanvasObjectController {
     /* Render state */
 
     getCanvasCoords(): CanvasObjectPos {
-        const canvasPos = this.space.localToCanvas({ x: this.localPos.x, y: this.localPos.y });
-        const canvasSize = subtractPoints(
-            this.space.localToCanvas({ x: this.localPos.w, y: this.localPos.h }),
-            canvasPos);
+        const min = this.space.localToCanvas({ x: this.localPos.x, y: this.localPos.y });
+        const max = this.space.localToCanvas({
+            x: this.localPos.x + this.localPos.w,
+            y: this.localPos.y + this.localPos.h,
+        });
+        const canvasSize = subtractPoints(max, min);
         const w = this.pos.w === undefined ? undefined : canvasSize.x;
         const h = this.pos.h === undefined ? undefined : canvasSize.y;
         return {
-            x: canvasPos.x,
-            y: canvasPos.y,
+            x: min.x,
+            y: min.y,
             w,
             h,
         };
@@ -140,8 +142,8 @@ export class CanvasObjectController {
             position: 'absolute',
             left: `${coords.x}px`,
             top: `${coords.y}px`,
-            minWidth: coords.w === undefined ? undefined : `${coords.w}px`,
-            minHeight: coords.h === undefined ? undefined : `${coords.h}px`,
+            width: coords.w === undefined ? undefined : `${coords.w}px`,
+            height: coords.h === undefined ? undefined : `${coords.h}px`,
         };
     }
 
@@ -318,11 +320,13 @@ export class CanvasObjectController {
     }
 
     private recalcLocalPos() {
+        const w = this.pos.w ?? this.localPos.w;
+        const h = this.pos.h ?? this.localPos.h;
         this.localPos = {
             x: this.pos.x,
             y: this.pos.y,
-            w: clamp(this.pos.w ?? this.bounds[0].x, this.bounds[0].x, this.bounds[1].x),
-            h: clamp(this.pos.h ?? this.bounds[0].y, this.bounds[0].y, this.bounds[1].y),
+            w: clamp(w, this.bounds[0].x, this.bounds[1].x),
+            h: clamp(h, this.bounds[0].y, this.bounds[1].y),
         };
     }
 
