@@ -18,73 +18,74 @@ export default {
 </script>
 
 <style scoped>
-/* TODO extract --canvas-resize-handle-size: var(--sp2), fix styles */
 .ResizeHandle {
+    --canvas-resize-handle-size: var(--sp2);
+    --canvas-resize-handle-offset: calc(-1 * var(--canvas-resize-handle-size) / 2);
     position: absolute;
     z-index: 3;
 }
 
 .ResizeHandle-n {
-    top: calc(-1 * var(--sp));
-    left: calc(-1 * var(--sp));
-    right: calc(-1 * var(--sp));
-    height: var(--sp2);
+    top: var(--canvas-resize-handle-offset);
+    left: var(--canvas-resize-handle-offset);
+    right: var(--canvas-resize-handle-offset);
+    height: var(--canvas-resize-handle-size);
     cursor: ns-resize;
 }
 
 .ResizeHandle-ne {
-    top: calc(-1 * var(--sp));
-    right: calc(-1 * var(--sp));
-    width: var(--sp2);
-    height: var(--sp2);
+    top: var(--canvas-resize-handle-offset);
+    right: var(--canvas-resize-handle-offset);
+    width: var(--canvas-resize-handle-size);
+    height: var(--canvas-resize-handle-size);
     cursor: nesw-resize;
 }
 
 .ResizeHandle-e {
-    top: calc(-1 * var(--sp));
-    bottom: calc(-1 * var(--sp));
-    right: calc(-1 * var(--sp));
-    width: var(--sp2);
+    top: var(--canvas-resize-handle-offset);
+    bottom: var(--canvas-resize-handle-offset);
+    right: var(--canvas-resize-handle-offset);
+    width: var(--canvas-resize-handle-size);
     cursor: ew-resize;
 }
 
 .ResizeHandle-se {
-    bottom: calc(-1 * var(--sp));
-    right: calc(-1 * var(--sp));
-    width: var(--sp2);
-    height: var(--sp2);
+    bottom: var(--canvas-resize-handle-offset);
+    right: var(--canvas-resize-handle-offset);
+    width: var(--canvas-resize-handle-size);
+    height: var(--canvas-resize-handle-size);
     cursor: nwse-resize;
 }
 
 .ResizeHandle-s {
-    bottom: calc(-1 * var(--sp));
-    left: calc(-1 * var(--sp));
-    right: calc(-1 * var(--sp));
-    height: var(--sp2);
+    bottom: var(--canvas-resize-handle-offset);
+    left: var(--canvas-resize-handle-offset);
+    right: var(--canvas-resize-handle-offset);
+    height: var(--canvas-resize-handle-size);
     cursor: ns-resize;
 }
 
 .ResizeHandle-sw {
-    bottom: calc(-1 * var(--sp));
-    left: calc(-1 * var(--sp));
-    width: var(--sp2);
-    height: var(--sp2);
+    bottom: var(--canvas-resize-handle-offset);
+    left: var(--canvas-resize-handle-offset);
+    width: var(--canvas-resize-handle-size);
+    height: var(--canvas-resize-handle-size);
     cursor: nesw-resize;
 }
 
 .ResizeHandle-w {
-    top: calc(-1 * var(--sp));
-    bottom: calc(-1 * var(--sp));
-    left: calc(-1 * var(--sp));
-    width: var(--sp2);
+    top: var(--canvas-resize-handle-offset);
+    bottom: var(--canvas-resize-handle-offset);
+    left: var(--canvas-resize-handle-offset);
+    width: var(--canvas-resize-handle-size);
     cursor: ew-resize;
 }
 
 .ResizeHandle-nw {
-    top: calc(-1 * var(--sp));
-    left: calc(-1 * var(--sp));
-    width: var(--sp2);
-    height: var(--sp2);
+    top: var(--canvas-resize-handle-offset);
+    left: var(--canvas-resize-handle-offset);
+    width: var(--canvas-resize-handle-size);
+    height: var(--canvas-resize-handle-size);
     cursor: nwse-resize;
 }
 </style>

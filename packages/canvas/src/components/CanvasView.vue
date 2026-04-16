@@ -13,10 +13,11 @@
             <div
                 class="Canvas"
                 :style="canvas.viewport.getCanvasStyle()">
+                <slot />
                 <div
                     class="Origin"
                     :style="canvas.viewport.getOriginStyle()">
-                    <slot />
+                    <slot name="origin" />
                 </div>
             </div>
         </div>

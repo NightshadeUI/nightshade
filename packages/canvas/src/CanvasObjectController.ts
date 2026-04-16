@@ -30,6 +30,7 @@ export class CanvasObjectController {
     // User-specified props, updated by watchers
     private selectable = true;
     private movable = true;
+    private snapToGrid = true;
     private resizable: CanvasResizeMode = 'none';
     private bounds: Box = [{ x: 1, y: 1 }, { x: 10, y: 10 }];
     private pos: CanvasObjectPos = { x: 0, y: 0 };
@@ -55,24 +56,8 @@ export class CanvasObjectController {
     setPos(pos: CanvasObjectPos) {
         this.pos = pos;
         if (!this.isMoving() && !this.isResizing()) {
-            // TODO should this be extracted to recalcLocalPos?
-            this.localPos = {
-                x: pos.x,
-                y: pos.y,
-                w: clamp(pos.w ?? this.bounds[0].x, this.bounds[0].x, this.bounds[1].x),
-                h: clamp(pos.h ?? this.bounds[0].y, this.bounds[0].y, this.bounds[1].y),
-            };
+            this.recalcLocalPos();
         }
-    }
-
-    // TODO this looks weird and out of place
-    getRenderPos(): CanvasObjectPos {
-        return {
-            x: this.localPos.x,
-            y: this.localPos.y,
-            w: this.pos.w === undefined ? undefined : this.localPos.w,
-            h: this.pos.h === undefined ? undefined : this.localPos.h,
-        };
     }
 
     getBounds() {
@@ -81,9 +66,9 @@ export class CanvasObjectController {
 
     setBounds(bounds: Box) {
         this.bounds = bounds;
-        // Should this call the same recalcLocalPos as above?
-        this.localPos.w = clamp(this.localPos.w, bounds[0].x, bounds[1].x);
-        this.localPos.h = clamp(this.localPos.h, bounds[0].y, bounds[1].y);
+        if (!this.isMoving() && !this.isResizing()) {
+            this.recalcLocalPos();
+        }
     }
 
     isSelectable() {
@@ -116,12 +101,45 @@ export class CanvasObjectController {
         this.movable = movable;
     }
 
+    isSnapToGrid() {
+        return this.snapToGrid;
+    }
+
+    setSnapToGrid(snapToGrid: boolean) {
+        this.snapToGrid = snapToGrid;
+    }
+
     isResizable() {
         return this.resizable;
     }
 
     setResizable(resizable: CanvasResizeMode) {
         this.resizable = resizable;
+    }
+
+    /* Render state */
+
+    getCanvasCoords(): CanvasObjectPos {
+        const canvasPos = this.space.localToCanvas({ x: this.localPos.x, y: this.localPos.y });
+        const w = this.pos.w === undefined ? undefined : this.localPos.w;
+        const h = this.pos.h === undefined ? undefined : this.localPos.h;
+        return {
+            x: canvasPos.x,
+            y: canvasPos.y,
+            w,
+            h,
+        };
+    }
+
+    getStyle() {
+        const coords = this.getCanvasCoords();
+        return {
+            position: 'absolute',
+            left: `${coords.x}px`,
+            top: `${coords.y}px`,
+            minWidth: coords.w === undefined ? undefined : `${coords.w}px`,
+            minHeight: coords.h === undefined ? undefined : `${coords.h}px`,
+        };
     }
 
     isMoving() {
@@ -225,10 +243,9 @@ export class CanvasObjectController {
      * It commits the new local position to the object.
      */
     onMoveEnd() {
-        // TODO add snapToGrid setting on canvasObject
         this.commitNewPos({
-            x: Math.round(this.localPos.x),
-            y: Math.round(this.localPos.y),
+            x: this.maybeRound(this.localPos.x),
+            y: this.maybeRound(this.localPos.y),
         });
     }
 
@@ -263,11 +280,10 @@ export class CanvasObjectController {
             return;
         }
         this.commitNewPos({
-            // TODO add snapToGrid setting on canvasObject, round if snapping is enabled
-            x: Math.round(this.localPos.x),
-            y: Math.round(this.localPos.y),
-            w: clamp(Math.round(this.localPos.w), this.bounds[0].x, this.bounds[1].x),
-            h: clamp(Math.round(this.localPos.h), this.bounds[0].y, this.bounds[1].y),
+            x: this.maybeRound(this.localPos.x),
+            y: this.maybeRound(this.localPos.y),
+            w: clamp(this.maybeRound(this.localPos.w), this.bounds[0].x, this.bounds[1].x),
+            h: clamp(this.maybeRound(this.localPos.h), this.bounds[0].y, this.bounds[1].y),
         });
         this.resizingDirection = null;
     }
@@ -296,6 +312,19 @@ export class CanvasObjectController {
 
     private canResizeInDirection(direction: CanvasResizeDirection) {
         return this.getResizeDirections().includes(direction);
+    }
+
+    private recalcLocalPos() {
+        this.localPos = {
+            x: this.pos.x,
+            y: this.pos.y,
+            w: clamp(this.pos.w ?? this.bounds[0].x, this.bounds[0].x, this.bounds[1].x),
+            h: clamp(this.pos.h ?? this.bounds[0].y, this.bounds[0].y, this.bounds[1].y),
+        };
+    }
+
+    private maybeRound(value: number) {
+        return this.snapToGrid ? Math.round(value) : value;
     }
 
     private getResizingUpdates(

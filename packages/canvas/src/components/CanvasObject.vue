@@ -33,6 +33,7 @@ export default {
         isSelected: { type: Boolean, default: false },
         selectable: { type: Boolean, default: true },
         movable: { type: Boolean, default: true },
+        snapToGrid: { type: Boolean, default: true },
         resizable: { type: String, default: 'none' },
         bounds: { type: Array },
     },
@@ -51,24 +52,11 @@ export default {
     computed: {
 
         coords() {
-            const { x, y, w, h } = this.canvasObject.getRenderPos();
-            const { cellSize } = this.canvas.space;
-            return {
-                x: x * cellSize,
-                y: y * cellSize,
-                w: w === undefined ? undefined : w * cellSize,
-                h: h === undefined ? undefined : h * cellSize,
-            };
+            return this.canvasObject.getCanvasCoords();
         },
 
         objectStyle() {
-            return {
-                position: 'absolute',
-                left: `${this.coords.x}px`,
-                top: `${this.coords.y}px`,
-                minWidth: this.coords.w === undefined ? undefined : `${this.coords.w}px`,
-                minHeight: this.coords.h === undefined ? undefined : `${this.coords.h}px`,
-            };
+            return this.canvasObject.getStyle();
         },
 
         slotProps() {
@@ -109,6 +97,10 @@ export default {
             this.canvasObject.setMovable(newMovable);
         },
 
+        snapToGrid(newSnapToGrid) {
+            this.canvasObject.setSnapToGrid(newSnapToGrid);
+        },
+
         resizable(newResizable) {
             this.canvasObject.setResizable(newResizable);
         },
@@ -136,6 +128,7 @@ export default {
         ctl.setPos(this.pos);
         ctl.setSelectable(this.selectable);
         ctl.setMovable(this.movable);
+        ctl.setSnapToGrid(this.snapToGrid);
         ctl.setResizable(this.resizable);
         ctl.setBounds(this.bounds);
         ctl.setSelected(this.isSelected);
