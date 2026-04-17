@@ -6,7 +6,6 @@
             <div>Round</div>
             <Toggle v-model="commonOptions.round"
                 round
-                size="small"
                 kind="primary" />
         </HGroup>
         <HGroup tagName="label"
@@ -14,7 +13,6 @@
             <div>Flat</div>
             <Toggle v-model="commonOptions.flat"
                 flat
-                size="small"
                 kind="primary" />
         </HGroup>
         <HGroup tagName="label"
@@ -22,7 +20,6 @@
             <div>Outline</div>
             <Toggle v-model="commonOptions.outline"
                 outline
-                size="small"
                 kind="primary" />
         </HGroup>
         <hr />
@@ -30,28 +27,24 @@
             justify="space-between">
             <div>Disabled</div>
             <Toggle v-model="commonOptions.disabled"
-                size="small"
                 kind="tertiary" />
         </HGroup>
         <HGroup tagName="label"
             justify="space-between">
             <div>Focus</div>
             <Toggle v-model="commonOptions.forceFocus"
-                size="small"
                 kind="secondary" />
         </HGroup>
         <HGroup tagName="label"
             justify="space-between">
             <div>Hover</div>
             <Toggle v-model="commonOptions.forceHover"
-                size="small"
                 kind="secondary" />
         </HGroup>
         <HGroup tagName="label"
             justify="space-between">
             <div>Active</div>
             <Toggle v-model="commonOptions.forceActive"
-                size="small"
                 kind="secondary" />
         </HGroup>
     </VGroup>

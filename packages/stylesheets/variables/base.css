@@ -18,11 +18,4 @@
 
     --border-radius: 4px;
 
-    /* Inputs */
-
-    --input-radius: var(--border-radius);
-    --input-border-size: 1px;
-    --input-outline-size: 2px;
-    --input-outline-offset: 0;
-
 }

@@ -113,7 +113,7 @@ export default {
 
 <style scoped>
 .Checkbox {
-    --Checkbox-size: var(--input-height);
+    --Checkbox-size: var(--input-minor-height);
 
     --Checkbox-outline-color: transparent;
 
@@ -204,8 +204,8 @@ export default {
 
 .Checkbox:not(:disabled):focus, .Checkbox.Checkbox-force-focus {
     z-index: 10;
-    --Checkbox-outline-color: var(--ui-focus-light-color);
-    --Checkbox-border-color: var(--ui-focus-medium-color);
+    --Checkbox-outline-color: var(--ui-focus-outline-color);
+    --Checkbox-border-color: var(--ui-focus-border-color);
 }
 
 .Checkbox-active {
@@ -226,6 +226,6 @@ export default {
 .Checkbox-flat {
     --Checkbox-shadow: none;
     --Checkbox-shadow-color: none;
-    --Checkbox-mark-shadow-color: none;
+    --Checkbox-mark-shadow: none;
 }
 </style>

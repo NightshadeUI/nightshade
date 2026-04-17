@@ -54,8 +54,8 @@ export default {
 
 <style scoped>
 .Tab {
-    --Tab-size: var(--input-height);
-    --Tab-cap-size: var(--input-height);
+    --Tab-size: var(--input-major-height);
+    --Tab-cap-size: var(--input-major-height);
     --Tab-font-size: var(--input-font-size);
 
     --Tab-surface: var(--ui-surface-color);

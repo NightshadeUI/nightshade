@@ -262,8 +262,8 @@ export default {
 }
 
 .TestNode-selected {
-    border-color: var(--ui-focus-medium-color);
-    outline: var(--input-outline-size) solid var(--ui-focus-light-color);
+    border-color: var(--ui-focus-border-color);
+    outline: var(--input-outline-size) solid var(--ui-focus-outline-color);
     outline-offset: var(--input-outline-offset);
 }
 
@@ -282,8 +282,8 @@ export default {
 }
 
 .StickyNote-selected {
-    border-color: var(--ui-focus-medium-color);
-    outline: var(--input-outline-size) solid var(--ui-focus-light-color);
+    border-color: var(--ui-focus-border-color);
+    outline: var(--input-outline-size) solid var(--ui-focus-outline-color);
     outline-offset: var(--input-outline-offset);
 }
 

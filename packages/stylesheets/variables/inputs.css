@@ -1,0 +1,102 @@
+:root {
+
+    /* Global defaults */
+
+    --input-radius: var(--border-radius);
+    --input-radius-round: calc(.5 * var(--input-major-height));
+    --input-border-size: 1px;
+    --input-outline-size: 2px;
+    --input-outline-offset: 0;
+
+    /* Default size variables, customized per size */
+
+    --input-major-height: var(--input-size-m-major-height);
+    --input-minor-height: var(--input-size-m-minor-height);
+    --input-font-size: var(--input-size-m-font-size);
+    --input-major-padding: var(--input-size-m-major-padding);
+    --input-minor-padding: var(--input-size-m-minor-padding);
+    --input-gap: var(--input-size-m-gap);
+
+    /* Sizes */
+
+    --input-size-xs-major-height: var(--sp2-5);
+    --input-size-xs-minor-height: var(--sp1-5);
+    --input-size-xs-font-size: var(--font-size-xs);
+    --input-size-xs-major-padding: var(--sp1);
+    --input-size-xs-minor-padding: var(--sp0-25);
+    --input-size-xs-gap: var(--sp0-25);
+
+    --input-size-s-major-height: var(--sp3);
+    --input-size-s-minor-height: var(--sp2);
+    --input-size-s-font-size: var(--font-size-s);
+    --input-size-s-major-padding: var(--sp1);
+    --input-size-s-minor-padding: var(--sp0-5);
+    --input-size-s-gap: var(--sp0-5);
+
+    --input-size-m-major-height: var(--sp4);
+    --input-size-m-minor-height: var(--sp2-5);
+    --input-size-m-font-size: var(--font-size-m);
+    --input-size-m-major-padding: var(--sp1-5);
+    --input-size-m-minor-padding: var(--sp1);
+    --input-size-m-gap: var(--sp1);
+
+    --input-size-l-major-height: var(--sp5);
+    --input-size-l-minor-height: var(--sp3);
+    --input-size-l-font-size: var(--font-size-m);
+    --input-size-l-major-padding: var(--sp2);
+    --input-size-l-minor-padding: var(--sp1);
+    --input-size-l-gap: var(--sp1);
+
+    --input-size-xl-major-height: var(--sp6);
+    --input-size-xl-minor-height: var(--sp4);
+    --input-size-xl-font-size: var(--font-size-l);
+    --input-size-xl-major-padding: var(--sp2-5);
+    --input-size-xl-minor-padding: var(--sp1-5);
+    --input-size-xl-gap: var(--sp1-5);
+
+}
+
+.input-size-xs, .input-size-extra-small {
+    --input-major-height: var(--input-size-xs-major-height);
+    --input-minor-height: var(--input-size-xs-minor-height);
+    --input-font-size: var(--input-size-xs-font-size);
+    --input-major-padding: var(--input-size-xs-major-padding);
+    --input-minor-padding: var(--input-size-xs-minor-padding);
+    --input-gap: var(--input-size-xs-gap);
+}
+
+.input-size-s, .input-size-small {
+    --input-major-height: var(--input-size-s-major-height);
+    --input-minor-height: var(--input-size-s-minor-height);
+    --input-font-size: var(--input-size-s-font-size);
+    --input-major-padding: var(--input-size-s-major-padding);
+    --input-minor-padding: var(--input-size-s-minor-padding);
+    --input-gap: var(--input-size-s-gap);
+}
+
+.input-size-m, .input-size-medium, .input-size-normal {
+    --input-major-height: var(--input-size-m-major-height);
+    --input-minor-height: var(--input-size-m-minor-height);
+    --input-font-size: var(--input-size-m-font-size);
+    --input-major-padding: var(--input-size-m-major-padding);
+    --input-minor-padding: var(--input-size-m-minor-padding);
+    --input-gap: var(--input-size-m-gap);
+}
+
+.input-size-l, .input-size-large {
+    --input-major-height: var(--input-size-l-major-height);
+    --input-minor-height: var(--input-size-l-minor-height);
+    --input-font-size: var(--input-size-l-font-size);
+    --input-major-padding: var(--input-size-l-major-padding);
+    --input-minor-padding: var(--input-size-l-minor-padding);
+    --input-gap: var(--input-size-l-gap);
+}
+
+.input-size-xl {
+    --input-major-height: var(--input-size-xl-major-height);
+    --input-minor-height: var(--input-size-xl-minor-height);
+    --input-font-size: var(--input-size-xl-font-size);
+    --input-major-padding: var(--input-size-xl-major-padding);
+    --input-minor-padding: var(--input-size-xl-minor-padding);
+    --input-gap: var(--input-size-xl-gap);
+}

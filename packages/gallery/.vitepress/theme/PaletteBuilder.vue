@@ -83,11 +83,23 @@
                 readonly
                 rows="10"
                 :value="cssCopyText" />
-            <Btn
-                label="Reset to defaults"
-                kind="tertiary"
-                block
-                @click="onReset" />
+            <HGroup>
+                <Btn
+                    label="Close"
+                    kind="tertiary"
+                    block
+                    @click="close" />
+                <Btn
+                    label="Copy to clipboard"
+                    kind="tertiary"
+                    block
+                    @click="copyToClipboard(cssCopyText)" />
+                <Btn
+                    label="Reset to defaults"
+                    kind="tertiary"
+                    block
+                    @click="onReset" />
+            </HGroup>
         </VGroup>
     </ContextPopup>
 </template>
@@ -119,6 +131,7 @@ export default {
         return {
             shown: false,
             rows,
+            justCopied: false,
         };
     },
 
@@ -134,6 +147,10 @@ export default {
     },
 
     methods: {
+
+        close() {
+            this.shown = false;
+        },
 
         open() {
             this.shown = true;
@@ -187,6 +204,14 @@ export default {
 
         onReset() {
             resetGalleryPalette();
+        },
+
+        copyToClipboard() {
+            navigator.clipboard.writeText(this.cssCopyText);
+            this.justCopied = true;
+            setTimeout(() => {
+                this.justCopied = false;
+            }, 2000);
         },
 
     },

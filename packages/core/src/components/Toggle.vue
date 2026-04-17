@@ -107,11 +107,10 @@ export default {
 
 <style scoped>
 .Toggle {
-    --Toggle-size: var(--input-height);
+    --Toggle-size: var(--input-minor-height);
     --Toggle-width: calc(1.618 * var(--Toggle-size));
     --Toggle-knob-offset: 4px;
     --Toggle-knob-size: calc(var(--Toggle-size) - 2 * var(--Toggle-knob-offset));
-    --Toggle-knob-outline-offset: -2px;
     --Toggle-knob-radius: calc(var(--Toggle-radius) - 0.5 * var(--Toggle-knob-offset));
 
     --Toggle-outline-color: transparent;
@@ -179,8 +178,8 @@ export default {
 
 .Toggle:not(:disabled):focus, .Toggle.Toggle-force-focus {
     z-index: 10;
-    --Toggle-outline-color: var(--ui-focus-light-color);
-    --Toggle-border-color: var(--ui-focus-medium-color);
+    --Toggle-outline-color: var(--ui-focus-outline-color);
+    --Toggle-border-color: var(--ui-focus-border-color);
 }
 
 .Toggle-active {

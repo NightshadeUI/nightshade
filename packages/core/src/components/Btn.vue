@@ -164,8 +164,8 @@ export default {
 
 <style scoped>
 .Btn {
-    --Btn-size: var(--input-height);
-    --Btn-padding: var(--input-padding-md);
+    --Btn-size: var(--input-major-height);
+    --Btn-padding: var(--input-major-padding);
     --Btn-gap: var(--input-gap);
     --Btn-font-size: var(--input-font-size);
 
@@ -272,8 +272,8 @@ export default {
 
 .Btn:not(:disabled):focus, .Btn.Btn-forceFocus {
     z-index: 10;
-    --Btn-outline-color: var(--ui-focus-light-color);
-    --Btn-border-color: var(--ui-focus-medium-color);
+    --Btn-outline-color: var(--ui-focus-outline-color);
+    --Btn-border-color: var(--ui-focus-border-color);
 }
 
 .Btn:not(:disabled):active, .Btn.Btn-forceActive {

@@ -142,7 +142,7 @@ export default {
 }
 
 .Header {
-    padding: var(--sp) var(--input-padding-md) 0;
+    padding: var(--sp) var(--input-major-padding) 0;
     font-size: var(--font-size-s);
     font-weight: var(--font-weight-bold);
     text-transform: uppercase;

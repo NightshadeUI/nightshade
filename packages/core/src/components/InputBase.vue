@@ -115,9 +115,9 @@ export default {
 
 <style scoped>
 .InputBase {
-    --InputBase-size: var(--input-height);
-    --InputBase-padding-x: var(--input-padding-md);
-    --InputBase-padding-y: var(--input-padding-sm);
+    --InputBase-size: var(--input-major-height);
+    --InputBase-padding-x: var(--input-major-padding);
+    --InputBase-padding-y: var(--input-minor-padding);
     --InputBase-gap: var(--input-gap);
     --InputBase-font-size: var(--input-font-size);
 
@@ -135,7 +135,7 @@ export default {
     --InputBase-shadow-color: var(--shadow-color-light);
     --InputBase-shadow: 0 1px 5px -1px var(--InputBase-shadow-color) inset;
 
-    --InputBase-label-color: var(--ui-label-color);
+    --InputBase-label-color: var(--text-color);
     --InputBase-label-font-size: var(--font-size-s);
 
     position: relative;
@@ -176,9 +176,9 @@ export default {
 
 .InputBase:not(.InputBase-disabled):focus-within, .InputBase.InputBase-forceFocus {
     z-index: 10;
-    --InputBase-outline-color: var(--ui-focus-light-color);
-    --InputBase-border-color: var(--ui-focus-medium-color);
-    --InputBase-label-color: var(--ui-focus-medium-color);
+    --InputBase-outline-color: var(--ui-focus-outline-color);
+    --InputBase-border-color: var(--ui-focus-border-color);
+    --InputBase-label-color: var(--ui-focus-border-color);
 }
 
 .InputBase-disabled {
