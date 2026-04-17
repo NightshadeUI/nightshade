@@ -179,7 +179,7 @@ export default {
 
     --Btn-border-size: 0;
     --Btn-border-color: transparent;
-    --Btn-radius: var(--input-radius);
+    --Btn-radius: var(--border-radius);
 
     --Btn-shadow-color: var(--ui-shadow-color);
     --Btn-shadow: 0 1px 1px var(--Btn-shadow-color), 0 1px 5px var(--shadow-color-light);
@@ -292,7 +292,7 @@ export default {
 /* Styles */
 
 .Btn-round {
-    --Btn-radius: var(--input-radius-round);
+    --Btn-radius: calc(.5 * var(--input-major-height));
 }
 
 .Btn-outline {

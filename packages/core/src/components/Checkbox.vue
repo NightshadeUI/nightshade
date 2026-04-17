@@ -121,7 +121,7 @@ export default {
 
     --Checkbox-border-size: 0px;
     --Checkbox-border-color: transparent;
-    --Checkbox-radius: var(--input-radius);
+    --Checkbox-radius: var(--border-radius);
 
     --Checkbox-shadow: 0 1px 3px var(--Checkbox-shadow-color) inset, 0 0 5px -1px var(--Checkbox-shadow-color) inset;
     --Checkbox-shadow-color: var(--shadow-color-light);
@@ -215,7 +215,7 @@ export default {
 /* Styles */
 
 .Checkbox-round {
-    --Checkbox-radius: var(--input-radius-round);
+    --Checkbox-radius: calc(.5 * var(--input-major-height));
 }
 
 .Checkbox-outline {

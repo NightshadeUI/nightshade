@@ -2,8 +2,6 @@
 
     /* Global defaults */
 
-    --input-radius: var(--border-radius);
-    --input-radius-round: calc(.5 * var(--input-major-height));
     --input-border-size: 1px;
     --input-outline-size: 2px;
     --input-outline-offset: 0;

@@ -121,7 +121,7 @@ export default {
 
     --Toggle-border-size: 0px;
     --Toggle-border-color: transparent;
-    --Toggle-radius: var(--input-radius);
+    --Toggle-radius: var(--border-radius);
 
     --Toggle-shadow: 0 1px 3px var(--Toggle-shadow-color) inset, 0 0 5px -1px var(--Toggle-shadow-color) inset;
     --Toggle-shadow-color: var(--shadow-color-light);
@@ -200,7 +200,7 @@ export default {
 /* Styles */
 
 .Toggle-round {
-    --Toggle-radius: var(--input-radius-round);
+    --Toggle-radius: calc(.5 * var(--input-major-height));
 }
 
 .Toggle-outline {

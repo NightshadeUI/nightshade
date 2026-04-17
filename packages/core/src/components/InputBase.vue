@@ -130,7 +130,7 @@ export default {
 
     --InputBase-border-size: var(--input-border-size);
     --InputBase-border-color: var(--ui-border-color);
-    --InputBase-radius: var(--input-radius);
+    --InputBase-radius: var(--border-radius);
 
     --InputBase-shadow-color: var(--shadow-color-light);
     --InputBase-shadow: 0 1px 5px -1px var(--InputBase-shadow-color) inset;
@@ -198,7 +198,7 @@ export default {
 }
 
 .InputBase-round {
-    --InputBase-radius: var(--input-radius-round);
+    --InputBase-radius: calc(.5 * var(--input-major-height));
 }
 
 .InputBase-flat {
@@ -248,7 +248,7 @@ export default {
     line-height: var(--sp2);
 
     font-size: var(--InputBase-label-font-size);
-    border-radius: var(--input-radius);
+    border-radius: var(--border-radius);
 
     color: var(--InputBase-label-color);
     text-shadow:

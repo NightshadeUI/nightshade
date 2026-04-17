@@ -113,7 +113,7 @@
                             kind="primary"
                             outline
                             flat
-                            size="xs" />
+                            size="s" />
                         Is Selected
                     </HGroup>
                     <HGroup tagName="label">
@@ -122,7 +122,7 @@
                             kind="primary"
                             outline
                             flat
-                            size="xs" />
+                            size="s" />
                         Selectable
                     </HGroup>
                     <HGroup tagName="label">
@@ -131,7 +131,7 @@
                             kind="primary"
                             outline
                             flat
-                            size="xs" />
+                            size="s" />
                         Movable
                     </HGroup>
                     <HGroup tagName="label">
@@ -140,7 +140,7 @@
                             kind="primary"
                             outline
                             flat
-                            size="xs" />
+                            size="s" />
                         Snap to grid
                     </HGroup>
                 </HGroup>
@@ -255,7 +255,7 @@ export default {
 
     padding: var(--sp2);
     border: var(--input-border-size) solid var(--color-base-300);
-    border-radius: var(--input-radius);
+    border-radius: var(--border-radius);
     background: var(--color-base-0);
 
     overflow: auto;
@@ -274,7 +274,7 @@ export default {
 .StickyNote {
     padding: var(--sp);
     border: var(--input-border-size) solid var(--color-warning-500);
-    border-radius: var(--input-radius);
+    border-radius: var(--border-radius);
     background: var(--color-warning-200);
     color: var(--color-warning-950);
     font-size: var(--font-size-xs);

@@ -37,7 +37,7 @@ export default {
 
     --ToolPanel-border-size: 0;
     --ToolPanel-border-color: var(--color-base-200);
-    --ToolPanel-radius: var(--input-radius);
+    --ToolPanel-radius: var(--border-radius);
 
     --ToolPanel-shadow-color: var(--shadow-color-light);
     --ToolPanel-shadow: 0 1px 1px var(--ToolPanel-shadow-color) inset, 0 0 5px var(--ToolPanel-shadow-color) inset;
@@ -64,7 +64,7 @@ export default {
 /* Styles */
 
 .ToolPanel-round {
-    --ToolPanel-radius: var(--input-radius-round);
+    --ToolPanel-radius: calc(.5 * var(--input-major-height));
 }
 
 .ToolPanel-outline {

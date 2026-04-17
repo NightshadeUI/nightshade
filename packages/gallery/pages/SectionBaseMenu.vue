@@ -52,7 +52,7 @@ export default {
 <style scoped>
 .MenuWrapper {
     background: var(--ui-surface-color);
-    border-radius: var(--input-radius);
+    border-radius: var(--border-radius);
     border: var(--input-border-size) solid var(--color-base-100);
 }
 </style>
