@@ -125,7 +125,7 @@ export default {
 
     --Checkbox-shadow: 0 1px 3px var(--Checkbox-shadow-color) inset, 0 0 5px -1px var(--Checkbox-shadow-color) inset;
     --Checkbox-shadow-color: var(--shadow-color-light);
-    --Checkbox-mark-shadow: 0 1px 1px var(--ui-surface-text-shadow-color);
+    --Checkbox-mark-shadow: 0 1px 1px var(--ui-auto-text-shadow-color);
 
     display: inline-flex;
     align-items: center;

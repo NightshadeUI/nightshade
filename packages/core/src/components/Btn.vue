@@ -183,7 +183,7 @@ export default {
 
     --Btn-shadow-color: var(--ui-shadow-color);
     --Btn-shadow: 0 1px 1px var(--Btn-shadow-color), 0 1px 5px var(--shadow-color-light);
-    --Btn-text-shadow: 0 1px 1px var(--ui-surface-text-shadow-color);
+    --Btn-text-shadow: 0 1px 1px var(--ui-auto-text-shadow-color);
 
     -webkit-appearance: none;
     appearance: none;
