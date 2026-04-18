@@ -33,6 +33,7 @@ export default {
 
     props: {
         ...InputBase.props,
+        tagName: { type: String, default: 'label' },
         modelValue: { type: [String, Number] },
         type: { type: String },
         placeholder: { type: String },
@@ -74,6 +75,10 @@ export default {
 </script>
 
 <style scoped>
+.InputText:not(.InputText-disabled) {
+    cursor: text;
+}
+
 input, textarea {
     -webkit-appearance: none;
     box-sizing: border-box;

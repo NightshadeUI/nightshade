@@ -80,6 +80,35 @@
             </InputText>
         </VGroup>
 
+        <h4>Select</h4>
+
+        <VGroup>
+            <InputSelect
+                v-model="selectedSimple"
+                label="Simple select"
+                :options="simpleSelectOptions"
+                :labelStyle="labelStyle"
+                :round="commonOptions.round"
+                :flat="commonOptions.flat"
+                :outline="commonOptions.outline"
+                :disabled="commonOptions.disabled"
+                :forceFocus="commonOptions.forceFocus">
+                <template #after>
+                    <i class="fas fa-angle-down" />
+                </template>
+            </InputSelect>
+            <InputSelect
+                v-model="selectedGrouped"
+                label="Grouped select"
+                :options="groupedSelectOptions"
+                :labelStyle="labelStyle"
+                :round="commonOptions.round"
+                :flat="commonOptions.flat"
+                :outline="commonOptions.outline"
+                :disabled="commonOptions.disabled"
+                :forceFocus="commonOptions.forceFocus" />
+        </VGroup>
+
     </DualTheme>
 </template>
 
@@ -97,6 +126,8 @@ export default {
         return {
             text: 'Hello world!',
             labelStyle: 'inline',
+            selectedSimple: 'alpha',
+            selectedGrouped: 'bananas',
         };
     },
 
@@ -108,6 +139,24 @@ export default {
 
         inputSizes() {
             return inputSizes;
+        },
+
+        simpleSelectOptions() {
+            return [
+                { value: 'alpha', label: 'Alpha' },
+                { value: 'beta', label: 'Beta' },
+                { value: 'gamma', label: 'Gamma' },
+            ];
+        },
+
+        groupedSelectOptions() {
+            return [
+                { value: 'all', label: 'All items' },
+                { value: 'apples', group: 'Fruit' },
+                { value: 'bananas', group: 'Fruit' },
+                { value: 'carrots', group: 'Vegetables' },
+                { value: 'broccoli', group: 'Vegetables' },
+            ];
         },
 
     },

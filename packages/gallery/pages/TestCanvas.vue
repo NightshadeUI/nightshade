@@ -237,8 +237,8 @@ export default {
 .CanvasPlayground {
     --canvas-margin-cells: 64;
     --canvas-grid-cell-size: 32px;
-    --canvas-grid-subdivisions: 4;
-    --canvas-grid-major-color: var(--color-base-200);
+    --canvas-grid-subdivisions: 2;
+    --canvas-grid-major-color: var(--color-base-100);
     --canvas-grid-minor-color: var(--color-base-100);
 
     margin: var(--sp);

@@ -41,8 +41,8 @@
     },
     "devDependencies": {
         "@fastify/pre-commit": "^2.2.1",
-        "@luminable/eslint-config": "^1.3.6",
-        "@luminable/eslint-config-vue": "^1.3.5",
+        "@luminable/eslint-config": "^1.3.7",
+        "@luminable/eslint-config-vue": "^1.3.7",
         "@types/node": "^24.9.1",
         "@vitejs/plugin-vue": "^6.0.1",
         "eslint": "^9.38.0",
