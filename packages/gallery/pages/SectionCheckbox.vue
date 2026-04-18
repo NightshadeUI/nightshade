@@ -29,13 +29,7 @@
                 <Checkbox
                     v-model="value"
                     :kind="kind"
-                    :mark="mark"
-                    :round="commonOptions.round"
-                    :flat="commonOptions.flat"
-                    :outline="commonOptions.outline"
-                    :disabled="commonOptions.disabled"
-                    :forceFocus="commonOptions.forceFocus"
-                    :forceHover="commonOptions.forceHover" />
+                    :mark="mark" />
             </template>
         </HGroup>
 
@@ -51,13 +45,7 @@
                     v-model="value"
                     kind="secondary"
                     :size="size"
-                    :mark="mark"
-                    :round="commonOptions.round"
-                    :flat="commonOptions.flat"
-                    :outline="commonOptions.outline"
-                    :disabled="commonOptions.disabled"
-                    :forceFocus="commonOptions.forceFocus"
-                    :forceHover="commonOptions.forceHover" />
+                    :mark="mark" />
             </HGroup>
         </VGroup>
 
@@ -65,13 +53,7 @@
 
         <Checkbox
             v-model="value"
-            kind="secondary"
-            :round="commonOptions.round"
-            :flat="commonOptions.flat"
-            :outline="commonOptions.outline"
-            :disabled="commonOptions.disabled"
-            :forceFocus="commonOptions.forceFocus"
-            :forceHover="commonOptions.forceHover">
+            kind="secondary">
             <template #active>Y</template>
             <template #inactive>N</template>
         </Checkbox>
@@ -83,10 +65,6 @@ import { capitalize } from '../utils/capitalize.js';
 import { inputSizes, uiTokens } from '../utils/commons.js';
 
 export default {
-
-    inject: [
-        'commonOptions'
-    ],
 
     data() {
         return {

@@ -10,9 +10,6 @@
                     :key="style">
                     <Btn
                         :label="capitalize(style)"
-                        flat
-                        outline
-                        round
                         :kind="labelStyle === style ? 'primary' : 'base'"
                         @click="labelStyle = style" />
                 </template>
@@ -32,12 +29,7 @@
                     v-model="text"
                     :kind="kind"
                     :label="capitalize(kind)"
-                    :labelStyle="labelStyle"
-                    :round="commonOptions.round"
-                    :flat="commonOptions.flat"
-                    :outline="commonOptions.outline"
-                    :disabled="commonOptions.disabled"
-                    :forceFocus="commonOptions.forceFocus" />
+                    :labelStyle="labelStyle" />
             </template>
         </VGroup>
 
@@ -51,12 +43,7 @@
                     v-model="text"
                     :size="size"
                     :label="`Size ${size}`"
-                    :labelStyle="labelStyle"
-                    :round="commonOptions.round"
-                    :flat="commonOptions.flat"
-                    :outline="commonOptions.outline"
-                    :disabled="commonOptions.disabled"
-                    :forceFocus="commonOptions.forceFocus" />
+                    :labelStyle="labelStyle" />
             </template>
         </VGroup>
 
@@ -65,12 +52,7 @@
         <VGroup>
             <InputText
                 v-model="text"
-                :labelStyle="labelStyle"
-                :round="commonOptions.round"
-                :flat="commonOptions.flat"
-                :outline="commonOptions.outline"
-                :disabled="commonOptions.disabled"
-                :forceFocus="commonOptions.forceFocus">
+                :labelStyle="labelStyle">
                 <template #before>
                     💬
                 </template>
@@ -87,12 +69,7 @@
                 v-model="selectedSimple"
                 label="Simple select"
                 :options="simpleSelectOptions"
-                :labelStyle="labelStyle"
-                :round="commonOptions.round"
-                :flat="commonOptions.flat"
-                :outline="commonOptions.outline"
-                :disabled="commonOptions.disabled"
-                :forceFocus="commonOptions.forceFocus">
+                :labelStyle="labelStyle">
                 <template #after>
                     <i class="fas fa-angle-down" />
                 </template>
@@ -101,12 +78,7 @@
                 v-model="selectedGrouped"
                 label="Grouped select"
                 :options="groupedSelectOptions"
-                :labelStyle="labelStyle"
-                :round="commonOptions.round"
-                :flat="commonOptions.flat"
-                :outline="commonOptions.outline"
-                :disabled="commonOptions.disabled"
-                :forceFocus="commonOptions.forceFocus" />
+                :labelStyle="labelStyle" />
         </VGroup>
 
     </DualTheme>
@@ -117,10 +89,6 @@ import { capitalize } from '../utils/capitalize.js';
 import { inputSizes, uiTokens } from '../utils/commons.js';
 
 export default {
-
-    inject: [
-        'commonOptions'
-    ],
 
     data() {
         return {

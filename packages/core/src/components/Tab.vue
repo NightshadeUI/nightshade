@@ -1,36 +1,40 @@
 <template>
     <component
-        :is="tagName"
+        :is="resolvedProps.tagName"
         class="Tab"
         :class="[
-            `ui-${kind}`,
-            `input-size-${size}`,
-            `Tab-${dir}`,
+            `ui-${resolvedProps.kind}`,
+            `input-size-${resolvedProps.size}`,
+            `Tab-${resolvedProps.dir}`,
             `Tab-${orientation}`,
         ]">
         <TabCap
             class="TabCap"
-            :dir="dir"
+            :dir="resolvedProps.dir"
             type="start" />
         <div class="Content">
             <slot>
                 <div
-                    v-if="label"
+                    v-if="resolvedProps.label"
                     class="TabLabel"
-                    :title="label">
-                    {{ label }}
+                    :title="resolvedProps.label">
+                    {{ resolvedProps.label }}
                 </div>
             </slot>
         </div>
         <TabCap
             class="TabCap"
-            :dir="dir"
+            :dir="resolvedProps.dir"
             type="end" />
     </component>
 </template>
 
 <script>
+import { nightshadeMixin } from '../utils/props';
+
 export default {
+
+    mixins: [nightshadeMixin],
 
     props: {
         tagName: { type: String, default: 'div' },
@@ -44,7 +48,8 @@ export default {
     computed: {
 
         orientation() {
-            return this.dir === 'top' || this.dir === 'bottom' ? 'h' : 'v';
+            const { dir } = this.resolvedProps;
+            return dir === 'top' || dir === 'bottom' ? 'h' : 'v';
         },
 
     },

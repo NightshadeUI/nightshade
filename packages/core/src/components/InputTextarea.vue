@@ -6,11 +6,11 @@
         <slot name="before" />
         <textarea
             ref="input"
-            :value="modelValue"
-            :placeholder="placeholder"
-            :readonly="readonly"
-            :disabled="disabled"
-            :rows="rows"
+            :value="resolvedProps.modelValue"
+            :placeholder="resolvedProps.placeholder"
+            :readonly="resolvedProps.readonly"
+            :disabled="resolvedProps.disabled"
+            :rows="resolvedProps.rows"
             resize="none"
             autocomplete="off"
             @input="onInput($event)"
@@ -21,7 +21,10 @@
 </template>
 
 <script>
-import { collectProps } from '../utils/props';
+import {
+    collectProps,
+    nightshadeMixin,
+} from '../utils/props';
 import InputBase from './InputBase.vue';
 
 export default {
@@ -29,6 +32,8 @@ export default {
     components: {
         InputBase,
     },
+
+    mixins: [nightshadeMixin],
 
     props: {
         ...InputBase.props,
@@ -59,7 +64,7 @@ export default {
         modelValue: {
             handler() {
                 const textarea = this.$refs.input;
-                if (this.autoSize && textarea) {
+                if (this.resolvedProps.autoSize && textarea) {
                     textarea.style.height = 'auto';
                     textarea.style.height = textarea.scrollHeight + 'px';
                 }
@@ -71,10 +76,10 @@ export default {
     mounted() {
         this.$nextTick(() => {
             const textarea = this.$refs.input;
-            if (this.autoFocus) {
+            if (this.resolvedProps.autoFocus) {
                 textarea.focus();
             }
-            if (this.autoSize) {
+            if (this.resolvedProps.autoSize) {
                 textarea.style.height = textarea.scrollHeight + 'px';
                 textarea.style.overflowY = 'hidden';
             }

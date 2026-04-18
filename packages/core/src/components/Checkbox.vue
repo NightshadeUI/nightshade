@@ -4,15 +4,15 @@
         :class="[
             `ui-${effectiveStyle.kind}`,
             `input-size-${effectiveStyle.size}`,
-            `Checkbox-mark-${mark}`,
+            `Checkbox-mark-${resolvedProps.mark}`,
             {
-                'Checkbox-active': !!modelValue,
+                'Checkbox-active': !!resolvedProps.modelValue,
                 'Checkbox-outline': effectiveStyle.outline,
                 'Checkbox-round': effectiveStyle.round,
                 'Checkbox-flat': effectiveStyle.flat,
-                'Checkbox-disabled': disabled,
-                'Checkbox-force-focus': forceFocus,
-                'Checkbox-force-hover': forceHover,
+                'Checkbox-disabled': resolvedProps.disabled,
+                'Checkbox-force-focus': resolvedProps.forceFocus,
+                'Checkbox-force-hover': resolvedProps.forceHover,
             }
         ]"
         tabindex="0"
@@ -20,7 +20,7 @@
         @mouseleave="hover = false"
         @focusin="focus = true"
         @focusout="focus = false">
-        <slot v-if="modelValue" name="active">
+        <slot v-if="resolvedProps.modelValue" name="active">
             <component
                 :is="markComponent"
                 v-if="markComponent"
@@ -29,11 +29,11 @@
                 v-else
                 class="Mark" />
         </slot>
-        <slot v-if="!modelValue" name="inactive" />
+        <slot v-if="!resolvedProps.modelValue" name="inactive" />
         <input
             type="checkbox"
-            :checked="modelValue"
-            :disabled="disabled"
+            :checked="resolvedProps.modelValue"
+            :disabled="resolvedProps.disabled"
             @change="onChange" />
     </label>
 </template>
@@ -43,8 +43,13 @@ import {
     GhyphXmark,
     GlyphCheck,
 } from '../glyphs/index.js';
+import {
+    nightshadeMixin,
+} from '../utils/props';
 
 export default {
+
+    mixins: [nightshadeMixin],
 
     props: {
         mark: { type: String, default: 'check' },
@@ -76,26 +81,27 @@ export default {
     computed: {
 
         markComponent() {
-            if (this.mark === 'check') {
+            if (this.resolvedProps.mark === 'check') {
                 return GlyphCheck;
             }
-            if (this.mark === 'xmark') {
+            if (this.resolvedProps.mark === 'xmark') {
                 return GhyphXmark;
             }
             return null;
         },
 
         isActive() {
-            return !!this.modelValue;
+            return !!this.resolvedProps.modelValue;
         },
 
         baseStyle() {
+            const { resolvedProps } = this;
             return {
-                kind: (this.isActive ? this.activeKind : this.kind) ?? this.kind,
-                size: this.size,
-                round: this.round,
-                outline: this.outline,
-                flat: this.flat,
+                kind: (this.isActive ? resolvedProps.activeKind : resolvedProps.kind) ?? resolvedProps.kind,
+                size: resolvedProps.size,
+                round: resolvedProps.round,
+                outline: resolvedProps.outline,
+                flat: resolvedProps.flat,
             };
         },
 
@@ -106,9 +112,9 @@ export default {
                 focusOverrides = {},
                 hover,
                 focus,
-                forceHover,
-                forceFocus,
+                resolvedProps,
             } = this;
+            const { forceHover, forceFocus } = resolvedProps;
             const style = Object.assign({}, baseStyle);
             if (hover || forceHover) {
                 Object.assign(style, hoverOverrides);

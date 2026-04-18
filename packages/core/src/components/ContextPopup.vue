@@ -3,8 +3,8 @@
         <div
             class="Overlay"
             :class="{
-                'Overlay-enabled': overlayEnabled,
-                'Overlay-shown': overlayShown,
+                'Overlay-enabled': resolvedProps.overlayEnabled,
+                'Overlay-shown': resolvedProps.overlayShown,
             }"
             @click.stop="hide()">
             <Bubble
@@ -12,7 +12,7 @@
                 :dir="actualDir"
                 :align="actualAlign"
                 :style="bubbleStyle"
-                :arrowShown="arrowShown"
+                :arrowShown="resolvedProps.arrowShown"
                 @mouseenter="$emit('mouseenter')"
                 @mouseleave="$emit('mouseleave')"
                 @click.stop="">
@@ -23,7 +23,11 @@
 </template>
 
 <script>
+import { nightshadeMixin } from '../utils/props';
+
 export default {
+
+    mixins: [nightshadeMixin],
 
     props: {
         dir: { type: String, default: 'v' },
@@ -81,7 +85,7 @@ export default {
             if (!anchorEl) {
                 return;
             }
-            this.pos = this.getAnchorPoint(anchorEl, this.anchorDir);
+            this.pos = this.getAnchorPoint(anchorEl, this.resolvedProps.anchorDir);
             this.calcDirAlign();
             this.ready = true;
             this.$nextTick(() => this.$emit('ready'));
@@ -90,28 +94,29 @@ export default {
         calcDirAlign() {
             const atTop = this.pos.y < window.innerHeight * 0.5;
             const atLeft = this.pos.x < window.innerWidth * 0.5;
-            if (this.align === 'auto') {
-                const verticalDir = ['top', 'bottom', 'v'].includes(this.dir);
+            const { align, dir } = this.resolvedProps;
+            if (align === 'auto') {
+                const verticalDir = ['top', 'bottom', 'v'].includes(dir);
                 if (verticalDir) {
                     this.actualAlign = atLeft ? 'start' : 'end';
                 } else {
                     this.actualAlign = atTop ? 'start' : 'end';
                 }
             } else {
-                this.actualAlign = this.align;
+                this.actualAlign = align;
             }
-            if (this.dir === 'v') {
+            if (dir === 'v') {
                 this.actualDir = atTop ? 'bottom' : 'top';
-            } else if (this.dir === 'h') {
+            } else if (dir === 'h') {
                 this.actualDir = atLeft ? 'right' : 'left';
             } else {
-                this.actualDir = this.dir;
+                this.actualDir = dir;
             }
         },
 
         getAnchorEl() {
-            if (this.anchorRef) {
-                const ref = this.findRef(this.$parent, this.anchorRef);
+            if (this.resolvedProps.anchorRef) {
+                const ref = this.findRef(this.$parent, this.resolvedProps.anchorRef);
                 if (ref) {
                     return ref;
                 }

@@ -1,13 +1,17 @@
 <template>
     <component
-        :is="tagName"
+        :is="resolvedProps.tagName"
         class="InputGroup">
         <slot />
     </component>
 </template>
 
 <script>
+import { nightshadeMixin } from '../utils/props';
+
 export default {
+
+    mixins: [nightshadeMixin],
 
     props: {
         tagName: { type: String, default: 'div' },

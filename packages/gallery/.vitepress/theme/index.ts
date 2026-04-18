@@ -26,6 +26,9 @@ const theme: Theme = {
         }
         app.component('DualTheme', DualTheme);
         app.provide('commonOptions', commonOptions);
+        app.provide('$nightshade', reactive({
+            defaults: commonOptions,
+        }));
     },
 };
 

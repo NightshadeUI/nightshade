@@ -6,9 +6,9 @@
         <slot name="before" />
         <select
             ref="input"
-            :value="modelValue"
-            :disabled="disabled"
-            :aria-readonly="readonly"
+            :value="resolvedProps.modelValue"
+            :disabled="resolvedProps.disabled"
+            :aria-readonly="resolvedProps.readonly"
             @input="onInput($event)"
             @change="onChange($event)"
             @focus="$emit('focus', $event)"
@@ -28,7 +28,7 @@
             </template>
             <template v-else>
                 <option
-                    v-for="option in options"
+                    v-for="option in resolvedProps.options"
                     :key="optionKey(option)"
                     :value="option.value">
                     {{ optionLabel(option) }}
@@ -40,7 +40,10 @@
 </template>
 
 <script>
-import { collectProps } from '../utils/props';
+import {
+    collectProps,
+    nightshadeMixin,
+} from '../utils/props';
 import InputBase from './InputBase.vue';
 
 export default {
@@ -48,6 +51,8 @@ export default {
     components: {
         InputBase,
     },
+
+    mixins: [nightshadeMixin],
 
     props: {
         ...InputBase.props,
@@ -76,7 +81,7 @@ export default {
         },
 
         hasGroupedOptions() {
-            return this.options.some(option => option?.group);
+            return this.resolvedProps.options.some(option => option?.group);
         },
 
         groupedOptions() {
@@ -84,7 +89,7 @@ export default {
                 label: '',
                 options: [],
             }];
-            for (const option of this.options) {
+            for (const option of this.resolvedProps.options) {
                 const groupLabel = option?.group ?? '';
                 const group = groups.find(group => group.label === groupLabel);
                 if (group) {
@@ -101,7 +106,7 @@ export default {
     },
 
     mounted() {
-        if (this.autoFocus) {
+        if (this.resolvedProps.autoFocus) {
             this.$refs.input?.focus();
         }
     },
@@ -113,8 +118,8 @@ export default {
         },
 
         onChange(ev) {
-            if (this.readonly) {
-                ev.target.value = this.modelValue;
+            if (this.resolvedProps.readonly) {
+                ev.target.value = this.resolvedProps.modelValue;
                 return;
             }
             this.$emit('change', ev);

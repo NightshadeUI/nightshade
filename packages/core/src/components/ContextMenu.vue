@@ -14,7 +14,10 @@
 </template>
 
 <script>
-import { collectProps } from '../utils/props';
+import {
+    collectProps,
+    nightshadeMixin,
+} from '../utils/props';
 import BaseMenu from './BaseMenu.vue';
 import ContextPopup from './ContextPopup.vue';
 
@@ -24,6 +27,8 @@ export default {
         ContextPopup,
         BaseMenu,
     },
+
+    mixins: [nightshadeMixin],
 
     inheritAttrs: false,
 

@@ -1,15 +1,15 @@
 <template>
     <Transition
-        :name="'fade-' + dir"
+        :name="'fade-' + resolvedProps.dir"
         appear>
         <div
             class="Bubble"
             :class="[
-                `Bubble-${dir}`,
-                `Bubble-${align}`,
+                `Bubble-${resolvedProps.dir}`,
+                `Bubble-${resolvedProps.align}`,
             ]">
             <div
-                v-if="arrowShown"
+                v-if="resolvedProps.arrowShown"
                 class="Arrow" />
             <div class="Body">
                 <slot />
@@ -19,7 +19,11 @@
 </template>
 
 <script>
+import { nightshadeMixin } from '../utils/props';
+
 export default {
+
+    mixins: [nightshadeMixin],
 
     props: {
         dir: { type: String, default: 'bottom' },

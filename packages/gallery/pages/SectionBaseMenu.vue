@@ -12,8 +12,6 @@
                 :key="size"
                 :size="size"
                 :items="menuItems"
-                :outline="commonOptions.outline"
-                :round="commonOptions.round"
                 class="MenuWrapper" />
         </HGroup>
 
@@ -23,10 +21,6 @@
 
 <script>
 export default {
-
-    inject: [
-        'commonOptions'
-    ],
 
     computed: {
 

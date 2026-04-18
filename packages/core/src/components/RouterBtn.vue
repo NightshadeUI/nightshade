@@ -1,7 +1,7 @@
 <template>
     <RouterLink
         v-slot="{ href, navigate, isActive, isExactActive }"
-        :to="to"
+        :to="resolvedProps.to"
         custom>
         <Btn
             tagName="a"
@@ -12,7 +12,10 @@
 </template>
 
 <script>
-import { collectProps } from '../utils/props';
+import {
+    collectProps,
+    nightshadeMixin,
+} from '../utils/props';
 import Btn from './Btn.vue';
 
 export default {
@@ -20,6 +23,8 @@ export default {
     components: {
         Btn,
     },
+
+    mixins: [nightshadeMixin],
 
     props: {
         ...Btn.props,
@@ -35,9 +40,9 @@ export default {
             const btnProps = collectProps(this, Btn);
             return {
                 ...btnProps,
-                ...this.baseProps,
-                ...(isActive ? this.activeProps : {}),
-                ...(isExactActive ? this.exactActiveProps : {}),
+                ...this.resolvedProps.baseProps,
+                ...(isActive ? this.resolvedProps.activeProps : {}),
+                ...(isExactActive ? this.resolvedProps.exactActiveProps : {}),
             };
         }
 

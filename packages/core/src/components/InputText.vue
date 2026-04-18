@@ -5,14 +5,14 @@
         <slot name="before" />
         <input
             ref="input"
-            :value="modelValue"
-            :type="type"
-            :placeholder="placeholder"
-            :readonly="readonly"
-            :disabled="disabled"
-            :min="min"
-            :max="max"
-            :step="step"
+            :value="resolvedProps.modelValue"
+            :type="resolvedProps.type"
+            :placeholder="resolvedProps.placeholder"
+            :readonly="resolvedProps.readonly"
+            :disabled="resolvedProps.disabled"
+            :min="resolvedProps.min"
+            :max="resolvedProps.max"
+            :step="resolvedProps.step"
             autocomplete="off"
             @input="onInput($event)"
             @focus="$emit('focus', $event)"
@@ -22,7 +22,10 @@
 </template>
 
 <script>
-import { collectProps } from '../utils/props';
+import {
+    collectProps,
+    nightshadeMixin,
+} from '../utils/props';
 import InputBase from './InputBase.vue';
 
 export default {
@@ -30,6 +33,8 @@ export default {
     components: {
         InputBase,
     },
+
+    mixins: [nightshadeMixin],
 
     props: {
         ...InputBase.props,
@@ -58,7 +63,7 @@ export default {
     },
 
     mounted() {
-        if (this.autoFocus) {
+        if (this.resolvedProps.autoFocus) {
             this.$refs.input?.focus();
         }
     },

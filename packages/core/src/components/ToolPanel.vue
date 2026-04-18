@@ -2,12 +2,12 @@
     <div
         class="ToolPanel"
         :class="[
-            `ToolPanel-size-${size}`,
-            `input-size-${size}`,
+            `ToolPanel-size-${resolvedProps.size}`,
+            `input-size-${resolvedProps.size}`,
             {
-                'ToolPanel-flat': flat,
-                'ToolPanel-outline': outline,
-                'ToolPanel-round': round,
+                'ToolPanel-flat': resolvedProps.flat,
+                'ToolPanel-outline': resolvedProps.outline,
+                'ToolPanel-round': resolvedProps.round,
             }
         ]">
         <slot />
@@ -15,7 +15,13 @@
 </template>
 
 <script>
+import {
+    nightshadeMixin,
+} from '../utils/props';
+
 export default {
+
+    mixins: [nightshadeMixin],
 
     props: {
         size: { type: String, default: 'm' },

@@ -2,12 +2,16 @@
     <div
         class="Filler"
         :class="[
-            `Filler-${fill}`,
+            `Filler-${resolvedProps.fill}`,
         ]" />
 </template>
 
 <script>
+import { nightshadeMixin } from '../utils/props';
+
 export default {
+
+    mixins: [nightshadeMixin],
 
     props: {
         fill: { type: String, default: 'none' },

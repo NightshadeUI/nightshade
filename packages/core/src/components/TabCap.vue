@@ -2,8 +2,8 @@
     <svg
         class="TabCap"
         :class="[
-            `TabCap-${dir}`,
-            `TabCap-${type}`,
+            `TabCap-${resolvedProps.dir}`,
+            `TabCap-${resolvedProps.type}`,
         ]"
         viewBox="0 0 32 32"
         preserveAspectRatio="none">
@@ -12,7 +12,11 @@
 </template>
 
 <script>
+import { nightshadeMixin } from '../utils/props';
+
 export default {
+
+    mixins: [nightshadeMixin],
 
     props: {
         dir: { type: String, default: 'top' },

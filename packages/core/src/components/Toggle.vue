@@ -9,9 +9,9 @@
                 'Toggle-outline': effectiveStyle.outline,
                 'Toggle-round': effectiveStyle.round,
                 'Toggle-flat': effectiveStyle.flat,
-                'Toggle-disabled': disabled,
-                'Toggle-force-focus': forceFocus,
-                'Toggle-force-hover': forceHover,
+                'Toggle-disabled': resolvedProps.disabled,
+                'Toggle-force-focus': resolvedProps.forceFocus,
+                'Toggle-force-hover': resolvedProps.forceHover,
             }
         ]"
         tabindex="0"
@@ -21,14 +21,20 @@
         @focusout="focus = false">
         <input
             type="checkbox"
-            :checked="modelValue"
-            :disabled="disabled"
+            :checked="resolvedProps.modelValue"
+            :disabled="resolvedProps.disabled"
             @change="onChange" />
     </label>
 </template>
 
 <script>
+import {
+    nightshadeMixin,
+} from '../utils/props';
+
 export default {
+
+    mixins: [nightshadeMixin],
 
     props: {
         modelValue: { type: Boolean },
@@ -59,16 +65,17 @@ export default {
     computed: {
 
         isActive() {
-            return !!this.modelValue;
+            return !!this.resolvedProps.modelValue;
         },
 
         baseStyle() {
+            const { resolvedProps } = this;
             return {
-                kind: (this.isActive ? this.activeKind : this.kind) ?? this.kind,
-                size: this.size,
-                round: this.round,
-                outline: this.outline,
-                flat: this.flat,
+                kind: (this.isActive ? resolvedProps.activeKind : resolvedProps.kind) ?? resolvedProps.kind,
+                size: resolvedProps.size,
+                round: resolvedProps.round,
+                outline: resolvedProps.outline,
+                flat: resolvedProps.flat,
             };
         },
 
@@ -79,9 +86,9 @@ export default {
                 focusOverrides = {},
                 hover,
                 focus,
-                forceHover,
-                forceFocus,
+                resolvedProps,
             } = this;
+            const { forceHover, forceFocus } = resolvedProps;
             const style = Object.assign({}, baseStyle);
             if (hover || forceHover) {
                 Object.assign(style, hoverOverrides);

@@ -1,28 +1,28 @@
 <template>
     <component
-        :is="tagName"
+        :is="resolvedProps.tagName"
         ref="button"
         class="Btn InputElement"
         :class="[
             `ui-${effectiveStyle.kind}`,
             `input-size-${effectiveStyle.size}`,
-            `Btn-iconPos-${iconPos}`,
+            `Btn-iconPos-${resolvedProps.iconPos}`,
             {
                 'Btn-ghost': effectiveStyle.ghost,
                 'Btn-round': effectiveStyle.round,
                 'Btn-outline': effectiveStyle.outline,
                 'Btn-flat': effectiveStyle.flat,
-                'Btn-square': square,
-                'Btn-block': block,
-                'Btn-disabled': disabled || blocked,
-                'Btn-forceFocus': forceFocus,
-                'Btn-forceHover': forceHover,
-                'Btn-forceActive': forceActive,
+                'Btn-square': resolvedProps.square,
+                'Btn-block': resolvedProps.block,
+                'Btn-disabled': resolvedProps.disabled || blocked,
+                'Btn-forceFocus': resolvedProps.forceFocus,
+                'Btn-forceHover': resolvedProps.forceHover,
+                'Btn-forceActive': resolvedProps.forceActive,
             },
         ]"
-        :disabled="disabled || blocked"
-        :title="title ?? label"
-        :href="href"
+        :disabled="resolvedProps.disabled || blocked"
+        :title="resolvedProps.title ?? resolvedProps.label"
+        :href="resolvedProps.href"
         @mouseenter="hover = true"
         @mouseleave="hover = false"
         @mousedown="active = true"
@@ -44,8 +44,8 @@
             :focus="focus"
             :blocked="blocked">
             <i
-                v-if="icon"
-                :class="icon"
+                v-if="resolvedProps.icon"
+                :class="resolvedProps.icon"
                 class="Icon" />
             <slot
                 name="label"
@@ -54,9 +54,9 @@
                 :focus="focus"
                 :blocked="blocked">
                 <span
-                    v-if="label"
+                    v-if="resolvedProps.label"
                     class="Label">
-                    {{ label }}
+                    {{ resolvedProps.label }}
                 </span>
             </slot>
         </slot>
@@ -72,7 +72,13 @@
 </template>
 
 <script>
+import {
+    nightshadeMixin,
+} from '../utils/props';
+
 export default {
+
+    mixins: [nightshadeMixin],
 
     props: {
         tagName: { type: String, default: 'button' },
@@ -115,13 +121,14 @@ export default {
     computed: {
 
         baseStyle() {
+            const { resolvedProps } = this;
             return {
-                kind: this.kind,
-                size: this.size,
-                flat: this.flat,
-                outline: this.outline,
-                round: this.round,
-                ghost: this.ghost,
+                kind: resolvedProps.kind,
+                size: resolvedProps.size,
+                flat: resolvedProps.flat,
+                outline: resolvedProps.outline,
+                round: resolvedProps.round,
+                ghost: resolvedProps.ghost,
             };
         },
 
@@ -134,10 +141,9 @@ export default {
                 active,
                 hover,
                 focus,
-                forceActive,
-                forceHover,
-                forceFocus
+                resolvedProps,
             } = this;
+            const { forceActive, forceHover, forceFocus } = resolvedProps;
             const style = Object.assign({}, baseStyle);
             if (active || forceActive) {
                 Object.assign(style, activeOverrides);

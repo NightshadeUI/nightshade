@@ -11,14 +11,7 @@
                     v-for="token, index of tokens"
                     :key="index"
                     :label="capitalize(token)"
-                    :kind="token"
-                    :round="commonOptions.round"
-                    :flat="commonOptions.flat"
-                    :outline="commonOptions.outline"
-                    :disabled="commonOptions.disabled"
-                    :forceFocus="commonOptions.forceFocus"
-                    :forceHover="commonOptions.forceHover"
-                    :forceActive="commonOptions.forceActive" />
+                    :kind="token" />
             </HGroup>
 
             <HGroup wrap>
@@ -27,14 +20,7 @@
                     :key="index"
                     :label="capitalize(token)"
                     :kind="token"
-                    :ghost="true"
-                    :round="commonOptions.round"
-                    :flat="commonOptions.flat"
-                    :outline="commonOptions.outline"
-                    :disabled="commonOptions.disabled"
-                    :forceFocus="commonOptions.forceFocus"
-                    :forceHover="commonOptions.forceHover"
-                    :forceActive="commonOptions.forceActive" />
+                    :ghost="true" />
             </HGroup>
         </VGroup>
 
@@ -47,14 +33,7 @@
                 <Btn
                     :label="`Size ${size}`"
                     :size="size"
-                    kind="secondary"
-                    :round="commonOptions.round"
-                    :flat="commonOptions.flat"
-                    :outline="commonOptions.outline"
-                    :disabled="commonOptions.disabled"
-                    :forceFocus="commonOptions.forceFocus"
-                    :forceHover="commonOptions.forceHover"
-                    :forceActive="commonOptions.forceActive" />
+                    kind="secondary" />
             </HGroup>
         </VGroup>
     </DualTheme>
@@ -67,10 +46,6 @@ import { uiTokens } from '../utils/commons.js';
 import { inputSizes } from '../utils/commons.js';
 
 export default {
-
-    inject: [
-        'commonOptions'
-    ],
 
     computed: {
 

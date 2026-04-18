@@ -9,13 +9,7 @@
                 :key="kind">
                 <Toggle
                     v-model="value"
-                    :kind="kind"
-                    :round="commonOptions.round"
-                    :flat="commonOptions.flat"
-                    :outline="commonOptions.outline"
-                    :disabled="commonOptions.disabled"
-                    :forceFocus="commonOptions.forceFocus"
-                    :forceHover="commonOptions.forceHover" />
+                    :kind="kind" />
             </template>
         </HGroup>
 
@@ -30,13 +24,7 @@
                 <Toggle
                     v-model="value"
                     kind="secondary"
-                    :size="size"
-                    :round="commonOptions.round"
-                    :flat="commonOptions.flat"
-                    :outline="commonOptions.outline"
-                    :disabled="commonOptions.disabled"
-                    :forceFocus="commonOptions.forceFocus"
-                    :forceHover="commonOptions.forceHover" />
+                    :size="size" />
             </HGroup>
         </VGroup>
     </DualTheme>
@@ -47,10 +35,6 @@ import { capitalize } from '../utils/capitalize.js';
 import { inputSizes, uiTokens } from '../utils/commons.js';
 
 export default {
-
-    inject: [
-        'commonOptions'
-    ],
 
     data() {
         return {

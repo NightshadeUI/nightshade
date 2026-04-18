@@ -7,10 +7,7 @@
             <ToolPanel
                 v-for="size of panelSizes"
                 :key="size"
-                :size="size"
-                :flat="commonOptions.flat"
-                :outline="commonOptions.outline"
-                :round="commonOptions.round">
+                :size="size">
 
                 <HGroup gap="0">
                     <Btn
@@ -19,9 +16,7 @@
                         :label="capitalize(option)"
                         :size="getControlSize(size)"
                         :ghost="selectedOption !== option"
-                        :flat="commonOptions.flat"
                         :outline="selectedOption === option ? commonOptions.outline : false"
-                        :round="commonOptions.round"
                         @click="selectedOption = option" />
                 </HGroup>
 
@@ -29,10 +24,7 @@
 
                 <InputText
                     v-model="selectedOption"
-                    :size="getControlSize(size)"
-                    :flat="commonOptions.flat"
-                    :outline="commonOptions.outline"
-                    :round="commonOptions.round" />
+                    :size="getControlSize(size)" />
             </ToolPanel>
 
         </VGroup>

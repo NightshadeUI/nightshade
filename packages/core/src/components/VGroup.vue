@@ -1,18 +1,22 @@
 <template>
     <component
-        :is="tagName"
+        :is="resolvedProps.tagName"
         class="VGroup"
         :class="[
-            `VGroup-align-${align}`,
-            `VGroup-justify-${justify}`,
-            `VGroup-gap-${gap}`,
+            `VGroup-align-${resolvedProps.align}`,
+            `VGroup-justify-${resolvedProps.justify}`,
+            `VGroup-gap-${resolvedProps.gap}`,
         ]">
         <slot />
     </component>
 </template>
 
 <script>
+import { nightshadeMixin } from '../utils/props';
+
 export default {
+
+    mixins: [nightshadeMixin],
 
     props: {
         tagName: { type: String, default: 'div' },

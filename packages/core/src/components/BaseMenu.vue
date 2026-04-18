@@ -2,7 +2,7 @@
     <VGroup
         class="BaseMenu"
         :class="[
-            `input-size-${size}`,
+            `input-size-${resolvedProps.size}`,
         ]"
         @keydown="onKeyDown">
         <template
@@ -26,8 +26,8 @@
                     'Item-checked': item.checked,
                 }"
                 :kind="item.kind || 'base'"
-                :size="size"
-                :round="round"
+                :size="resolvedProps.size"
+                :round="resolvedProps.round"
                 :flat="true"
                 :ghost="item.ghost ?? true"
                 :outline="item.outline"
@@ -55,6 +55,9 @@
 </template>
 
 <script>
+import {
+    nightshadeMixin,
+} from '../utils/props';
 import Btn from './Btn.vue';
 import VGroup from './VGroup.vue';
 
@@ -64,6 +67,8 @@ export default {
         Btn,
         VGroup,
     },
+
+    mixins: [nightshadeMixin],
 
     props: {
         items: { type: Array, default: () => [] },
@@ -77,7 +82,7 @@ export default {
     ],
 
     mounted() {
-        if (this.autoFocus) {
+        if (this.resolvedProps.autoFocus) {
             this.$nextTick(() => {
                 const first = this.getFocusableEls()[0];
                 if (first) {

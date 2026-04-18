@@ -1,13 +1,13 @@
 <template>
     <component
-        :is="tagName"
+        :is="resolvedProps.tagName"
         class="HGroup"
         :class="[
-            `HGroup-align-${align}`,
-            `HGroup-justify-${justify}`,
-            `HGroup-gap-${gap}`,
+            `HGroup-align-${resolvedProps.align}`,
+            `HGroup-justify-${resolvedProps.justify}`,
+            `HGroup-gap-${resolvedProps.gap}`,
             {
-                'HGroup-wrap': wrap,
+                'HGroup-wrap': resolvedProps.wrap,
             }
         ]">
         <slot />
@@ -15,7 +15,11 @@
 </template>
 
 <script>
+import { nightshadeMixin } from '../utils/props';
+
 export default {
+
+    mixins: [nightshadeMixin],
 
     props: {
         tagName: { type: String, default: 'div' },

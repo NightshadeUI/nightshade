@@ -1,38 +1,38 @@
 <template>
     <component
-        :is="tagName"
+        :is="resolvedProps.tagName"
         class="InputBase"
         :class="[
             `ui-${effectiveStyle.kind}`,
             `input-size-${effectiveStyle.size}`,
             {
-                'InputBase-fixedHeight': fixedHeight,
+                'InputBase-fixedHeight': resolvedProps.fixedHeight,
                 'InputBase-flat': effectiveStyle.flat,
                 'InputBase-round': effectiveStyle.round,
-                'InputBase-disabled': disabled,
-                'InputBase-forceFocus': forceFocus,
-                'InputBase-forceHover': forceHover,
+                'InputBase-disabled': resolvedProps.disabled,
+                'InputBase-forceFocus': resolvedProps.forceFocus,
+                'InputBase-forceHover': resolvedProps.forceHover,
             }
         ]"
         @mouseenter="hover = true"
         @mouseleave="hover = false"
         @focusin="focus = true"
         @focusout="focus = false">
-        <template v-if="label">
+        <template v-if="resolvedProps.label">
             <Tab
-                v-if="labelStyle === 'tab'"
+                v-if="resolvedProps.labelStyle === 'tab'"
                 class="Label TabLabel"
-                :label="label"
-                :kind="kind" />
+                :label="resolvedProps.label"
+                :kind="resolvedProps.kind" />
             <div
-                v-if="labelStyle === 'text'"
+                v-if="resolvedProps.labelStyle === 'text'"
                 class="Label TextLabel">
-                {{ label }}
+                {{ resolvedProps.label }}
             </div>
             <div
-                v-if="labelStyle === 'inline'"
+                v-if="resolvedProps.labelStyle === 'inline'"
                 class="Label InlineLabel">
-                {{ label }}
+                {{ resolvedProps.label }}
             </div>
         </template>
         <div class="InputElement Container">
@@ -42,6 +42,9 @@
 </template>
 
 <script>
+import {
+    nightshadeMixin,
+} from '../utils/props';
 import Tab from './Tab.vue';
 
 export default {
@@ -49,6 +52,8 @@ export default {
     components: {
         Tab,
     },
+
+    mixins: [nightshadeMixin],
 
     props: {
         tagName: { default: 'label' },
@@ -80,12 +85,14 @@ export default {
     computed: {
 
         baseStyle() {
+            const { resolvedProps } = this;
             return {
-                kind: this.kind,
-                size: this.size,
-                flat: this.flat,
-                round: this.round,
-                labelStyle: this.labelStyle,
+                kind: resolvedProps.kind,
+                size: resolvedProps.size,
+                flat: resolvedProps.flat,
+                round: resolvedProps.round,
+                outline: resolvedProps.outline,
+                labelStyle: resolvedProps.labelStyle,
             };
         },
 
@@ -96,9 +103,9 @@ export default {
                 focusOverrides = {},
                 hover,
                 focus,
-                forceHover,
-                forceFocus
+                resolvedProps,
             } = this;
+            const { forceHover, forceFocus } = resolvedProps;
             const style = Object.assign({}, baseStyle);
             if (hover || forceHover) {
                 Object.assign(style, hoverOverrides);
