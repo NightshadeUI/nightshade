@@ -90,6 +90,5 @@ export default {
 
 .Origin {
     position: absolute;
-    transform: translate(-50%, -50%);
 }
 </style>
