@@ -39,15 +39,15 @@ export default {
         },
 
         viewportPos() {
-            return this.canvas.space.pageToViewport(this.page);
+            return this.canvas.space.pageToViewport(this.pagePos);
         },
 
         canvasPos() {
-            return this.canvas.space.pageToCanvas(this.page);
+            return this.canvas.space.pageToCanvas(this.pagePos);
         },
 
         localPos() {
-            return this.canvas.space.pageToLocal(this.page);
+            return this.canvas.space.pageToLocal(this.pagePos);
         },
 
     },
