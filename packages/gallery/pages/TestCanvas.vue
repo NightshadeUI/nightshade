@@ -162,7 +162,7 @@
         </CanvasObject>
 
         <template #overlays>
-            <DebugCoords :controller="canvas" />
+            <CanvasDebugCoords :canvas="canvas" />
             <div class="OverlayControls">
                 <HGroup tagName="label">
                     <Toggle
@@ -178,7 +178,7 @@
 </template>
 
 <script>
-import { CanvasController, CanvasObject, CanvasView, DebugCoords } from '@nightshadeui/canvas/src';
+import { CanvasController, CanvasDebugCoords, CanvasObject, CanvasView } from '@nightshadeui/canvas/src';
 import { Btn, Checkbox, HGroup, InputGroup, InputText, VGroup } from '@nightshadeui/core/src';
 
 export default {
@@ -188,7 +188,7 @@ export default {
         CanvasObject,
         CanvasView,
         Checkbox,
-        DebugCoords,
+        CanvasDebugCoords,
         HGroup,
         InputGroup,
         InputText,
