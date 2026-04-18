@@ -10,6 +10,7 @@
             "types": "./dist/index.d.ts",
             "import": "./dist/canvas.mjs"
         },
+        "./css": "./dist/canvas.css",
         "./src": "./src/index.ts"
     },
     "files": [
