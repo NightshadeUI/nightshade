@@ -86,6 +86,7 @@ export default {
     top: 0;
     left: 0;
     overflow: hidden;
+    background: var(--canvas-background, var(--color-base-0));
 }
 
 .Origin {
