@@ -2,6 +2,25 @@
     <CanvasView
         class="CanvasPlayground"
         :canvas="canvas">
+
+        <template #origin>
+            <div class="OriginPoint" />
+        </template>
+
+        <template #overlays>
+            <CanvasDebugCoords :canvas="canvas" />
+            <div class="OverlayControls">
+                <HGroup tagName="label">
+                    <Toggle
+                        v-model="canvas.config.allowMultiSelect"
+                        size="s"
+                        kind="primary"
+                        round />
+                    Allow multi select
+                </HGroup>
+            </div>
+        </template>
+
         <CanvasObject
             v-model:pos="testNode.pos"
             v-model:isSelected="testNode.isSelected"
@@ -12,6 +31,7 @@
             :snapToGrid="testNode.snapToGrid"
             :resizable="testNode.resizable"
             :bounds="testNode.bounds">
+
             <VGroup
                 class="TestNode ui-primary"
                 :class="{ 'TestNode-selected': testNode.isSelected }">
@@ -161,19 +181,6 @@
             {{ sticky.text }}
         </CanvasObject>
 
-        <template #overlays>
-            <CanvasDebugCoords :canvas="canvas" />
-            <div class="OverlayControls">
-                <HGroup tagName="label">
-                    <Toggle
-                        v-model="canvas.config.allowMultiSelect"
-                        size="s"
-                        kind="primary"
-                        round />
-                    Allow multi select
-                </HGroup>
-            </div>
-        </template>
     </CanvasView>
 </template>
 
@@ -247,6 +254,16 @@ export default {
     border: var(--input-border-size) solid var(--color-base-200);
     border-radius: var(--border-radius);
     background: var(--color-base-50);
+}
+
+.OriginPoint {
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    width: 8px;
+    height: 8px;
+    background: red;
+    border-radius: 100%;
 }
 
 .TestNode {
