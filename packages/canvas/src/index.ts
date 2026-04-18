@@ -1,7 +1,7 @@
 import CanvasBoxSelect from './components/CanvasBoxSelect.vue';
+import CanvasDebugCoords from './components/CanvasDebugCoords.vue';
 import CanvasObject from './components/CanvasObject.vue';
 import CanvasView from './components/CanvasView.vue';
-import DebugCoords from './components/DebugCoords.vue';
 
 export * from './CanvasBoxSelect.js';
 export * from './CanvasConfig.js';
@@ -19,7 +19,7 @@ export * from './CanvasZoom.js';
 
 export {
     CanvasBoxSelect,
+    CanvasDebugCoords,
     CanvasObject,
     CanvasView,
-    DebugCoords,
 };
