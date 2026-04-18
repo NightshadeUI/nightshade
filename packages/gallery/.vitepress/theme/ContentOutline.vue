@@ -40,7 +40,9 @@ export default {
 
         parseOutline() {
             const cnt = document.querySelector('#page-content');
-            if (!cnt) return;
+            if (!cnt) {
+                return;
+            }
             const headers = cnt.querySelectorAll('h2, h3');
             for (const h of headers) {
                 this.outline.push({
@@ -65,7 +67,9 @@ export default {
             this.activeId = '';
             for (const h of this.outline) {
                 const el = document.getElementById(h.id ?? '');
-                if (!el) continue;
+                if (!el) {
+                    continue;
+                }
                 const rect = el.getBoundingClientRect();
                 if (rect.top < window.innerHeight / 2) {
                     this.activeId = h.id;
@@ -78,13 +82,13 @@ export default {
             }
         },
 
-        onScroll(ev) {
+        onScroll() {
             requestAnimationFrame(() => this.updateActive());
         }
 
     }
 
-}
+};
 </script>
 
 <style scoped>

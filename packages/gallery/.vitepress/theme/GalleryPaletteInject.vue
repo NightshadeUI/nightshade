@@ -1,6 +1,6 @@
 <script setup>
-import { onMounted, watchEffect } from 'vue';
 import { generatePaletteCss } from '@nightshadeui/palette-generator/src';
+import { onMounted, watchEffect } from 'vue';
 
 import {
     effectivePaletteForGalleryCss,
@@ -28,5 +28,3 @@ watchEffect(() => {
     el.textContent = css;
 });
 </script>
-
-<template />

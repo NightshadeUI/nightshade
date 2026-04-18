@@ -1,50 +1,64 @@
 <template>
     <VGroup class="Appearance">
         <h4>Appearance</h4>
-        <HGroup tagName="label"
+        <HGroup
+            tagName="label"
             justify="space-between">
             <div>Round</div>
-            <Toggle v-model="commonOptions.round"
+            <Toggle
+                v-model="commonOptions.round"
                 round
                 kind="primary" />
         </HGroup>
-        <HGroup tagName="label"
+        <HGroup
+            tagName="label"
             justify="space-between">
             <div>Flat</div>
-            <Toggle v-model="commonOptions.flat"
+            <Toggle
+                v-model="commonOptions.flat"
                 flat
                 kind="primary" />
         </HGroup>
-        <HGroup tagName="label"
+        <HGroup
+            tagName="label"
             justify="space-between">
             <div>Outline</div>
-            <Toggle v-model="commonOptions.outline"
+            <Toggle
+                v-model="commonOptions.outline"
                 outline
                 kind="primary" />
         </HGroup>
         <hr />
-        <HGroup tagName="label"
+        <HGroup
+            tagName="label"
             justify="space-between">
             <div>Disabled</div>
-            <Toggle v-model="commonOptions.disabled"
+            <Toggle
+                v-model="commonOptions.disabled"
                 kind="tertiary" />
         </HGroup>
-        <HGroup tagName="label"
+        <HGroup
+            tagName="label"
             justify="space-between">
             <div>Focus</div>
-            <Toggle v-model="commonOptions.forceFocus"
+            <Toggle
+                v-model="commonOptions.forceFocus"
                 kind="secondary" />
         </HGroup>
-        <HGroup tagName="label"
+        <HGroup
+            tagName="label"
             justify="space-between">
             <div>Hover</div>
-            <Toggle v-model="commonOptions.forceHover"
+            <Toggle
+                v-model="commonOptions.forceHover"
                 kind="secondary" />
         </HGroup>
-        <HGroup tagName="label"
+        <HGroup
+            tagName="label"
             justify="space-between">
             <div>Active</div>
-            <Toggle v-model="commonOptions.forceActive"
+            <Toggle
+                v-model="commonOptions.forceActive"
                 kind="secondary" />
         </HGroup>
     </VGroup>

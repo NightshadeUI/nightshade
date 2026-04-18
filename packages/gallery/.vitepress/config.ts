@@ -1,6 +1,6 @@
-import { Features } from 'lightningcss';
 import { fileURLToPath } from 'node:url';
 
+import { Features } from 'lightningcss';
 import { defineConfig } from 'vitepress';
 
 export default defineConfig({
@@ -25,7 +25,7 @@ export default defineConfig({
         ],
         [
             'link',
-            { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: "crossorigin" }
+            { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: 'crossorigin' }
         ],
         [
             'link',

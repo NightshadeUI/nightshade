@@ -7,10 +7,10 @@
         @click="open" />
     <ContextPopup
         v-if="shown"
-        anchor-ref="paletteAnchor"
-        @hide="shown = false"
+        anchorRef="paletteAnchor"
         :overlayShown="false"
-        :overlayEnabled="false">
+        :overlayEnabled="false"
+        @hide="shown = false">
         <VGroup
             gap="m"
             class="Panel">
@@ -157,27 +157,27 @@ export default {
         },
 
         hue(name) {
-            const d = DEFAULT_SCALE_SPECS.find((s) => s.name === name);
-            const o = galleryPaletteOverrides.value.scales?.find((s) => s.name === name);
+            const d = DEFAULT_SCALE_SPECS.find(s => s.name === name);
+            const o = galleryPaletteOverrides.value.scales?.find(s => s.name === name);
             return o?.hue ?? d.hue;
         },
 
         intensity(name) {
-            const d = DEFAULT_SCALE_SPECS.find((s) => s.name === name);
-            const o = galleryPaletteOverrides.value.scales?.find((s) => s.name === name);
+            const d = DEFAULT_SCALE_SPECS.find(s => s.name === name);
+            const o = galleryPaletteOverrides.value.scales?.find(s => s.name === name);
             return o?.int ?? d.int;
         },
 
         luminance(name) {
-            const d = DEFAULT_SCALE_SPECS.find((s) => s.name === name);
-            const o = galleryPaletteOverrides.value.scales?.find((s) => s.name === name);
+            const d = DEFAULT_SCALE_SPECS.find(s => s.name === name);
+            const o = galleryPaletteOverrides.value.scales?.find(s => s.name === name);
             return o?.lum ?? d.lum;
         },
 
         onScaleProp(name, partial) {
-            const d = DEFAULT_SCALE_SPECS.find((s) => s.name === name);
+            const d = DEFAULT_SCALE_SPECS.find(s => s.name === name);
             const scales = [...(galleryPaletteOverrides.value.scales ?? [])];
-            const idx = scales.findIndex((s) => s.name === name);
+            const idx = scales.findIndex(s => s.name === name);
             const merged = { ...d, ...scales[idx], ...partial, name };
             if (idx >= 0) {
                 scales[idx] = merged;

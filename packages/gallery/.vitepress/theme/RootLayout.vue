@@ -30,11 +30,12 @@
 
 <script>
 import { useData } from 'vitepress';
-import Jumbo from './Jumbo.vue';
-import ContentOutline from './ContentOutline.vue';
+
 import Appearance from './Appearance.vue';
-import PaletteBuilder from './PaletteBuilder.vue';
+import ContentOutline from './ContentOutline.vue';
 import GalleryPaletteInject from './GalleryPaletteInject.vue';
+import Jumbo from './Jumbo.vue';
+import PaletteBuilder from './PaletteBuilder.vue';
 
 export default {
 
@@ -59,7 +60,7 @@ export default {
 
     },
 
-}
+};
 </script>
 
 <style scoped>

@@ -3,10 +3,10 @@ import './theme.css';
 
 import * as coreComponents from '@nightshadeui/core/src';
 import type { Theme } from 'vitepress';
-
-import RootLayout from './RootLayout.vue';
-import DualTheme from './DualTheme.vue';
 import { reactive } from 'vue';
+
+import DualTheme from './DualTheme.vue';
+import RootLayout from './RootLayout.vue';
 
 const commonOptions = reactive({
     round: false,
