@@ -109,7 +109,7 @@ export default {
 .Toggle {
     --Toggle-size: var(--input-minor-height);
     --Toggle-width: calc(1.618 * var(--Toggle-size));
-    --Toggle-knob-offset: 4px;
+    --Toggle-knob-offset: var(--input-minor-padding);
     --Toggle-knob-size: calc(var(--Toggle-size) - 2 * var(--Toggle-knob-offset));
     --Toggle-knob-radius: calc(var(--Toggle-radius) - 0.5 * var(--Toggle-knob-offset));
 

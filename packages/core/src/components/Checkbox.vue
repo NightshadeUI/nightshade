@@ -21,7 +21,13 @@
         @focusin="focus = true"
         @focusout="focus = false">
         <slot v-if="modelValue" name="active">
-            <div class="Mark" />
+            <component
+                :is="markComponent"
+                v-if="markComponent"
+                class="Mark MarkGlyph" />
+            <div
+                v-else
+                class="Mark" />
         </slot>
         <slot v-if="!modelValue" name="inactive" />
         <input
@@ -33,6 +39,11 @@
 </template>
 
 <script>
+import {
+    GhyphXmark,
+    GlyphCheck,
+} from '../glyphs/index.js';
+
 export default {
 
     props: {
@@ -63,6 +74,16 @@ export default {
     },
 
     computed: {
+
+        markComponent() {
+            if (this.mark === 'check') {
+                return GlyphCheck;
+            }
+            if (this.mark === 'xmark') {
+                return GhyphXmark;
+            }
+            return null;
+        },
 
         isActive() {
             return !!this.modelValue;
@@ -164,19 +185,16 @@ export default {
     transition: opacity .1s, border-radius .3s;
 }
 
+.MarkGlyph {
+    width: 1em;
+    height: 1em;
+}
+
 .Checkbox-active .Mark {
     opacity: 1;
 }
 
 /* Marks */
-
-.Checkbox-mark-check .Mark::after {
-    content: '✓';
-}
-
-.Checkbox-mark-xmark .Mark::after {
-    content: '✗';
-}
 
 .Checkbox-mark-dot .Mark::after {
     content: '●';

@@ -132,7 +132,7 @@ export default {
 
 <style scoped>
 .BaseMenu {
-    --BaseMenu-padding: var(--sp0-5) var(--sp);
+    --BaseMenu-padding: var(--input-minor-padding) var(--input-major-padding);
     --BaseMenu-gap: var(--sp0-5);
     --BaseMenu-min-width: 192px;
 

@@ -30,7 +30,7 @@ export default {
 <style scoped>
 .ToolPanel {
     --ToolPanel-size: var(--input-major-height);
-    --ToolPanel-padding: var(--sp0-5);
+    --ToolPanel-padding: var(--input-minor-padding);
     --ToolPanel-gap: var(--input-gap);
 
     --ToolPanel-surface: var(--color-base-100);
