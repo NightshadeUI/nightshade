@@ -1,0 +1,7 @@
+{
+    "files": [],
+    "references": [
+        { "path": "packages/util" },
+        { "path": "packages/cli" }
+    ]
+}

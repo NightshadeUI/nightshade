@@ -5,11 +5,11 @@
     ],
     "compilerOptions": {
         "rootDir": "src",
+        "outDir": "out",
         "lib": [
             "ES2022",
             "DOM",
             "DOM.Iterable"
         ],
-        "noEmit": true
     }
 }

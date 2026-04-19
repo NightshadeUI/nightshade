@@ -1,5 +1,5 @@
 import { init } from '@luminable/init-decorator';
-import { type Point, subtractPoints } from '@nightshadeui/util';
+import { type Point, subtractPoints } from '@nightshadeui/util/src';
 import { dependency } from 'mesh-ioc';
 
 import { CanvasEvents } from './CanvasEvents';

@@ -4,7 +4,7 @@ import {
     getCssColorVar,
     getCssVarNumber,
     type Point,
-} from '@nightshadeui/util';
+} from '@nightshadeui/util/src';
 import { dependency } from 'mesh-ioc';
 
 import { CanvasConfig } from './CanvasConfig.js';

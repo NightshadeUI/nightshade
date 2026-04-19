@@ -5,20 +5,25 @@
     "author": "Boris Okunskiy",
     "license": "ISC",
     "type": "module",
+    "exports": {
+        ".": {
+            "types": "./out/cli.d.ts",
+            "import": "./out/cli.js",
+            "default": "./out/cli.js"
+        }
+    },
+    "types": "./out/cli.d.ts",
     "bin": {
-        "nightshade": "./dist/cli.js"
+        "nightshade": "./out/cli.js"
     },
     "files": [
-        "dist"
+        "out"
     ],
     "scripts": {
-        "build": "tsc"
+        "build": "tsc -b"
     },
     "dependencies": {
         "@nightshadeui/palette-generator": "2.12.5",
         "commander": "^13.1.0"
-    },
-    "devDependencies": {
-        "typescript": "^5.9.3"
     }
 }

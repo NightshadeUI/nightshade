@@ -1,5 +1,5 @@
-import { type Box, type Point, subtractPoints } from '@nightshadeui/util';
-import { clamp } from '@nightshadeui/util';
+import { type Box, type Point, subtractPoints } from '@nightshadeui/util/src';
+import { clamp } from '@nightshadeui/util/src';
 import { dependency } from 'mesh-ioc';
 
 import { CanvasConfig } from './CanvasConfig.js';
