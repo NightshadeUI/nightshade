@@ -1,4 +1,4 @@
-import { invokeInitHandlers } from '@luminable/init-decorator';
+import { invokeInitHandlers } from '@flexent/init-decorator';
 import { InputStateManager } from '@nightshadeui/util';
 import { dependency, Mesh } from 'mesh-ioc';
 import { reactive } from 'vue';

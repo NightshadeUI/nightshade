@@ -1,5 +1,5 @@
-import { sharedConfigs } from '@luminable/eslint-config';
-import { vueConfigs } from '@luminable/eslint-config-vue';
+import { sharedConfigs } from '@flexent/eslint-config';
+import { vueConfigs } from '@flexent/eslint-config-vue';
 
 export default [
     ...sharedConfigs,

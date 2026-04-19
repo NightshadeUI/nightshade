@@ -1,4 +1,4 @@
-import { init } from '@luminable/init-decorator';
+import { init } from '@flexent/init-decorator';
 import { type Point, subtractPoints } from '@nightshadeui/util/src';
 import { dependency } from 'mesh-ioc';
 
