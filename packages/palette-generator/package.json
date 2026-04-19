@@ -1,6 +1,6 @@
 {
     "name": "@nightshadeui/palette-generator",
-    "version": "2.12.5",
+    "version": "2.12.6",
     "description": "OKLCH palette CSS variable generator for Nightshade",
     "author": "Boris Okunskiy",
     "license": "ISC",

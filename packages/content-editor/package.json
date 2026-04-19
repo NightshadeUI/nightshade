@@ -1,6 +1,6 @@
 {
     "name": "@nightshadeui/content-editor",
-    "version": "2.12.5",
+    "version": "2.12.6",
     "description": "Nightshade content editor prototype",
     "author": "Boris Okunskiy",
     "license": "ISC",
@@ -20,7 +20,7 @@
         "build": "NODE_ENV=production vite build"
     },
     "peerDependencies": {
-        "@nightshadeui/core": "2.12.5",
+        "@nightshadeui/core": "2.12.6",
         "vue": "^3.5.22"
     },
     "dependencies": {
