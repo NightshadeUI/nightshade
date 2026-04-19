@@ -35,7 +35,7 @@ export default {
     computed: {
 
         pagePos() {
-            return this.canvas.inputState.lastMousePos;
+            return this.canvas.inputStateManager.lastMousePos;
         },
 
         viewportPos() {

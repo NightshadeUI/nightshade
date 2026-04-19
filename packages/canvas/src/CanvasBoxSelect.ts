@@ -1,8 +1,7 @@
-import { type Box, boxFromPoints, boxOverlap, type Point } from '@nightshadeui/util/src';
+import { type Box, boxFromPoints, boxOverlap, InputStateManager, type Point } from '@nightshadeui/util';
 import { dependency } from 'mesh-ioc';
 
 import { CanvasConfig } from './CanvasConfig.js';
-import { CanvasInputState } from './CanvasInputState.js';
 import { CanvasObjectRegistry } from './CanvasObjectRegistry.js';
 import { CanvasSelection } from './CanvasSelection.js';
 import { CanvasSpace } from './CanvasSpace.js';
@@ -10,7 +9,7 @@ import { CanvasSpace } from './CanvasSpace.js';
 export class CanvasBoxSelect {
 
     private config = dependency(this, CanvasConfig);
-    private inputState = dependency(this, CanvasInputState);
+    private inputStateManager = dependency(this, InputStateManager);
     private objectRegistry = dependency(this, CanvasObjectRegistry);
     private selection = dependency(this, CanvasSelection);
     private space = dependency(this, CanvasSpace);
@@ -61,7 +60,7 @@ export class CanvasBoxSelect {
         }
         return boxFromPoints(
             this.space.pageToLocal(this.selectionOriginPos),
-            this.space.pageToLocal(this.inputState.lastMousePos),
+            this.space.pageToLocal(this.inputStateManager.lastMousePos),
         );
     }
 
@@ -69,7 +68,7 @@ export class CanvasBoxSelect {
         if (!this.selectionOriginPos) {
             return null;
         }
-        const box = boxFromPoints(this.selectionOriginPos, this.inputState.lastMousePos);
+        const box = boxFromPoints(this.selectionOriginPos, this.inputStateManager.lastMousePos);
         const min = this.space.pageToCanvas(box[0]);
         const max = this.space.pageToCanvas(box[1]);
         return {
