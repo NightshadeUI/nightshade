@@ -1,6 +1,6 @@
 {
     "name": "@nightshadeui/util",
-    "version": "2.13.0",
+    "version": "2.14.0",
     "description": "Shared utility helpers for Nightshade packages",
     "author": "Boris Okunskiy",
     "license": "ISC",
