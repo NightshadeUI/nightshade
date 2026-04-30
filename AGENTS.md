@@ -77,6 +77,13 @@ Follow this guide for all edits in the workspace.
 - Prefer tokenized spacing/sizing over literal `px` values when equivalent tokens exist.
 - If adding a stylesheets module, export it in `package.json` and include a module `index.css` entrypoint.
 
+### Commit Rules
+
+- Do not commit changes unless explicitly instructed.
+- Use Conventional Commits when committing.
+- Commit format: `type: short summary` (lowercased, no trailing period).
+- Allowed commit types: `feat`, `fix`, `docs`, `chore`, `style`, `refactor`, `build`.
+
 ## Package Notes
 
 ### `@nightshadeui/gallery`
@@ -88,13 +95,6 @@ Follow this guide for all edits in the workspace.
 
 - `nightshade` is a thin umbrella package; avoid runtime logic here.
 - Keep packaging and export layers minimal and aligned.
-
-## Commit Rules
-
-- Do not commit changes unless explicitly instructed.
-- Use Conventional Commits when committing.
-- Commit format: `type: short summary` (lowercased, no trailing period).
-- Allowed commit types: `feat`, `fix`, `docs`, `chore`, `style`, `refactor`, `build`.
 
 ## Change Checklist
 
