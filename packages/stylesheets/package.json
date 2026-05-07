@@ -7,7 +7,6 @@
     "sideEffects": false,
     "exports": {
         ".": "./index.css",
-        "./dynamic-palette": "./modules/dynamic-palette/index.css",
         "./kbd": "./modules/kbd/index.css",
         "./transitions": "./modules/transitions/index.css"
     }

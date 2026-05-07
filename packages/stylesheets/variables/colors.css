@@ -1,5 +1,6 @@
 :root {
 
+    --color-base-text: light-dark(var(--color-base-light-950), var(--color-base-light-0));
     --color-base-0: light-dark(var(--color-base-light-0), var(--color-base-dark-0));
     --color-base-50: light-dark(var(--color-base-light-50), var(--color-base-dark-50));
     --color-base-100: light-dark(var(--color-base-light-100), var(--color-base-dark-100));
@@ -13,6 +14,7 @@
     --color-base-900: light-dark(var(--color-base-light-900), var(--color-base-dark-900));
     --color-base-950: light-dark(var(--color-base-light-950), var(--color-base-dark-950));
 
+    --color-inverse-text: light-dark(var(--color-base-dark-950), var(--color-base-dark-0));
     --color-inverse-0: light-dark(var(--color-base-dark-0), var(--color-base-light-0));
     --color-inverse-50: light-dark(var(--color-base-dark-50), var(--color-base-light-50));
     --color-inverse-100: light-dark(var(--color-base-dark-100), var(--color-base-light-100));
