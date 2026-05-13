@@ -1,6 +1,6 @@
 {
     "name": "@nightshadeui/cli",
-    "version": "2.14.1",
+    "version": "2.15.0",
     "description": "Nightshade UI command-line tools",
     "author": "Boris Okunskiy",
     "license": "ISC",
@@ -23,7 +23,7 @@
         "build": "tsc -b"
     },
     "dependencies": {
-        "@nightshadeui/palette-generator": "2.14.1",
+        "@nightshadeui/palette-generator": "2.15.0",
         "commander": "^13.1.0"
     }
 }
