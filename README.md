@@ -54,6 +54,7 @@ Nightshade is a workspace with focused packages:
 - `@nightshadeui/core`: Vue components.
 - `@nightshadeui/stylesheets`: CSS variables and style modules.
 - `@nightshadeui/gallery`: local showcase/playground.
+- `@nightshadeui/scroller`: Vue scroll progress composable.
 
 ## Quick Start
 
