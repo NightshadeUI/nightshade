@@ -1,0 +1,31 @@
+{
+    "name": "@nightshadeui/particle-system",
+    "version": "2.14.1",
+    "description": "Nightshade particle system component",
+    "author": "Boris Okunskiy",
+    "license": "ISC",
+    "sideEffects": false,
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/particle-system.mjs"
+        },
+        "./css": "./dist/particle-system.css",
+        "./src": "./src/index.ts"
+    },
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "build:watch": "vite build --watch",
+        "build": "NODE_ENV=production vite build"
+    },
+    "peerDependencies": {
+        "vue": "^3.5.22"
+    },
+    "dependencies": {
+        "@nightshadeui/util": "2.14.1",
+        "nanoevent": "^1.0.0",
+        "simplex-noise": "^4.0.3"
+    }
+}

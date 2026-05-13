@@ -16,6 +16,16 @@
             "types": "./src/index.ts",
             "import": "./src/index.ts",
             "default": "./src/index.ts"
+        },
+        "./vector2": {
+            "types": "./out/vector2.d.ts",
+            "import": "./out/vector2.js",
+            "default": "./out/vector2.js"
+        },
+        "./src/vector2": {
+            "types": "./src/vector2.ts",
+            "import": "./src/vector2.ts",
+            "default": "./src/vector2.ts"
         }
     },
     "files": [

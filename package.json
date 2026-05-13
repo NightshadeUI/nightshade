@@ -24,6 +24,7 @@
         "publish:palette-generator": "cd packages/palette-generator && npm publish --access public",
         "publish:cli": "cd packages/cli && npm publish --access public",
         "publish:canvas": "cd packages/canvas && npm publish --access public",
+        "publish:particle-system": "cd packages/particle-system && npm publish --access public",
         "publish:util": "cd packages/util && npm publish --access public"
     },
     "pre-commit": [
@@ -36,6 +37,7 @@
         "@nightshadeui/core": "./packages/core",
         "@nightshadeui/gallery": "./packages/gallery",
         "@nightshadeui/palette-generator": "./packages/palette-generator",
+        "@nightshadeui/particle-system": "./packages/particle-system",
         "@nightshadeui/stylesheets": "./packages/stylesheets",
         "@nightshadeui/util": "./packages/util"
     },

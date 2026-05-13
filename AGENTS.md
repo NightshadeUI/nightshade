@@ -12,6 +12,46 @@ Follow this guide for all edits in the workspace.
 
 ## Guidelines
 
+### Principles
+
+We've set an ambitious goal to maintain a clean, modular, elegant codebase.
+
+Always:
+
+- Make codebase simpler, cleaner, boundaries sharper, contracts tighter.
+- Proactively refactor to make things simpler, more modular, responsibilities clearer.
+- Achieve the desired results with as minimal entities, complexity, dependencies as possible.
+- Strive for single responsibility for components, modules, classes, functions.
+- Embrace Occam's Razor principle in everything that you do. Ask yourself if there is a simpler, more elegant way to achieve the desired result.
+
+Avoid:
+
+- unnecessary complexity
+- overly defensive programming
+- complex types
+- too granular types
+- convoluted names
+- too many arguments
+- code puzzles
+- nested branching (including try/catch)
+- unnecessary state
+- anecdotal edge case handling (always try to engineer things in such way that edge cases)
+
+Minimization objectives (fewer = better):
+
+- arguments
+- lines of code (in module, in method, in function, in single branch)
+- component-level state
+- class-level state
+- mutable variables (let)
+- types
+- branches
+- public members
+- exported symbols
+- words in names
+
+Every little piece counts.
+
 ### Code Rules
 
 - Keep modules focused and small.

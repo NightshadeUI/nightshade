@@ -18,6 +18,7 @@
     "dependencies": {
         "@fortawesome/fontawesome-free": "^7.2.0",
         "@nightshadeui/canvas": "2.14.1",
-        "@nightshadeui/palette-generator": "2.14.1"
+        "@nightshadeui/palette-generator": "2.14.1",
+        "@nightshadeui/particle-system": "2.14.1"
     }
 }
