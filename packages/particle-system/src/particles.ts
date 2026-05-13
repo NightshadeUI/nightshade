@@ -54,7 +54,7 @@ export function createRandom(seed: number) {
 }
 
 export function createParticle(
-    id: number,
+    index: number,
     config: ReturnType<typeof resolveParticleConfig>,
     random: () => number,
 ): ParticleState {
@@ -72,7 +72,7 @@ export function createParticle(
     const radialVelocity = sampleNumber(config.radialVelocity, random);
     const radialVelocityVector = vector2.scale(radialDirection, radialVelocity);
     return {
-        id,
+        index,
         age: 0,
         lifetime: Math.max(0.001, sampleNumber(config.lifetime, random)),
         position,

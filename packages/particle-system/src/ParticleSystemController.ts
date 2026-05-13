@@ -10,6 +10,8 @@ import {
 } from './particles.js';
 import type { ParticleState, ParticleSystemConfig } from './types.js';
 
+const MAX_PARTICLE_INDEX = Number.MAX_SAFE_INTEGER;
+
 export class ParticleSystemController {
 
     started = new Event<void>();
@@ -20,7 +22,7 @@ export class ParticleSystemController {
     particles = reactive<ParticleState[]>([]);
     config = resolveParticleConfig();
 
-    private id = 0;
+    private index = 0;
     private spawnAccumulator = 0;
     private random = createRandom(this.config.seed);
     private noise = createNoise(this.random);
@@ -68,7 +70,7 @@ export class ParticleSystemController {
 
     reset(isPaused = this.isPaused) {
         this.particles.splice(0);
-        this.id = 0;
+        this.index = 0;
         this.spawnAccumulator = 0;
         this.lastTime = performance.now();
         this.state.isPaused = isPaused;
@@ -144,11 +146,17 @@ export class ParticleSystemController {
     private spawn(count: number) {
         for (let i = 0; i < count; i++) {
             this.particles.push(createParticle(
-                this.id++,
+                this.nextIndex(),
                 this.config,
                 this.random,
             ));
         }
+    }
+
+    private nextIndex() {
+        const index = this.index;
+        this.index = index === MAX_PARTICLE_INDEX ? 0 : index + 1;
+        return index;
     }
 
     private step(dt: number) {

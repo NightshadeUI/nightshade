@@ -30,7 +30,7 @@ export interface ParticleSystemConfig {
 }
 
 export interface ParticleState {
-    id: number;
+    index: number;
     age: number;
     lifetime: number;
     position: Vector2;

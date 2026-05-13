@@ -6,8 +6,10 @@
                 class="Emitter ui-primary"
                 :controller="particleController"
                 :config="settings">
-                <template #default>
-                    <div class="Spark" />
+                <template #default="{ particle, style }">
+                    <div
+                        class="Spark"
+                        :style="{ ...style, '--Spark-t': `${particle.t * 100}%` }" />
                 </template>
             </ParticleSystem>
         </div>
@@ -95,11 +97,11 @@ export default {
             particleController: new ParticleSystemController(),
             settings: {
                 seed: 42,
-                startCount: 100,
+                startCount: 32,
                 rateOverTime: 10,
                 lifetime: 5,
-                radius: 32,
-                size: 16,
+                radius: 120,
+                size: 32,
                 sizeOverTime: -2,
                 opacity: 0,
                 opacityOverTime: .5,
@@ -118,8 +120,8 @@ export default {
                 { key: 'startCount', label: 'Start count', min: 0, max: 500 },
                 { key: 'rateOverTime', label: 'Rate', min: 0, max: 80 },
                 { key: 'lifetime', label: 'Lifetime', min: 0.1, max: 20, step: 0.1 },
-                { key: 'radius', label: 'Radius', min: 0, max: 240 },
-                { key: 'size', label: 'Size', min: 2, max: 64 },
+                { key: 'radius', label: 'Radius', min: 0, max: 640 },
+                { key: 'size', label: 'Size', min: 2, max: 120 },
                 { key: 'sizeOverTime', label: 'Size over time', min: -60, max: 60 },
                 { key: 'opacity', label: 'Opacity', min: 0, max: 1, step: 0.05 },
                 { key: 'opacityOverTime', label: 'Opacity over time', min: -2, max: 2, step: 0.05 },
@@ -180,8 +182,10 @@ export default {
 
 .Spark {
     border-radius: 50%;
-    background: linear-gradient(135deg, var(--color-primary-300), var(--color-warning-400));
-    box-shadow: 0 0 16px var(--color-primary-300);
+    background: radial-gradient(circle at 50% 50%,
+        var(--color-secondary-400) 0%,
+        var(--color-success-200) 50%,
+        transparent 100%);
 }
 
 .Panel {
