@@ -18,7 +18,7 @@ export const DEFAULT_PARTICLE_CONFIG: ResolvedParticleSystemConfig = {
     startCount: 24,
     rateOverTime: 0,
     lifetime: 1,
-    radius: 0,
+    shape: [0, 0],
     size: 16,
     sizeOverTime: 0,
     scale: [1, 1],
@@ -58,14 +58,14 @@ export function createParticle(
     config: ReturnType<typeof resolveParticleConfig>,
     random: () => number,
 ): ParticleState {
-    const radius = sampleNumber(config.radius, random);
+    const shape = sampleVector(config.shape, random);
     const angle = random() * Math.PI * 2;
-    const distance = Math.sqrt(random()) * radius;
+    const distance = Math.sqrt(random());
     const position = vector2.create(
-        Math.cos(angle) * distance,
-        Math.sin(angle) * distance,
+        Math.cos(angle) * distance * shape[0],
+        Math.sin(angle) * distance * shape[1],
     );
-    const radialDirection = distance === 0 ?
+    const radialDirection = vector2.magnitude(position) === 0 ?
         vector2.create(Math.cos(angle), Math.sin(angle)) :
         vector2.normalize(position);
     const velocity = sampleVector(config.linearVelocity, random);

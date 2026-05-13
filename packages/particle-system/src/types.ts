@@ -12,7 +12,7 @@ export interface ParticleSystemConfig {
     startCount?: number;
     rateOverTime?: number;
     lifetime?: NumberValue;
-    radius?: NumberValue;
+    shape?: Vector2Value;
     size?: NumberValue;
     sizeOverTime?: NumberValue;
     scale?: Vector2Value;
