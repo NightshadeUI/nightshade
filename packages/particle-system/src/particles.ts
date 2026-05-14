@@ -33,6 +33,7 @@ export const DEFAULT_PARTICLE_CONFIG: ResolvedParticleSystemConfig = {
     rotationOverTime: 0,
     turbulence: 0,
     noiseScale: 0.01,
+    update: () => {},
 };
 
 export function resolveParticleConfig(config: ParticleSystemConfig = {}) {

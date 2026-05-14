@@ -5,6 +5,7 @@ export type Vector2Range = [Vector2, Vector2];
 
 export type NumberValue = number | NumberRange;
 export type Vector2Value = Vector2 | Vector2Range;
+export type ParticleUpdate = (particle: ParticleState, dt: number) => void;
 
 export interface ParticleSystemConfig {
     seed?: number;
@@ -27,6 +28,7 @@ export interface ParticleSystemConfig {
     rotationOverTime?: NumberValue;
     turbulence?: NumberValue;
     noiseScale?: NumberValue;
+    update?: ParticleUpdate;
 }
 
 export interface ParticleState {

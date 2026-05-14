@@ -1,12 +1,19 @@
 <template>
     <div class="ParticleShowcase">
 
-        <div class="Preview">
+        <div
+            class="Preview"
+            @pointermove="updateMouse"
+            @pointerleave="clearMouse">
+            <div
+                v-if="mouse.active"
+                class="MouseField"
+                :style="mouseFieldStyle" />
             <ParticleSystem
                 v-if="renderMode === 'html'"
                 class="Emitter ui-primary"
                 :controller="particleController"
-                :config="settings">
+                :config="particleSettings">
                 <template #default="{ particle, htmlStyle }">
                     <div
                         class="Spark"
@@ -16,7 +23,7 @@
             <ParticleCanvas
                 v-else
                 :controller="particleController"
-                :config="settings"
+                :config="particleSettings"
                 :draw="drawCanvasParticle" />
         </div>
 
@@ -112,10 +119,15 @@ export default {
         ParticleSystem,
     },
 
+    // eslint-disable-next-line max-lines-per-function
     data() {
         return {
             renderMode: 'html',
             particleController: new ParticleSystemController(),
+            mouse: {
+                active: false,
+                position: [0, 0],
+            },
             settings: {
                 seed: 42,
                 startCount: 32,
@@ -160,12 +172,56 @@ export default {
         };
     },
 
+    computed: {
+        particleSettings() {
+            return {
+                ...this.settings,
+                update: this.repelFromMouse,
+            };
+        },
+
+        mouseFieldStyle() {
+            return {
+                transform: `translate(${this.mouse.position[0]}px, ${this.mouse.position[1]}px)`,
+            };
+        },
+    },
+
     methods: {
         setRenderMode(renderMode) {
             if (this.renderMode === renderMode) {
                 return;
             }
             this.renderMode = renderMode;
+        },
+
+        updateMouse(event) {
+            const rect = event.currentTarget.getBoundingClientRect();
+            this.mouse.active = true;
+            this.mouse.position = [
+                event.clientX - rect.left - rect.width * 0.5,
+                event.clientY - rect.top - rect.height * 0.5,
+            ];
+        },
+
+        clearMouse() {
+            this.mouse.active = false;
+        },
+
+        repelFromMouse(particle, dt) {
+            if (!this.mouse.active) {
+                return;
+            }
+            const radius = 160;
+            const dx = particle.position[0] - this.mouse.position[0];
+            const dy = particle.position[1] - this.mouse.position[1];
+            const distance = Math.hypot(dx, dy);
+            if (distance >= radius) {
+                return;
+            }
+            const force = (1 - distance / radius) * 1800 * dt;
+            particle.velocity[0] += dx / Math.max(1, distance) * force;
+            particle.velocity[1] += dy / Math.max(1, distance) * force;
         },
 
         drawCanvasParticle(ctx, particle, canvas) {
@@ -226,6 +282,20 @@ export default {
     top: 50%;
     width: 0;
     height: 0;
+}
+
+.MouseField {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 1;
+    width: 160px;
+    height: 160px;
+    margin: -80px 0 0 -80px;
+    pointer-events: none;
+    border: var(--input-border-size) solid var(--color-secondary-300);
+    border-radius: 50%;
+    opacity: 0.45;
 }
 
 .Spark {
