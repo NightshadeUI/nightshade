@@ -3,18 +3,37 @@
 
         <div class="Preview">
             <ParticleSystem
+                v-if="renderMode === 'html'"
                 class="Emitter ui-primary"
                 :controller="particleController"
                 :config="settings">
-                <template #default="{ particle, style }">
+                <template #default="{ particle, htmlStyle }">
                     <div
                         class="Spark"
-                        :style="{ ...style, '--Spark-t': `${particle.t * 100}%` }" />
+                        :style="{ ...htmlStyle, '--Spark-t': `${particle.t * 100}%` }" />
                 </template>
             </ParticleSystem>
+            <ParticleCanvas
+                v-else
+                :controller="particleController"
+                :config="settings"
+                :draw="drawCanvasParticle" />
         </div>
 
         <div class="Panel">
+            <HGroup align="stretch">
+                <Btn
+                    label="HTML"
+                    size="s"
+                    :kind="renderMode === 'html' ? 'primary' : 'base'"
+                    @click="setRenderMode('html')" />
+                <Btn
+                    label="Canvas"
+                    size="s"
+                    :kind="renderMode === 'canvas' ? 'primary' : 'base'"
+                    @click="setRenderMode('canvas')" />
+            </HGroup>
+
             <HGroup align="stretch">
                 <Btn
                     label="Reset"
@@ -82,18 +101,20 @@
 
 <script>
 import { Btn, HGroup } from '@nightshadeui/core/src';
-import { ParticleSystem, ParticleSystemController } from '@nightshadeui/particle-system/src';
+import { ParticleCanvas, ParticleSystem, ParticleSystemController } from '@nightshadeui/particle-system/src';
 
 export default {
 
     components: {
         Btn,
         HGroup,
+        ParticleCanvas,
         ParticleSystem,
     },
 
     data() {
         return {
+            renderMode: 'html',
             particleController: new ParticleSystemController(),
             settings: {
                 seed: 42,
@@ -140,6 +161,33 @@ export default {
     },
 
     methods: {
+        setRenderMode(renderMode) {
+            if (this.renderMode === renderMode) {
+                return;
+            }
+            this.renderMode = renderMode;
+        },
+
+        drawCanvasParticle(ctx, particle, canvas) {
+            const x = canvas.clientWidth * 0.5 + particle.position[0];
+            const y = canvas.clientHeight * 0.5 + particle.position[1];
+            const radius = Math.max(0, particle.size * 0.5);
+            const gradient = ctx.createRadialGradient(0, 0, 0, 0, 0, radius);
+            gradient.addColorStop(0, '#9ae6b4');
+            gradient.addColorStop(0.5, '#f6e05e');
+            gradient.addColorStop(1, 'rgba(246, 224, 94, 0)');
+            ctx.save();
+            ctx.globalAlpha = Math.max(0, particle.opacity);
+            ctx.translate(x, y);
+            ctx.rotate(particle.rotation * Math.PI / 180);
+            ctx.scale(particle.scale[0], particle.scale[1]);
+            ctx.fillStyle = gradient;
+            ctx.beginPath();
+            ctx.arc(0, 0, radius, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.restore();
+        },
+
         formatValue(value) {
             return Number.isInteger(value) ? value : value.toFixed(2);
         },

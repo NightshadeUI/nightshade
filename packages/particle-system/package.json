@@ -10,7 +10,6 @@
             "types": "./dist/index.d.ts",
             "import": "./dist/particle-system.mjs"
         },
-        "./css": "./dist/particle-system.css",
         "./src": "./src/index.ts"
     },
     "files": [

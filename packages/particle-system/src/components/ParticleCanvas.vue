@@ -1,17 +1,8 @@
 <template>
-    <component
-        :is="tagName"
-        class="ParticleSystem"
-        :style="{ position: 'relative' }">
-        <template
-            v-for="particle in particleController.particles"
-            :key="particle.index">
-            <slot
-                :particle="particle"
-                :htmlStyle="getHtmlStyle(particle)"
-                :svgStyle="getSvgStyle(particle)" />
-        </template>
-    </component>
+    <canvas
+        ref="canvas"
+        class="ParticleCanvas"
+        :style="canvasStyle" />
 </template>
 
 <script>
@@ -22,7 +13,11 @@ export default {
     props: {
         controller: { type: Object },
         config: { type: Object },
-        tagName: { type: String, default: 'div' },
+        draw: { type: Function, required: true },
+        clear: { type: Function },
+        beforeDraw: { type: Function },
+        afterDraw: { type: Function },
+        pixelRatio: { type: Number },
     },
 
     emits: [
@@ -37,6 +32,7 @@ export default {
         'pause',
         'resume',
         'stop',
+        'drawFrame',
         'isRunning',
         'isPaused',
     ],
@@ -44,6 +40,7 @@ export default {
     data() {
         return {
             localController: null,
+            resizeObserver: null,
         };
     },
 
@@ -60,6 +57,14 @@ export default {
             return this.particleController.isPaused;
         },
 
+        canvasStyle() {
+            return {
+                display: 'block',
+                width: '100%',
+                height: '100%',
+            };
+        },
+
     },
 
     watch: {
@@ -74,6 +79,7 @@ export default {
         controller(controller, previousController) {
             this.unmountController(previousController ?? this.localController);
             this.mountController(controller ?? this.localController);
+            this.drawFrame();
         },
     },
 
@@ -82,14 +88,27 @@ export default {
     },
 
     mounted() {
+        this.mountCanvas();
         this.mountController(this.particleController);
     },
 
     beforeUnmount() {
         this.unmountController(this.particleController);
+        this.unmountCanvas();
     },
 
     methods: {
+
+        mountCanvas() {
+            this.resizeObserver = new ResizeObserver(() => this.resizeCanvas());
+            this.resizeObserver.observe(this.$refs.canvas);
+            this.resizeCanvas();
+        },
+
+        unmountCanvas() {
+            this.resizeObserver?.disconnect();
+            this.resizeObserver = null;
+        },
 
         mountController(controller) {
             if (this.config != null) {
@@ -99,6 +118,7 @@ export default {
             controller.paused.on(() => this.$emit('paused'), this);
             controller.resumed.on(() => this.$emit('resumed'), this);
             controller.finished.on(() => this.$emit('finished'), this);
+            controller.updated.on(() => this.drawFrame(), this);
             controller.mount();
         },
 
@@ -110,6 +130,7 @@ export default {
             controller.paused.removeAll(this);
             controller.resumed.removeAll(this);
             controller.finished.removeAll(this);
+            controller.updated.removeAll(this);
             controller.unmount();
         },
 
@@ -129,33 +150,52 @@ export default {
             this.particleController.stop();
         },
 
-        getHtmlStyle(particle) {
-            const size = Math.max(0, particle.size);
-            return {
-                'position': 'absolute',
-                'top': 0,
-                'left': 0,
-                'width': `${size}px`,
-                'height': `${size}px`,
-                'opacity': particle.opacity,
-                'transform': this.getTransform(particle),
-                'transform-origin': 'center',
-                'will-change': 'transform, opacity',
-            };
+        resizeCanvas() {
+            const canvas = this.$refs.canvas;
+            const rect = canvas.getBoundingClientRect();
+            const ratio = this.getPixelRatio();
+            const width = Math.max(1, Math.round(rect.width * ratio));
+            const height = Math.max(1, Math.round(rect.height * ratio));
+            if (canvas.width !== width) {
+                canvas.width = width;
+            }
+            if (canvas.height !== height) {
+                canvas.height = height;
+            }
+            this.drawFrame();
         },
 
-        getSvgStyle(particle) {
-            return {
-                'opacity': particle.opacity,
-                'transform': this.getTransform(particle),
-                'transform-origin': 'center',
-                'transform-box': 'fill-box',
-                'will-change': 'transform, opacity',
-            };
+        drawFrame() {
+            const canvas = this.$refs.canvas;
+            if (!canvas) {
+                return;
+            }
+            const ctx = canvas.getContext('2d');
+            const particles = this.particleController.particles;
+            if (!ctx) {
+                return;
+            }
+            const ratio = this.getPixelRatio();
+            ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+            this.clearFrame(ctx, canvas);
+            this.beforeDraw?.(ctx, particles, canvas);
+            for (const particle of particles) {
+                this.draw(ctx, particle, canvas);
+            }
+            this.afterDraw?.(ctx, particles, canvas);
         },
 
-        getTransform(particle) {
-            return `translate(${particle.position[0]}px, ${particle.position[1]}px) rotate(${particle.rotation}deg) scale(${particle.scale[0]}, ${particle.scale[1]})`;
+        clearFrame(ctx, canvas) {
+            if (this.clear) {
+                this.clear(ctx, canvas);
+                return;
+            }
+            const ratio = this.getPixelRatio();
+            ctx.clearRect(0, 0, canvas.width / ratio, canvas.height / ratio);
+        },
+
+        getPixelRatio() {
+            return Math.max(1, this.pixelRatio ?? window.devicePixelRatio ?? 1);
         },
     },
 

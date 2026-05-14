@@ -18,6 +18,7 @@ export class ParticleSystemController {
     paused = new Event<void>();
     resumed = new Event<void>();
     finished = new Event<void>();
+    updated = new Event<void>();
 
     particles = reactive<ParticleState[]>([]);
     config = resolveParticleConfig();
@@ -77,6 +78,7 @@ export class ParticleSystemController {
         this.random = createRandom(this.config.seed);
         this.noise = createNoise(this.random);
         this.spawn(this.config.startCount);
+        this.updated.emit();
         this.started.emit();
         this.finishIfDrained();
         this.startFrame();
@@ -122,6 +124,7 @@ export class ParticleSystemController {
         this.lastTime = time;
         this.spawnOverTime(dt);
         this.step(dt);
+        this.updated.emit();
         this.finishIfDrained();
     }
 
