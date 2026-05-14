@@ -102,7 +102,6 @@ export function stepParticle(
     dt: number,
     noise: ReturnType<typeof createNoise2D>,
 ) {
-    particle.age += dt;
     particle.radialVelocity += particle.radialAcceleration * dt;
     particle.velocity[0] += (
         particle.linearAcceleration[0] +
@@ -127,6 +126,10 @@ export function stepParticle(
     particle.scale[1] += particle.scaleOverTime[1] * dt;
     particle.opacity += particle.opacityOverTime * dt;
     particle.rotation += particle.rotationOverTime * dt;
+}
+
+export function stepParticleTime(particle: ParticleState, dt: number) {
+    particle.age += dt;
     particle.t = Math.min(1, particle.age / particle.lifetime);
 }
 
