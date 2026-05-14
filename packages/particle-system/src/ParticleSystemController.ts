@@ -7,7 +7,6 @@ import {
     createRandom,
     resolveParticleConfig,
     stepParticle,
-    stepParticleTime,
 } from './particles.js';
 import type { ParticleState, ParticleSystemConfig } from './types.js';
 
@@ -166,9 +165,8 @@ export class ParticleSystemController {
     private step(dt: number) {
         for (let i = this.particles.length - 1; i >= 0; i--) {
             const particle = this.particles[i];
-            stepParticleTime(particle, dt);
-            this.config.update(particle, dt);
             stepParticle(particle, dt, this.noise);
+            this.config.update(particle, dt);
             if (particle.age >= particle.lifetime) {
                 this.particles.splice(i, 1);
             }
