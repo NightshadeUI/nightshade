@@ -22,7 +22,7 @@
             <label class="Label">Fill:</label>
             <HGroup>
                 <template
-                    v-for="style in ['track', 'inset']"
+                    v-for="style in ['track', 'inset', 'none']"
                     :key="style">
                     <Btn
                         :label="capitalize(style)"

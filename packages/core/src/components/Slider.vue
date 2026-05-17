@@ -135,7 +135,7 @@ export default {
         fillStyle: {
             type: String,
             default: 'track',
-            validator: value => ['track', 'inset'].includes(value),
+            validator: value => ['track', 'inset', 'none'].includes(value),
         },
     },
 
@@ -648,5 +648,9 @@ export default {
     width: calc(var(--Slider-ratio) * (100% - var(--Slider-knob-size)));
     height: calc(100% - 2 * var(--input-minor-padding));
     border-radius: var(--Slider-radius);
+}
+
+.Fill.Slider-fill-style-none {
+    display: none;
 }
 </style>
