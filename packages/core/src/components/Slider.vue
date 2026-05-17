@@ -46,8 +46,30 @@
                     v-if="tooltipShown"
                     :class="`Tooltip ui-${resolvedProps.tooltipKind}`"
                     dir="top"
-                    align="center">
-                    <div class="TooltipBody">{{ tooltipText }}</div>
+                    align="center"
+                    @pointerdown.stop>
+                    <div class="TooltipContent">
+                        <div
+                            v-if="!tooltipEditing"
+                            class="TooltipBody"
+                            @click.stop="startTooltipEdit">
+                            {{ tooltipText }}
+                        </div>
+                        <input
+                            v-else
+                            ref="tooltipInput"
+                            class="TooltipInput"
+                            type="number"
+                            :value="tooltipDraft"
+                            :min="resolvedProps.min"
+                            :max="resolvedProps.max"
+                            step="any"
+                            @input="onTooltipDraftInput"
+                            @keydown.stop="onTooltipInputKeydown"
+                            @blur="commitTooltipEdit"
+                            @click.stop
+                            @pointerdown.stop />
+                    </div>
                 </Bubble>
             </div>
         </div>
@@ -117,6 +139,8 @@ export default {
             dragging: false,
             valuePulse: false,
             valuePulseTimer: null,
+            tooltipEditing: false,
+            tooltipDraft: '',
         };
     },
 
@@ -165,7 +189,7 @@ export default {
             if (tooltip !== 'dynamic') {
                 return false;
             }
-            return this.hover || this.dragging || this.focus || this.valuePulse;
+            return this.hover || this.dragging || this.focus || this.valuePulse || this.tooltipEditing;
         },
 
         tooltipText() {
@@ -276,6 +300,14 @@ export default {
             }
         },
 
+        setPreciseValue(value) {
+            const { min, max } = this.resolvedProps;
+            const next = clamp(value, min, max);
+            if (next !== this.currentValue) {
+                this.$emit('update:modelValue', next);
+            }
+        },
+
         tickStyle(tick) {
             const { min, max } = this.resolvedProps;
             const span = max - min;
@@ -317,6 +349,46 @@ export default {
             this.$refs.rail?.releasePointerCapture(ev.pointerId);
             window.removeEventListener('pointermove', this.onPointerMove);
             window.removeEventListener('pointerup', this.onPointerUp);
+        },
+
+        startTooltipEdit() {
+            if (this.resolvedProps.disabled) {
+                return;
+            }
+            this.tooltipEditing = true;
+            this.tooltipDraft = String(this.clampedValue);
+            this.$nextTick(() => {
+                const input = this.$refs.tooltipInput;
+                input?.focus();
+                input?.select();
+            });
+        },
+
+        onTooltipDraftInput(ev) {
+            this.tooltipDraft = ev.target.value;
+        },
+
+        commitTooltipEdit() {
+            if (!this.tooltipEditing) {
+                return;
+            }
+            const parsed = Number(this.tooltipDraft);
+            if (this.tooltipDraft !== '' && !Number.isNaN(parsed)) {
+                this.setPreciseValue(parsed);
+            }
+            this.tooltipEditing = false;
+        },
+
+        onTooltipInputKeydown(ev) {
+            if (ev.key === 'Enter') {
+                ev.preventDefault();
+                this.$refs.tooltipInput?.blur();
+                return;
+            }
+            if (ev.key === 'Escape') {
+                ev.preventDefault();
+                this.tooltipEditing = false;
+            }
         },
 
         onKeydown(ev) {
@@ -439,6 +511,7 @@ export default {
 .Tooltip {
     --Slider-tooltip-surface: var(--ui-surface-color, var(--color-base-0));
     --Slider-tooltip-text: var(--ui-surface-text-color, var(--text-color));
+    --Slider-tooltip-height: calc(var(--font-size-s) + var(--sp1));
     --Bubble-color: var(--Slider-tooltip-surface);
     --Bubble-shadow-color: var(--Slider-tooltip-shadow-color);
     --Bubble-arrow-size: 8px;
@@ -448,12 +521,47 @@ export default {
     transform: translateX(-50%);
 }
 
-.TooltipBody {
-    padding: var(--sp0-5) var(--sp1);
+.TooltipContent {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    height: var(--Slider-tooltip-height);
+    padding: 0 var(--sp1);
 
     font-size: var(--font-size-s);
+    line-height: 1;
     color: var(--Slider-tooltip-text);
     white-space: nowrap;
+}
+
+.TooltipBody {
+    cursor: text;
+}
+
+.TooltipInput {
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+    appearance: textfield;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    text-align: center;
+    cursor: text;
+    user-select: text;
+}
+
+.TooltipInput::-webkit-outer-spin-button,
+.TooltipInput::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 .Scale {
