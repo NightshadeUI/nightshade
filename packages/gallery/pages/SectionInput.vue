@@ -9,6 +9,9 @@
                     v-for="style in ['inline', 'text', 'tab']"
                     :key="style">
                     <Btn
+                        flat
+                        outline
+                        round
                         :label="capitalize(style)"
                         :kind="labelStyle === style ? 'primary' : 'base'"
                         @click="labelStyle = style" />

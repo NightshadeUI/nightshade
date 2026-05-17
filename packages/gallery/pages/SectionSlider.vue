@@ -1,6 +1,41 @@
 <template>
     <h3 id="sliders">Sliders</h3>
 
+    <VGroup>
+        <HGroup>
+            <label class="Label">Knob:</label>
+            <HGroup>
+                <template
+                    v-for="style in ['opaque', 'translucent']"
+                    :key="style">
+                    <Btn
+                        :label="capitalize(style)"
+                        flat
+                        outline
+                        round
+                        :kind="knobStyle === style ? 'primary' : 'base'"
+                        @click="knobStyle = style" />
+                </template>
+            </HGroup>
+        </HGroup>
+        <HGroup>
+            <label class="Label">Fill:</label>
+            <HGroup>
+                <template
+                    v-for="style in ['track', 'inset']"
+                    :key="style">
+                    <Btn
+                        :label="capitalize(style)"
+                        flat
+                        outline
+                        round
+                        :kind="fillStyle === style ? 'primary' : 'base'"
+                        @click="fillStyle = style" />
+                </template>
+            </HGroup>
+        </HGroup>
+    </VGroup>
+
     <DualTheme>
         <h4>Styles</h4>
         <VGroup>
@@ -13,6 +48,8 @@
                 <Slider
                     v-model="value"
                     :kind="kind"
+                    :knobStyle="knobStyle"
+                    :fillStyle="fillStyle"
                     class="flex-1" />
             </HGroup>
         </VGroup>
@@ -29,6 +66,8 @@
                     v-model="value"
                     kind="secondary"
                     :size="size"
+                    :knobStyle="knobStyle"
+                    :fillStyle="fillStyle"
                     class="flex-1" />
             </HGroup>
         </VGroup>
@@ -41,6 +80,8 @@
                 <Slider
                     v-model="scaledValue"
                     kind="primary"
+                    :knobStyle="knobStyle"
+                    :fillStyle="fillStyle"
                     tooltip="dynamic"
                     tooltipKind="inverse"
                     class="flex-1"
@@ -66,6 +107,8 @@ export default {
         return {
             value: 40,
             scaledValue: 50,
+            knobStyle: 'opaque',
+            fillStyle: 'track',
         };
     },
 

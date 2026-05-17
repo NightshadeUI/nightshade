@@ -72,33 +72,36 @@
                     :class="{ 'Control-vector': control.vector }">
                     <span>{{ control.label }}</span>
                     <template v-if="control.vector">
-                        <div class="Axis">
-                            <input
-                                v-model.number="settings[control.key][0]"
-                                type="range"
-                                :min="control.min"
-                                :max="control.max"
-                                :step="control.step ?? 1" />
-                            <output>{{ formatValue(settings[control.key][0]) }}</output>
-                        </div>
-                        <div class="Axis">
-                            <input
-                                v-model.number="settings[control.key][1]"
-                                type="range"
-                                :min="control.min"
-                                :max="control.max"
-                                :step="control.step ?? 1" />
-                            <output>{{ formatValue(settings[control.key][1]) }}</output>
-                        </div>
-                    </template>
-                    <template v-else>
-                        <input
-                            v-model.number="settings[control.key]"
-                            type="range"
+                        <Slider
+                            v-model="settings[control.key][0]"
+                            kind="secondary"
+                            size="s"
+                            tooltip="dynamic"
+                            :formatTooltip="formatValue"
                             :min="control.min"
                             :max="control.max"
                             :step="control.step ?? 1" />
-                        <output>{{ formatValue(settings[control.key]) }}</output>
+                        <Slider
+                            v-model="settings[control.key][1]"
+                            kind="secondary"
+                            size="s"
+                            tooltip="dynamic"
+                            :formatTooltip="formatValue"
+                            :min="control.min"
+                            :max="control.max"
+                            :step="control.step ?? 1" />
+                    </template>
+                    <template v-else>
+                        <Slider
+                            v-model="settings[control.key]"
+                            kind="secondary"
+                            size="s"
+                            flat
+                            tooltip="dynamic"
+                            :formatTooltip="formatValue"
+                            :min="control.min"
+                            :max="control.max"
+                            :step="control.step ?? 1" />
                     </template>
                 </label>
             </div>
@@ -322,7 +325,7 @@ export default {
 
 .Control {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(120px, 180px) minmax(44px, auto);
+    grid-template-columns: minmax(0, 1fr) minmax(120px, 180px);
     gap: var(--sp);
     align-items: center;
     font-size: var(--font-size-s);
@@ -332,22 +335,7 @@ export default {
     grid-template-columns: minmax(0, 1fr) minmax(120px, 180px) minmax(120px, 180px);
 }
 
-.Axis {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(36px, auto);
-    gap: var(--sp);
-    align-items: center;
-}
-
-.Control output,
-.Axis output {
-    text-align: right;
-    color: var(--color-base-600);
-    font-variant-numeric: tabular-nums;
-}
-
-.Control input,
-.Axis input {
+.Control .Slider {
     width: 100%;
 }
 

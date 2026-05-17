@@ -21,6 +21,7 @@
         :aria-valuenow="currentValue"
         :aria-disabled="resolvedProps.disabled || undefined"
         tabindex="0"
+        :style="{ '--Slider-ratio': ratio }"
         @keydown="onKeydown"
         @mouseenter="hover = true"
         @mouseleave="hover = false"
@@ -35,12 +36,12 @@
                 @pointerdown="onPointerDown">
                 <div
                     class="Fill"
-                    :style="fillStyle" />
+                    :class="`Slider-fill-style-${fillStyle}`" />
             </div>
             <div
                 ref="knob"
                 class="Knob"
-                :style="knobStyle"
+                :class="`Slider-knob-style-${knobStyle}`"
                 @pointerdown="onPointerDown">
                 <Bubble
                     v-if="tooltipShown"
@@ -122,10 +123,20 @@ export default {
         hoverOverrides: { type: Object },
         tooltip: { type: String, default: 'off' },
         formatTooltip: { type: Function },
-        tooltipKind: { type: String },
+        tooltipKind: { type: String, default: 'inverse' },
         scale: { type: Array },
         formatScale: { type: Function },
         snapThreshold: { type: Number },
+        knobStyle: {
+            type: String,
+            default: 'opaque',
+            validator: value => ['opaque', 'translucent'].includes(value),
+        },
+        fillStyle: {
+            type: String,
+            default: 'track',
+            validator: value => ['track', 'inset'].includes(value),
+        },
     },
 
     emits: [
@@ -163,14 +174,6 @@ export default {
         clampedValue() {
             const { min, max } = this.resolvedProps;
             return clamp(this.currentValue, min, max);
-        },
-
-        fillStyle() {
-            return { width: this.insetPosition(this.ratio) };
-        },
-
-        knobStyle() {
-            return { left: this.insetPosition(this.ratio) };
         },
 
         scaleTicks() {
@@ -252,10 +255,6 @@ export default {
 
     methods: {
 
-        insetPosition(ratio) {
-            return `calc(var(--Slider-knob-size) / 2 + ${ratio} * (100% - var(--Slider-knob-size)))`;
-        },
-
         snap(value) {
             const { scale, snapThreshold } = this.resolvedProps;
             if (!scale?.length || snapThreshold == null) {
@@ -313,6 +312,10 @@ export default {
             const span = max - min;
             const ratio = span ? (tick - min) / span : 0;
             return { left: this.insetPosition(ratio) };
+        },
+
+        insetPosition(ratio) {
+            return `calc(var(--Slider-knob-size) / 2 + ${ratio} * (100% - var(--Slider-knob-size)))`;
         },
 
         scaleLabel(tick) {
@@ -424,7 +427,10 @@ export default {
 
 <style scoped>
 .Slider {
-    --Slider-track-height: calc(.5 * var(--input-minor-height));
+    --Slider-ratio: 0;
+    --Slider-inset-position: calc(var(--Slider-knob-size) / 2 + var(--Slider-ratio) * (100% - var(--Slider-knob-size)));
+
+    --Slider-track-height: calc(var(--input-minor-height) - var(--sp));
     --Slider-knob-size: var(--input-minor-height);
 
     --Slider-outline-color: transparent;
@@ -446,7 +452,6 @@ export default {
     --Slider-tooltip-text: var(--text-color);
     --Slider-tooltip-shadow-color: var(--shadow-color-light);
 
-    position: relative;
     display: block;
     width: 100%;
 
@@ -492,10 +497,15 @@ export default {
     pointer-events: none;
 }
 
+.Fill.Slider-fill-style-track {
+    width: var(--Slider-inset-position);
+}
+
 .Knob {
     position: absolute;
     z-index: 2;
     top: 50%;
+    left: var(--Slider-inset-position);
     width: var(--Slider-knob-size);
     height: var(--Slider-knob-size);
     transform: translate(-50%, -50%);
@@ -605,11 +615,6 @@ export default {
 
 .Slider:not(.Slider-disabled):focus,
 .Slider.Slider-force-focus {
-    z-index: 10;
-}
-
-.Slider:not(.Slider-disabled):focus,
-.Slider.Slider-force-focus {
     --Slider-outline-color: var(--ui-focus-outline-color);
     --Slider-border-color: var(--ui-focus-border-color);
 }
@@ -629,6 +634,19 @@ export default {
 .Slider-flat {
     --Slider-shadow-color: transparent;
     --Slider-track-shadow: none;
-    --Slider-knob-shadow: none;
+    --Slider-knob-shadow: 0 0 3px var(--shadow-color-light);
+}
+
+.Knob.Slider-knob-style-translucent {
+    background: color-mix(in srgb, var(--Slider-knob-surface), transparent 75%);
+    backdrop-filter: blur(3px);
+}
+
+.Fill.Slider-fill-style-inset {
+    top: var(--input-minor-padding);
+    left: calc(var(--Slider-knob-size) / 2);
+    width: calc(var(--Slider-ratio) * (100% - var(--Slider-knob-size)));
+    height: calc(100% - 2 * var(--input-minor-padding));
+    border-radius: var(--Slider-radius);
 }
 </style>
