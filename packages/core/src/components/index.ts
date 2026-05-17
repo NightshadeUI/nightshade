@@ -12,6 +12,7 @@ import InputSelect from './InputSelect.vue';
 import InputText from './InputText.vue';
 import InputTextarea from './InputTextarea.vue';
 import RouterBtn from './RouterBtn.vue';
+import Slider from './Slider.vue';
 import Tab from './Tab.vue';
 import TabCap from './TabCap.vue';
 import Toggle from './Toggle.vue';
@@ -33,6 +34,7 @@ export {
     InputText,
     InputTextarea,
     RouterBtn,
+    Slider,
     Tab,
     TabCap,
     Toggle,

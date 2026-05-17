@@ -17,6 +17,8 @@ showAppearance: true
 
 <SectionToggle />
 
+<SectionSlider />
+
 <SectionToolPanel />
 
 <SectionBubble />
@@ -35,6 +37,7 @@ import SectionInput from './SectionInput.vue';
 import SectionColors from './SectionColors.vue';
 import SectionCombinations from './SectionCombinations.vue';
 import SectionToggle from './SectionToggle.vue';
+import SectionSlider from './SectionSlider.vue';
 import SectionToolPanel from './SectionToolPanel.vue';
 import SectionCheckbox from './SectionCheckbox.vue';
 import SectionBubble from './SectionBubble.vue';
