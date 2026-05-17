@@ -372,7 +372,7 @@ export default {
 
     --Slider-tooltip-surface: var(--color-base-0);
     --Slider-tooltip-text: var(--text-color);
-    --Slider-tooltip-shadow: var(--shadow-color-light);
+    --Slider-tooltip-shadow-color: var(--shadow-color-light);
 
     position: relative;
     display: block;
@@ -431,6 +431,7 @@ export default {
     border-radius: var(--Slider-knob-radius);
     background: var(--Slider-knob-surface);
     box-shadow: var(--Slider-knob-shadow);
+    outline: var(--input-outline-size) solid var(--Slider-outline-color);
 
     transition: border-radius .3s;
 }
@@ -438,9 +439,9 @@ export default {
 .Tooltip {
     --Slider-tooltip-surface: var(--ui-surface-color, var(--color-base-0));
     --Slider-tooltip-text: var(--ui-surface-text-color, var(--text-color));
-    --Slider-tooltip-shadow: var(--ui-shadow-color, var(--shadow-color-light));
     --Bubble-color: var(--Slider-tooltip-surface);
-    --Bubble-shadow-color: var(--Slider-tooltip-shadow);
+    --Bubble-shadow-color: var(--Slider-tooltip-shadow-color);
+    --Bubble-arrow-size: 8px;
 
     top: 0;
     left: 50%;
@@ -499,8 +500,8 @@ export default {
     z-index: 10;
 }
 
-.Slider:not(.Slider-disabled):focus .Track,
-.Slider.Slider-force-focus .Track {
+.Slider:not(.Slider-disabled):focus,
+.Slider.Slider-force-focus {
     --Slider-outline-color: var(--ui-focus-outline-color);
     --Slider-border-color: var(--ui-focus-border-color);
 }

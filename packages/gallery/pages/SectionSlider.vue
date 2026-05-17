@@ -38,7 +38,6 @@
             <HGroup
                 tagName="label"
                 gap="2">
-                <div class="Label flex-1 nowrap">Dynamic tooltip</div>
                 <Slider
                     v-model="scaledValue"
                     kind="primary"

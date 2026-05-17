@@ -37,7 +37,7 @@ export default {
 <style scoped>
 .Bubble {
     --Bubble-color: var(--color-base-0);
-    --Bubble-arrow-size: 10px;
+    --Bubble-arrow-size: 8px;
     --Bubble-arrow-offset: 16px;
     --Bubble-radius: var(--border-radius);
     --Bubble-shadow-color: var(--shadow-color-light);
