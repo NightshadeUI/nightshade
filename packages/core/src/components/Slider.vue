@@ -445,8 +445,8 @@ export default {
     --Slider-knob-radius: var(--border-radius);
 
     --Slider-shadow-color: var(--shadow-color-light);
-    --Slider-track-shadow: 0 1px 3px var(--Slider-shadow-color) inset, 0 0 5px -1px var(--Slider-shadow-color) inset;
-    --Slider-knob-shadow: 0 1px 3px var(--Slider-shadow-color), 0 1px 5px var(--Slider-shadow-color);
+    --Slider-track-shadow: 0 1px 3px var(--shadow-color-light) inset, 0 0 5px -1px var(--shadow-color-light) inset;
+    --Slider-knob-shadow: 0 0 3px var(--shadow-color-light), 0 1px 5px var(--shadow-color-light);
 
     --Slider-tooltip-surface: var(--color-base-0);
     --Slider-tooltip-text: var(--text-color);
@@ -632,12 +632,14 @@ export default {
 }
 
 .Slider-flat {
-    --Slider-shadow-color: transparent;
     --Slider-track-shadow: none;
-    --Slider-knob-shadow: 0 0 3px var(--shadow-color-light);
 }
 
 .Knob.Slider-knob-style-translucent {
+    --Slider-knob-shadow:
+        0 0 2px var(--shadow-color-medium),
+        0 1px 5px var(--shadow-color-light),
+        0 0 3px rgba(255,255,255,.5) inset;
     background: color-mix(in srgb, var(--Slider-knob-surface), transparent 75%);
     backdrop-filter: blur(3px);
 }

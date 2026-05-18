@@ -188,7 +188,9 @@ export default {
     --Btn-radius: var(--border-radius);
 
     --Btn-shadow-color: var(--ui-shadow-color);
-    --Btn-shadow: 0 1px 1px var(--Btn-shadow-color), 0 1px 5px var(--shadow-color-light);
+    --Btn-shadow:
+        0 1px 1px var(--Btn-shadow-color),
+        0 1px 5px var(--shadow-color-medium);
     --Btn-text-shadow: 0 1px 1px var(--ui-auto-text-shadow-color);
 
     -webkit-appearance: none;
@@ -241,7 +243,7 @@ export default {
     height: 100%;
     border-radius: var(--Btn-radius);
 
-    background: rgba(127,127,127,.05);
+    background: rgba(127,127,127,.1);
     mix-blend-mode: color-dodge;
     pointer-events: none;
     opacity: 0;

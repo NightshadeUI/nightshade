@@ -19,7 +19,7 @@
     --ui-inverse-surface-bottom-color: light-dark(var(--color-inverse-0), var(--color-inverse-200));
     --ui-inverse-surface-text-color: var(--color-inverse-text);
     --ui-inverse-border-color: var(--color-inverse-0);
-    --ui-inverse-shadow-color: light-dark(var(--color-inverse-700), var(--color-inverse-500));
+    --ui-inverse-shadow-color: light-dark(var(--color-inverse-0), var(--color-inverse-500));
     --ui-inverse-focus-outline-color: light-dark(var(--color-secondary-300), var(--color-secondary-700));
     --ui-inverse-focus-border-color: light-dark(var(--color-secondary-600), var(--color-secondary-400));
 
