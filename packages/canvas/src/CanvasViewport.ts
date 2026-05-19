@@ -3,7 +3,7 @@ import {
     DomEventProxy,
     getCssColorVar,
     getCssVarNumber,
-    type Point,
+    Point,
 } from '@nightshadeui/util/src';
 import { dependency } from 'mesh-ioc';
 

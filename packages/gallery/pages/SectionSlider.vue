@@ -3,22 +3,6 @@
 
     <VGroup>
         <HGroup>
-            <label class="Label">Knob:</label>
-            <HGroup>
-                <template
-                    v-for="style in ['opaque', 'translucent']"
-                    :key="style">
-                    <Btn
-                        :label="capitalize(style)"
-                        flat
-                        outline
-                        round
-                        :kind="knobStyle === style ? 'primary' : 'base'"
-                        @click="knobStyle = style" />
-                </template>
-            </HGroup>
-        </HGroup>
-        <HGroup>
             <label class="Label">Fill:</label>
             <HGroup>
                 <template
@@ -48,7 +32,6 @@
                 <Slider
                     v-model="value"
                     :kind="kind"
-                    :knobStyle="knobStyle"
                     :fillStyle="fillStyle"
                     class="flex-1" />
             </HGroup>
@@ -66,7 +49,6 @@
                     v-model="value"
                     kind="secondary"
                     :size="size"
-                    :knobStyle="knobStyle"
                     :fillStyle="fillStyle"
                     class="flex-1" />
             </HGroup>
@@ -80,7 +62,6 @@
                 <Slider
                     v-model="scaledValue"
                     kind="primary"
-                    :knobStyle="knobStyle"
                     :fillStyle="fillStyle"
                     tooltip="dynamic"
                     tooltipKind="inverse"
@@ -107,7 +88,6 @@ export default {
         return {
             value: 40,
             scaledValue: 50,
-            knobStyle: 'opaque',
             fillStyle: 'track',
         };
     },

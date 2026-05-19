@@ -14,6 +14,14 @@
     --shadow-color-medium: light-dark(rgba(0,0,0,.2), rgba(0,0,0,.4));
     --shadow-color-heavy: light-dark(rgba(0,0,0,.3), rgba(0,0,0,.6));
 
+    /* Translucency */
+
+    --translucency-mix-light: 15%;
+    --translucency-mix-medium: 50%;
+    --translucency-mix-heavy: 75%;
+    --translucency-blur: 3px;
+    --translucency-highlight-color: light-dark(rgba(255,255,255,.5), rgba(255,255,255,.16));
+
     /* Border Radius */
 
     --border-radius: 4px;

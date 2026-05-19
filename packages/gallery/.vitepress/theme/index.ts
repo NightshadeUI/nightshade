@@ -2,7 +2,7 @@ import '@fortawesome/fontawesome-free/css/all.css';
 import './theme.css';
 
 import * as coreComponents from '@nightshadeui/core/src';
-import type { Theme } from 'vitepress';
+import { Theme } from 'vitepress';
 import { reactive } from 'vue';
 
 import DualTheme from './DualTheme.vue';
@@ -12,6 +12,7 @@ const commonOptions = reactive({
     round: false,
     flat: false,
     outline: false,
+    translucent: false,
     disabled: false,
     forceFocus: false,
     forceHover: false,

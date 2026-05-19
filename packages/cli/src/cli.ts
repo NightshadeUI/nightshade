@@ -2,7 +2,7 @@
 import { readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
-import { generatePaletteCss, type PaletteSpec } from '@nightshadeui/palette-generator';
+import { generatePaletteCss, PaletteSpec } from '@nightshadeui/palette-generator';
 import { Command } from 'commander';
 
 const pkgPath = fileURLToPath(new URL('../package.json', import.meta.url));

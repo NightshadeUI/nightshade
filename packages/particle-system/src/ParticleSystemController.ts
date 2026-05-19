@@ -8,7 +8,7 @@ import {
     resolveParticleConfig,
     stepParticle,
 } from './particles.js';
-import type { ParticleState, ParticleSystemConfig } from './types.js';
+import { ParticleState, ParticleSystemConfig } from './types.js';
 
 const MAX_PARTICLE_INDEX = Number.MAX_SAFE_INTEGER;
 

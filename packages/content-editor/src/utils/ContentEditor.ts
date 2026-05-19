@@ -1,6 +1,6 @@
 import { Event } from 'nanoevent';
 
-import type {
+import {
     ContentBlock,
     ContentEditorConfig,
 } from '../types.js';

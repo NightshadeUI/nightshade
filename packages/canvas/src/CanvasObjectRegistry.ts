@@ -1,4 +1,4 @@
-import { type CanvasObjectController } from './CanvasObjectController.js';
+import { CanvasObjectController } from './CanvasObjectController.js';
 
 export class CanvasObjectRegistry {
 

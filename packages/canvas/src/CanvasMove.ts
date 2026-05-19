@@ -1,5 +1,5 @@
 import { init } from '@flexent/init-decorator';
-import { type Point, subtractPoints } from '@nightshadeui/util/src';
+import { Point, subtractPoints } from '@nightshadeui/util/src';
 import { dependency } from 'mesh-ioc';
 
 import { CanvasEvents } from './CanvasEvents';

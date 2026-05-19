@@ -45,8 +45,8 @@
     },
     "devDependencies": {
         "@fastify/pre-commit": "^2.2.1",
-        "@flexent/eslint-config": "^2.0.0",
-        "@flexent/eslint-config-vue": "^2.0.0",
+        "@flexent/eslint-config": "^2.6.0",
+        "@flexent/eslint-config-vue": "^2.6.0",
         "@types/node": "^24.9.1",
         "@vitejs/plugin-vue": "^6.0.1",
         "eslint": "^9.38.0",

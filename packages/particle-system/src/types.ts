@@ -1,4 +1,4 @@
-import type { Vector2 } from '@nightshadeui/util/vector2';
+import { Vector2 } from '@nightshadeui/util/vector2';
 
 export type NumberRange = [number, number];
 export type Vector2Range = [Vector2, Vector2];

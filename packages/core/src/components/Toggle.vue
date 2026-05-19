@@ -9,6 +9,7 @@
                 'Toggle-outline': effectiveStyle.outline,
                 'Toggle-round': effectiveStyle.round,
                 'Toggle-flat': effectiveStyle.flat,
+                'Toggle-translucent': effectiveStyle.translucent,
                 'Toggle-disabled': resolvedProps.disabled,
                 'Toggle-force-focus': resolvedProps.forceFocus,
                 'Toggle-force-hover': resolvedProps.forceHover,
@@ -45,6 +46,7 @@ export default {
         round: { type: Boolean, default: false },
         flat: { type: Boolean, default: false },
         outline: { type: Boolean, default: false },
+        translucent: { type: Boolean, default: false },
         forceFocus: { type: Boolean, default: false },
         forceHover: { type: Boolean, default: false },
         focusOverrides: { type: Object },
@@ -76,6 +78,7 @@ export default {
                 round: resolvedProps.round,
                 outline: resolvedProps.outline,
                 flat: resolvedProps.flat,
+                translucent: resolvedProps.translucent,
             };
         },
 
@@ -125,6 +128,7 @@ export default {
     --Toggle-surface: var(--color-base-200);
     --Toggle-knob-surface: var(--ui-text-color);
     --Toggle-knob-surface: light-dark(var(--color-base-0), var(--color-base-800));
+    --Toggle-knob-background: var(--Toggle-knob-surface);
 
     --Toggle-border-size: 0px;
     --Toggle-border-color: transparent;
@@ -165,7 +169,7 @@ export default {
     width: var(--Toggle-knob-size);
     height: var(--Toggle-knob-size);
     border-radius: var(--Toggle-knob-radius);
-    background: var(--Toggle-knob-surface);
+    background: var(--Toggle-knob-background);
     box-shadow: 0 1px 3px var(--Toggle-shadow-color), 0 1px 5px var(--Toggle-shadow-color);
 
     transform: translate(calc(var(--Toggle-knob-offset) - var(--Toggle-border-size)), -50%);
@@ -218,5 +222,21 @@ export default {
 .Toggle-flat {
     --Toggle-shadow-color: none;
     --Toggle-shadow: none;
+}
+
+.Toggle-translucent {
+    --Toggle-knob-background: color-mix(
+        in srgb,
+        var(--Toggle-knob-surface),
+        transparent var(--translucency-mix-medium)
+    );
+}
+
+.Toggle-translucent::before {
+    box-shadow:
+        0 0 2px var(--shadow-color-medium),
+        0 1px 5px var(--Toggle-shadow-color),
+        0 0 3px var(--translucency-highlight-color) inset;
+    backdrop-filter: blur(var(--translucency-blur));
 }
 </style>

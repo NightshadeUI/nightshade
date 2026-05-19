@@ -4,7 +4,7 @@ import { dependency, Mesh } from 'mesh-ioc';
 import { reactive } from 'vue';
 
 import { CanvasBoxSelect } from './CanvasBoxSelect.js';
-import { CanvasConfig, type CanvasConfigSpec } from './CanvasConfig.js';
+import { CanvasConfig, CanvasConfigSpec } from './CanvasConfig.js';
 import { CanvasEvents } from './CanvasEvents.js';
 import { CanvasMove } from './CanvasMove.js';
 import { CanvasObjectRegistry } from './CanvasObjectRegistry.js';

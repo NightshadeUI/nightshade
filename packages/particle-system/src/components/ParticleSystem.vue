@@ -132,13 +132,13 @@ export default {
         getHtmlStyle(particle) {
             const size = Math.max(0, particle.size);
             return {
-                'position': 'absolute',
-                'top': 0,
-                'left': 0,
-                'width': `${size}px`,
-                'height': `${size}px`,
-                'opacity': particle.opacity,
-                'transform': this.getTransform(particle),
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: `${size}px`,
+                height: `${size}px`,
+                opacity: particle.opacity,
+                transform: this.getTransform(particle),
                 'transform-origin': 'center',
                 'will-change': 'transform, opacity',
             };
@@ -146,8 +146,8 @@ export default {
 
         getSvgStyle(particle) {
             return {
-                'opacity': particle.opacity,
-                'transform': this.getTransform(particle),
+                opacity: particle.opacity,
+                transform: this.getTransform(particle),
                 'transform-origin': 'center',
                 'transform-box': 'fill-box',
                 'will-change': 'transform, opacity',

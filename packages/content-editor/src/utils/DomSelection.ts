@@ -1,4 +1,4 @@
-import type { ContentEditor } from './ContentEditor.js';
+import { ContentEditor } from './ContentEditor.js';
 
 export class DomSelection {
 

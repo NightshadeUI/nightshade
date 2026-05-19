@@ -1,8 +1,8 @@
 import { vector2 } from '@nightshadeui/util';
-import type { Vector2 } from '@nightshadeui/util/vector2';
+import { Vector2 } from '@nightshadeui/util/vector2';
 import { createNoise2D } from 'simplex-noise';
 
-import type {
+import {
     NumberValue,
     ParticleState,
     ParticleSystemConfig,

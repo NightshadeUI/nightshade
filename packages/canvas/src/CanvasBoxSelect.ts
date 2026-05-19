@@ -1,4 +1,4 @@
-import { type Box, boxFromPoints, boxOverlap, InputStateManager, type Point } from '@nightshadeui/util';
+import { Box, boxFromPoints, boxOverlap, InputStateManager, Point } from '@nightshadeui/util';
 import { dependency } from 'mesh-ioc';
 
 import { CanvasConfig } from './CanvasConfig.js';

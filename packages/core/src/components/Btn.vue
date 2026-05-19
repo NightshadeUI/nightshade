@@ -12,6 +12,7 @@
                 'Btn-round': effectiveStyle.round,
                 'Btn-outline': effectiveStyle.outline,
                 'Btn-flat': effectiveStyle.flat,
+                'Btn-translucent': effectiveStyle.translucent && !effectiveStyle.ghost,
                 'Btn-square': resolvedProps.square,
                 'Btn-block': resolvedProps.block,
                 'Btn-disabled': resolvedProps.disabled || blocked,
@@ -91,6 +92,7 @@ export default {
         flat: { type: Boolean, default: false },
         outline: { type: Boolean, default: false },
         round: { type: Boolean, default: false },
+        translucent: { type: Boolean, default: false },
         ghost: { type: Boolean, default: false },
 
         block: { type: Boolean, default: false },
@@ -128,6 +130,7 @@ export default {
                 flat: resolvedProps.flat,
                 outline: resolvedProps.outline,
                 round: resolvedProps.round,
+                translucent: resolvedProps.translucent,
                 ghost: resolvedProps.ghost,
             };
         },
@@ -182,6 +185,11 @@ export default {
     --Btn-surface: var(--ui-surface-color);
     --Btn-surface-top: var(--ui-surface-top-color);
     --Btn-surface-bottom: var(--ui-surface-bottom-color);
+    --Btn-background: linear-gradient(
+        to bottom,
+        var(--Btn-surface-top),
+        var(--Btn-surface-bottom)
+    );
 
     --Btn-border-size: 0;
     --Btn-border-color: transparent;
@@ -217,11 +225,7 @@ export default {
     text-shadow: var(--Btn-text-shadow);
     outline: var(--input-outline-size) solid var(--Btn-outline-color);
     outline-offset: var(--input-outline-offset);
-    background: linear-gradient(
-        to bottom,
-        var(--Btn-surface-top),
-        var(--Btn-surface-bottom)
-    );
+    background: var(--Btn-background);
     box-shadow: var(--Btn-shadow);
 
     cursor: pointer;
@@ -323,6 +327,30 @@ export default {
     --Btn-surface-bottom: var(--Btn-surface);
     --Btn-text-shadow: none;
     --Btn-shadow: none;
+}
+
+.Btn-translucent {
+    --Btn-background: linear-gradient(
+        to bottom,
+        color-mix(in srgb, var(--Btn-surface-top), transparent var(--translucency-mix-light)),
+        color-mix(in srgb, var(--Btn-surface-bottom), transparent var(--translucency-mix-light))
+    );
+    --Btn-shadow:
+        0 1px 1px var(--Btn-shadow-color),
+        0 1px 5px var(--shadow-color-medium),
+        0 0 3px var(--translucency-highlight-color) inset;
+
+    backdrop-filter: blur(var(--translucency-blur));
+}
+
+.Btn-flat.Btn-translucent {
+    --Btn-shadow: none;
+}
+
+.Btn-ghost.Btn-translucent {
+    --Btn-background: transparent;
+    --Btn-shadow: none;
+    backdrop-filter: none;
 }
 
 .Btn-square {

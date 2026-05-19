@@ -1,6 +1,6 @@
 import { reactive } from 'vue';
 
-import type { ScrollerParams } from './types.js';
+import { ScrollerParams } from './types.js';
 
 export class ScrollerController {
 

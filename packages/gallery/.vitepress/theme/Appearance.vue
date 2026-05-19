@@ -28,6 +28,15 @@
                 outline
                 kind="primary" />
         </HGroup>
+        <HGroup
+            tagName="label"
+            justify="space-between">
+            <div>Translucent</div>
+            <Toggle
+                v-model="commonOptions.translucent"
+                translucent
+                kind="primary" />
+        </HGroup>
         <hr />
         <HGroup
             tagName="label"

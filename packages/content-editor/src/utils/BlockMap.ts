@@ -1,5 +1,5 @@
-import type { ContentBlock } from '../types.js';
-import type { ContentEditor } from './ContentEditor.js';
+import { ContentBlock } from '../types.js';
+import { ContentEditor } from './ContentEditor.js';
 
 export class BlockMap {
 

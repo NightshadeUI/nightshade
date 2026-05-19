@@ -55,8 +55,8 @@ export default {
         bubbleStyle() {
             const { x, y } = this.pos;
             return {
-                'left': `${x}px`,
-                'top': `${y}px`,
+                left: `${x}px`,
+                top: `${y}px`,
                 'pointer-events': 'auto',
             };
         },

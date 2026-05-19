@@ -1,4 +1,4 @@
-import { type PaletteScaleSpec } from './types.js';
+import { PaletteScaleSpec } from './types.js';
 
 export const SCALE_STEPS = [
     0, 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950,

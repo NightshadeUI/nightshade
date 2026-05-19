@@ -1,6 +1,6 @@
-import type { BlockMarkupConfig, ContentBlock, ContentBlockType } from '../types.js';
-import type { ContentEditor } from './ContentEditor.js';
-import { type InlineSanitizer } from './InlineSanitizer.js';
+import { BlockMarkupConfig, ContentBlock, ContentBlockType } from '../types.js';
+import { ContentEditor } from './ContentEditor.js';
+import { InlineSanitizer } from './InlineSanitizer.js';
 
 export class BlockSanitizer {
 

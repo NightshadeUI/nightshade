@@ -1,4 +1,4 @@
-import type { InputStateManager } from '@nightshadeui/util';
+import { InputStateManager } from '@nightshadeui/util';
 
 export interface CanvasConfigSpec {
     autoCenter?: boolean;

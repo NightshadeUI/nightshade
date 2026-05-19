@@ -1,4 +1,4 @@
-import { DEFAULT_SCALE_SPECS, type PaletteSpec } from '@nightshadeui/palette-generator/src';
+import { DEFAULT_SCALE_SPECS, PaletteSpec } from '@nightshadeui/palette-generator/src';
 import { ref } from 'vue';
 
 const STORAGE_KEY = 'nightshade-gallery-palette';

@@ -1,5 +1,5 @@
-import type { BlockMarkupConfig, ContentBlock } from '../types.js';
-import type { ContentEditor } from './ContentEditor.js';
+import { BlockMarkupConfig, ContentBlock } from '../types.js';
+import { ContentEditor } from './ContentEditor.js';
 import { escapeHtml } from './escape.js';
 
 export class BlockParser {

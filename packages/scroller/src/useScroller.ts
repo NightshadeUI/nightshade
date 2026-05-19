@@ -1,7 +1,7 @@
 import { onMounted, onUnmounted, ref, toRef } from 'vue';
 
 import { ScrollerController } from './ScrollerController.js';
-import type { ScrollerParams } from './types.js';
+import { ScrollerParams } from './types.js';
 
 export function useScroller(params: ScrollerParams = {}) {
     const scrollerEl = ref<HTMLElement | null>(null);

@@ -9,6 +9,7 @@
                 'Slider-outline': effectiveStyle.outline,
                 'Slider-round': effectiveStyle.round,
                 'Slider-flat': effectiveStyle.flat,
+                'Slider-translucent': effectiveStyle.translucent,
                 'Slider-disabled': resolvedProps.disabled,
                 'Slider-force-focus': resolvedProps.forceFocus,
                 'Slider-force-hover': resolvedProps.forceHover,
@@ -41,7 +42,6 @@
             <div
                 ref="knob"
                 class="Knob"
-                :class="`Slider-knob-style-${knobStyle}`"
                 @pointerdown="onPointerDown">
                 <Bubble
                     v-if="tooltipShown"
@@ -116,6 +116,7 @@ export default {
         round: { type: Boolean, default: false },
         flat: { type: Boolean, default: false },
         outline: { type: Boolean, default: false },
+        translucent: { type: Boolean, default: false },
         disabled: { type: Boolean },
         forceFocus: { type: Boolean, default: false },
         forceHover: { type: Boolean, default: false },
@@ -127,11 +128,6 @@ export default {
         scale: { type: Array },
         formatScale: { type: Function },
         snapThreshold: { type: Number },
-        knobStyle: {
-            type: String,
-            default: 'opaque',
-            validator: value => ['opaque', 'translucent'].includes(value),
-        },
         fillStyle: {
             type: String,
             default: 'track',
@@ -207,6 +203,7 @@ export default {
                 round: resolvedProps.round,
                 outline: resolvedProps.outline,
                 flat: resolvedProps.flat,
+                translucent: resolvedProps.translucent,
             };
         },
 
@@ -438,6 +435,7 @@ export default {
     --Slider-track-surface: var(--color-base-200);
     --Slider-fill-surface: var(--ui-surface-color);
     --Slider-knob-surface: light-dark(var(--color-base-0), var(--color-base-800));
+    --Slider-knob-background: var(--Slider-knob-surface);
 
     --Slider-border-size: 0px;
     --Slider-border-color: transparent;
@@ -511,7 +509,7 @@ export default {
     transform: translate(-50%, -50%);
 
     border-radius: var(--Slider-knob-radius);
-    background: var(--Slider-knob-surface);
+    background: var(--Slider-knob-background);
     box-shadow: var(--Slider-knob-shadow);
     outline: var(--input-outline-size) solid var(--Slider-outline-color);
 
@@ -635,13 +633,20 @@ export default {
     --Slider-track-shadow: none;
 }
 
-.Knob.Slider-knob-style-translucent {
+.Slider-translucent {
     --Slider-knob-shadow:
         0 0 2px var(--shadow-color-medium),
         0 1px 5px var(--shadow-color-light),
-        0 0 3px rgba(255,255,255,.5) inset;
-    background: color-mix(in srgb, var(--Slider-knob-surface), transparent 75%);
-    backdrop-filter: blur(3px);
+        0 0 3px var(--translucency-highlight-color) inset;
+    --Slider-knob-background: color-mix(
+        in srgb,
+        var(--Slider-knob-surface),
+        transparent var(--translucency-mix-heavy)
+    );
+}
+
+.Slider-translucent .Knob {
+    backdrop-filter: blur(var(--translucency-blur));
 }
 
 .Fill.Slider-fill-style-inset {

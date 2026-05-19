@@ -1,4 +1,4 @@
-import { type BlockMarkupConfig, type InlineMarkupConfig } from '../types.js';
+import { BlockMarkupConfig, InlineMarkupConfig } from '../types.js';
 
 export const DEFAULT_BLOCKS: BlockMarkupConfig[] = [
     { type: 'h1', tag: 'h1', label: 'Page Title' },

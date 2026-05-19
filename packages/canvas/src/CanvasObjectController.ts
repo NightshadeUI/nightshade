@@ -1,4 +1,4 @@
-import { type Box, type Point, subtractPoints } from '@nightshadeui/util/src';
+import { Box, Point, subtractPoints } from '@nightshadeui/util/src';
 import { clamp } from '@nightshadeui/util/src';
 import { dependency } from 'mesh-ioc';
 
@@ -7,7 +7,7 @@ import { CanvasEvents } from './CanvasEvents.js';
 import { CanvasMove } from './CanvasMove.js';
 import { CanvasSelection } from './CanvasSelection.js';
 import { CanvasSpace } from './CanvasSpace.js';
-import { type CanvasResizeDirection, type CanvasResizeMode } from './types.js';
+import { CanvasResizeDirection, CanvasResizeMode } from './types.js';
 
 export interface CanvasObjectPos {
     x: number;

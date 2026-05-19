@@ -1,6 +1,6 @@
-import type { ContentBlock } from '../types.js';
+import { ContentBlock } from '../types.js';
 import { FAST_UPDATE_INPUT_TYPES } from './constants.js';
-import type { ContentEditor } from './ContentEditor.js';
+import { ContentEditor } from './ContentEditor.js';
 
 export class EditorInputHandler {
 
