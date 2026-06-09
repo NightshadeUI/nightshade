@@ -81,7 +81,8 @@
                 v-for="tick in scaleTicks"
                 :key="tick"
                 class="Tick"
-                :style="tickStyle(tick)">
+                :data-value="tick"
+                :style="tickElementStyle(tick)">
                 <div class="Mark" />
                 <div class="Label">{{ scaleLabel(tick) }}</div>
             </div>
@@ -127,6 +128,7 @@ export default {
         tooltipKind: { type: String, default: 'inverse' },
         scale: { type: Array },
         formatScale: { type: Function },
+        tickStyle: { type: Function },
         snapThreshold: { type: Number },
         fillStyle: {
             type: String,
@@ -304,15 +306,14 @@ export default {
             }
         },
 
-        tickStyle(tick) {
-            const { min, max } = this.resolvedProps;
+        tickElementStyle(tick) {
+            const { min, max, tickStyle } = this.resolvedProps;
             const span = max - min;
             const ratio = span ? (tick - min) / span : 0;
-            return { left: this.insetPosition(ratio) };
-        },
-
-        insetPosition(ratio) {
-            return `calc(var(--Slider-knob-size) / 2 + ${ratio} * (100% - var(--Slider-knob-size)))`;
+            return Object.assign(
+                { '--Slider-ratio': ratio },
+                tickStyle?.(tick),
+            );
         },
 
         scaleLabel(tick) {
@@ -580,6 +581,7 @@ export default {
 
 .Tick {
     position: absolute;
+    left: calc(var(--Slider-knob-size) / 2 + var(--Slider-ratio) * (100% - var(--Slider-knob-size)));
     transform: translateX(-50%);
     text-align: center;
 }
