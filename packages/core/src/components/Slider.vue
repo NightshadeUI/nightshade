@@ -29,20 +29,22 @@
         @focusin="focus = true"
         @focusout="focus = false">
         <div
+            ref="hitArea"
+            class="HitArea"
+            @pointerdown="onPointerDown" />
+        <div
             ref="trackArea"
             class="TrackArea">
             <div
                 ref="rail"
-                class="Track"
-                @pointerdown="onPointerDown">
+                class="Track">
                 <div
                     class="Fill"
                     :class="`Slider-fill-style-${fillStyle}`" />
             </div>
             <div
                 ref="knob"
-                class="Knob"
-                @pointerdown="onPointerDown">
+                class="Knob">
                 <Bubble
                     v-if="tooltipShown"
                     :class="`Tooltip ui-${resolvedProps.tooltipKind}`"
@@ -329,7 +331,7 @@ export default {
                 return;
             }
             this.dragging = true;
-            this.$refs.rail?.setPointerCapture(ev.pointerId);
+            this.$refs.hitArea?.setPointerCapture(ev.pointerId);
             this.setValue(this.valueFromClientX(ev.clientX));
             window.addEventListener('pointermove', this.onPointerMove);
             window.addEventListener('pointerup', this.onPointerUp);
@@ -347,7 +349,7 @@ export default {
                 return;
             }
             this.dragging = false;
-            this.$refs.rail?.releasePointerCapture(ev.pointerId);
+            this.$refs.hitArea?.releasePointerCapture(ev.pointerId);
             window.removeEventListener('pointermove', this.onPointerMove);
             window.removeEventListener('pointerup', this.onPointerUp);
         },
@@ -451,6 +453,7 @@ export default {
     --Slider-tooltip-text: var(--text-color);
     --Slider-tooltip-shadow-color: var(--shadow-color-light);
 
+    position: relative;
     display: block;
     width: 100%;
 
@@ -459,9 +462,17 @@ export default {
     user-select: none;
 }
 
+.HitArea {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
 .TrackArea {
     position: relative;
+    z-index: 1;
     height: var(--Slider-knob-size);
+    pointer-events: none;
 }
 
 .Track {
@@ -575,6 +586,7 @@ export default {
 
 .Scale {
     position: relative;
+    z-index: 1;
     margin-top: var(--sp1);
     height: var(--sp3);
 }
@@ -606,6 +618,10 @@ export default {
 .Slider-disabled {
     cursor: not-allowed;
     opacity: .5;
+}
+
+.Slider-disabled .HitArea {
+    pointer-events: none;
 }
 
 .Slider:not(.Slider-disabled):hover .Track,
