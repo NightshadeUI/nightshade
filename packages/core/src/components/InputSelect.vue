@@ -134,8 +134,12 @@ export default {
             return `${option?.group ?? ''}:${String(option?.value ?? '')}`;
         },
 
-        onBaseClick() {
+        onBaseClick(ev) {
             const select = this.$refs.input;
+            if (ev.target === select) {
+                return;
+            }
+            ev.preventDefault();
             if (typeof select.showPicker === 'function') {
                 select.showPicker();
             } else {
