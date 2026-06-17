@@ -1,31 +1,31 @@
 <template>
-    <teleport to="#overlays">
-        <div
-            class="Overlay"
-            :class="{
-                'Overlay-enabled': resolvedProps.overlayEnabled,
-                'Overlay-shown': resolvedProps.overlayShown,
-            }"
-            @click.stop="hide()">
-            <Bubble
-                v-if="ready"
-                :dir="actualDir"
-                :align="actualAlign"
-                :style="bubbleStyle"
-                :arrowShown="resolvedProps.arrowShown"
-                @mouseenter="$emit('mouseenter')"
-                @mouseleave="$emit('mouseleave')"
-                @click.stop="">
-                <slot />
-            </Bubble>
-        </div>
-    </teleport>
+    <ModalOverlay
+        :overlayEnabled="resolvedProps.overlayEnabled"
+        :overlayShown="resolvedProps.overlayShown"
+        @hide="hide">
+        <Bubble
+            v-if="ready"
+            :dir="actualDir"
+            :align="actualAlign"
+            :style="bubbleStyle"
+            :arrowShown="resolvedProps.arrowShown"
+            @mouseenter="$emit('mouseenter')"
+            @mouseleave="$emit('mouseleave')"
+            @click.stop="">
+            <slot />
+        </Bubble>
+    </ModalOverlay>
 </template>
 
 <script>
 import { nightshadeMixin } from '../utils/props';
+import ModalOverlay from './ModalOverlay.vue';
 
 export default {
+
+    components: {
+        ModalOverlay,
+    },
 
     mixins: [nightshadeMixin],
 
@@ -66,12 +66,10 @@ export default {
     mounted() {
         this.$nextTick(() => this.calcPos());
         window.addEventListener('resize', this.onResize);
-        window.addEventListener('keydown', this.onKeyDown);
     },
 
     beforeUnmount() {
         window.removeEventListener('resize', this.onResize);
-        window.removeEventListener('keydown', this.onKeyDown);
     },
 
     methods: {
@@ -162,35 +160,7 @@ export default {
             this.calcPos();
         },
 
-        onKeyDown(ev) {
-            if (ev.key === 'Escape') {
-                ev.preventDefault();
-                this.hide();
-            }
-        },
-
     },
 
 };
 </script>
-
-<style scoped>
-.Overlay {
-    --ContextPopup-overlay-surface: var(--overlay-surface);
-
-    position: fixed;
-    z-index: 2000;
-    inset: 0;
-    pointer-events: none;
-}
-
-.Overlay-enabled {
-    pointer-events: auto;
-    overscroll-behavior: none;
-    overflow: auto;
-}
-
-.Overlay-shown {
-    background: var(--ContextPopup-overlay-surface);
-}
-</style>

@@ -11,6 +11,7 @@ import InputGroup from './InputGroup.vue';
 import InputSelect from './InputSelect.vue';
 import InputText from './InputText.vue';
 import InputTextarea from './InputTextarea.vue';
+import ModalOverlay from './ModalOverlay.vue';
 import RouterBtn from './RouterBtn.vue';
 import Slider from './Slider.vue';
 import Tab from './Tab.vue';
@@ -33,6 +34,7 @@ export {
     InputSelect,
     InputText,
     InputTextarea,
+    ModalOverlay,
     RouterBtn,
     Slider,
     Tab,
