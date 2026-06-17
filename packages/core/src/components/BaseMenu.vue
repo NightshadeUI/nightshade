@@ -162,7 +162,6 @@ export default {
 
 .Title {
     flex: 1;
-    align-self: flex-start;
     text-align: left;
 }
 
