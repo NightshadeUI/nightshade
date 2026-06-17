@@ -1,6 +1,6 @@
 {
     "name": "@nightshadeui/scroller",
-    "version": "2.20.3",
+    "version": "2.20.4",
     "description": "Scroll progress composable for Nightshade Vue apps",
     "author": "Boris Okunskiy",
     "license": "ISC",
