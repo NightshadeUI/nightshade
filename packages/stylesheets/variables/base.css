@@ -2,8 +2,8 @@
 
     /* Main colors */
 
-    --base-color: var(--ui-base-surface-color);
-    --text-color: var(--ui-base-text-color);
+    --base-color: var(--color-base-0);
+    --text-color: var(--color-base-950);
     --text-color-subtle: var(--color-base-600);
     --text-color-sublime: var(--color-base-500);
     --overlay-surface: light-dark(rgba(0,0,0,.1), rgba(0,0,0,.2));

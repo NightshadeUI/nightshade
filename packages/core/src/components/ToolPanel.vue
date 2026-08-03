@@ -39,10 +39,10 @@ export default {
     --ToolPanel-padding: var(--input-minor-padding);
     --ToolPanel-gap: var(--input-gap);
 
-    --ToolPanel-surface: var(--color-base-100);
+    --ToolPanel-surface: var(--color-base-200);
 
     --ToolPanel-border-size: 0;
-    --ToolPanel-border-color: var(--color-base-200);
+    --ToolPanel-border-color: var(--color-base-300);
     --ToolPanel-radius: var(--border-radius);
 
     --ToolPanel-shadow-color: var(--shadow-color-light);
