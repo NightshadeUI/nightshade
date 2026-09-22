@@ -23,6 +23,7 @@
         :aria-disabled="resolvedProps.disabled || undefined"
         tabindex="0"
         :style="{ '--Slider-ratio': ratio }"
+        @pointerdown="onPointerDown"
         @keydown="onKeydown"
         @mouseenter="hover = true"
         @mouseleave="hover = false"
@@ -30,8 +31,7 @@
         @focusout="focus = false">
         <div
             ref="hitArea"
-            class="HitArea"
-            @pointerdown="onPointerDown" />
+            class="HitArea" />
         <div
             ref="trackArea"
             class="TrackArea">
@@ -250,8 +250,7 @@ export default {
 
     beforeUnmount() {
         clearTimeout(this.valuePulseTimer);
-        window.removeEventListener('pointermove', this.onPointerMove);
-        window.removeEventListener('pointerup', this.onPointerUp);
+        this.stopDrag();
     },
 
     methods: {
@@ -331,16 +330,18 @@ export default {
                 return;
             }
             this.dragging = true;
-            this.$refs.hitArea?.setPointerCapture(ev.pointerId);
             this.setValue(this.valueFromClientX(ev.clientX));
-            window.addEventListener('pointermove', this.onPointerMove);
+            window.addEventListener('pointermove', this.onPointerMove, { passive: false });
             window.addEventListener('pointerup', this.onPointerUp);
+            window.addEventListener('pointercancel', this.onPointerUp);
+            this.$refs.hitArea?.setPointerCapture(ev.pointerId);
         },
 
         onPointerMove(ev) {
             if (!this.dragging) {
                 return;
             }
+            ev.preventDefault();
             this.setValue(this.valueFromClientX(ev.clientX));
         },
 
@@ -349,9 +350,17 @@ export default {
                 return;
             }
             this.dragging = false;
-            this.$refs.hitArea?.releasePointerCapture(ev.pointerId);
+            this.stopDrag();
+            const hitArea = this.$refs.hitArea;
+            if (hitArea?.hasPointerCapture(ev.pointerId)) {
+                hitArea.releasePointerCapture(ev.pointerId);
+            }
+        },
+
+        stopDrag() {
             window.removeEventListener('pointermove', this.onPointerMove);
             window.removeEventListener('pointerup', this.onPointerUp);
+            window.removeEventListener('pointercancel', this.onPointerUp);
         },
 
         startTooltipEdit() {
@@ -459,6 +468,7 @@ export default {
 
     outline: 0;
     cursor: pointer;
+    touch-action: none;
     user-select: none;
 }
 
@@ -466,6 +476,7 @@ export default {
     position: absolute;
     inset: 0;
     z-index: 0;
+    touch-action: none;
 }
 
 .TrackArea {
