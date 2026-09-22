@@ -13,6 +13,8 @@ showAppearance: true
 
 <SectionInput />
 
+<SectionInputGroup />
+
 <SectionCheckbox />
 
 <SectionToggle />
@@ -34,6 +36,7 @@ showAppearance: true
 <script setup>
 import SectionBtn from './SectionBtn.vue';
 import SectionInput from './SectionInput.vue';
+import SectionInputGroup from './SectionInputGroup.vue';
 import SectionColors from './SectionColors.vue';
 import SectionCombinations from './SectionCombinations.vue';
 import SectionToggle from './SectionToggle.vue';
