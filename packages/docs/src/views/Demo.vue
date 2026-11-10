@@ -27,22 +27,30 @@
 import { toRaw } from 'vue';
 
 /**
- * A live demo stage. Components inside follow the playground options,
+ * A live demo stage. Components inside take the app's `$nightshade.defaults`, or the site's
+ * `demoDefaults` when it provides them (a playground that sets states for every demo),
  * and the slot gets a `state` object seeded from `initial` for `v-model`.
  * With `grid`, the stage draws the spacing grid its content snaps to.
  */
 export default {
 
-    inject: [
-        'playgroundManager',
-    ],
+    inject: {
+        appDefaults: {
+            from: '$nightshade',
+            default: () => ({ defaults: {} }),
+        },
+        demoDefaults: {
+            from: 'demoDefaults',
+            default: null,
+        },
+    },
 
     provide() {
-        const playgroundManager = this.playgroundManager;
+        const source = this.demoDefaults ?? this.appDefaults;
         return {
             $nightshade: {
                 get defaults() {
-                    return playgroundManager.options;
+                    return source.defaults;
                 },
             },
         };

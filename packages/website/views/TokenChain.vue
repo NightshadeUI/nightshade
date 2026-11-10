@@ -20,8 +20,8 @@
                     :label="option"
                     :tone="axis === 'tone' ? option : 'base'"
                     size="s"
-                    :modelValue="option === current"
-                    @update:modelValue="select(option)" />
+                    :outline="option === current"
+                    @click="select(option)" />
             </div>
         </div>
         <ol
@@ -70,7 +70,7 @@
 </template>
 
 <script>
-import { inputSizes, tones } from '../helpers/commons.js';
+import { inputSizes } from '@nightshadeui/docs/src';
 
 const sizeScale = {
     xs: '--sp2-5',
@@ -93,6 +93,7 @@ export default {
 
     inject: [
         'paletteManager',
+        'stylesManager',
     ],
 
     data() {
@@ -106,7 +107,7 @@ export default {
     computed: {
 
         options() {
-            return this.axis === 'tone' ? tones : inputSizes;
+            return this.axis === 'tone' ? this.stylesManager.tones : inputSizes;
         },
 
         current() {

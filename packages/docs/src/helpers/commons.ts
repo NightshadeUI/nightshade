@@ -1,14 +1,3 @@
-export const tones = [
-    'base',
-    'inverse',
-    'primary',
-    'secondary',
-    'tertiary',
-    'success',
-    'warning',
-    'danger',
-];
-
 export const inputSizes = [
     'xs',
     's',
@@ -39,4 +28,12 @@ export const inputMetrics = [
     'gap',
 ];
 
-export const schemeStorageKey = 'nightshade-scheme';
+/** The tones every palette has: the neutral pair and the two accents the styles read by name. */
+export const requiredTones = [
+    'base',
+    'inverse',
+    'primary',
+    'secondary',
+];
+
+export const schemeStorageKey = 'nightshade-docs-scheme';

@@ -13,7 +13,8 @@
         "./src": "./src/index.ts"
     },
     "files": [
-        "dist"
+        "dist",
+        "src"
     ],
     "scripts": {
         "build:watch": "vite build --watch",

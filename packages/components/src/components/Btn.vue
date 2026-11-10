@@ -185,7 +185,7 @@ export default {
         var(--Btn-fill-bottom)
     );
 
-    --Btn-border-size: 0;
+    --Btn-border-size: 0px;
     --Btn-border: transparent;
     --Btn-radius: var(--radius-m);
 
@@ -200,7 +200,7 @@ export default {
 
     position: relative;
     margin: 0;
-    padding: 0 var(--Btn-padding);
+    padding: 0 calc(var(--Btn-padding) - var(--Btn-border-size));
     height: var(--Btn-size);
     line-height: var(--Btn-size);
     box-sizing: border-box;

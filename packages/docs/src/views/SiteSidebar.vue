@@ -1,10 +1,10 @@
 <template>
     <nav class="SiteSidebar">
         <div
-            v-for="section in navigationManager.sections"
+            v-for="section in siteManager.sections"
             :key="section.id"
             class="Section"
-            :class="{ 'Section-current': navigationManager.isInSection(section) }">
+            :class="{ 'Section-current': siteManager.isInSection(section) }">
             <a
                 :href="section.link"
                 class="SectionTitle">
@@ -15,7 +15,7 @@
                 :key="page.link"
                 :href="page.link"
                 class="PageLink"
-                :class="{ 'PageLink-current': navigationManager.isCurrent(page.link) }">
+                :class="{ 'PageLink-current': siteManager.isCurrent(page.link) }">
                 {{ page.title }}
             </a>
         </div>
@@ -26,7 +26,7 @@
 export default {
 
     inject: [
-        'navigationManager',
+        'siteManager',
     ],
 
 };

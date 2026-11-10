@@ -1,0 +1,14 @@
+{
+    "extends": "../../tsconfig.base.json",
+    "include": [
+        "src/config/*.ts",
+        "src/helpers/define-docs-config.ts",
+        "src/helpers/commons.ts",
+        "src/catalog/variables.ts"
+    ],
+    "compilerOptions": {
+        "rootDir": "src",
+        "outDir": "out",
+        "types": ["node"]
+    }
+}

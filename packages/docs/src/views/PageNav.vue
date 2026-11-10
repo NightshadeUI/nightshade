@@ -1,18 +1,18 @@
 <template>
     <nav class="PageNav">
         <a
-            v-if="navigationManager.prevPage"
-            :href="navigationManager.prevPage.link"
+            v-if="siteManager.prevPage"
+            :href="siteManager.prevPage.link"
             class="Card Card-prev">
             <span class="Hint">Previous</span>
-            <span class="Label">{{ navigationManager.prevPage.title }}</span>
+            <span class="Label">{{ siteManager.prevPage.title }}</span>
         </a>
         <a
-            v-if="navigationManager.nextPage"
-            :href="navigationManager.nextPage.link"
+            v-if="siteManager.nextPage"
+            :href="siteManager.nextPage.link"
             class="Card Card-next">
             <span class="Hint">Next</span>
-            <span class="Label">{{ navigationManager.nextPage.title }}</span>
+            <span class="Label">{{ siteManager.nextPage.title }}</span>
         </a>
     </nav>
 </template>
@@ -21,7 +21,7 @@
 export default {
 
     inject: [
-        'navigationManager',
+        'siteManager',
     ],
 
 };

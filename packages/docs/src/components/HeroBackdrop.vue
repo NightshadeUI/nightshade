@@ -55,7 +55,7 @@ const NUDGE_FORCE = 48;
 const NUDGE_FALLOFF = 240;
 
 /**
- * The hero's backdrop: primary blobs from the bottom left, secondary from the top right,
+ * A hero's backdrop: primary blobs from the bottom left, secondary from the top right,
  * and small sparks the other way around: primary from the bottom right, secondary from the top left.
  * Sparks drift toward the center and almost meet; the pointer pushes them away, which is the only way the tones mix.
  * Both are drawn with tone roles, so they follow the palette as it changes.

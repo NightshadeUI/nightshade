@@ -6,7 +6,6 @@
             effectiveStyle.tone && `tone-${effectiveStyle.tone}`,
             effectiveStyle.size && `input-size-${effectiveStyle.size}`,
             {
-                'Chip-active': isActive,
                 'Chip-round': effectiveStyle.round,
                 'Chip-outline': effectiveStyle.outline,
                 'Chip-flat': effectiveStyle.flat,
@@ -16,8 +15,7 @@
                 'Chip-forceHover': resolvedProps.forceHover,
             },
         ]"
-        :disabled="resolvedProps.disabled"
-        @click="onClick">
+        :disabled="resolvedProps.disabled">
         <slot name="before" />
         <slot>
             <i
@@ -40,8 +38,8 @@ import {
 } from '../helpers/props.js';
 
 /**
- * A compact, selectable label: filters, tags, segmented choices.
- * Sits on a tint of its tone; when active, takes the tone's fill.
+ * A compact label on the tint of its tone: tags, filters, segmented choices.
+ * Like `Btn`, it holds no selection state: the caller says how a chosen chip looks.
  */
 export default {
 
@@ -51,10 +49,8 @@ export default {
         tagName: { type: String, default: 'button' },
         label: { type: String },
         icon: { type: String },
-        modelValue: { type: Boolean, default: false },
 
         tone: { type: String },
-        activeTone: { type: String },
         size: { type: String },
         flat: { type: Boolean, default: false },
         outline: { type: Boolean, default: false },
@@ -66,34 +62,18 @@ export default {
         forceHover: { type: Boolean, default: false },
     },
 
-    emits: [
-        'update:modelValue',
-    ],
-
     computed: {
-
-        isActive() {
-            return !!this.resolvedProps.modelValue;
-        },
 
         effectiveStyle() {
             const { resolvedProps } = this;
             return {
-                tone: (this.isActive ? resolvedProps.activeTone : null) ?? resolvedProps.tone,
+                tone: resolvedProps.tone,
                 size: resolvedProps.size,
                 flat: resolvedProps.flat,
                 outline: resolvedProps.outline,
                 round: resolvedProps.round,
                 translucent: resolvedProps.translucent,
             };
-        },
-
-    },
-
-    methods: {
-
-        onClick() {
-            this.$emit('update:modelValue', !this.isActive);
         },
 
     },
@@ -130,7 +110,7 @@ export default {
     box-sizing: border-box;
     height: var(--Chip-size);
     margin: 0;
-    padding: 0 var(--Chip-padding);
+    padding: 0 calc(var(--Chip-padding) - var(--Chip-border-size));
 
     border: var(--Chip-border-size) solid var(--Chip-border);
     border-radius: var(--Chip-radius);
@@ -148,7 +128,7 @@ export default {
     cursor: pointer;
     user-select: none;
 
-    transition: background-color .2s, color .2s, border-radius .3s;
+    transition: background-color .2s, color .2s, border-color .2s, border-radius .3s;
 }
 
 .Chip::after {
@@ -180,12 +160,6 @@ export default {
     --Chip-border: var(--tone-focus-border);
 }
 
-.Chip-active {
-    --Chip-background: var(--tone-fill);
-    --Chip-text: var(--tone-fill-text);
-    --Chip-icon: var(--tone-fill-text);
-}
-
 .Chip-disabled {
     opacity: var(--input-disabled-opacity);
     filter: var(--input-disabled-filter);
@@ -211,9 +185,5 @@ export default {
     --Chip-background: color-mix(in srgb, var(--tone-tint), transparent var(--translucency-mix-medium));
     --Chip-box-shadow: 0 0 3px var(--translucency-highlight) inset;
     backdrop-filter: blur(var(--translucency-blur));
-}
-
-.Chip-translucent.Chip-active {
-    --Chip-background: color-mix(in srgb, var(--tone-fill), transparent var(--translucency-mix-light));
 }
 </style>

@@ -72,9 +72,9 @@
                     outline
                     flat />
                 <Chip
-                    label="Chip"
+                    label="Outline"
                     size="s"
-                    :modelValue="true" />
+                    outline />
                 <Chip
                     label="Tint"
                     size="s" />

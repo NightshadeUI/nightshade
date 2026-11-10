@@ -70,6 +70,17 @@ Put your CSS in its own cascade layer after Nightshade's and publish it. Apps th
 @import './roles.css' layer(acme);
 ```
 
+Ship the look too: export the `$nightshade.defaults` your system wants (`{ flat: true }`), and have every app provide them once at its root.
+
+## 7. Give it a site
+
+`@nightshadeui/docs` is a VitePress theme for the system's own documentation: a landing, navigation from `themeConfig`, and references (variables, palette, tones, scales) that read your styles live, so they show your system as it is. Import your stylesheets in the theme, register your components, and list your own variables in `themeConfig.variableGroups`.
+
+```ts
+// docs/.vitepress/config.ts
+import { defineDocsConfig } from '@nightshadeui/docs/config';
+```
+
 ## Shortcuts that cost later
 
 - Copying a component's CSS to change one color works, but changing the role it reads does the same in one line, and stays in sync.

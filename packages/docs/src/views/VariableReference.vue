@@ -64,17 +64,15 @@
                 <Chip
                     label="All tiers"
                     size="s"
-                    activeTone="primary"
-                    :modelValue="tier === null"
-                    @update:modelValue="tier = null" />
+                    :tone="tier === null ? 'primary' : undefined"
+                    @click="tier = null" />
                 <Chip
                     v-for="item in tiers"
                     :key="item.id"
                     :label="item.title"
                     size="s"
-                    activeTone="primary"
-                    :modelValue="tier === item.id"
-                    @update:modelValue="toggleTier(item.id)" />
+                    :tone="tier === item.id ? 'primary' : undefined"
+                    @click="toggleTier(item.id)" />
             </div>
             <span
                 v-if="copied"
@@ -133,10 +131,14 @@
 import { VARIABLE_GROUPS, VARIABLE_STANCES, VARIABLE_TIERS } from '../catalog/variables.js';
 
 /**
- * The whole variable vocabulary on one page: by tier, searchable,
+ * The whole variable vocabulary on one page, with the site's own groups: by tier, searchable,
  * with how far each variable is meant to be overridden.
  */
 export default {
+
+    inject: [
+        'siteManager',
+    ],
 
     data() {
         return {
@@ -152,19 +154,27 @@ export default {
 
     computed: {
 
+        /** Nightshade's groups, then the system's own. */
+        groups() {
+            return [
+                ...VARIABLE_GROUPS,
+                ...this.siteManager.config.variableGroups ?? [],
+            ];
+        },
+
         stanceInfo() {
             return Object.fromEntries(this.stances.map(item => [item.id, item]));
         },
 
         stanceCounts() {
-            const entries = VARIABLE_GROUPS.flatMap(group => group.entries);
+            const entries = this.groups.flatMap(group => group.entries);
             return Object.fromEntries(this.stances.map(item => {
                 return [item.id, entries.filter(entry => entry.stance === item.id).length];
             }));
         },
 
         stats() {
-            const names = VARIABLE_GROUPS
+            const names = this.groups
                 .filter(group => group.tier !== 'component')
                 .flatMap(group => group.entries.flatMap(entry => entry.members ?? [entry.name]))
                 .filter(name => !name.startsWith('--color-'));
@@ -208,7 +218,7 @@ export default {
     methods: {
 
         findGroups(tier) {
-            return VARIABLE_GROUPS
+            return this.groups
                 .filter(group => group.tier === tier)
                 .map(group => ({
                     ...group,
@@ -244,7 +254,7 @@ export default {
         /** The knobs this site sets differently, read from the live page. */
         readSiteValues() {
             const style = getComputedStyle(document.documentElement);
-            const entries = VARIABLE_GROUPS.flatMap(group => group.entries)
+            const entries = this.groups.flatMap(group => group.entries)
                 .filter(entry => entry.stance === 'yours' && !entry.name.includes('<'));
             for (const entry of entries) {
                 const value = style.getPropertyValue(entry.name).trim();
@@ -453,7 +463,7 @@ code {
 .Copied {
     margin-left: auto;
     font-size: var(--font-size-s);
-    color: var(--color-success-600);
+    color: var(--color-secondary-600);
 }
 
 /* Catalog */

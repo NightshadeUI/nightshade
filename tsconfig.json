@@ -2,6 +2,7 @@
     "files": [],
     "references": [
         { "path": "packages/util" },
+        { "path": "packages/docs" },
         { "path": "packages/cli" }
     ]
 }

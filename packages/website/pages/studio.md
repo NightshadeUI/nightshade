@@ -1,6 +1,6 @@
 ---
 title: Palette Studio
-layout: tool
+layout: page
 ---
 
 <PaletteStudio />

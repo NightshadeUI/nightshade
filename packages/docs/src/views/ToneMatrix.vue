@@ -9,7 +9,7 @@
                 {{ size }}
             </span>
             <template
-                v-for="tone in tones"
+                v-for="tone in stylesManager.tones"
                 :key="tone">
                 <span class="RowLabel">{{ tone }}</span>
                 <div
@@ -27,13 +27,19 @@
 </template>
 
 <script>
-import { inputSizes, tones } from '../helpers/commons.js';
+import { inputSizes } from '../helpers/commons.js';
 
+/**
+ * Every tone the page defines, at every input size.
+ */
 export default {
+
+    inject: [
+        'stylesManager',
+    ],
 
     data() {
         return {
-            tones,
             inputSizes,
         };
     },

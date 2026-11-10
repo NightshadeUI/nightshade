@@ -9,29 +9,30 @@
                 ghost
                 :outline="false"
                 @click="$emit('toggleMenu')" />
-            <a
-                href="/"
-                class="Brand">
-                <span class="Wordmark">Nightshade</span>
-                <span class="Version">3.0</span>
-            </a>
+            <SiteBrand
+                :name="siteManager.brand.name"
+                :logo="siteManager.brand.logo"
+                :version="siteManager.brand.version" />
             <nav class="Nav">
                 <a
-                    v-for="link in navigationManager.topLinks"
+                    v-for="link in siteManager.topLinks"
                     :key="link.link"
                     :href="link.link"
                     class="NavLink"
-                    :class="{ 'NavLink-active': navigationManager.isActiveTopLink(link) }">
+                    :class="{ 'NavLink-active': siteManager.isActiveTopLink(link) }">
                     {{ link.title }}
                 </a>
             </nav>
             <div class="Actions">
+                <slot name="actions" />
                 <SchemeSwitch />
                 <Btn
+                    v-for="item in siteManager.social"
+                    :key="item.link"
                     tagName="a"
-                    href="https://github.com/NightshadeUI/nightshade"
-                    icon="fab fa-github"
-                    title="GitHub"
+                    :href="item.link"
+                    :icon="item.icon"
+                    :title="item.title"
                     square
                     ghost
                     :outline="false" />
@@ -44,7 +45,7 @@
 export default {
 
     inject: [
-        'navigationManager',
+        'siteManager',
     ],
 
     props: {
@@ -79,26 +80,6 @@ export default {
     padding: 0 var(--Site-gutter);
 }
 
-.Brand {
-    display: flex;
-    align-items: baseline;
-    gap: var(--sp1);
-    flex-shrink: 0;
-}
-
-.Wordmark {
-    font-size: 26px;
-    line-height: 1;
-}
-
-.Version {
-    padding: 2px 6px;
-    border: 1px solid var(--border-base);
-    border-radius: var(--radius-l);
-    font: 600 var(--font-size-xxs)/1.2 var(--font-main);
-    color: var(--text-subtle);
-}
-
 .Nav {
     flex: 1;
     display: flex;
@@ -130,7 +111,7 @@ export default {
     gap: var(--sp0-5);
 }
 
-.MenuToggle {
+.Inner .MenuToggle {
     display: none;
 }
 
@@ -143,7 +124,7 @@ export default {
         margin-left: auto;
     }
 
-    .MenuToggle {
+    .Inner .MenuToggle {
         display: inline-flex;
         margin-left: calc(-1 * var(--sp1));
     }

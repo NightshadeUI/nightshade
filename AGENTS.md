@@ -32,6 +32,7 @@ These are the always-on rules. For the token catalog, the palette workflow, comp
 
 - Lengths are multiples of `--sp`: `--sp0-5`, `--sp1`, `--sp1-5`, `--sp2`… Prefer a token over a literal `px` whenever one exists.
 - Single-line controls have a fixed height, `--input-major-height`, and are `border-box`, so they land on the grid. Elements inside or beside them (knobs, toggles, checkboxes) take `--input-minor-height`.
+- A control's padding includes its border: `padding: 0 calc(var(--Btn-padding) - var(--Btn-border-size))`. `border-box` only holds a box that has a set size; this keeps a content-sized one the same size and its content in place when `outline` adds a border.
 - A round control's radius is half its own height (`calc(.5 * var(--Btn-size))`), never a radius token.
 
 ## Components
@@ -105,7 +106,7 @@ Nightshade is a seed for application-owned design systems: principles, styles as
 
 ### The model
 
-Principles → styles (`stylesheets`) → the app's own system. Simplicity is the first principle. Everything else is an opt-in that orbits: the palette generator (`palette-generator`, `cli`, the website's Palette Studio) writes the styles' `palette.css` and nothing else; `components`, `canvas`, `particle-system`, `scroller` and `content-editor` plug into the app. The styles never depend on an opt-in.
+Principles → styles (`stylesheets`) → the app's own system. Simplicity is the first principle. Everything else is an opt-in that orbits: the palette generator (`palette-generator`, `cli`, the website's Palette Studio) writes the styles' `palette.css` and nothing else; `components`, `canvas`, `particle-system`, `scroller` and `content-editor` plug into the app, and `docs` gives the app's system a site of its own. The styles never depend on an opt-in.
 
 ### Packages
 
@@ -113,10 +114,11 @@ Principles → styles (`stylesheets`) → the app's own system. Simplicity is th
 - Palette generator: `palette-generator` (scheme-aware OKLCH ramps and tone contexts, `PaletteSpecSchema`), `cli` (`nightshade palette`).
 - Standard components (opt-in): `components` (Vue controls and layout). Depends on `stylesheets`.
 - Other opt-ins: `canvas`, `particle-system`, `scroller`, `content-editor` (private prototype).
+- Docs theme (opt-in): `docs`, a VitePress theme for an app's own design-system site: the frame, a landing, `defineDocsConfig` and live references (variables, palette, tones, scales) that read the site's styles. Sites configure it through `themeConfig` and extend it with `extends: DocsTheme`. It knows nothing about Nightshade's own site. Its frame is single-tone, like an app's: it may read `base`, `primary` and `secondary` steps, and any other ramp only with a fallback to one of them. It ships sources, which the site's Vite compiles (`defineDocsConfig` keeps them out of pre-bundling).
 - Utility: `util` (geometry helpers, `dom/` input classes, `readStored`/`writeStored`). Framework-free.
 - Distribution: `nightshade`, a thin umbrella package. No runtime logic here.
 - Methodology: `methodology`, the rules and the `nightshade` skill for apps grown from the seed. Its `AGENTS.md` is the source of the Nightshade methodology block above (synced with `npx nightshade-methodology sync`). When the model, tokens or grammar change, update it and the skill references with them.
-- Website: `website`, the VitePress documentation site (private). It is an app grown from the seed.
+- Website: `website`, the VitePress documentation site (private). It is an app grown from the seed, built on the `docs` theme: its navigation is its `themeConfig`, and the Palette Studio, the look playground and the opt-in demos are its own.
 
 ### Library conventions
 

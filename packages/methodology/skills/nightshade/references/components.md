@@ -77,7 +77,7 @@ export default {
 
     box-sizing: border-box;
     height: var(--Tag-size);
-    padding: 0 var(--Tag-padding);
+    padding: 0 calc(var(--Tag-padding) - var(--Tag-border-size));
     border: var(--Tag-border-size) solid var(--Tag-border);
     border-radius: var(--Tag-radius);
     outline: var(--input-outline-size) solid var(--Tag-outline);
@@ -119,7 +119,8 @@ export default {
 What makes it snap:
 
 - **Context, not defaults.** `tone` and `size` have no default value, and the class is added only when the prop is set. Without them, the component inherits the region's tone and size.
-- **Heights, not padding.** A single-line control has a fixed `height` from `--input-major-height` and is `border-box`, so borders never change its size and it lands on the grid. Inner or companion elements use `--input-minor-height` and sit centered beside it.
+- **Heights, not padding.** A single-line control has a fixed `height` from `--input-major-height` and is `border-box`, so it lands on the grid. Inner or companion elements use `--input-minor-height` and sit centered beside it.
+- **Padding includes the border.** `border-box` holds only a box that has a set size, and a control's width usually comes from its content. Subtracting `--Tag-border-size` from the padding keeps the control the same size, and its content in place, when `outline` adds a border.
 - **Roles, not ramps, when it's multi-tone.** A control that takes a `tone` reads roles, and the context ramp (`--tone-200`) when none fits, never `--color-*`. A single-tone component may read ramp steps directly. Neither calls `light-dark()`.
 - **Shared states.** Disabled uses `--input-disabled-opacity` and `--input-disabled-filter`. Hover on a filled control is an overlay of `--input-hover-overlay`; hover on a well is `filter: var(--input-hover-filter)`. Focus rings use `:focus-visible` (`:focus-within` for text fields) with the focus roles.
 - **A round control's radius is half its own height**, never a radius token.

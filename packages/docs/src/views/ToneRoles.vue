@@ -7,7 +7,7 @@
                 :key="role"
                 class="ColumnLabel">{{ role }}</code>
             <template
-                v-for="tone in tones"
+                v-for="tone in stylesManager.tones"
                 :key="tone">
                 <code class="RowLabel">{{ tone }}</code>
                 <span
@@ -23,13 +23,19 @@
 </template>
 
 <script>
-import { toneRoles, tones } from '../helpers/commons.js';
+import { toneRoles } from '../helpers/commons.js';
 
+/**
+ * Every tone role, in every tone the page defines.
+ */
 export default {
+
+    inject: [
+        'stylesManager',
+    ],
 
     data() {
         return {
-            tones,
             toneRoles,
         };
     },

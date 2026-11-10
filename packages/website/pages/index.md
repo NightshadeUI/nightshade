@@ -1,5 +1,5 @@
 ---
-layout: home
+layout: page
 title: Nightshade
 titleTemplate: Grow your own design system
 ---

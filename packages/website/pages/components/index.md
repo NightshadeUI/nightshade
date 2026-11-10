@@ -45,7 +45,7 @@ The playground bar above sets the same props on every demo of this section. Try 
 | `tone` | tone name | the [tone](/styles/tones); inherits the context when omitted |
 | `size` | `xs` `s` `m` `l` `xl` | the [input size](/styles/sizing#input-sizes); inherits the context when omitted |
 | `flat` | boolean | no gradient, no raised shadow |
-| `outline` | boolean | a border in `--tone-border` |
+| `outline` | boolean | a border in `--tone-border`, inside the control's padding, so its size doesn't change |
 | `round` | boolean | radius of half the control's own height |
 | `translucent` | boolean | blends with the background and blurs it |
 | `disabled` | boolean | dimmed, and ignores input |

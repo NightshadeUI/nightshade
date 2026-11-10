@@ -1,6 +1,6 @@
 ---
 title: Variables
-layout: tool
+layout: page
 ---
 
 <VariableReference />

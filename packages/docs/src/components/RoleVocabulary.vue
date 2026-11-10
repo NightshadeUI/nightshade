@@ -45,8 +45,8 @@
                         :label="option"
                         :tone="option"
                         size="s"
-                        :modelValue="option === tone"
-                        @update:modelValue="tone = option" />
+                        :outline="option === tone"
+                        @click="tone = option" />
                 </div>
             </div>
             <div

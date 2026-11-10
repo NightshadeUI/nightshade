@@ -1,34 +1,13 @@
 import { fileURLToPath } from 'node:url';
 
-import { Features } from 'lightningcss';
-import { createCssVariablesTheme } from 'shiki/core';
-import { defineConfig } from 'vitepress';
+import { defineDocsConfig } from '@nightshadeui/docs/config';
 
-import { schemeStorageKey } from '../helpers/commons.js';
-
-const codeTheme = createCssVariablesTheme({
-    name: 'nightshade',
-    variablePrefix: '--code-',
-    fontStyle: true,
-});
-
-const schemeScript = `
-try {
-    const scheme = JSON.parse(localStorage.getItem('${schemeStorageKey}'));
-    if (scheme === 'light' || scheme === 'dark') {
-        document.documentElement.dataset.theme = scheme;
-    }
-} catch {}
-`;
-
-export default defineConfig({
+export default defineDocsConfig({
     srcDir: 'pages',
     title: 'Nightshade',
     description: 'The seed for your own design system: CSS variables first, Vue primitives optional.',
-    cleanUrls: true,
     titleTemplate: ':title · Nightshade',
     lang: 'en-US',
-    appearance: false,
     head: [
         [
             'link',
@@ -59,26 +38,199 @@ export default defineConfig({
                 href: 'https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500&family=Source+Sans+3:ital,wght@0,300..700;1,300..700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap',
             },
         ],
-        [
-            'script',
-            {},
-            schemeScript,
-        ],
     ],
-    markdown: {
-        theme: codeTheme,
+    themeConfig: {
+        brand: {
+            name: 'Nightshade',
+            version: '3.0',
+        },
+        social: [
+            {
+                title: 'GitHub',
+                icon: 'fab fa-github',
+                link: 'https://github.com/NightshadeUI/nightshade',
+            },
+        ],
+        footer: {
+            note: 'A seed for design systems. This site is grown from it: ' +
+                'the same tokens, the same primitives, its own :root.',
+            legal: 'ISC License · Boris Okunskiy and contributors',
+        },
+        tones: [
+            'base',
+            'inverse',
+            'primary',
+            'secondary',
+            'tertiary',
+            'success',
+            'warning',
+            'danger',
+        ],
+        topLinks: [
+            {
+                title: 'Philosophy',
+                link: '/philosophy/',
+            },
+            {
+                title: 'Styles',
+                link: '/styles/',
+            },
+            {
+                title: 'Variables',
+                link: '/variables',
+            },
+            {
+                title: 'Components',
+                link: '/components/',
+            },
+            {
+                title: 'Palette Studio',
+                link: '/studio',
+            },
+        ],
+        sections: [
+            {
+                id: 'philosophy',
+                title: 'Philosophy',
+                link: '/philosophy/',
+                pages: [
+                    {
+                        title: 'The seed',
+                        link: '/philosophy/',
+                    },
+                    {
+                        title: 'The model',
+                        link: '/philosophy/layers',
+                    },
+                    {
+                        title: 'Growing your own',
+                        link: '/philosophy/ownership',
+                    },
+                ],
+            },
+            {
+                id: 'styles',
+                title: 'Styles',
+                link: '/styles/',
+                pages: [
+                    {
+                        title: 'Tokens',
+                        link: '/styles/',
+                    },
+                    {
+                        title: 'Color',
+                        link: '/styles/color',
+                    },
+                    {
+                        title: 'Tones and roles',
+                        link: '/styles/tones',
+                    },
+                    {
+                        title: 'Space and sizing',
+                        link: '/styles/sizing',
+                    },
+                    {
+                        title: 'Typography',
+                        link: '/styles/typography',
+                    },
+                    {
+                        title: 'Depth',
+                        link: '/styles/depth',
+                    },
+                    {
+                        title: 'Base and utilities',
+                        link: '/styles/base',
+                    },
+                    {
+                        title: 'Palette and CLI',
+                        link: '/styles/palette',
+                    },
+                ],
+            },
+            {
+                id: 'components',
+                title: 'Components',
+                link: '/components/',
+                pages: [
+                    {
+                        title: 'Control grammar',
+                        link: '/components/',
+                    },
+                    {
+                        title: 'Button',
+                        link: '/components/button',
+                    },
+                    {
+                        title: 'Chip',
+                        link: '/components/chip',
+                    },
+                    {
+                        title: 'Text inputs',
+                        link: '/components/inputs',
+                    },
+                    {
+                        title: 'Toggle and checkbox',
+                        link: '/components/toggle',
+                    },
+                    {
+                        title: 'Slider',
+                        link: '/components/slider',
+                    },
+                    {
+                        title: 'Layout',
+                        link: '/components/layout',
+                    },
+                    {
+                        title: 'Overlays and menus',
+                        link: '/components/overlays',
+                    },
+                ],
+            },
+            {
+                id: 'opt-ins',
+                title: 'Opt-ins',
+                link: '/opt-ins/',
+                pages: [
+                    {
+                        title: 'Overview',
+                        link: '/opt-ins/',
+                    },
+                    {
+                        title: 'Canvas',
+                        link: '/opt-ins/canvas',
+                    },
+                    {
+                        title: 'Particle system',
+                        link: '/opt-ins/particles',
+                    },
+                    {
+                        title: 'Scroller',
+                        link: '/opt-ins/scroller',
+                    },
+                    {
+                        title: 'Content editor',
+                        link: '/opt-ins/content-editor',
+                    },
+                    {
+                        title: 'Docs theme',
+                        link: '/opt-ins/docs',
+                    },
+                ],
+            },
+            {
+                id: 'release',
+                title: 'Release',
+                link: '/migration',
+                pages: [
+                    {
+                        title: 'Migrating to 3.0',
+                        link: '/migration',
+                    },
+                ],
+            },
+        ],
     },
     vite: {
         publicDir: fileURLToPath(new URL('../public', import.meta.url)),
-        css: {
-            transformer: 'lightningcss',
-            lightningcss: {
-                cssModules: true,
-                exclude: Features.LightDark,
-            },
-        },
-        build: {
-            cssMinify: 'lightningcss',
-        },
     },
 });

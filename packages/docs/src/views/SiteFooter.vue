@@ -1,15 +1,21 @@
 <template>
     <footer class="SiteFooter">
-        <div class="Inner">
+        <div
+            class="Inner"
+            :style="{ '--SiteFooter-columns': siteManager.sections.length }">
             <div class="Brand">
-                <span class="Wordmark">Nightshade</span>
-                <p class="Note">
-                    A seed for design systems. This site is grown from it:
-                    the same tokens, the same primitives, its own <code>:root</code>.
+                <SiteBrand
+                    class="FooterBrand"
+                    :name="siteManager.brand.name"
+                    :logo="siteManager.brand.logo" />
+                <p
+                    v-if="siteManager.footer.note"
+                    class="Note">
+                    {{ siteManager.footer.note }}
                 </p>
             </div>
             <div
-                v-for="section in navigationManager.sections"
+                v-for="section in siteManager.sections"
                 :key="section.id"
                 class="Column">
                 <a
@@ -26,8 +32,10 @@
                 </a>
             </div>
         </div>
-        <div class="Legal">
-            ISC License · Boris Okunskiy and contributors
+        <div
+            v-if="siteManager.footer.legal"
+            class="Legal">
+            {{ siteManager.footer.legal }}
         </div>
     </footer>
 </template>
@@ -36,7 +44,7 @@
 export default {
 
     inject: [
-        'navigationManager',
+        'siteManager',
     ],
 
 };
@@ -51,16 +59,15 @@ export default {
 
 .Inner {
     display: grid;
-    grid-template-columns: 2fr repeat(5, 1fr);
+    grid-template-columns: 2fr repeat(var(--SiteFooter-columns), minmax(0, 1fr));
     gap: var(--sp4);
     max-width: calc(var(--Site-wide-width) + 2 * var(--Site-gutter));
     margin: 0 auto;
     padding: var(--sp8) var(--Site-gutter) var(--sp5);
 }
 
-.Wordmark {
-    font-size: 32px;
-    line-height: 1;
+.FooterBrand:not(.SiteBrand-withLogo) {
+    --SiteBrand-size: 32px;
 }
 
 .Note {

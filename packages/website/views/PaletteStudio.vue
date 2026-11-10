@@ -147,8 +147,8 @@
                             :key="tone"
                             :label="tone"
                             :tone="tone"
-                            :modelValue="tone === specimenTone"
-                            @update:modelValue="specimenTone = tone" />
+                            :outline="tone === specimenTone"
+                            @click="specimenTone = tone" />
                     </div>
                     <div
                         class="GridRow"

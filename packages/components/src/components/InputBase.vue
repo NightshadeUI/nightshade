@@ -158,7 +158,9 @@ export default {
     display: flex;
     align-items: center;
     box-sizing: border-box;
-    padding: var(--InputBase-padding-y) var(--InputBase-padding-x);
+    padding:
+        calc(var(--InputBase-padding-y) - var(--InputBase-border-size))
+        calc(var(--InputBase-padding-x) - var(--InputBase-border-size));
     gap: var(--InputBase-gap);
     width: 100%;
     min-height: var(--InputBase-size);

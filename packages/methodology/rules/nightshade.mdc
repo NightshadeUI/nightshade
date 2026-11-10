@@ -36,6 +36,7 @@ These are the always-on rules. For the token catalog, the palette workflow, comp
 
 - Lengths are multiples of `--sp`: `--sp0-5`, `--sp1`, `--sp1-5`, `--sp2`… Prefer a token over a literal `px` whenever one exists.
 - Single-line controls have a fixed height, `--input-major-height`, and are `border-box`, so they land on the grid. Elements inside or beside them (knobs, toggles, checkboxes) take `--input-minor-height`.
+- A control's padding includes its border: `padding: 0 calc(var(--Btn-padding) - var(--Btn-border-size))`. `border-box` only holds a box that has a set size; this keeps a content-sized one the same size and its content in place when `outline` adds a border.
 - A round control's radius is half its own height (`calc(.5 * var(--Btn-size))`), never a radius token.
 
 ## Components

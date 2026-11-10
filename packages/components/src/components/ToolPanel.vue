@@ -41,7 +41,7 @@ export default {
 
     --ToolPanel-background: var(--surface-deep);
 
-    --ToolPanel-border-size: 0;
+    --ToolPanel-border-size: 0px;
     --ToolPanel-border: var(--border-deep);
     --ToolPanel-radius: var(--radius-m);
 
@@ -51,7 +51,7 @@ export default {
     display: flex;
     align-items: center;
     gap: var(--ToolPanel-gap);
-    padding: var(--ToolPanel-padding);
+    padding: calc(var(--ToolPanel-padding) - var(--ToolPanel-border-size));
     height: var(--ToolPanel-size);
     min-height: 0;
 

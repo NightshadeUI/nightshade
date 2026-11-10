@@ -67,10 +67,9 @@
                             v-for="look in playgroundManager.lookOptions"
                             :key="look.key"
                             :label="look.label"
-                            tone="primary"
+                            :tone="playgroundManager.options[look.key] ? 'primary' : undefined"
                             size="s"
-                            :modelValue="playgroundManager.options[look.key]"
-                            @update:modelValue="playgroundManager.toggleOption(look.key)" />
+                            @click="playgroundManager.toggleOption(look.key)" />
                     </div>
                 </div>
                 <div class="Showcase">

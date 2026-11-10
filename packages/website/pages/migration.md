@@ -20,7 +20,7 @@ title: Migrating to 3.0
 - **The palette is yours.** `@nightshadeui/stylesheets` no longer imports one: import your generated `palette.css` next to it, or the starter `@nightshadeui/stylesheets/palette.css` while prototyping. The styles read `base`, `primary` and `secondary` by name, and the generator refuses a spec without them.
 - **The palette spec speaks ramps and curves.** `scales` is `ramps`, `lightnessScale` is `lightnessCurve`, `int` is `chroma` and `lum` is `lightness`. `reverse` is gone: replace `base-light` and `base-dark` with one `base` ramp.
 - **`@nightshadeui/core` is `@nightshadeui/components`**, and `coreComponents` is `standardComponents`. It's an opt-in: the styles don't need it.
-- **`Chip` is new**, a compact selectable label.
+- **`Chip` is new**, a compact label on the tint of its tone. Like `Btn`, it holds no selection state.
 - **Aliases are gone.** `--sphalf`, the `--sp-xs`…`--sp-xxl` aliases, the `gap="s"`-style group gaps, and `.input-size-small`-style classes.
 
 ## Props
