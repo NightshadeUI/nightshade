@@ -15,7 +15,7 @@
                 'Toggle-forceHover': resolvedProps.forceHover,
             }
         ]"
-        tabindex="0"
+        :tabindex="resolvedProps.disabled ? -1 : 0"
         @mouseenter="hover = true"
         @mouseleave="hover = false"
         @focusin="focus = true"
@@ -220,7 +220,7 @@ export default {
 }
 
 .Toggle-flat {
-    --Toggle-shadow: none;
+    --Toggle-shadow: transparent;
     --Toggle-box-shadow: none;
 }
 

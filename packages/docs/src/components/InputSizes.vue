@@ -31,49 +31,55 @@
                 {{ size.font }}
             </span>
         </div>
+        <span
+            ref="probe"
+            class="Probe" />
     </div>
 </template>
 
 <script>
-const sizes = [
-    {
-        name: 'xs',
-        height: '20px · sp2-5',
-        minor: '12px · sp1-5',
-        font: 'xs',
-    },
-    {
-        name: 's',
-        height: '24px · sp3',
-        minor: '16px · sp2',
-        font: 's',
-    },
-    {
-        name: 'm',
-        height: '32px · sp4',
-        minor: '20px · sp2-5',
-        font: 'm',
-    },
-    {
-        name: 'l',
-        height: '40px · sp5',
-        minor: '24px · sp3',
-        font: 'm',
-    },
-    {
-        name: 'xl',
-        height: '48px · sp6',
-        minor: '32px · sp4',
-        font: 'l',
-    },
-];
+import { inputSizes } from '../helpers/commons.js';
 
+/**
+ * Every control size, with the metrics it resolves to on this page.
+ */
 export default {
 
     data() {
         return {
-            sizes,
+            sizes: inputSizes.map(name => ({
+                name,
+                height: '',
+                minor: '',
+                font: '',
+            })),
         };
+    },
+
+    mounted() {
+        const unit = this.measureLength('var(--sp)');
+        for (const size of this.sizes) {
+            size.height = this.formatHeight(this.measureLength(`var(--input-size-${size.name}-major-height)`), unit);
+            size.minor = this.formatHeight(this.measureLength(`var(--input-size-${size.name}-minor-height)`), unit);
+            size.font = `${this.measureLength(`var(--input-size-${size.name}-font-size)`)}px`;
+        }
+    },
+
+    methods: {
+
+        /** The length a CSS value resolves to here, so the labels show the page's own scale. */
+        measureLength(value) {
+            const probe = this.$refs.probe;
+            probe.style.width = value;
+            return Math.round(probe.getBoundingClientRect().width * 100) / 100;
+        },
+
+        /** `32px`, and its spacing step when it lands on one (`32px · sp4`). */
+        formatHeight(length, unit) {
+            const steps = length / unit;
+            return Number.isInteger(steps * 4) ? `${length}px · sp${String(steps).replace('.', '-')}` : `${length}px`;
+        },
+
     },
 
 };
@@ -81,6 +87,7 @@ export default {
 
 <style scoped>
 .InputSizes {
+    position: relative;
     margin: var(--sp3) 0;
     border-top: 1px solid var(--border-base);
     overflow-x: auto;
@@ -126,5 +133,13 @@ export default {
 .MetricLabel {
     font-size: 10px;
     color: var(--text-faint);
+}
+
+.Probe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 0;
+    visibility: hidden;
 }
 </style>

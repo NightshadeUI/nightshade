@@ -1,7 +1,7 @@
 import '@fortawesome/fontawesome-free/css/all.css';
 import './styles/docs.css';
 
-import * as standardComponents from '@nightshadeui/components/src';
+import { standardComponents } from '@nightshadeui/components/src';
 import { Theme } from 'vitepress';
 import { Component, reactive } from 'vue';
 
@@ -19,9 +19,11 @@ export * from './managers/SiteManager.js';
 export * from './managers/StylesManager.js';
 export { default as DocsLayout } from './views/DocsLayout.vue';
 
+// `HeroBackdrop` needs the optional `@nightshadeui/particle-system`: sites register it from `./hero-backdrop`.
 const docsComponents = import.meta.glob<{ default: Component }>([
     './views/*.vue',
     './components/*.vue',
+    '!./components/HeroBackdrop.vue',
 ], { eager: true });
 
 /**
@@ -35,7 +37,7 @@ export const DocsTheme: Theme = {
     Layout: DocsLayout,
     enhanceApp({ app, router, siteData }) {
         for (const [name, component] of Object.entries(standardComponents)) {
-            app.component(name, component as Component);
+            app.component(name, component);
         }
         for (const [path, module] of Object.entries(docsComponents)) {
             app.component(path.replace(/^.*\/|\.vue$/g, ''), module.default);
@@ -43,7 +45,11 @@ export const DocsTheme: Theme = {
         const config = siteData.value.themeConfig as DocsThemeConfig;
         const siteManager = reactive(new SiteManager(config));
         siteManager.setPath(router.route.path);
-        router.onAfterRouteChange = to => siteManager.setPath(to);
+        const onAfterRouteChange = router.onAfterRouteChange;
+        router.onAfterRouteChange = async to => {
+            siteManager.setPath(to);
+            await onAfterRouteChange?.(to);
+        };
         app.provide('siteManager', siteManager);
         app.provide('appearanceManager', reactive(new AppearanceManager()));
         app.provide('stylesManager', reactive(new StylesManager(config.tones)));

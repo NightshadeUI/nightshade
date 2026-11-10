@@ -141,6 +141,31 @@ Joins adjacent controls into one: inner radii drop, and a hairline gap of `--inp
 </InputGroup>
 ```
 
+Sizes come from the context, so one class sizes a whole group. Inputs keep their joined edges inside it too:
+
+<Demo column :initial="{ query: '', view: 'grid' }" v-slot="{ state }">
+    <InputGroup v-for="size in ['s', 'm', 'l']" :key="size" :class="`input-size-${size}`">
+        <Btn icon="fas fa-magnifying-glass" square />
+        <InputText v-model="state.query" placeholder="Search" class="flex-1" />
+        <Btn label="Go" tone="primary" />
+    </InputGroup>
+    <InputGroup>
+        <Btn label="Grid" icon="fas fa-table-cells" :tone="state.view === 'grid' ? 'primary' : undefined" class="flex-1" @click="state.view = 'grid'" />
+        <Btn label="List" icon="fas fa-list" :tone="state.view === 'list' ? 'primary' : undefined" class="flex-1" @click="state.view = 'list'" />
+        <Btn label="Board" icon="fas fa-table-columns" :tone="state.view === 'board' ? 'primary' : undefined" class="flex-1" @click="state.view = 'board'" />
+    </InputGroup>
+</Demo>
+
+## Every tone and size
+
+Every tone your styles define, at every size, in both schemes. The playground bar above switches the looks and the states of all of them at once.
+
+<Demo dual stacked>
+<ToneMatrix v-slot="{ tone, size }">
+    <InputText :tone="tone" :size="size" :placeholder="tone" style="width: 112px" />
+</ToneMatrix>
+</Demo>
+
 ## Variables
 
 | Variable | Default |

@@ -5,6 +5,7 @@ import {
     RAMP_ANCHOR_INDEX,
     RAMP_STEPS,
     REQUIRED_RAMPS,
+    RESERVED_RAMPS,
 } from './constants.js';
 import { PaletteRampSpec, PaletteSpec, RampStep } from './types.js';
 
@@ -12,14 +13,12 @@ import { PaletteRampSpec, PaletteSpec, RampStep } from './types.js';
  * Emits every ramp as scheme-aware CSS values: `light-dark(<light>, <dark>)`.
  * The dark ramp is the light ramp mirrored, so a step keeps its meaning in both schemes:
  * `0` is always the canvas end, `950` always the ink end.
- * Throws when the palette lacks a ramp the styles read by name.
+ * Throws when the palette lacks a ramp the styles read by name, names a ramp twice or takes a reserved name,
+ * or has a curve without one value per step.
  */
 export function generatePaletteOklch(palette: PaletteSpec = {}) {
     const ramps = palette.ramps ?? DEFAULT_RAMPS;
-    const missing = REQUIRED_RAMPS.filter(name => !ramps.some(ramp => ramp.name === name));
-    if (missing.length > 0) {
-        throw new Error(`A palette needs these ramps, which the styles read by name: ${missing.join(', ')}.`);
-    }
+    checkPalette(palette, ramps.map(ramp => ramp.name));
     const out: Record<string, string> = {};
     for (const ramp of ramps) {
         Object.assign(out, generateRampOklch(ramp, palette));
@@ -105,4 +104,23 @@ function wrapDeclarations(selector: string, lines: string[]) {
 
 function round(value: number) {
     return Math.round(value * 10000) / 10000;
+}
+
+function checkPalette(palette: PaletteSpec, names: string[]) {
+    const missing = REQUIRED_RAMPS.filter(name => !names.includes(name));
+    if (missing.length > 0) {
+        throw new Error(`A palette needs these ramps, which the styles read by name: ${missing.join(', ')}.`);
+    }
+    const repeated = names.filter((name, index) => names.indexOf(name) !== index);
+    if (repeated.length > 0) {
+        throw new Error(`A palette names each ramp once: ${repeated.join(', ')}.`);
+    }
+    const reserved = names.filter(name => RESERVED_RAMPS.includes(name));
+    if (reserved.length > 0) {
+        throw new Error(`These ramp names are reserved: ${reserved.join(', ')}.`);
+    }
+    const curves = [palette.lightnessCurve, palette.chromaCurve];
+    if (curves.some(curve => curve && curve.length !== RAMP_STEPS.length)) {
+        throw new Error(`A palette's curves have one value per step: ${RAMP_STEPS.length} values each.`);
+    }
 }

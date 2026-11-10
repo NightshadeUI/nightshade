@@ -14,9 +14,10 @@
         "preview": "cd packages/website && npm run preview",
         "build": "npm run build --workspaces --if-present",
         "lint": "eslint --cache",
+        "test": "npm run test --workspaces --if-present",
         "preversion": "npm run build",
         "version": "bump-version && git add .",
-        "postversion": "git push origin main --tags && npm run publish:workspaces",
+        "postversion": "git push origin HEAD --tags && npm run publish:workspaces",
         "publish:workspaces": "npm publish $(ls-publish-workspaces) --access public"
     },
     "pre-commit": [

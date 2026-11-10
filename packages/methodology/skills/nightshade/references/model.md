@@ -22,7 +22,7 @@ Everything else is an opt-in: `@nightshadeui/components` (standard Vue controls)
 
 ## The tiers
 
-Four tiers for color, three for size. Each reads only the tiers before it, which is what makes the layers snap: change one link and everything after it follows.
+Four tiers for color, three for size. Each reads only the tiers before it, which is what makes the layers snap: change one link and everything after it follows. The order holds inside a tier too: a setting may pick a scale step, and a tone role may read a canvas role (`--tone-shadow: var(--shadow-medium)` for the neutral tones), never the reverse.
 
 ```
 color:  scale  →  context  →  role  →  component

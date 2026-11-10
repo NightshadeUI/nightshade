@@ -9,6 +9,7 @@ export const inputSizes = [
 export const toneRoles = [
     'text',
     'tint',
+    'tint-text',
     'fill',
     'fill-top',
     'fill-bottom',

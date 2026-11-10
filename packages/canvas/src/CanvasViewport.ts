@@ -45,11 +45,11 @@ export class CanvasViewport {
     }
 
     getCanvasStyle() {
-        const majorColor = getCssColorVar(this.viewportEl, '--canvas-grid-major-color', '#ddd');
-        const minorColor = getCssColorVar(this.viewportEl, '--canvas-grid-minor-color', '#eee');
-        const subdivisions = getCssVarNumber(this.viewportEl, '--canvas-grid-subdivisions', 4);
-        const majorRadius = getCssVarNumber(this.viewportEl, '--canvas-grid-major-radius', 2);
-        const minorRadius = getCssVarNumber(this.viewportEl, '--canvas-grid-minor-radius', 1);
+        const majorColor = getCssColorVar(this.viewportEl, '--CanvasView-grid-major-fill', 'var(--border-deep)');
+        const minorColor = getCssColorVar(this.viewportEl, '--CanvasView-grid-minor-fill', 'var(--border-base)');
+        const subdivisions = getCssVarNumber(this.viewportEl, '--CanvasView-grid-subdivisions', 4);
+        const majorRadius = getCssVarNumber(this.viewportEl, '--CanvasView-grid-major-radius', 2);
+        const minorRadius = getCssVarNumber(this.viewportEl, '--CanvasView-grid-minor-radius', 1);
         const svg = createGridDotsSvg(
             this.space.cellSize,
             subdivisions,
@@ -156,8 +156,8 @@ export class CanvasViewport {
     }
 
     private recalcCanvasMetrics() {
-        const marginCells = getCssVarNumber(this.viewportEl, '--canvas-margin-cells', 64);
-        this.space.cellSize = getCssVarNumber(this.viewportEl, '--canvas-grid-cell-size', 32);
+        const marginCells = getCssVarNumber(this.viewportEl, '--CanvasView-margin-cells', 64);
+        this.space.cellSize = getCssVarNumber(this.viewportEl, '--CanvasView-grid-cell-size', 32);
         const margin = marginCells * this.space.cellSize;
         this.space.canvasSize = { x: margin * 2, y: margin * 2 };
         this.space.canvasOrigin = { x: margin, y: margin };

@@ -34,7 +34,9 @@ export class SiteManager {
     }
 
     get currentSection() {
-        return this.sections.find(section => section.pages.some(page => this.isCurrent(page.link)));
+        return this.sections.find(section => {
+            return this.isCurrent(section.link) || section.pages.some(page => this.isCurrent(page.link));
+        });
     }
 
     get currentIndex() {
@@ -50,12 +52,11 @@ export class SiteManager {
     }
 
     setPath(href: string) {
-        const path = new URL(href, 'http://localhost').pathname;
-        this.path = path.replace(/\.html$/, '').replace(/\/index$/, '/');
+        this.path = this.normalizePath(new URL(href, 'http://localhost').pathname);
     }
 
     isCurrent(link: string) {
-        return this.path === link;
+        return this.path === this.normalizePath(link);
     }
 
     isInSection(section: DocsSection) {
@@ -64,8 +65,13 @@ export class SiteManager {
 
     /** The top link to this page, or else the one to its section. */
     isActiveTopLink(link: DocsPage) {
-        const exact = this.topLinks.some(topLink => topLink.link === this.path);
-        return exact ? this.path === link.link : this.currentSection?.link === link.link;
+        const exact = this.topLinks.some(topLink => this.isCurrent(topLink.link));
+        return exact ? this.isCurrent(link.link) : this.currentSection?.link === link.link;
+    }
+
+    /** `/styles/index.html`, `/styles/index`, `/styles/` and `/styles` are one page. */
+    private normalizePath(path: string) {
+        return path.replace(/\.html$/, '').replace(/\/index$/, '/').replace(/(.)\/$/, '$1');
     }
 
 }

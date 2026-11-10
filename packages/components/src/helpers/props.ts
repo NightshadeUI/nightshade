@@ -6,12 +6,14 @@ function hasOwnProp(source: Record<string, unknown>, key: string): boolean {
     return Object.prototype.hasOwnProperty.call(source, key);
 }
 
+/**
+ * Whether the parent set the prop. A bound `undefined` (`:tone="item.tone"`) counts as unset,
+ * so `$nightshade.defaults` still reach it.
+ */
 function hasExplicitProp(instance: any, key: string): boolean {
     const vnodeProps = instance?.$?.vnode?.props || {};
-    if (hasOwnProp(vnodeProps, key)) {
-        return true;
-    }
-    return hasOwnProp(vnodeProps, toKebabCase(key));
+    const name = hasOwnProp(vnodeProps, key) ? key : toKebabCase(key);
+    return hasOwnProp(vnodeProps, name) && vnodeProps[name] !== undefined;
 }
 
 export const nightshadeMixin = {

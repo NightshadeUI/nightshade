@@ -4,7 +4,7 @@ title: Control grammar
 
 # Control grammar
 
-<p class="Lead">The standard components are an opt-in: Vue controls that read the styles and nothing else. Every one speaks the same props. Learn them on a button, and you know them on a toggle, a chip, a slider and a text field.</p>
+<p class="Lead">The standard components are an opt-in: Vue controls that read the styles and nothing else. They share one vocabulary of props: learn it on a button, and you know it on a toggle, a chip, a slider and a text field.</p>
 
 Already have a component library? Skip this package and map that library's variables to the same roles and context. The styles don't care who reads them.
 
@@ -51,6 +51,18 @@ The playground bar above sets the same props on every demo of this section. Try 
 | `disabled` | boolean | dimmed, and ignores input |
 | `forceHover`, `forceFocus`, `forceActive` | boolean | show a state without the pointer, for docs and tests |
 | `hoverOverrides`, `focusOverrides`, `activeOverrides` | object | style props that apply only in that state |
+
+Each control takes the props that make sense for it, and none of them means something else anywhere:
+
+| Control | Takes |
+|---------|-------|
+| `Btn`, `RouterBtn` | all of them |
+| `Toggle`, `Slider` | all but `forceActive` and `activeOverrides` |
+| `Checkbox` | all but `translucent`, `forceActive` and `activeOverrides` |
+| `InputText`, `InputTextarea`, `InputSelect` | all but `translucent`, `forceActive` and `activeOverrides` |
+| `Chip` | all but `forceActive` and the state overrides |
+| `ToolPanel` | `size`, `flat`, `outline`, `round` |
+| `Tab` | `tone`, `size` |
 
 Where it makes sense, controls also take `before` and `after` slots around their content.
 
@@ -99,10 +111,36 @@ That's what the Flat, Round, Outline and Translucent switches on the home page d
 
 A few things to know:
 
-- **Explicit props win.** `<Btn :round="false">` stays square, whatever the defaults say. It's a handy way to pin a look that shouldn't follow the app.
+- **Explicit props win.** `<Btn :round="false">` stays square, whatever the defaults say. It's a handy way to pin a look that shouldn't follow the app. A bound `undefined` (`:tone="item.tone"`) isn't explicit: the defaults still apply.
 - **Defaults cascade like context.** A component that provides its own `$nightshade` overrides them for its subtree. The demos on this site do exactly that, to add the state switches (disabled, hover, focus, active) of the playground bar.
 - **Any prop can have a default,** not only the looks: `size: 's'` makes a dense app, and `tone` sets a brand tone for every control that doesn't choose one. Prefer a context class for a region, and defaults for the whole app.
 - **Every combination holds up.** Flat, round, outline and translucent are independent switches, and the standard components are built to look right in all sixteen. That's what a look-agnostic base buys you.
+
+## Combinations
+
+Controls are built to sit together: one height per size, one grid, one set of switches. Flip the playground bar above and watch them change in step, in both schemes.
+
+<Demo dual column :initial="{ name: 'Ada', comment: '', notify: true, plan: 'team', seats: 12 }" v-slot="{ state }">
+    <HGroup align="end">
+        <InputText v-model="state.name" label="Your name" labelStyle="text" class="flex-1" />
+        <Btn label="Save" tone="primary" />
+    </HGroup>
+    <InputTextarea v-model="state.comment" label="Comment" labelStyle="tab" tone="secondary" placeholder="Say something nice" />
+    <HGroup justify="space-between" wrap>
+        <InputGroup>
+            <Btn v-for="plan in ['solo', 'team', 'org']" :key="plan" :label="plan" :tone="state.plan === plan ? 'primary' : undefined" @click="state.plan = plan" />
+        </InputGroup>
+        <HGroup tagName="label">
+            <Toggle v-model="state.notify" tone="primary" />
+            Notify me
+        </HGroup>
+    </HGroup>
+    <ToolPanel>
+        <Chip :label="`${state.seats} seats`" tone="secondary" icon="fas fa-user" size="s" />
+        <Slider v-model="state.seats" :min="1" :max="50" size="s" tone="secondary" class="flex-1" />
+        <Btn icon="fas fa-check" size="s" tone="success" square />
+    </ToolPanel>
+</Demo>
 
 ## Component variables
 
@@ -120,7 +158,7 @@ The names follow one grammar across every component:
 | Kind | Holds | Examples |
 |------|-------|----------|
 | Named after a role | a color | `--Btn-fill`, `--Chip-text`, `--Toggle-border`, `--Slider-outline`, `--Btn-shadow` |
-| Named after a CSS property | a full value | `--Btn-background`, `--Btn-box-shadow`, `--Btn-text-shadow`, `--Toggle-border-size` |
+| Named after a CSS property | a full value | `--Btn-background`, `--Btn-box-shadow`, `--Btn-text-shadow`, `--Toggle-border-size`, `--Bubble-filter` |
 | Named after a metric | a length | `--Btn-size`, `--Btn-padding`, `--Btn-radius`, `--Slider-knob-size` |
 
 Parts add their name in between: `--Slider-track-background`, `--Toggle-knob-transparency`.

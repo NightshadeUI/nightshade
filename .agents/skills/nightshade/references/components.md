@@ -9,8 +9,10 @@ Every knob is defaulted on the component's root class and read without fallbacks
 | Kind | Named after | Holds | Examples |
 |------|-------------|-------|----------|
 | Color | a role | a color | `--Btn-fill`, `--Chip-text`, `--Toggle-border`, `--Btn-shadow`, `--InputBase-outline` |
-| Value | a CSS property | a full value | `--Btn-background`, `--Btn-box-shadow`, `--Toggle-border-size`, `--Chip-radius` |
+| Value | a CSS property | a full value | `--Btn-background`, `--Btn-box-shadow`, `--Toggle-border-size`, `--Chip-radius`, `--Bubble-filter` |
 | Size | a metric | a length | `--Btn-size`, `--Btn-padding`, `--Btn-gap`, `--Btn-font-size` |
+
+The property is the one the value feeds: a shadow drawn with `filter: drop-shadow()` is `--Bubble-filter`, a glyph's `text-shadow` is `--Checkbox-mark-text-shadow`. A color variable always holds a color: to drop a shadow, set its geometry (`--Btn-box-shadow: none`) or the color to `transparent`, never the color to `none`.
 
 Parts go between the component and the name: `--Slider-track-background`, `--Toggle-knob-background`, `--Slider-tooltip-text`. No `-color` suffix (`--Btn-text`, not `--Btn-text-color`) and no `-surface` suffix (`--Bubble-background`). A knob that fades a part over what's behind it is `--<Component>-<part>-transparency`, a percentage.
 
@@ -188,6 +190,7 @@ app.provide('$nightshade', reactive({
 ```
 
 - Explicit props win: `<Btn :round="false">` stays square.
+- A bound `undefined` (`:tone="item.tone"`) counts as unset, so the defaults still apply.
 - A subtree can provide its own `$nightshade` to override the defaults below it.
 - Prefer a context class (`.tone-*`, `.input-size-*`) for a region, and defaults for the whole app.
 

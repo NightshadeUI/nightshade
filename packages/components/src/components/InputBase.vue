@@ -23,7 +23,7 @@
                 v-if="resolvedProps.labelStyle === 'tab'"
                 class="Label TabLabel"
                 :label="resolvedProps.label"
-                :tone="resolvedProps.tone" />
+                :tone="effectiveStyle.tone" />
             <div
                 v-if="resolvedProps.labelStyle === 'text'"
                 class="Label TextLabel">
@@ -210,7 +210,6 @@ export default {
 }
 
 .InputBase-flat {
-    --InputBase-shadow: none;
     --InputBase-box-shadow: none;
 }
 

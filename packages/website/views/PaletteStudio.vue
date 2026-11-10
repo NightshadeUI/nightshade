@@ -197,7 +197,13 @@
 </template>
 
 <script>
-import { DEFAULT_CHROMA_CURVE, DEFAULT_LIGHTNESS_CURVE, RAMP_STEPS } from '@nightshadeui/palette-generator/src';
+import {
+    DEFAULT_CHROMA_CURVE,
+    DEFAULT_LIGHTNESS_CURVE,
+    RAMP_NAME_PATTERN,
+    RAMP_STEPS,
+    RESERVED_RAMPS,
+} from '@nightshadeui/palette-generator/src';
 
 const formats = [
     {
@@ -247,7 +253,7 @@ export default {
         newRampValid() {
             const name = this.newRampName;
             const taken = this.paletteManager.spec.ramps.some(ramp => ramp.name === name);
-            return /^[a-z][a-z0-9-]*$/.test(name) && name !== 'inverse' && !taken;
+            return new RegExp(RAMP_NAME_PATTERN).test(name) && !RESERVED_RAMPS.includes(name) && !taken;
         },
 
         exportText() {

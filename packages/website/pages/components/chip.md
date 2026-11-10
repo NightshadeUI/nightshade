@@ -41,6 +41,16 @@ A chip is a button with a smaller voice. Mark the chosen one with any prop, a to
     @click="current = tone" />
 ```
 
+## Every tone and size
+
+Every tone your styles define, at every size, in both schemes. The playground bar above switches the looks and the states of all of them at once.
+
+<Demo dual stacked>
+<ToneMatrix v-slot="{ tone, size }">
+    <Chip :tone="tone" :size="size" :label="tone" icon="fas fa-tag" />
+</ToneMatrix>
+</Demo>
+
 ## Props
 
 Chip speaks the [control grammar](/components/): `tone`, `size`, `flat`, `outline`, `round`, `translucent`, `disabled`, `forceHover` and `forceFocus`. On top of it:

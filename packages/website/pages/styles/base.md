@@ -18,7 +18,7 @@ title: Base and utilities
 
 | Classes | Sets |
 |---------|------|
-| `.color-primary` … `.color-danger` | the tone's `text` role as `color` |
+| `.color-tone` | the context tone's `text` role as `color`: `class="tone-danger color-tone"` |
 | `.color-subtle`, `.color-faint` | canvas text roles |
 | `.text-xxs` … `.text-xxxl` | font size |
 | `.text-thin` … `.text-heavy` | font weight |

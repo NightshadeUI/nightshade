@@ -41,11 +41,11 @@ export default {
     --Bubble-arrow-offset: var(--sp2);
     --Bubble-radius: var(--radius-m);
     --Bubble-shadow: var(--shadow-light);
-    --Bubble-box-shadow: 0 1px 3px var(--Bubble-shadow);
+    --Bubble-filter: drop-shadow(0 1px 3px var(--Bubble-shadow));
 
     position: absolute;
     z-index: 10;
-    filter: drop-shadow(var(--Bubble-box-shadow));
+    filter: var(--Bubble-filter);
 }
 
 .Body {

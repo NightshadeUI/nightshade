@@ -97,6 +97,14 @@ title: Button
     :activeProps="{ ghost: false, tone: 'primary' }" />
 ```
 
+## Every tone and size
+
+Every tone your styles define, at every size, in both schemes. The playground bar above switches the looks and the states of all of them at once.
+
+<Demo dual stacked>
+<ToneMatrix />
+</Demo>
+
 ## Variables
 
 | Variable | Default |

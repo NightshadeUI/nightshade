@@ -64,11 +64,19 @@ export default {
 } satisfies Theme;
 ```
 
-Import your stylesheets (Nightshade's, your palette and your `:root`): the theme brings none, so the site looks like your system. To wrap the frame, set `Layout` to a component that renders `<DocsLayout>`; its `header-actions` slot adds buttons to the header.
+Import your stylesheets (Nightshade's, your palette and your `:root`). The theme brings only what its frame needs (its own CSS, Font Awesome, the `kbd` and `transitions` modules, and the standard components, registered globally), so the site looks like your system. To wrap the frame, set `Layout` to a component that renders `<DocsLayout>`; its `header-actions` slot adds buttons to the header.
 
 ## Layouts
 
-`layout` in a page's frontmatter: `doc` (the default: sidebar, prose, outline), `home` (a landing from `hero` and `features`, then the page content) or `page` (the content at full width). In the hero, `backdrop: true` adds the particle backdrop, and `aside` names a registered component to show beside the title, on a glass card.
+`layout` in a page's frontmatter: `doc` (the default: sidebar, prose, outline), `home` (a landing from `hero` and `features`, then the page content) or `page` (the content at full width). In the hero, `backdrop` names a registered component to show behind it (`true` is `HeroBackdrop`, below), and `aside` names one to show beside the title, on a glass card.
+
+The particle backdrop is opt-in too, so the theme doesn't pull in particles for a site that never shows them. Install `@nightshadeui/particle-system` and register it:
+
+```ts
+import HeroBackdrop from '@nightshadeui/docs/hero-backdrop';
+
+app.component('HeroBackdrop', HeroBackdrop);
+```
 
 ```md
 ---
@@ -97,7 +105,7 @@ Registered globally, so pages use them by name:
 |-----------|-------|
 | `<VariableReference />` | every variable, by tier, searchable, with override guidance and your site's values |
 | `<PaletteReference />` | every ramp the page defines, live |
-| `<ToneMatrix />`, `<ToneRoles />` | every tone at every size, and every tone role |
+| `<ToneMatrix />`, `<ToneRoles />` | every tone at every size (a button, or your control from the `{ tone, size }` slot), and every tone role in every tone |
 | `<RoleVocabulary />` | the canvas and tone roles |
 | `<TypeScale />`, `<SpacingScale />`, `<InputSizes />` | the type, spacing and control-size scales |
-| `<Demo>` | a live stage for examples; `dual` shows both schemes |
+| `<Demo>` | a live stage for examples; `dual` shows both schemes (`stacked` puts them one above the other) |

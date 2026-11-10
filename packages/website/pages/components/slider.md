@@ -47,6 +47,16 @@ Arrow keys step by `step`; <kbd>Home</kbd> and <kbd>End</kbd> jump to the ends.
     <Slider v-model="state.value" tone="primary" fillStyle="none" />
 </Demo>
 
+## Every tone and size
+
+Every tone your styles define, at every size, in both schemes. The playground bar above switches the looks and the states of all of them at once.
+
+<Demo dual stacked>
+<ToneMatrix v-slot="{ tone, size }">
+    <Slider :tone="tone" :size="size" :modelValue="60" style="width: 96px" />
+</ToneMatrix>
+</Demo>
+
 ## Variables
 
 | Variable | Default |

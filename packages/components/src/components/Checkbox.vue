@@ -15,7 +15,7 @@
                 'Checkbox-forceHover': resolvedProps.forceHover,
             }
         ]"
-        tabindex="0"
+        :tabindex="resolvedProps.disabled ? -1 : 0"
         @mouseenter="hover = true"
         @mouseleave="hover = false"
         @focusin="focus = true"
@@ -152,7 +152,7 @@ export default {
 
     --Checkbox-box-shadow: 0 1px 3px var(--Checkbox-shadow) inset, 0 0 5px -1px var(--Checkbox-shadow) inset;
     --Checkbox-shadow: var(--shadow-light);
-    --Checkbox-mark-box-shadow: 0 1px 1px var(--text-shadow-auto);
+    --Checkbox-mark-text-shadow: 0 1px 1px var(--text-shadow-auto);
 
     display: inline-flex;
     align-items: center;
@@ -172,7 +172,7 @@ export default {
 
     font-size: var(--Checkbox-size);
     color: var(--tone-fill-text);
-    text-shadow: var(--Checkbox-mark-box-shadow);
+    text-shadow: var(--Checkbox-mark-text-shadow);
     box-shadow: var(--Checkbox-box-shadow);
 
     cursor: pointer;
@@ -250,7 +250,7 @@ export default {
 
 .Checkbox-flat {
     --Checkbox-box-shadow: none;
-    --Checkbox-shadow: none;
-    --Checkbox-mark-box-shadow: none;
+    --Checkbox-shadow: transparent;
+    --Checkbox-mark-text-shadow: none;
 }
 </style>

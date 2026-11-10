@@ -27,9 +27,11 @@ titleTemplate: Grow your own design system
 <HomeSection
     title="Two axes"
     tagline="Any tone, five sizes, one grammar."
-    text="Every control takes the same tone and size, and the same switches: flat, outline, round, translucent. Toggle them in the hero above: the styles are look-agnostic, so every combination has to hold up.">
+    text="Controls take the same tone and size, and the same switches where they apply: flat, outline, round, translucent. Toggle them in the hero above: the styles are look-agnostic, so every combination has to hold up.">
 
+<Demo>
 <ToneMatrix />
+</Demo>
 
 </HomeSection>
 
@@ -105,6 +107,7 @@ The styles are the whole foundation. Add `@nightshadeui/components` if you want 
 ### Generate your palette
 
 ```bash
+npm i -D @nightshadeui/cli
 npx nightshade palette -f palette.json -o src/palette.css
 ```
 

@@ -39,10 +39,14 @@ const canvas = new CanvasController();
 
 ## Variables
 
+Set them on a class of yours on the `CanvasView`, like any component knob. The controller reads the grid ones from the viewport, with the same defaults, so they work without the component too.
+
 | Variable | Default |
 |----------|---------|
-| `--canvas-background` | `--surface-base` |
-| `--canvas-grid-cell-size` | `32px` |
-| `--canvas-grid-subdivisions` | `4` |
-| `--canvas-grid-major-color`, `--canvas-grid-minor-color` | grid dot colors |
-| `--canvas-box-select-color` | `--color-primary-500` |
+| `--CanvasView-background` | `--surface-base` |
+| `--CanvasView-margin-cells` | `64`, the empty cells around the origin |
+| `--CanvasView-grid-cell-size` | `32px` |
+| `--CanvasView-grid-subdivisions` | `4` |
+| `--CanvasView-grid-major-fill`, `--CanvasView-grid-minor-fill` | `--border-deep`, `--border-base`: the grid dots |
+| `--CanvasView-grid-major-radius`, `--CanvasView-grid-minor-radius` | `2px`, `1px` |
+| `--CanvasBoxSelect-fill`, `--CanvasBoxSelect-opacity` | `--tone-fill` in `primary`, `0.1` |

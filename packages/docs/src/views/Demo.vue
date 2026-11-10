@@ -3,6 +3,7 @@
         class="Demo"
         :class="{
             'Demo-dual': dual,
+            'Demo-stacked': stacked,
             'Demo-column': column,
             'Demo-grid': grid,
         }">
@@ -30,7 +31,8 @@ import { toRaw } from 'vue';
  * A live demo stage. Components inside take the app's `$nightshade.defaults`, or the site's
  * `demoDefaults` when it provides them (a playground that sets states for every demo),
  * and the slot gets a `state` object seeded from `initial` for `v-model`.
- * With `grid`, the stage draws the spacing grid its content snaps to.
+ * With `grid`, the stage draws the spacing grid its content snaps to. With `dual`, the schemes stand side by side,
+ * or one above the other with `stacked`, for wide content.
  */
 export default {
 
@@ -58,6 +60,7 @@ export default {
 
     props: {
         dual: { type: Boolean, default: false },
+        stacked: { type: Boolean, default: false },
         column: { type: Boolean, default: false },
         grid: { type: Boolean, default: false },
         initial: { type: Object, default: () => ({}) },
@@ -93,6 +96,10 @@ export default {
 
 .Demo-dual {
     grid-template-columns: 1fr 1fr;
+}
+
+.Demo-stacked {
+    grid-template-columns: minmax(0, 1fr);
 }
 
 .Stage {

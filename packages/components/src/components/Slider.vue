@@ -21,7 +21,7 @@
         :aria-valuemax="resolvedProps.max"
         :aria-valuenow="currentValue"
         :aria-disabled="resolvedProps.disabled || undefined"
-        tabindex="0"
+        :tabindex="resolvedProps.disabled ? -1 : 0"
         :style="{ '--Slider-ratio': ratio }"
         @pointerdown="onPointerDown"
         @keydown="onKeydown"

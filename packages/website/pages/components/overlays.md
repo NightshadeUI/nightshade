@@ -29,7 +29,26 @@ A surface with an arrow. `dir` is the side the bubble opens towards; `align` is 
     </div>
 </Demo>
 
+Every side and alignment:
+
+<Demo dual>
+    <div class="BubbleMatrix">
+        <template v-for="dir in ['top', 'bottom', 'left', 'right']" :key="dir">
+            <Bubble v-for="align in ['start', 'center', 'end']" :key="align" :dir="dir" :align="align">
+                <div class="BubbleContent">{{ dir }} · {{ align }}</div>
+            </Bubble>
+        </template>
+    </div>
+</Demo>
+
 <style>
+.BubbleMatrix {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    gap: var(--sp3);
+    padding: var(--sp1);
+}
+
 .BubbleAnchor {
     position: relative;
     width: 160px;
@@ -131,7 +150,40 @@ const items: MenuItem[] = [
 ];
 ```
 
-`BaseMenu` is the same menu without the popup, for sidebars and panels. Arrow keys move between items.
+## BaseMenu
+
+The same menu without the popup, for sidebars and panels. Arrow keys move between items. It takes `size` and `round`; items take `checked`, `disabled`, `tone`, `ghost: false` for a filled item and `outline`.
+
+<Demo dual :initial="{ view: 'grid', sort: 'name' }" v-slot="{ state }">
+    <BaseMenu
+        size="s"
+        class="MenuSample"
+        :items="[
+            { type: 'header', title: 'View' },
+            { title: 'Grid', icon: 'fas fa-table-cells', value: 'grid', checked: state.view === 'grid' },
+            { title: 'List', icon: 'fas fa-list', value: 'list', checked: state.view === 'list' },
+            { type: 'separator' },
+            { title: 'Export', icon: 'fas fa-file-export', value: 'export', disabled: true },
+            { title: 'Delete', icon: 'fas fa-trash-can', value: 'delete', tone: 'danger' },
+        ]"
+        @activate="item => { if (item.value === 'grid' || item.value === 'list') state.view = item.value; }" />
+    <BaseMenu
+        round
+        class="MenuSample"
+        :items="[
+            { type: 'header', title: 'Sort by' },
+            { title: 'Name', value: 'name', tone: 'primary', ghost: state.sort !== 'name' },
+            { title: 'Date', value: 'date', tone: 'primary', ghost: state.sort !== 'date' },
+            { title: 'Size', value: 'size', tone: 'primary', ghost: state.sort !== 'size' },
+        ]"
+        @activate="item => { state.sort = item.value; }" />
+</Demo>
+
+<style>
+.MenuSample {
+    width: 180px;
+}
+</style>
 
 ## ModalOverlay
 

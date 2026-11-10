@@ -13,6 +13,12 @@ export const RAMP_ANCHOR_INDEX = 6;
  */
 export const REQUIRED_RAMPS = ['base', 'primary', 'secondary'];
 
+/** Ramp names the generator won't take: `inverse` is the mirrored `base` tone the styles define. */
+export const RESERVED_RAMPS = ['inverse'];
+
+/** Ramp names are lowercase kebab-case, so each one makes a valid `.tone-<name>` class. */
+export const RAMP_NAME_PATTERN = '^[a-z][a-z0-9]*(-[a-z0-9]+)*$';
+
 export const DEFAULT_LIGHTNESS_CURVE = [
     1, 0.98, 0.94, 0.88, 0.80, 0.72, 0.64, 0.56, 0.48, 0.42, 0.36, 0.32,
 ];

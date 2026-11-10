@@ -42,19 +42,21 @@ A `.tone-*` class sets the **context ramp**: `--tone-0` to `--tone-950` and `--t
 
 Roles are stated once, against the context ramp, and every tone context re-resolves them. That's the whole vocabulary a control needs:
 
-| Role | Chromatic tones | Neutral tones | Meaning |
-|------|-----------------|---------------|---------|
-| `--tone-text` | `500` | `900` | tone-colored text and icons on the canvas |
-| `--tone-tint` | `100` | `100` | a soft background: chips, callouts, selection |
-| `--tone-tint-text` | `900` | `900` | text on the tint |
-| `--tone-fill` | `500` | `100` | the solid fill of a control |
-| `--tone-fill-top`, `--tone-fill-bottom` | `400` to `600` | `0` to `200` | the two ends of the fill's bevel |
-| `--tone-fill-text` | contrast | `950` | text on the fill |
-| `--tone-border` | `600` | `400` | the edge of a control |
-| `--tone-shadow` | `800` | `--shadow-medium` | the tinted part of a raised control's shadow |
-| `--tone-focus-outline`, `--tone-focus-border` | `300`, `600` | secondary `300`, `600` | the focus ring, outside and inside |
+| Role | Chromatic tones | `base` | `inverse` | Meaning |
+|------|-----------------|--------|-----------|---------|
+| `--tone-text` | `500` | `900` | `0` | tone-colored text and icons on the canvas |
+| `--tone-tint` | `100` | `100` | `100` | a soft background: chips, callouts, selection |
+| `--tone-tint-text` | `900` | `900` | `900` | text on the tint |
+| `--tone-fill` | `500` | `100` | `0` | the solid fill of a control |
+| `--tone-fill-top`, `--tone-fill-bottom` | `400` to `600` | `0` to `200` | `200` to `0` | the two ends of the fill's bevel |
+| `--tone-fill-text` | contrast | `950` | `950` | text on the fill |
+| `--tone-border` | `600` | `400` | `0` | the edge of a control |
+| `--tone-shadow` | `800` | `--shadow-medium` | `0` (dark: `500`) | the tinted part of a raised control's shadow |
+| `--tone-focus-outline`, `--tone-focus-border` | `300`, `600` | secondary `300`, `600` | secondary `300`, `600` | the focus ring, outside and inside |
 
-Neutral tones override a few roles because they fill controls from the canvas end of the ramp, not from its middle. That's the only difference between tones.
+Steps are read from the tone's own context ramp, so `inverse`'s `0` is `base`'s `950`.
+
+The neutral tones override a few roles because they fill controls from the canvas end of the ramp, not from its middle; `inverse` fills from the far end, so its fill, border, text and shadow differ from `base`'s too. That's the only difference between tones.
 
 <ToneRoles />
 

@@ -56,16 +56,6 @@ export default defineDocsConfig({
                 'the same tokens, the same primitives, its own :root.',
             legal: 'ISC License · Boris Okunskiy and contributors',
         },
-        tones: [
-            'base',
-            'inverse',
-            'primary',
-            'secondary',
-            'tertiary',
-            'success',
-            'warning',
-            'danger',
-        ],
         topLinks: [
             {
                 title: 'Philosophy',

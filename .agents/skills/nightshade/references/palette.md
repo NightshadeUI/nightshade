@@ -36,6 +36,7 @@ Every field is optional. Leave out `ramps` and you get the starter seven: `base`
 ## Generating
 
 ```bash
+npm i -D @nightshadeui/cli
 npx nightshade palette -f palette.json -o src/styles/palette.css
 ```
 

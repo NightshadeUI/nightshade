@@ -1,6 +1,8 @@
 <template>
     <div class="ToneRoles">
-        <div class="Grid">
+        <div
+            class="Grid"
+            :style="{ gridTemplateColumns: `72px repeat(${toneRoles.length}, minmax(40px, 1fr))` }">
             <span class="Corner" />
             <code
                 v-for="role in toneRoles"
@@ -51,7 +53,6 @@ export default {
 
 .Grid {
     display: grid;
-    grid-template-columns: 72px repeat(10, minmax(40px, 1fr));
     gap: var(--sp0-5);
     min-width: 560px;
 }

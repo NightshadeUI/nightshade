@@ -8,7 +8,7 @@
                 'Hero-aside': hero.aside,
             }">
             <ClientOnly v-if="hero.backdrop">
-                <HeroBackdrop />
+                <component :is="backdrop" />
             </ClientOnly>
             <div class="HeroInner">
                 <div class="HeroCopy">
@@ -79,7 +79,8 @@
 <script>
 /**
  * The landing, from the page's frontmatter: a `hero` (`logo`, `name`, `title`, `tagline`, `actions`;
- * `backdrop: true` for the particle backdrop, `aside` for the name of a registered component to show beside it)
+ * `backdrop` for the name of a registered component behind it, `true` for `HeroBackdrop`;
+ * `aside` for the name of a registered component to show beside it)
  * and `features` (`icon`, `title`, `details`, `link`). The page's own content follows it.
  */
 export default {
@@ -88,6 +89,10 @@ export default {
 
         hero() {
             return this.$frontmatter.hero;
+        },
+
+        backdrop() {
+            return this.hero.backdrop === true ? 'HeroBackdrop' : this.hero.backdrop;
         },
 
         features() {

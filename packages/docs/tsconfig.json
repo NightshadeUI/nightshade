@@ -4,7 +4,8 @@
         "src/config/*.ts",
         "src/helpers/define-docs-config.ts",
         "src/helpers/commons.ts",
-        "src/catalog/variables.ts"
+        "src/catalog/variables.ts",
+        "src/test/*.ts"
     ],
     "compilerOptions": {
         "rootDir": "src",

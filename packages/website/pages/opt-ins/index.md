@@ -10,7 +10,7 @@ title: Opt-ins
 
 - **Behavior lives in a controller**: a plain class with `mount` and `unmount` and reactive state. The component is a thin view over it, and you can skip it.
 - **It speaks the grammar.** Controls inside an opt-in take `tone` and `size` like any other.
-- **It brings no new colors.** Its own knobs are prefixed with its name and default to roles: `--canvas-grid-major-color`, not a hex.
+- **It brings no new colors.** Its own knobs follow the component grammar and default to roles: `--CanvasView-grid-major-fill` is `--border-deep`, not a hex.
 
 ## The opt-ins
 

@@ -105,7 +105,7 @@ export default {
     font-weight: 600;
 }
 
-.NavLink-active .Actions {
+.Actions {
     display: flex;
     align-items: center;
     gap: var(--sp0-5);

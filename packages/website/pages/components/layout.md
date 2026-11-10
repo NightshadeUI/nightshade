@@ -67,6 +67,18 @@ A deep strip for a row of controls. It takes `size`, `flat`, `outline` and `roun
     </ToolPanel>
 </Demo>
 
+Its height is the major height of its size, so the controls inside take the size below it:
+
+<Demo dual column :initial="{ mode: 'move' }" v-slot="{ state }">
+    <ToolPanel v-for="[panel, inner] in [['s', 'xs'], ['m', 's'], ['l', 'm'], ['xl', 'l']]" :key="panel" :size="panel">
+        <InputGroup>
+            <Btn v-for="mode in ['move', 'draw', 'erase']" :key="mode" :label="mode" :size="inner" :ghost="state.mode !== mode" :tone="state.mode === mode ? 'primary' : undefined" @click="state.mode = mode" />
+        </InputGroup>
+        <Filler />
+        <InputText v-model="state.mode" :size="inner" style="width: 96px" />
+    </ToolPanel>
+</Demo>
+
 ## Tab
 
 A tab shape with curved caps, in any of four directions. `InputBase` uses it for `labelStyle="tab"`.

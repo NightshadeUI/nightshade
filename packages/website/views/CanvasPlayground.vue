@@ -246,11 +246,8 @@ export default {
 
 <style scoped>
 .CanvasPlayground {
-    --canvas-margin-cells: 64;
-    --canvas-grid-cell-size: 32px;
-    --canvas-grid-subdivisions: 2;
-    --canvas-grid-major-color: var(--border-base);
-    --canvas-grid-minor-color: var(--border-base);
+    --CanvasView-grid-subdivisions: 2;
+    --CanvasView-grid-major-fill: var(--border-base);
 
     width: 100%;
     height: 560px;

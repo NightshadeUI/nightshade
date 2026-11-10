@@ -9,5 +9,4 @@ export interface MenuItem {
     disabled?: boolean;
     checked?: boolean;
     activate?: () => void;
-    children?: MenuItem[];
 }

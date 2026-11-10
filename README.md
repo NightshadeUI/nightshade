@@ -17,13 +17,15 @@ Opt-ins orbit your system:
 - `@nightshadeui/cli` and `@nightshadeui/palette-generator` write your `palette.css`: scheme-aware ramps and one tone per ramp.
 - `@nightshadeui/components`: standard Vue controls that read the styles. Use them, or map your own component library to the same variables.
 - `@nightshadeui/canvas`, `particle-system`, `scroller`: behavior as controllers, with optional components.
+- `@nightshadeui/content-editor`: a block editor over a JSON document. A prototype, not published yet.
 - `@nightshadeui/docs`: a documentation site for your own system, a VitePress theme whose references read your styles.
 
 ## Quick start
 
 ```bash
 npm i @nightshadeui/stylesheets
-npx @nightshadeui/cli palette -f palette.json -o src/palette.css
+npm i -D @nightshadeui/cli
+npx nightshade palette -f palette.json -o src/palette.css
 ```
 
 ```css

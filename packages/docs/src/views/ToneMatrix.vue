@@ -16,10 +16,14 @@
                     v-for="size in inputSizes"
                     :key="size"
                     class="Cell">
-                    <Btn
+                    <slot
                         :tone="tone"
-                        :size="size"
-                        :label="tone" />
+                        :size="size">
+                        <Btn
+                            :tone="tone"
+                            :size="size"
+                            :label="tone" />
+                    </slot>
                 </div>
             </template>
         </div>
@@ -30,7 +34,8 @@
 import { inputSizes } from '../helpers/commons.js';
 
 /**
- * Every tone the page defines, at every input size.
+ * Every tone the page defines, at every input size: a button, or whatever the slot renders
+ * from `{ tone, size }`. Put it in a `<Demo>` for a stage, both schemes (`dual stacked`) and the demo defaults.
  */
 export default {
 
@@ -49,11 +54,9 @@ export default {
 
 <style scoped>
 .ToneMatrix {
+    width: 100%;
+    min-width: 0;
     overflow-x: auto;
-    padding: var(--sp3);
-    border: 1px solid var(--border-base);
-    border-radius: calc(2 * var(--radius-l));
-    background: var(--surface-base);
 }
 
 .Grid {

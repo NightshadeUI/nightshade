@@ -63,6 +63,15 @@ export default {
 
 <style scoped>
 .CanvasView {
+    --CanvasView-background: var(--surface-base);
+    --CanvasView-margin-cells: 64;
+    --CanvasView-grid-cell-size: 32px;
+    --CanvasView-grid-subdivisions: 4;
+    --CanvasView-grid-major-fill: var(--border-deep);
+    --CanvasView-grid-major-radius: 2px;
+    --CanvasView-grid-minor-fill: var(--border-base);
+    --CanvasView-grid-minor-radius: 1px;
+
     position: relative;
     display: flex;
     user-select: none;
@@ -86,7 +95,7 @@ export default {
     top: 0;
     left: 0;
     overflow: hidden;
-    background: var(--canvas-background, var(--surface-base));
+    background: var(--CanvasView-background);
 }
 
 .Origin {

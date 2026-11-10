@@ -15,15 +15,18 @@
                 'Btn-translucent': effectiveStyle.translucent && !effectiveStyle.ghost,
                 'Btn-square': resolvedProps.square,
                 'Btn-block': resolvedProps.block,
-                'Btn-disabled': resolvedProps.disabled || blocked,
+                'Btn-disabled': inactive,
                 'Btn-forceFocus': resolvedProps.forceFocus,
                 'Btn-forceHover': resolvedProps.forceHover,
                 'Btn-forceActive': resolvedProps.forceActive,
             },
         ]"
-        :disabled="resolvedProps.disabled || blocked"
+        :disabled="isButton ? inactive : undefined"
+        :aria-disabled="!isButton && inactive ? 'true' : undefined"
+        :tabindex="!isButton && inactive ? -1 : undefined"
         :title="resolvedProps.title ?? resolvedProps.label"
-        :href="resolvedProps.href"
+        :href="inactive ? undefined : resolvedProps.href"
+        @click.capture="onClickCapture"
         @mouseenter="hover = true"
         @mouseleave="hover = false"
         @mousedown="active = true"
@@ -122,6 +125,14 @@ export default {
 
     computed: {
 
+        isButton() {
+            return this.resolvedProps.tagName === 'button';
+        },
+
+        inactive() {
+            return this.resolvedProps.disabled || this.blocked;
+        },
+
         baseStyle() {
             const { resolvedProps } = this;
             return {
@@ -158,6 +169,18 @@ export default {
                 Object.assign(style, focusOverrides);
             }
             return style;
+        },
+
+    },
+
+    methods: {
+
+        /** Only a `<button>` ignores clicks when disabled: stop them on any other tag (links, router links). */
+        onClickCapture(ev) {
+            if (this.inactive) {
+                ev.preventDefault();
+                ev.stopImmediatePropagation();
+            }
         },
 
     },

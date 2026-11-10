@@ -67,14 +67,14 @@ export default {
     --Tab-text: var(--tone-fill-text);
 
     --Tab-shadow: var(--shadow-medium);
-    --Tab-box-shadow: 0 0 .5px var(--Tab-shadow);
+    --Tab-filter: drop-shadow(0 0 .5px var(--Tab-shadow));
 
     display: flex;
     cursor: pointer;
     position: relative;
 
     color: var(--Tab-text);
-    filter: drop-shadow(var(--Tab-box-shadow));
+    filter: var(--Tab-filter);
 
     font-size: var(--Tab-font-size);
 }

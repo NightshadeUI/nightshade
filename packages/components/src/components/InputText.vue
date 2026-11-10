@@ -71,6 +71,7 @@ export default {
     methods: {
 
         onInput(ev) {
+            this.$emit('input', ev);
             this.$emit('update:modelValue', ev.target.value);
         }
 

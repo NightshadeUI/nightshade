@@ -20,8 +20,8 @@ export default {
 
 <style scoped>
 .CanvasBoxSelect {
-    --CanvasBoxSelect-fill: var(--canvas-box-select-color, var(--tone-fill));
-    --CanvasBoxSelect-opacity: var(--canvas-box-select-opacity, 0.1);
+    --CanvasBoxSelect-fill: var(--tone-fill);
+    --CanvasBoxSelect-opacity: 0.1;
 
     position: absolute;
     inset: 0;

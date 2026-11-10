@@ -33,7 +33,7 @@ That one rule shapes how Nightshade itself is built:
 - **Multi-tone components never read a color ramp.** The standard components read roles (`--surface-base`, `--tone-fill`…) and the input size context, never `--color-base-200`, so one `.tone-*` class re-tones them. Your single-tone components may read ramp steps directly. Nobody needs `light-dark()`: every step is already scheme-aware.
 - **Meaning is authored, values are generated.** The palette generator writes ramps and tone contexts, and nothing else. Deciding that "a deep surface is base 100" is a person's call, made once in the roles.
 - **Context comes from one place.** `:root` is the default context (base tone, size `m`). A `.tone-*` or `.input-size-*` class changes it for a subtree. Components inherit it unless you pass `tone` or `size`.
-- **Opt-ins bring behavior, not new colors.** An opt-in may expose its own knobs (`--canvas-grid-major-color`), but it defaults them from roles.
+- **Opt-ins bring behavior, not new colors.** An opt-in may expose its own knobs (`--CanvasView-grid-major-fill`), but it defaults them from roles.
 
 Your app can reach into any tier. The outermost one that does the job tends to age best: a role rather than a ramp, a context class rather than a role, a component prop rather than a context class.
 

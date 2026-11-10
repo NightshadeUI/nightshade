@@ -45,13 +45,42 @@ title: Toggle and checkbox
     <Checkbox v-model="state.knob" mark="knob" tone="tertiary" />
 </Demo>
 
-The `active` and `inactive` slots replace the mark entirely.
+The `active` and `inactive` slots replace the mark entirely:
+
+<Demo :initial="{ starred: true, pinned: false }" v-slot="{ state }">
+    <Checkbox v-model="state.starred" tone="warning" round>
+        <template #active><i class="fas fa-star CheckboxIcon" /></template>
+        <template #inactive><i class="far fa-star CheckboxIcon" /></template>
+    </Checkbox>
+    <Checkbox v-model="state.pinned" tone="secondary">
+        <template #active><i class="fas fa-thumbtack CheckboxIcon" /></template>
+    </Checkbox>
+</Demo>
+
+<style>
+.CheckboxIcon {
+    font-size: .55em;
+}
+</style>
 
 ## Sizes
 
 <Demo :initial="{ on: true }" v-slot="{ state }">
     <Toggle v-for="size in ['xs', 's', 'm', 'l', 'xl']" :key="size" v-model="state.on" :size="size" tone="primary" />
     <Checkbox v-for="size in ['xs', 's', 'm', 'l', 'xl']" :key="size" v-model="state.on" :size="size" tone="primary" />
+</Demo>
+
+## Every tone and size
+
+Every tone your styles define, at every size, in both schemes. The playground bar above switches the looks and the states of all of them at once.
+
+<Demo dual stacked>
+<ToneMatrix v-slot="{ tone, size }">
+    <HGroup>
+        <Toggle :tone="tone" :size="size" :modelValue="true" />
+        <Checkbox :tone="tone" :size="size" :modelValue="true" />
+    </HGroup>
+</ToneMatrix>
 </Demo>
 
 ## Variables

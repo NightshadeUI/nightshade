@@ -2,12 +2,14 @@
 const STYLE_ID = 'nightshade-palette';
 
 /**
- * Mirrors the site palette into a `<style>` element while it differs from the default.
+ * Mirrors the site palette into a `<style>` element while it differs from the default,
+ * and has the styles re-read, so references show the tones added in the studio.
  */
 export default {
 
     inject: [
         'paletteManager',
+        'stylesManager',
     ],
 
     computed: {
@@ -40,6 +42,7 @@ export default {
                 document.head.appendChild(el);
             }
             el.textContent = css;
+            this.stylesManager.load();
         },
 
     },

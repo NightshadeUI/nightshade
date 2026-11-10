@@ -8,8 +8,11 @@
             <span
                 class="Bar"
                 :style="{ width: `var(--sp${step})` }" />
-            <span class="Value">{{ px(step) }}</span>
+            <span class="Value">{{ lengths[step] }}</span>
         </div>
+        <span
+            ref="probe"
+            class="Probe" />
     </div>
 </template>
 
@@ -19,13 +22,21 @@ export default {
     data() {
         return {
             steps: ['0-25', '0-5', '1', '1-5', '2', '2-5', '3', '4', '5', '6', '8', '10', '12', '16', '24', '32'],
+            lengths: {},
         };
+    },
+
+    mounted() {
+        this.lengths = Object.fromEntries(this.steps.map(step => [step, this.measureLength(`var(--sp${step})`)]));
     },
 
     methods: {
 
-        px(step) {
-            return `${Number(step.replace('-', '.')) * 8}px`;
+        /** The length a CSS value resolves to here, so the labels show the page's own scale. */
+        measureLength(value) {
+            const probe = this.$refs.probe;
+            probe.style.width = value;
+            return `${Math.round(probe.getBoundingClientRect().width * 100) / 100}px`;
         },
 
     },
@@ -35,10 +46,12 @@ export default {
 
 <style scoped>
 .SpacingScale {
+    position: relative;
     display: flex;
     flex-flow: column;
     gap: var(--sp0-5);
     margin: var(--sp3) 0;
+    overflow: hidden;
 }
 
 .Row {
@@ -64,5 +77,13 @@ export default {
     max-width: 100%;
     border-radius: var(--radius-s);
     background: linear-gradient(to right, var(--color-primary-500), var(--color-secondary-500));
+}
+
+.Probe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 0;
+    visibility: hidden;
 }
 </style>

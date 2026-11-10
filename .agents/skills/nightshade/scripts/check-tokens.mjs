@@ -78,8 +78,10 @@ function checkDeclaration(at, property, value) {
     if (/var\(--[A-Z][\w-]*\s*,/.test(value)) {
         report(at, `${property} reads a component variable with a fallback: default it on the root class instead`);
     }
-    if (/^--[A-Z]\w*(-[\w-]+)?-(color|surface)$/.test(property)) {
-        report(at, `${property}: no -color or -surface suffix (a role name holds a color, a property name a full value)`);
+    const suffixed = [property, ...[...value.matchAll(/var\((--[\w-]+)/g)].map(match => match[1])]
+        .filter(name => /^--[\w-]+-(color|surface)$/.test(name));
+    for (const name of new Set(suffixed)) {
+        report(at, `${name}: no -color or -surface suffix (a role name holds a color, a property name a full value)`);
     }
     if (/^--(text|surface|border|shadow|fill|line)$/.test(property)) {
         report(at, `${property} is a one-word role: role names are two words or more`);
