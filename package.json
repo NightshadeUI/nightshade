@@ -1,6 +1,6 @@
 {
     "name": "@nightshadeui/workspace",
-    "version": "2.22.0",
+    "version": "3.0.0-0",
     "description": "Nightshade workspace",
     "private": true,
     "author": "Boris Okunskiy",

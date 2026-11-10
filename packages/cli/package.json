@@ -1,6 +1,6 @@
 {
     "name": "@nightshadeui/cli",
-    "version": "2.22.0",
+    "version": "3.0.0-0",
     "description": "Nightshade UI command-line tools",
     "author": "Boris Okunskiy",
     "license": "ISC",
@@ -14,7 +14,7 @@
     },
     "types": "./out/cli.d.ts",
     "bin": {
-        "nightshade": "./out/cli.js"
+        "nightshade": "3.0.0-0"
     },
     "files": [
         "out"
@@ -23,7 +23,7 @@
         "build": "tsc -b"
     },
     "dependencies": {
-        "@nightshadeui/palette-generator": "2.22.0",
+        "@nightshadeui/palette-generator": "3.0.0-0",
         "commander": "^13.1.0"
     }
 }

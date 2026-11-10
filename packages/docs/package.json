@@ -1,6 +1,6 @@
 {
     "name": "@nightshadeui/docs",
-    "version": "2.22.0",
+    "version": "3.0.0-0",
     "description": "A documentation site for design systems grown from Nightshade: a VitePress theme with a landing, navigation and live references that read your own styles",
     "author": "Boris Okunskiy",
     "license": "ISC",
@@ -33,10 +33,10 @@
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^7.2.0",
-        "@nightshadeui/components": "2.22.0",
-        "@nightshadeui/particle-system": "2.22.0",
-        "@nightshadeui/stylesheets": "2.22.0",
-        "@nightshadeui/util": "2.22.0",
+        "@nightshadeui/components": "3.0.0-0",
+        "@nightshadeui/particle-system": "3.0.0-0",
+        "@nightshadeui/stylesheets": "3.0.0-0",
+        "@nightshadeui/util": "3.0.0-0",
         "lightningcss": "^1.30.2",
         "shiki": "^3.23.0"
     }
