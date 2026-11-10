@@ -1,6 +1,6 @@
 {
     "name": "@nightshadeui/scroller",
-    "version": "3.0.0",
+    "version": "3.1.0",
     "description": "Scroll progress controller for Nightshade Vue apps",
     "author": "Boris Okunskiy",
     "license": "ISC",
