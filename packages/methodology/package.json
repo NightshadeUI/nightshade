@@ -1,0 +1,34 @@
+{
+    "name": "@nightshadeui/methodology",
+    "version": "2.22.0",
+    "description": "Nightshade design-system guidelines for people and coding agents: always-on rules, an Agent Skill, and an installer",
+    "author": "Boris Okunskiy",
+    "license": "ISC",
+    "type": "module",
+    "sideEffects": false,
+    "exports": {
+        ".": {
+            "types": "./out/main/index.d.ts",
+            "import": "./out/main/index.js"
+        },
+        "./src": "./src/main/index.ts"
+    },
+    "bin": {
+        "nightshade-methodology": "./cli/nightshade-methodology.mjs"
+    },
+    "files": [
+        "out/main",
+        "src/main",
+        "cli",
+        "AGENTS.md",
+        "skills",
+        "rules",
+        ".claude-plugin",
+        ".cursor-plugin"
+    ],
+    "scripts": {
+        "build": "tsc -b && node cli/build-rules.mjs",
+        "test": "node --test \"out/test/**/*.test.js\"",
+        "postinstall": "node cli/postinstall.mjs"
+    }
+}

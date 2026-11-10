@@ -1,0 +1,53 @@
+/*
+ * Utilities: single-purpose classes over scales and roles.
+ * `.color-tone` follows the tone context: `class="tone-danger color-tone"`.
+ */
+
+.color-tone { color: var(--tone-text) }
+
+.color-subtle { color: var(--text-subtle) }
+.color-faint { color: var(--text-faint) }
+
+.flex-1 { flex: 1 }
+.flex-2 { flex: 2 }
+.flex-3 { flex: 3 }
+.flex-4 { flex: 4 }
+.flex-5 { flex: 5 }
+.flex-6 { flex: 6 }
+.flex-7 { flex: 7 }
+.flex-8 { flex: 8 }
+.flex-9 { flex: 9 }
+.flex-10 { flex: 10 }
+.flex-11 { flex: 11 }
+.flex-12 { flex: 12 }
+
+.text-xxs { font-size: var(--font-size-xxs) }
+.text-xs { font-size: var(--font-size-xs) }
+.text-s { font-size: var(--font-size-s) }
+.text-m { font-size: var(--font-size-m) }
+.text-l { font-size: var(--font-size-l) }
+.text-xl { font-size: var(--font-size-xl) }
+.text-xxl { font-size: var(--font-size-xxl) }
+.text-xxxl { font-size: var(--font-size-xxxl) }
+
+.text-thin { font-weight: var(--font-weight-thin) }
+.text-light { font-weight: var(--font-weight-light) }
+.text-normal { font-weight: var(--font-weight-normal) }
+.text-bold { font-weight: var(--font-weight-bold) }
+.text-heavy { font-weight: var(--font-weight-heavy) }
+
+.font-alt {
+    font-family: var(--font-alt);
+    line-height: var(--line-height-alt);
+}
+
+.font-monospace {
+    font-family: var(--font-monospace);
+    line-height: var(--line-height-monospace);
+}
+
+.nowrap {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

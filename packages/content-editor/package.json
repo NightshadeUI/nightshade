@@ -4,6 +4,7 @@
     "description": "Nightshade content editor prototype",
     "author": "Boris Okunskiy",
     "license": "ISC",
+    "private": true,
     "sideEffects": false,
     "exports": {
         ".": {
@@ -20,7 +21,7 @@
         "build": "NODE_ENV=production vite build"
     },
     "peerDependencies": {
-        "@nightshadeui/core": "2.22.0",
+        "@nightshadeui/components": "2.22.0",
         "vue": "^3.5.22"
     },
     "dependencies": {

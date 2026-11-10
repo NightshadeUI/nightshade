@@ -1,13 +1,23 @@
 {
     "name": "@nightshadeui/stylesheets",
     "version": "2.22.0",
-    "description": "Nightshade UI CSS",
+    "description": "Nightshade styles: scales, context and roles as CSS variables, plus base and utilities",
     "author": "Boris Okunskiy",
     "license": "ISC",
     "sideEffects": false,
     "exports": {
         ".": "./index.css",
+        "./palette.css": "./palette.css",
+        "./scales/*": "./scales/*",
+        "./settings/*": "./settings/*",
+        "./roles/*": "./roles/*",
+        "./context/*": "./context/*",
+        "./base.css": "./base.css",
+        "./utilities.css": "./utilities.css",
         "./kbd": "./modules/kbd/index.css",
         "./transitions": "./modules/transitions/index.css"
+    },
+    "scripts": {
+        "palette": "nightshade palette -o palette.css"
     }
 }

@@ -17,7 +17,6 @@
 </template>
 
 <script>
-import { CanvasObjectController } from '../CanvasObjectController.js';
 import CanvasObjectResize from './CanvasObjectResize.vue';
 
 export default {
@@ -104,8 +103,7 @@ export default {
     },
 
     created() {
-        this.canvasObject = new CanvasObjectController(this.objectId);
-        this.canvas.mesh.connect(this.canvasObject);
+        this.canvasObject = this.canvas.createObjectController(this.objectId);
         this.canvas.events.objectPosUpdated.on(({ objectId, pos }) => {
             if (objectId === this.objectId) {
                 this.$emit('update:pos', pos);

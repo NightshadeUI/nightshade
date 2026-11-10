@@ -1,0 +1,74 @@
+<template>
+    <nav class="SiteSidebar">
+        <div
+            v-for="section in navigationManager.sections"
+            :key="section.id"
+            class="Section"
+            :class="{ 'Section-current': navigationManager.isInSection(section) }">
+            <a
+                :href="section.link"
+                class="SectionTitle">
+                {{ section.title }}
+            </a>
+            <a
+                v-for="page in section.pages"
+                :key="page.link"
+                :href="page.link"
+                class="PageLink"
+                :class="{ 'PageLink-current': navigationManager.isCurrent(page.link) }">
+                {{ page.title }}
+            </a>
+        </div>
+    </nav>
+</template>
+
+<script>
+export default {
+
+    inject: [
+        'navigationManager',
+    ],
+
+};
+</script>
+
+<style scoped>
+.SiteSidebar {
+    display: flex;
+    flex-flow: column;
+    gap: var(--sp4);
+}
+
+.Section {
+    display: flex;
+    flex-flow: column;
+}
+
+.SectionTitle {
+    margin-bottom: var(--sp1);
+    font-size: var(--font-size-s);
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--text-base);
+}
+
+.PageLink {
+    padding: var(--sp0-5) 0 var(--sp0-5) var(--sp1-5);
+    border-left: 1px solid var(--border-base);
+    font-size: var(--font-size-s);
+    line-height: 1.45;
+    color: var(--text-subtle);
+    transition: color .2s, border-color .2s;
+}
+
+.PageLink:hover {
+    color: var(--text-base);
+}
+
+.PageLink-current {
+    border-left: 2px solid var(--color-primary-500);
+    padding-left: calc(var(--sp1-5) - 1px);
+    color: var(--color-primary-600);
+    font-weight: 600;
+}
+</style>

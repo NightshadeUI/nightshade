@@ -1,0 +1,19 @@
+/*
+ * Control settings: one value each, shared by every input size.
+ */
+:root {
+
+    /* Edges */
+
+    --input-border-size: 1px;
+    --input-outline-size: 2px;
+    --input-outline-offset: 0;
+
+    /* States. Filled controls hover with an overlay, wells with a filter. */
+
+    --input-disabled-opacity: .6;
+    --input-disabled-filter: saturate(50%);
+    --input-hover-overlay: rgba(127, 127, 127, .1);
+    --input-hover-filter: brightness(.96);
+
+}

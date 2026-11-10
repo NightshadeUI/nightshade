@@ -1,0 +1,15 @@
+/*
+ * Type settings: one value each. Faces, and the defaults the page picks from the type scales.
+ */
+:root {
+    --font-main: sans-serif;
+    --font-alt: var(--font-main);
+    --font-monospace: monospace;
+
+    --font-size: var(--font-size-m);
+    --font-weight: var(--font-weight-normal);
+    --line-height: 1.5;
+    --line-height-main: var(--line-height);
+    --line-height-alt: var(--line-height);
+    --line-height-monospace: var(--line-height);
+}

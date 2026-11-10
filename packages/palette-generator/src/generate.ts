@@ -1,65 +1,108 @@
 import {
-    DEFAULT_CHROMA_SCALE,
-    DEFAULT_LIGHTNESS_SCALE,
-    DEFAULT_SCALE_SPECS,
-    SCALE_STEPS,
+    DEFAULT_CHROMA_CURVE,
+    DEFAULT_LIGHTNESS_CURVE,
+    DEFAULT_RAMPS,
+    RAMP_ANCHOR_INDEX,
+    RAMP_STEPS,
+    REQUIRED_RAMPS,
 } from './constants.js';
-import { PaletteScaleSpec, PaletteSpec } from './types.js';
+import { PaletteRampSpec, PaletteSpec, RampStep } from './types.js';
 
+/**
+ * Emits every ramp as scheme-aware CSS values: `light-dark(<light>, <dark>)`.
+ * The dark ramp is the light ramp mirrored, so a step keeps its meaning in both schemes:
+ * `0` is always the canvas end, `950` always the ink end.
+ * Throws when the palette lacks a ramp the styles read by name.
+ */
 export function generatePaletteOklch(palette: PaletteSpec = {}) {
-    const lightnessScale = palette.lightnessScale ?? DEFAULT_LIGHTNESS_SCALE;
-    const chromaScale = palette.chromaScale ?? DEFAULT_CHROMA_SCALE;
+    const ramps = palette.ramps ?? DEFAULT_RAMPS;
+    const missing = REQUIRED_RAMPS.filter(name => !ramps.some(ramp => ramp.name === name));
+    if (missing.length > 0) {
+        throw new Error(`A palette needs these ramps, which the styles read by name: ${missing.join(', ')}.`);
+    }
     const out: Record<string, string> = {};
-    for (const scale of palette.scales ?? DEFAULT_SCALE_SPECS) {
-        const lightness = scale.reverse ? lightnessScale.toReversed() : lightnessScale;
-        Object.assign(out, generateScaleOklch(scale, lightness, chromaScale));
+    for (const ramp of ramps) {
+        Object.assign(out, generateRampOklch(ramp, palette));
     }
     return out;
 }
 
-export function generateScaleOklch(
-    scale: PaletteScaleSpec,
-    lightnessScale: number[],
-    chromaScale: number[],
-) {
-    const { name } = scale;
-    const variables: Record<string, string> = {};
-    const textColor = generateTextColor(scale, lightnessScale, chromaScale);
-    variables[`--color-${name}-text`] = textColor;
-    for (const [index, step] of SCALE_STEPS.entries()) {
-        const varName = `--color-${name}-${step}`;
-        const l = scale.lum * lightnessScale[index]!;
-        const c = scale.int * chromaScale[index]!;
-        const oklch = `oklch(${l} ${c} ${scale.hue})`;
-        variables[varName] = oklch;
+export function generateRampOklch(ramp: PaletteRampSpec, palette: PaletteSpec = {}) {
+    const light = generateRampSteps(ramp, palette);
+    const dark = light.toReversed();
+    const variables: Record<string, string> = {
+        [`--color-${ramp.name}-contrast`]: schemeValue(
+            contrastColor(light[RAMP_ANCHOR_INDEX]!),
+            contrastColor(dark[RAMP_ANCHOR_INDEX]!),
+        ),
+    };
+    for (const [index, { step }] of light.entries()) {
+        variables[`--color-${ramp.name}-${step}`] = schemeValue(
+            formatOklch(light[index]!),
+            formatOklch(dark[index]!),
+        );
     }
     return variables;
 }
 
-export function generateTextColor(
-    scale: PaletteScaleSpec,
-    lightnessScale: number[],
-    chromaScale: number[],
-) {
-    const l = scale.lum * lightnessScale[6]!;
-    const c = scale.int * chromaScale[6]!;
-    return contrastColor(l, c);
+/**
+ * Samples one ramp along the curves, as the light scheme sees it.
+ */
+export function generateRampSteps(ramp: PaletteRampSpec, palette: PaletteSpec = {}): RampStep[] {
+    const lightnessCurve = palette.lightnessCurve ?? DEFAULT_LIGHTNESS_CURVE;
+    const chromaCurve = palette.chromaCurve ?? DEFAULT_CHROMA_CURVE;
+    return RAMP_STEPS.map((step, index) => {
+        return {
+            step,
+            lightness: round(ramp.lightness * lightnessCurve[index]!),
+            chroma: round(ramp.chroma * chromaCurve[index]!),
+            hue: ramp.hue,
+        };
+    });
 }
 
-export function generatePaletteCss(palette: PaletteSpec = {}) {
-    const selector = palette.cssSelector === undefined ? ':root' : palette.cssSelector;
-    const variables = generatePaletteOklch(palette);
-    const body = Object.entries(variables)
-        .map(([key, value]) => `  ${key}: ${value};`)
-        .join('\n');
-    if (selector === false) {
-        return Object.entries(variables)
-            .map(([key, value]) => `${key}: ${value};`)
-            .join('\n');
+/**
+ * Emits the tone context of one ramp: `.tone-<name>` points the context ramp
+ * (`--tone-0` … `--tone-950`, `--tone-contrast`) at the ramp.
+ */
+export function generateToneCss(name: string) {
+    const lines = [
+        ...RAMP_STEPS.map(step => `--tone-${step}: var(--color-${name}-${step});`),
+        `--tone-contrast: var(--color-${name}-contrast);`,
+    ];
+    return wrapDeclarations(`.tone-${name}`, lines);
+}
+
+/**
+ * Emits the palette: the ramps under `selector`, then one tone context per ramp.
+ * With `selector` set to `null`, emits bare ramp declarations only.
+ */
+export function generatePaletteCss(palette: PaletteSpec = {}, selector: string | null = ':root') {
+    const lines = Object.entries(generatePaletteOklch(palette))
+        .map(([key, value]) => `${key}: ${value};`);
+    if (selector == null) {
+        return lines.join('\n');
     }
-    return `${selector} {\n${body}\n}`;
+    const tones = (palette.ramps ?? DEFAULT_RAMPS).map(ramp => generateToneCss(ramp.name));
+    return [wrapDeclarations(selector, lines), ...tones].join('\n\n');
 }
 
-export function contrastColor(l: number, c: number) {
-    return l > 0.62 + 0.8 * c ? '#000' : '#fff';
+export function contrastColor({ lightness, chroma }: RampStep) {
+    return lightness > 0.62 + 0.8 * chroma ? '#000' : '#fff';
+}
+
+function formatOklch({ lightness, chroma, hue }: RampStep) {
+    return `oklch(${lightness} ${chroma} ${hue})`;
+}
+
+function schemeValue(light: string, dark: string) {
+    return light === dark ? light : `light-dark(${light}, ${dark})`;
+}
+
+function wrapDeclarations(selector: string, lines: string[]) {
+    return `${selector} {\n${lines.map(line => `    ${line}`).join('\n')}\n}`;
+}
+
+function round(value: number) {
+    return Math.round(value * 10000) / 10000;
 }

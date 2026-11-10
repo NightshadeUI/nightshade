@@ -73,10 +73,10 @@ export default {
 
     font-family: var(--font-monospace);
     font-size: var(--font-size-s);
-    border: var(--input-border-size) solid var(--color-base-200);
-    border-radius: var(--border-radius);
+    border: var(--input-border-size) solid var(--border-base);
+    border-radius: var(--radius-m);
 
-    background: var(--color-base-0);
+    background: var(--surface-base);
 }
 
 .Row {

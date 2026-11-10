@@ -1,0 +1,9 @@
+/*
+ * Radius scale. Override `--radius-m` and the rest follows.
+ * Round controls don't use this scale: their radius is half their own height.
+ */
+:root {
+    --radius-m: 4px;
+    --radius-s: calc(0.5 * var(--radius-m));
+    --radius-l: calc(2 * var(--radius-m));
+}

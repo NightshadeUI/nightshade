@@ -1,0 +1,13 @@
+{
+    "name": "nightshade",
+    "owner": {
+        "name": "Boris Okunskiy"
+    },
+    "plugins": [
+        {
+            "name": "nightshade",
+            "source": "./packages/methodology",
+            "description": "Nightshade methodology: design-system rules and skill"
+        }
+    ]
+}

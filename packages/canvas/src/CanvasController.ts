@@ -1,12 +1,13 @@
 import { invokeInitHandlers } from '@flexent/init-decorator';
 import { InputStateManager } from '@nightshadeui/util';
 import { dependency, Mesh } from 'mesh-ioc';
-import { reactive } from 'vue';
+import { markRaw, reactive } from 'vue';
 
 import { CanvasBoxSelect } from './CanvasBoxSelect.js';
 import { CanvasConfig, CanvasConfigSpec } from './CanvasConfig.js';
 import { CanvasEvents } from './CanvasEvents.js';
 import { CanvasMove } from './CanvasMove.js';
+import { CanvasObjectController } from './CanvasObjectController.js';
 import { CanvasObjectRegistry } from './CanvasObjectRegistry.js';
 import { CanvasPan } from './CanvasPan.js';
 import { CanvasSelection } from './CanvasSelection.js';
@@ -16,7 +17,7 @@ import { CanvasZoom } from './CanvasZoom.js';
 
 export class CanvasController {
 
-    mesh = new Mesh();
+    mesh = markRaw(new Mesh());
     boxSelect = dependency(this, CanvasBoxSelect);
     config = dependency(this, CanvasConfig);
     space = dependency(this, CanvasSpace);
@@ -47,10 +48,14 @@ export class CanvasController {
         this.mesh.service(CanvasSelection);
         this.mesh.service(CanvasZoom);
         this.config.set(config);
+        invokeInitHandlers(this.mesh);
+    }
+
+    createObjectController(objectId: string) {
+        return this.mesh.connect(new CanvasObjectController(objectId));
     }
 
     mount(viewportEl: HTMLElement) {
-        invokeInitHandlers(this.mesh);
         this.viewport.mount(viewportEl);
         this.events.mounted.emit();
         if (this.ownsInputStateManager) {
@@ -59,7 +64,6 @@ export class CanvasController {
     }
 
     unmount() {
-        invokeInitHandlers(this.mesh);
         this.viewport.destroy();
         if (this.ownsInputStateManager) {
             this.inputStateManager.unmount();

@@ -1,0 +1,20 @@
+/*
+ * Type scales: sizes and weights. Override `--font-size-m` and the size ladder follows.
+ * Faces, the default size and weight, and line height are settings (`settings/font.css`).
+ */
+:root {
+    --font-size-xxs: calc(var(--font-size-m) - 6px);
+    --font-size-xs: calc(var(--font-size-m) - 4px);
+    --font-size-s: calc(var(--font-size-m) - 2px);
+    --font-size-m: 16px;
+    --font-size-l: calc(var(--font-size-m) * 1.25);
+    --font-size-xl: calc(var(--font-size-m) * 1.5);
+    --font-size-xxl: calc(var(--font-size-m) * 1.875);
+    --font-size-xxxl: calc(var(--font-size-m) * 2.25);
+
+    --font-weight-thin: 200;
+    --font-weight-light: 300;
+    --font-weight-normal: 400;
+    --font-weight-bold: 500;
+    --font-weight-heavy: 700;
+}

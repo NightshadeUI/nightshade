@@ -1,118 +1,63 @@
 # Nightshade
 
-Nightshade is a small, opinionated design system for Vue.
+Nightshade is a seed for design systems that applications own.
 
-It focuses on a compact CSS-variable foundation and a handful of reusable components, so apps can own most of their look-and-feel without fighting framework defaults.
+It isn't a framework to fight. It's a few principles, the styles that follow from them, and an OKLCH palette generator. Install the styles, generate a palette, and build your own. Your app grows the rest, and owns all of it.
 
-## Core Principles
+## The model
 
-### 1) CSS Variables First
+| Ring | Package | Provides |
+|------|---------|----------|
+| Principles | the website | simplicity, finite vocabularies, CSS first, ownership |
+| Styles | `@nightshadeui/stylesheets` | scales, context and roles, as CSS variables |
+| Your system | your app | your product's look and language |
 
-Nightshade is built around layered CSS variables:
+Opt-ins orbit your system:
 
-- UI variables delegate to semantic variables.
-- Semantic variables are app-defined (palettes can be generated from OKLCH settings for ensuring uniformity and contrast).
-- Naming conventions form a stable skeleton.
+- `@nightshadeui/cli` and `@nightshadeui/palette-generator` write your `palette.css`: scheme-aware ramps and one tone per ramp.
+- `@nightshadeui/components`: standard Vue controls that read the styles. Use them, or map your own component library to the same variables.
+- `@nightshadeui/canvas`, `particle-system`, `scroller`: behavior as controllers, with optional components.
 
-The goal is to reduce cognitive load and framework fatigue while keeping customization easy:
-
-- Import `nightshade` styles.
-- Define a small set of `:root` variables (e.g. color palettes, font sizes & families).
-- Keep styling in CSS.
-
-### 2) Buttons and Inputs as Style Primitives
-
-Nightshade is designed around a practical observation: most component styling patterns can be derived from buttons and text inputs.
-
-So instead of optimizing for component count, Nightshade optimizes these primitives.
-
-Other controls are expected to follow these rules unless intentionally diverging.
-
-### 3) Style Over Strict Semantics
-
-Nightshade uses familiar semantic labels (`base`, `inverse`, `primary`, `secondary`, `tertiary`, `success`, `warning`, `danger`) but treats them as constrained style tools, not rigid product semantics.
-
-This keeps the system practical:
-
-- Semantic names are guidance, not dogma.
-- Teams can map meanings to fit product needs.
-- Consistency comes from constraints + conventions.
-
-## Non-Goals
-
-Nightshade does **not** aim to be:
-
-- A giant, all-inclusive component framework.
-- A design language that dictates product semantics.
-- A replacement for app-level styling ownership.
-
-## Packages
-
-Nightshade is a workspace with focused packages:
-
-- `nightshade`: umbrella package (`nightshade` + `nightshade/css`).
-- `@nightshadeui/core`: Vue components.
-- `@nightshadeui/stylesheets`: CSS variables and style modules.
-- `@nightshadeui/gallery`: local showcase/playground.
-- `@nightshadeui/scroller`: Vue scroll progress composable.
-
-## Quick Start
-
-### Install
+## Quick start
 
 ```bash
-npm i nightshade
+npm i @nightshadeui/stylesheets
+npx @nightshadeui/cli palette -f palette.json -o src/palette.css
 ```
-
-### Use CSS foundation
-
-```ts
-import 'nightshade/css';
-```
-
-### Use components
-
-```ts
-import { Btn, InputBase, InputText } from 'nightshade';
-// Or import all core components
-import { coreComponents } from 'nightshade';
-```
-
-### Theme at `:root`
 
 ```css
+@import '@nightshadeui/stylesheets';
+@import './palette.css'; /* or '@nightshadeui/stylesheets/palette.css', the starter */
+
 :root {
-
-  --font-main: "Source Sans 3", sans-serif;
-  --font-alt: "MonteCarlo", cursive;
-
-  --font-size: 16px;
-  
-  /* Define palettes */
+    --font-main: "Source Sans 3", sans-serif;
+    --radius-m: 6px;
 }
 ```
 
+Want the standard components too? `npm i nightshade` bundles the styles and `@nightshadeui/components`.
+
+## For coding agents
+
+```bash
+npm i --save-dev @nightshadeui/methodology
+```
+
+It writes the always-on rules into your `AGENTS.md` and installs the `nightshade` skill (`/nightshade` in Claude Code): the token catalog, the palette workflow, the component grammar, recipes and a token checker. See [`packages/methodology`](packages/methodology/README.md).
+
+## Tokens in one paragraph
+
+Raw values are scales, enumerable ladders (`--color-primary-500`, `--sp4`), and settings, single values (`--font-main`, `--input-border-size`); every color step is scheme-aware. Context classes pick one tone ramp and one input size for a subtree (`.tone-danger` sets `--tone-0` … `--tone-950`; `.input-size-s` sets `--input-major-height`), and `:root` is the default context. Roles give meaning, once: canvas roles (`--surface-base`, `--border-base`, `--text-base`, in three nesting levels) and a short, complete list of tone roles (`--tone-fill`, `--tone-text`, `--tone-border`…) that every tone answers. Multi-tone components (buttons, inputs) read roles, never a ramp, so one class re-tones or re-sizes everything inside them. Single-tone app components may read ramp steps directly.
+
 ## Development
 
-### Run gallery
-
 ```bash
-npm run dev
+npm run dev      # the website, with live sources
+npm run build    # every package, then the website
+npm run lint
 ```
 
-### Build workspace
-
-```bash
-npm run build
-```
-
-## Roadmap (Living)
-
-Potential next improvements:
-
-- Document variable layers in a dedicated token map.
-- Add recipes for generating semantic palettes from OKLCH.
-- Expand examples that show “small core, app-owned styling” in practice.
+Migrating from 2.x: see `packages/website/pages/migration.md`, or the Migrating to 3.0 page on the website.
 
 ## License
 

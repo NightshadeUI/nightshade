@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { ContentEditor } from '../utils/ContentEditor.js';
+import { ContentEditor } from '../editor/ContentEditor.js';
 
 export default {
 

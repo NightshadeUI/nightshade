@@ -1,7 +1,7 @@
 {
     "name": "@nightshadeui/workspace",
     "version": "2.22.0",
-    "description": "Scalable System for Vue",
+    "description": "Nightshade workspace",
     "private": true,
     "author": "Boris Okunskiy",
     "license": "ISC",
@@ -10,23 +10,14 @@
     ],
     "scripts": {
         "dev": "run-p dev:*",
-        "dev:gallery": "cd packages/gallery && npm run dev",
-        "preview": "cd packages/gallery && npm run preview",
+        "dev:website": "cd packages/website && npm run dev",
+        "preview": "cd packages/website && npm run preview",
         "build": "npm run build --workspaces --if-present",
         "lint": "eslint --cache",
         "preversion": "npm run build",
-        "version": "node ./bump-version.mjs && git add .",
-        "postversion": "git push origin main --tags && run-s publish:*",
-        "publish-all": "run-s publish:*",
-        "publish:stylesheets": "cd packages/stylesheets && npm publish --access public",
-        "publish:core": "cd packages/core && npm publish --access public",
-        "publish:nightshade": "cd packages/nightshade && npm publish --access public",
-        "publish:palette-generator": "cd packages/palette-generator && npm publish --access public",
-        "publish:cli": "cd packages/cli && npm publish --access public",
-        "publish:canvas": "cd packages/canvas && npm publish --access public",
-        "publish:particle-system": "cd packages/particle-system && npm publish --access public",
-        "publish:scroller": "cd packages/scroller && npm publish --access public",
-        "publish:util": "cd packages/util && npm publish --access public"
+        "version": "bump-version && git add .",
+        "postversion": "git push origin main --tags && npm run publish:workspaces",
+        "publish:workspaces": "npm publish $(ls-publish-workspaces) --access public"
     },
     "pre-commit": [
         "lint"
@@ -34,19 +25,22 @@
     "dependencies": {
         "@nightshadeui/canvas": "./packages/canvas",
         "@nightshadeui/cli": "./packages/cli",
+        "@nightshadeui/components": "./packages/components",
         "@nightshadeui/content-editor": "./packages/content-editor",
-        "@nightshadeui/core": "./packages/core",
-        "@nightshadeui/gallery": "./packages/gallery",
+        "@nightshadeui/methodology": "./packages/methodology",
         "@nightshadeui/palette-generator": "./packages/palette-generator",
         "@nightshadeui/particle-system": "./packages/particle-system",
         "@nightshadeui/scroller": "./packages/scroller",
         "@nightshadeui/stylesheets": "./packages/stylesheets",
-        "@nightshadeui/util": "./packages/util"
+        "@nightshadeui/util": "./packages/util",
+        "@nightshadeui/website": "./packages/website"
     },
     "devDependencies": {
         "@fastify/pre-commit": "^2.2.1",
-        "@flexent/eslint-config": "^2.6.0",
-        "@flexent/eslint-config-vue": "^2.6.0",
+        "@flexent/eslint-config": "^2.20.0",
+        "@flexent/eslint-config-vue": "^2.20.0",
+        "@flexent/methodology": "^2.20.0",
+        "@flexent/repo-tools": "^2.20.0",
         "@types/node": "^24.9.1",
         "@vitejs/plugin-vue": "^6.0.1",
         "eslint": "^9.38.0",

@@ -1,0 +1,8 @@
+{
+    "name": "nightshade",
+    "description": "Nightshade methodology: always-on rules plus a skill with the token catalog, palette workflow, component grammar, recipes and a token checker for design systems grown from Nightshade.",
+    "author": {
+        "name": "Boris Okunskiy"
+    },
+    "keywords": ["design-system", "css-variables", "design-tokens", "palette", "vue"]
+}

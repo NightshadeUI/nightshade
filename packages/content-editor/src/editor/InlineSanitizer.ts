@@ -1,0 +1,95 @@
+import { removeNode, unwrap } from '../helpers/dom.js';
+import { InlineMarkupConfig } from '../types.js';
+import { ContentEditor } from './ContentEditor.js';
+
+const FORBIDDEN_TAGS = [
+    'script',
+    'style',
+    'iframe',
+    'object',
+    'embed',
+    'noscript',
+    'template',
+];
+
+export class InlineSanitizer {
+
+    constructor(
+        public editor: ContentEditor,
+    ) {}
+
+    sanitizeHtml(input: string): string {
+        const template = document.createElement('template');
+        template.innerHTML = input;
+        for (const node of Array.from(template.content.childNodes)) {
+            this.sanitizeNodeInPlace(node);
+        }
+        const root = document.createElement('div');
+        root.appendChild(template.content.cloneNode(true));
+        return root.innerHTML;
+    }
+
+    private sanitizeNodeInPlace(node: Node): void {
+        if (node.nodeType === Node.TEXT_NODE) {
+            return;
+        }
+        const removed = this.removeUnsupported(node);
+        if (removed) {
+            return;
+        }
+        const el = node as HTMLElement;
+        for (const child of [...el.childNodes]) {
+            this.sanitizeNodeInPlace(child);
+        }
+        const inlineDef = this.findInlineDefinition(el);
+        if (!inlineDef) {
+            unwrap(el);
+            return;
+        }
+        this.sanitizeSupportedEl(el, inlineDef);
+    }
+
+    private sanitizeSupportedEl(el: HTMLElement, inlineDef: InlineMarkupConfig): void {
+        // TODO preserve allowed attributes
+        while (el.attributes.length > 0) {
+            el.removeAttribute(el.attributes[0].name);
+        }
+        if (inlineDef.className) {
+            el.className = inlineDef.className;
+        }
+    }
+
+    private removeUnsupported(node: Node): boolean {
+        if (node.nodeType !== Node.ELEMENT_NODE) {
+            removeNode(node);
+            return true;
+        }
+        const el = node as HTMLElement;
+        if (el.namespaceURI !== 'http://www.w3.org/1999/xhtml') {
+            removeNode(el);
+            return true;
+        }
+        const tagName = el.tagName.toLowerCase();
+        if (FORBIDDEN_TAGS.includes(tagName)) {
+            removeNode(el);
+            return true;
+        }
+        return false;
+    }
+
+    private findInlineDefinition(element: HTMLElement): InlineMarkupConfig | null {
+        const tag = element.tagName.toLowerCase();
+        const classList = [...element.classList];
+        for (const inlineDef of this.editor.config.inlines) {
+            if (inlineDef.tag.toLowerCase() !== tag) {
+                continue;
+            }
+            if (inlineDef.className && !classList.includes(inlineDef.className)) {
+                continue;
+            }
+            return inlineDef;
+        }
+        return null;
+    }
+
+}

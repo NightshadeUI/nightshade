@@ -1,0 +1,50 @@
+/*
+ * Input size context: an `.input-size-*` class collapses one size into the generic `--input-*` slots.
+ * `:root` is the default context.
+ */
+
+.input-size-xs {
+    --input-major-height: var(--input-size-xs-major-height);
+    --input-minor-height: var(--input-size-xs-minor-height);
+    --input-font-size: var(--input-size-xs-font-size);
+    --input-major-padding: var(--input-size-xs-major-padding);
+    --input-minor-padding: var(--input-size-xs-minor-padding);
+    --input-gap: var(--input-size-xs-gap);
+}
+
+.input-size-s {
+    --input-major-height: var(--input-size-s-major-height);
+    --input-minor-height: var(--input-size-s-minor-height);
+    --input-font-size: var(--input-size-s-font-size);
+    --input-major-padding: var(--input-size-s-major-padding);
+    --input-minor-padding: var(--input-size-s-minor-padding);
+    --input-gap: var(--input-size-s-gap);
+}
+
+:root,
+.input-size-m {
+    --input-major-height: var(--input-size-m-major-height);
+    --input-minor-height: var(--input-size-m-minor-height);
+    --input-font-size: var(--input-size-m-font-size);
+    --input-major-padding: var(--input-size-m-major-padding);
+    --input-minor-padding: var(--input-size-m-minor-padding);
+    --input-gap: var(--input-size-m-gap);
+}
+
+.input-size-l {
+    --input-major-height: var(--input-size-l-major-height);
+    --input-minor-height: var(--input-size-l-minor-height);
+    --input-font-size: var(--input-size-l-font-size);
+    --input-major-padding: var(--input-size-l-major-padding);
+    --input-minor-padding: var(--input-size-l-minor-padding);
+    --input-gap: var(--input-size-l-gap);
+}
+
+.input-size-xl {
+    --input-major-height: var(--input-size-xl-major-height);
+    --input-minor-height: var(--input-size-xl-minor-height);
+    --input-font-size: var(--input-size-xl-font-size);
+    --input-major-padding: var(--input-size-xl-major-padding);
+    --input-minor-padding: var(--input-size-xl-minor-padding);
+    --input-gap: var(--input-size-xl-gap);
+}

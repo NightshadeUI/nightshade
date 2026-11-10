@@ -1,0 +1,63 @@
+/*
+ * Canvas roles: the neutral world that tones are placed on.
+ * They read the base ramp directly, so a tone context never changes them.
+ */
+:root {
+
+    /*
+     * Surfaces, three levels deep, each with the border that goes with it.
+     * base: the page. shade: a region inside it. deep: a well inside that.
+     */
+
+    --surface-base: var(--color-base-0);
+    --border-base: var(--color-base-100);
+
+    --surface-shade: var(--color-base-50);
+    --border-shade: var(--color-base-100);
+
+    --surface-deep: var(--color-base-100);
+    --border-deep: var(--color-base-200);
+
+    /* Off the levels: things that sit above, and the scrim under modals */
+
+    --surface-raised: light-dark(var(--color-base-0), var(--color-base-800));
+    --border-raised: light-dark(var(--color-base-100), var(--color-base-700));
+    --surface-overlay: light-dark(rgba(0,0,0,.1), rgba(0,0,0,.2));
+
+    /* Text */
+
+    --text-base: var(--color-base-950);
+    --text-subtle: var(--color-base-600);
+    --text-faint: var(--color-base-500);
+
+    /* Shadows */
+
+    --shadow-light: light-dark(rgba(0,0,0,.1), rgba(0,0,0,.2));
+    --shadow-medium: light-dark(rgba(0,0,0,.2), rgba(0,0,0,.4));
+    --shadow-heavy: light-dark(rgba(0,0,0,.3), rgba(0,0,0,.6));
+
+    /* Translucency */
+
+    --translucency-mix-light: 15%;
+    --translucency-mix-medium: 50%;
+    --translucency-mix-heavy: 75%;
+    --translucency-blur: 3px;
+    --translucency-highlight: light-dark(rgba(255,255,255,.5), rgba(255,255,255,.16));
+
+    /* Text shadow that contrasts with whatever color the text has */
+
+    --text-shadow-auto: transparent;
+
+}
+
+@supports (color: rgb(from white r g b)) {
+    :root {
+        --text-shadow-auto: rgb(
+            from currentColor
+            calc(255 - r)
+            calc(255 - g)
+            calc(255 - b)
+            / 25%
+        );
+    }
+}

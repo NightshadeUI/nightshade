@@ -7,7 +7,7 @@ import {
     createRandom,
     resolveParticleConfig,
     stepParticle,
-} from './particles.js';
+} from './helpers/particles.js';
 import { ParticleState, ParticleSystemConfig } from './types.js';
 
 const MAX_PARTICLE_INDEX = Number.MAX_SAFE_INTEGER;

@@ -1,11 +1,31 @@
-@import './variables/base.css' layer(nightshade);
-@import './variables/spacing.css' layer(nightshade);
-@import './variables/grid.css' layer(nightshade);
-@import './variables/font.css' layer(nightshade);
-@import './variables/ui.css' layer(nightshade);
-@import './variables/colors.css' layer(nightshade);
-@import './variables/inputs.css' layer(nightshade);
-@import './features/text-shadow.css' layer(nightshade);
+/*
+ * Nightshade styles, in tier order.
+ * Each tier reads only the tiers above it in this list.
+ *
+ * The palette is not included: import your own generated `palette.css`,
+ * or the starter one (`@nightshadeui/stylesheets/palette.css`) while prototyping.
+ * The styles read three ramps by name: `base`, `primary` and `secondary`.
+ */
 
-@import './commons.css' layer(nightshade);
-@import './util.css' layer(nightshade);
+/* 1. Raw values, no meaning yet. Scales: enumerable ladders */
+@import './scales/spacing.css' layer(nightshade);
+@import './scales/radius.css' layer(nightshade);
+@import './scales/grid.css' layer(nightshade);
+@import './scales/font.css' layer(nightshade);
+@import './scales/inputs.css' layer(nightshade);
+
+/* 1. Raw values, continued. Settings: one value each, some picked from a scale */
+@import './settings/font.css' layer(nightshade);
+@import './settings/inputs.css' layer(nightshade);
+
+/* 2. Context: one tone ramp and one input size per subtree */
+@import './context/tones.css' layer(nightshade);
+@import './context/inputs.css' layer(nightshade);
+
+/* 3. Roles: meaning, stated once */
+@import './roles/canvas.css' layer(nightshade);
+@import './roles/tones.css' layer(nightshade);
+
+/* Page */
+@import './base.css' layer(nightshade);
+@import './utilities.css' layer(nightshade);

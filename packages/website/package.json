@@ -1,0 +1,30 @@
+{
+    "name": "@nightshadeui/website",
+    "version": "2.22.0",
+    "description": "The Nightshade website: philosophy, foundations, components, tools and extensions",
+    "private": true,
+    "type": "module",
+    "author": "Boris Okunskiy",
+    "license": "ISC",
+    "scripts": {
+        "dev": "vitepress dev --host",
+        "preview": "vitepress preview --host",
+        "build": "vitepress build"
+    },
+    "devDependencies": {
+        "shiki": "^3.23.0",
+        "vitepress": "^2.0.0-alpha.17",
+        "vue": "^3.5.22"
+    },
+    "dependencies": {
+        "@fortawesome/fontawesome-free": "^7.2.0",
+        "@nightshadeui/canvas": "2.22.0",
+        "@nightshadeui/content-editor": "2.22.0",
+        "@nightshadeui/components": "2.22.0",
+        "@nightshadeui/palette-generator": "2.22.0",
+        "@nightshadeui/particle-system": "2.22.0",
+        "@nightshadeui/scroller": "2.22.0",
+        "@nightshadeui/stylesheets": "2.22.0",
+        "@nightshadeui/util": "2.22.0"
+    }
+}

@@ -1,1 +1,1 @@
-export * from '@nightshadeui/core';
+export * from '@nightshadeui/components';

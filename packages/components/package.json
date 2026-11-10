@@ -1,0 +1,36 @@
+{
+    "name": "@nightshadeui/components",
+    "version": "2.22.0",
+    "description": "Standard Nightshade components: opt-in Vue primitives that read the styles",
+    "author": "Boris Okunskiy",
+    "license": "ISC",
+    "sideEffects": false,
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/components.mjs"
+        },
+        "./css": "./dist/components.css",
+        "./src": "./src/index.ts"
+    },
+    "files": [
+        "dist"
+    ],
+    "scripts": {
+        "build:watch": "vite build --watch",
+        "build": "NODE_ENV=production vite build"
+    },
+    "peerDependencies": {
+        "vue": "^3.5.22",
+        "vue-router": "^4.6.3"
+    },
+    "peerDependenciesMeta": {
+        "vue-router": {
+            "optional": true
+        }
+    },
+    "dependencies": {
+        "@nightshadeui/util": "2.22.0",
+        "@nightshadeui/stylesheets": "2.22.0"
+    }
+}

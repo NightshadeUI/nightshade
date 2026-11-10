@@ -1,0 +1,79 @@
+---
+title: Layout
+---
+
+# Layout
+
+<p class="Lead">Flex groups with gaps on the spacing scale, a filler, a panel to hold controls, and the tab shape that labels can use.</p>
+
+## HGroup and VGroup
+
+Rows and columns. `gap` takes a spacing step: `0`, `0-25`, `0-5`, `1`, `1-5`, `2`, `2-5`, `3`, up to `32`. `align` and `justify` take the usual flex values; `HGroup` also takes `wrap`.
+
+<Demo column>
+    <HGroup gap="1">
+        <Btn label="One" />
+        <Btn label="Two" />
+        <Btn label="Three" />
+    </HGroup>
+    <HGroup gap="3" justify="space-between">
+        <Btn label="Start" />
+        <Btn label="End" tone="primary" />
+    </HGroup>
+</Demo>
+
+```html
+<HGroup gap="1" justify="space-between">
+    <Btn label="Cancel" />
+    <Btn label="Save" tone="primary" />
+</HGroup>
+```
+
+`HGroup` defaults to `gap="1"` and centered items; `VGroup` to `gap="2"` and stretched items.
+
+## Filler
+
+Takes the remaining space in a group. `fill` draws a `dotted`, `dashed` or `solid` leader in the `--border-base` role.
+
+<Demo column>
+    <HGroup>
+        <span>Spacing</span>
+        <Filler fill="dotted" />
+        <code>--sp</code>
+    </HGroup>
+    <HGroup>
+        <span>Radius</span>
+        <Filler fill="dotted" />
+        <code>--radius-m</code>
+    </HGroup>
+</Demo>
+
+## ToolPanel
+
+A deep strip for a row of controls. It takes `size`, `flat`, `outline` and `round` like any control.
+
+<Demo :initial="{ grid: true, zoom: 100 }" v-slot="{ state }">
+    <ToolPanel>
+        <Btn icon="fas fa-arrow-pointer" square flat tone="primary" />
+        <Btn icon="fas fa-pen" square flat ghost />
+        <Btn icon="fas fa-shapes" square flat ghost />
+        <Toggle v-model="state.grid" size="s" />
+        <Slider v-model="state.zoom" :min="25" :max="400" size="s" style="width: 120px" />
+    </ToolPanel>
+    <ToolPanel round>
+        <Btn icon="fas fa-bold" square flat ghost round />
+        <Btn icon="fas fa-italic" square flat ghost round />
+        <Btn icon="fas fa-link" square flat ghost round />
+    </ToolPanel>
+</Demo>
+
+## Tab
+
+A tab shape with curved caps, in any of four directions. `InputBase` uses it for `labelStyle="tab"`.
+
+<Demo>
+    <Tab label="Top" tone="primary" />
+    <Tab label="Bottom" dir="bottom" tone="secondary" />
+    <Tab label="Left" dir="left" tone="tertiary" />
+    <Tab label="Right" dir="right" />
+</Demo>

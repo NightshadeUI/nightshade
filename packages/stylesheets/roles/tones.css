@@ -1,0 +1,50 @@
+/*
+ * Tone roles: what a control takes from its tone.
+ * Stated once against the context ramp, and redeclared on every tone context,
+ * so each subtree resolves them against its own ramp.
+ */
+
+:root,
+[class^="tone-"],
+[class*=" tone-"] {
+    --tone-text: var(--tone-500);
+    --tone-tint: var(--tone-100);
+    --tone-tint-text: var(--tone-900);
+    --tone-fill: var(--tone-500);
+    --tone-fill-top: light-dark(var(--tone-400), var(--tone-600));
+    --tone-fill-bottom: light-dark(var(--tone-600), var(--tone-400));
+    --tone-fill-text: var(--tone-contrast);
+    --tone-border: var(--tone-600);
+    --tone-shadow: light-dark(var(--tone-800), var(--tone-100));
+    --tone-focus-outline: var(--tone-300);
+    --tone-focus-border: var(--tone-600);
+}
+
+/*
+ * Neutral tones fill controls from the canvas end of the ramp, not from its middle.
+ */
+
+:root,
+.tone-base {
+    --tone-text: var(--tone-900);
+    --tone-fill: var(--tone-100);
+    --tone-fill-top: light-dark(var(--tone-0), var(--tone-200));
+    --tone-fill-bottom: light-dark(var(--tone-200), var(--tone-0));
+    --tone-fill-text: var(--tone-950);
+    --tone-border: var(--tone-400);
+    --tone-shadow: var(--shadow-medium);
+    --tone-focus-outline: var(--color-secondary-300);
+    --tone-focus-border: var(--color-secondary-600);
+}
+
+.tone-inverse {
+    --tone-text: var(--tone-0);
+    --tone-fill: var(--tone-0);
+    --tone-fill-top: light-dark(var(--tone-200), var(--tone-0));
+    --tone-fill-bottom: light-dark(var(--tone-0), var(--tone-200));
+    --tone-fill-text: var(--tone-950);
+    --tone-border: var(--tone-0);
+    --tone-shadow: light-dark(var(--tone-0), var(--tone-500));
+    --tone-focus-outline: var(--color-secondary-300);
+    --tone-focus-border: var(--color-secondary-600);
+}

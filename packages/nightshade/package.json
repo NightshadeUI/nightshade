@@ -1,7 +1,7 @@
 {
     "name": "nightshade",
     "version": "2.22.0",
-    "description": "Scalabe design system for Vue",
+    "description": "A seed for application-owned design systems: CSS variables first, Vue primitives optional",
     "author": "Boris Okunskiy",
     "license": "ISC",
     "sideEffects": false,
@@ -13,7 +13,7 @@
         "./css": "./index.css"
     },
     "dependencies": {
-        "@nightshadeui/core": "2.22.0",
+        "@nightshadeui/components": "2.22.0",
         "@nightshadeui/stylesheets": "2.22.0"
     },
     "peerDependencies": {

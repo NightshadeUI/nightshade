@@ -1,0 +1,60 @@
+/*
+ * The control size scale: one set of metrics per input size.
+ * What every size shares (border, outline, states) is a setting: `settings/inputs.css`.
+ * A metric's name already says what it is for, so sizes need no role tier:
+ * `.input-size-*` collapses one size into the generic `--input-*` slots.
+ * Buttons and inputs set the rhythm; every other control follows them.
+ * Heights are multiples of the grid, and every control is `border-box`,
+ * so a single-line control snaps exactly onto the spacing scale.
+ *
+ * major: the control itself (button, text field).
+ * minor: an element inside or beside it (toggle, checkbox, slider knob).
+ */
+:root {
+
+    /* xs */
+
+    --input-size-xs-major-height: var(--sp2-5);
+    --input-size-xs-minor-height: var(--sp1-5);
+    --input-size-xs-font-size: var(--font-size-xs);
+    --input-size-xs-major-padding: var(--sp1);
+    --input-size-xs-minor-padding: var(--sp0-25);
+    --input-size-xs-gap: var(--sp0-25);
+
+    /* s */
+
+    --input-size-s-major-height: var(--sp3);
+    --input-size-s-minor-height: var(--sp2);
+    --input-size-s-font-size: var(--font-size-s);
+    --input-size-s-major-padding: var(--sp1);
+    --input-size-s-minor-padding: var(--sp0-25);
+    --input-size-s-gap: var(--sp0-5);
+
+    /* m */
+
+    --input-size-m-major-height: var(--sp4);
+    --input-size-m-minor-height: var(--sp2-5);
+    --input-size-m-font-size: var(--font-size-m);
+    --input-size-m-major-padding: var(--sp1-5);
+    --input-size-m-minor-padding: var(--sp0-5);
+    --input-size-m-gap: var(--sp1);
+
+    /* l */
+
+    --input-size-l-major-height: var(--sp5);
+    --input-size-l-minor-height: var(--sp3);
+    --input-size-l-font-size: var(--font-size-m);
+    --input-size-l-major-padding: var(--sp2);
+    --input-size-l-minor-padding: var(--sp0-5);
+    --input-size-l-gap: var(--sp1);
+
+    /* xl */
+
+    --input-size-xl-major-height: var(--sp6);
+    --input-size-xl-minor-height: var(--sp4);
+    --input-size-xl-font-size: var(--font-size-l);
+    --input-size-xl-major-padding: var(--sp2);
+    --input-size-xl-minor-padding: var(--sp0-5);
+    --input-size-xl-gap: var(--sp1-5);
+
+}

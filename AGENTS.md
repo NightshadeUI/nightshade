@@ -1,145 +1,158 @@
-# Nightshade AGENTS Guide
+<!-- nightshade-methodology:begin -->
+# Nightshade methodology
 
-Nightshade is a Vue-focused UI system workspace containing:
+This project's design system grows from Nightshade: a few principles, styles as CSS variables, and a generated palette. The app owns everything it grows. Speak the existing vocabularies, and extend one before adding a parallel one.
 
-- `@nightshadeui/core` (`packages/core`) for Vue UI primitives and layout helpers
-- `@nightshadeui/stylesheets` (`packages/stylesheets`) for shared CSS tokens/utilities/modules
-- `@nightshadeui/gallery` (`packages/gallery`) for the VitePress demo/showcase app
-- `nightshade` (`packages/nightshade`) as the thin umbrella distribution package
+These are the always-on rules. For the token catalog, the palette workflow, component recipes and the token checker, use the `nightshade` skill (installed under `.agents/skills/nightshade`).
 
-This file is the single source of guidance for repository changes.
-Follow this guide for all edits in the workspace.
+## Tiers
 
-## Guidelines
+- **Four tiers, and each reads only the tiers before it:** raw values → context → roles → component variables. Sizes have no role tier: raw values → context → component.
+- **Raw values** come in two shapes. Scales are enumerable ladders: `--color-<ramp>-<step>` and `--color-<ramp>-contrast`, `--sp*`, `--radius-s|m|l`, `--font-size-*`, `--font-weight-*`, `--gr*`, and the control sizes `--input-size-<size>-<metric>`. Settings are single values: `--font-main|alt|monospace`, `--font-size`, `--font-weight`, `--line-height` and `--line-height-main|alt|monospace`, `--input-border-size`, `--input-outline-size|offset`, and the shared states below.
+- **Context** is set by classes on a subtree. `.tone-<tone>` points the context ramp `--tone-0` … `--tone-950` at one ramp. `.input-size-<xs|s|m|l|xl>` sets `--input-major-height`, `--input-minor-height`, `--input-major-padding`, `--input-minor-padding`, `--input-gap` and `--input-font-size`. `:root` is the default context: tone `base`, size `m`.
+- **Roles** are the meaning, stated once:
+  - Canvas roles: `--surface-base`/`--border-base`, `--surface-shade`/`--border-shade`, `--surface-deep`/`--border-deep`, `--surface-raised`/`--border-raised`, `--surface-overlay`, `--text-base|subtle|faint`, `--shadow-light|medium|heavy`, `--text-shadow-auto`, `--translucency-*`.
+  - Tone roles: `--tone-text`, `--tone-tint`, `--tone-tint-text`, `--tone-fill`, `--tone-fill-top|bottom`, `--tone-fill-text`, `--tone-border`, `--tone-shadow`, `--tone-focus-outline|border`. They resolve against whatever tone context they're read in.
+  - This list is complete. Add a role only when every tone (or every canvas level) can answer it.
+- **Customize at your `:root`**, in a cascade layer after Nightshade's: scales and settings change the character, roles change the meaning. Never copy a component's CSS to change one value.
 
-### Principles
+## Color
 
-We've set an ambitious goal to maintain a clean, modular, elegant codebase.
+- `palette.css` is generated from the project's palette spec with `npx nightshade palette`, and imported next to `@nightshadeui/stylesheets`, which brings none. Never edit it by hand: change the spec, regenerate, and commit both. The starter `@nightshadeui/stylesheets/palette.css` is for prototypes only.
+- The spec must have `base`, `primary` and `secondary` ramps: the styles read them by name (neutral controls focus in `secondary`). Every other ramp is the app's choice.
+- A new tone is a new ramp in the spec, and the generator emits its `.tone-<name>`. Never hand-write per-tone variables or roles.
+- **Multi-tone components** (controls meant to work in any tone: buttons, inputs, toggles, chips) read roles, and the context ramp (`--tone-200`) when no role fits. They never read `--color-*`, so one `.tone-*` class re-tones them.
+- **Single-tone components**, which is most of what an app builds, may read ramp steps directly (`--color-primary-600`, `--color-base-100`). Prefer a canvas role when one names the use (`--surface-deep` for a well).
+- Nothing outside the palette and roles calls `light-dark()`: every ramp step is already scheme-aware.
+- `--surface-*` are levels of the page (base, then shade, then deep), each with its `--border-*`. `--tone-fill` is a control's solid fill. Don't mix the words.
+- `--shadow-*` and `--tone-shadow` are reference colors, not full shadows. Each component owns its shadow geometry.
+- Role names are two words or more (`--text-base`, never `--text`) and carry no type suffix (`--tone-fill`, not `--tone-fill-color`).
 
-Always:
+## Size
 
-- Make codebase simpler, cleaner, boundaries sharper, contracts tighter.
-- Proactively refactor to make things simpler, more modular, responsibilities clearer.
-- Achieve the desired results with as minimal entities, complexity, dependencies as possible.
-- Strive for single responsibility for components, modules, classes, functions.
-- Embrace Occam's Razor principle in everything that you do. Ask yourself if there is a simpler, more elegant way to achieve the desired result.
+- Lengths are multiples of `--sp`: `--sp0-5`, `--sp1`, `--sp1-5`, `--sp2`… Prefer a token over a literal `px` whenever one exists.
+- Single-line controls have a fixed height, `--input-major-height`, and are `border-box`, so they land on the grid. Elements inside or beside them (knobs, toggles, checkboxes) take `--input-minor-height`.
+- A round control's radius is half its own height (`calc(.5 * var(--Btn-size))`), never a radius token.
 
-Avoid:
+## Components
 
-- unnecessary complexity
-- overly defensive programming
-- complex types
-- too granular types
-- convoluted names
-- too many arguments
-- code puzzles
-- nested branching (including try/catch)
-- unnecessary state
-- anecdotal edge case handling (always try to engineer things in such way that edge cases)
+- Each component exposes its knobs as `--<Component>-*`, defaulted on its root class from roles and the size context, and read without per-use fallbacks.
+- **One grammar for those variables.** Named after a role, they hold a color (`--Btn-fill`, `--Chip-text`, `--Toggle-border`, `--Btn-shadow`). Named after a CSS property, they hold a full value (`--Btn-background`, `--Btn-box-shadow`, `--Toggle-border-size`). Parts go in between (`--Slider-track-background`). No `-color` and no `-surface` suffixes.
+- **States are shared:** `--input-disabled-opacity|filter`, `--input-hover-overlay` for filled controls, `--input-hover-filter` for wells. Focus rings use `:focus-visible` (text fields: `:focus-within`).
+- **Controls speak one set of props:** `tone`, `size`, `flat`, `outline`, `round`, `translucent`, `disabled`, `force*`. `tone` and `size` have no default: when they're omitted the control inherits the context, so add the `.tone-*` or `.input-size-*` class only when the prop is set.
+- Root and sub-element classes are PascalCase and short (`Btn`, `Label`). Modifier and state classes are prefixed with the component and camelCased (`Btn-flat`, `Toggle-forceFocus`).
+- Set a look for a region with a context class, and for the whole app with `$nightshade.defaults`. Don't repeat the same props on every instance.
+- If the project uses `@nightshadeui/components`, wrap or restyle those components through their variables before writing a new one. If it uses another library, map that library's variables to the roles once, at `:root`.
 
-Minimization objectives (fewer = better):
+## Process
 
-- arguments
-- lines of code (in module, in method, in function, in single branch)
-- component-level state
-- class-level state
-- mutable variables (let)
-- types
-- branches
-- public members
-- exported symbols
-- words in names
+- After touching CSS, run `npx nightshade-methodology tokens <dir>` and fix what it reports.
+- After changing the palette spec, regenerate `palette.css` and check both color schemes.
+<!-- nightshade-methodology:end -->
 
-Every little piece counts.
+<!-- flexent-methodology:begin -->
+# Flexent methodology
 
-### Code Rules
+This repository follows the Flexent methodology: OOP-first code guidelines for TypeScript, Vue and mesh-ioc. Read what's around you and match it. Never invent a new approach where a local one exists.
 
-- Keep modules focused and small.
-- Prefer explicit exports over wildcard aggregators inside package internals.
-- Use named exports for reusable constants and helpers.
-- Keep vocabulary aligned with existing names and token families.
-- Use consistent formatting: 4-space indentation and trailing commas in multiline arrays/objects/exports.
-- Avoid adding runtime logic to umbrella/packaging files (`packages/nightshade/*`).
+These are the always-on rules. For the reasoning, patterns, recipes and the structure checker, use the `flexent` skill (installed under `.agents/skills/flexent`).
 
-### Component Rules
+## Structure
 
-- In SFC components, use Vue Options API (`props`, `data`, `computed`, `methods`), not `<script setup>`.
-- Drive visual variants through token classes (`ui-*`, `input-size-*`) and computed style objects (`baseStyle`, `effectiveStyle`).
-- Use component-scoped CSS for mapping tokens to sub-elements and modifiers.
-- Keep props aligned across controls where relevant: `kind`, `size`, `flat`, `round`, `outline`, `disabled`, `force*`.
-- Emit `update:modelValue` for v-model-compatible controls.
-- Use modifier/state classes with component prefixing (`Component-modifier`).
-- Use PascalCase for component names and sub-elements; sub-elements are not prefixed with the component name (for example, `Label` not `Btn-Label`).
-- Prefer concise, contextual sub-element names and avoid redundant semantics (for example, `BodyContent` -> `Content`).
-- Preserve slot names where relevant: `before`, default, `after`.
+- **Never mix top-level functions and classes in one module.** A class module is `PascalCase.ts`, named after its class. Functions live in kebab-case helper modules (`helpers/`, or the `util` package when generic).
+- **One role per directory.** `managers/`, `controllers/`, `scenes/`, `views/`, `components/`, `pages/`, domain family directories (`objects/`, `generators/`, …), `forms/`, `helpers/`. Don't drop a helper into a class directory or a class into a helper directory.
+- **Don't add ad hoc helper modules.** Put the behavior on the class that owns it, or in an existing helper that already does that job. Create a new helper module only when asked.
+- **Dependencies point down:** apps → framework packages → domain packages → utility packages. Domain packages are framework-free.
 
-### CSS Rules
+## State
 
-- Keep `packages/stylesheets/index.css` as ordered layered imports with `layer(nightshade)`.
-- Prefer CSS variables over hardcoded values.
-- Keep naming aligned to existing families:
-  - `--color-*`
-  - `--ui-*`
-  - `--input-*`
-  - `--sp*`
-- Keep utilities single-purpose and low-specificity.
-- Prefix component-local variables by component name (`--Btn-*`, `--InputBase-*`, `--Toggle-*`).
-- Define component-local variable defaults on the component root class (for example, `.Btn`, `.Bubble`) and consume without per-usage fallbacks in descendants.
-- Prefer tokenized sizing/spacing (`--sp*`, `--input-*`, `--ui-*`) over literal `px` values when equivalent tokens exist.
-- Avoid redundant wrappers when one container can express structure and styling.
-- Group styles in readable blocks: base, states, variants/modifiers.
+- **One source of truth per fact.** A setting has one shape: the shape its form produces. Don't mirror it, and don't restate its defaults elsewhere.
+- **Decode at the boundary.** Storage, files, clipboard and HTTP input are `unknown` until a schema or form decodes them. Past the boundary, trust the types.
+- **Single ownership.** Instances deep-copy what they're given and hand out copies (`toData()`). Nothing keeps a live reference into another instance's data.
+- **Use scopes sparingly.** Use a scope only when several classes share state bound to one lifecycle instance (request, connection, session, spawned process); otherwise keep it a plain object, a field on the owner, or an instance the owner connects with `mesh.connect`. A scope is a `<Unit>Scope extends Mesh`, registered with `mesh.scope()` and created through an injected `@scope()` provider.
+- **Derived engines are raw.** Scenes, simulations and Three.js or Manifold objects are stored with `markRaw` and never persisted.
 
-### Documentation Rules
+## Frontend
 
-- Keep Markdown concise and scannable with short sections and practical examples.
-- Use fenced code blocks with language hints for commands and snippets.
-- Prefer sentence-style prose over dense paragraph walls.
-- Insert one blank line between Markdown blocks (headings, paragraphs, lists, code fences, frontmatter-adjacent sections, and HTML/component blocks).
-- Keep naming and terminology consistent with package names and token vocabulary.
+- Use the Vue Options API. Never use `<script setup>`, and don't write composables.
+- Logic lives in classes: app-scoped `@provide`d managers, or controllers a manager creates with `mesh.connect` (views never construct them). In Vite apps, inject with `dependency(this, X)`. In Node, use `@dep()`.
+- Views `inject` managers. Components use props and events only. Pages are thin.
+- Managers never watch each other. A coordinating manager sequences actions that touch several.
+- Three.js and Manifold code lives in lazily loaded `scenes/` (or workbench chunks) and never in pages, views, components or managers.
+- Prefer Nightshade components and design tokens over native elements and custom CSS.
 
-### Stylesheets Rules
+## Code
 
-- Treat token and variable conventions as repository-wide, not package-specific.
-- Keep `packages/stylesheets/index.css` as ordered layered imports with `layer(nightshade)`.
-- Variables are layered/delegated, not flat.
-- Keep naming aligned to existing families:
-  - `--color-<token>-<scale>` for palette ramps
-  - `--ui-<token>-*` for semantic UI assignments
-  - `--input-*` for sizing/radius/rhythm
-  - `--sp*` for spacing scale
-- Preserve class token conventions used across the system:
-  - `ui-*` for semantic themes
-  - `input-size-*` for sizing
-- Prefix component-local variables by component name (`--Btn-*`, `--InputBase-*`, `--Toggle-*`).
-- Define component-local defaults on component root classes and consume without per-usage fallbacks in descendants.
-- Keep utilities single-purpose and low-specificity.
-- Keep classes composable and avoid parallel alias systems.
-- Prefer tokenized spacing/sizing over literal `px` values when equivalent tokens exist.
-- If adding a stylesheets module, export it in `package.json` and include a module `index.css` entrypoint.
+- **Make contracts carry invariants.** If every caller re-checks the same preconditions, move the check into the producer.
+- **Don't write excessively defensive code.** No guards against your own contracts.
+- **Don't invent accidental complexity.** Prefer fewer entities, layers, flags, branches and arguments. No speculative features.
+- **Name methods as verb plus object** (`openProject`, `deleteProject`). `remove` takes an element out of a list; `delete` destroys an entity.
+- **Don't fake English with Of/For names** (`idsOf`, `pathFor`). Name the value.
+- **Don't type-narrow thrown errors.** Use `catch (error: any)` and read `error?.message`.
+- **Never collapse multi-key object literals onto one line.**
+- **Always fix lint errors.** A long-method warning means the method has two jobs.
+- **Fix inconsistencies you notice**, or add them to `TODO.md`. When two ways exist, follow the dominant one and never add a third.
 
-### Commit Rules
+## Process
 
-- Do not commit changes unless explicitly instructed.
-- Use Conventional Commits when committing.
-- Commit format: `type: short summary` (lowercased, no trailing period).
-- Allowed commit types: `feat`, `fix`, `docs`, `chore`, `style`, `refactor`, `build`.
+- Don't commit unless asked. Use Conventional Commits (`type: short summary`).
+- Run `tsc -b`, the linter and the package tests before reporting done.
+<!-- flexent-methodology:end -->
 
-## Package Notes
+## Nightshade
 
-### `@nightshadeui/gallery`
+Nightshade is a seed for application-owned design systems: principles, styles as CSS variables, and a palette generator. Standard Vue components and other packages are opt-ins. It is published as a set of `@nightshadeui/*` libraries. It is not an end-user app: there is no app container, no mesh-ioc and no managers in the packages. Read the Flexent rules above through that lens.
 
-- `@nightshadeui/gallery` is the VitePress demo/showcase app for component and token behavior.
-- Keep gallery changes teaching-oriented and concise.
+### The model
 
-### `nightshade`
+Principles → styles (`stylesheets`) → the app's own system. Simplicity is the first principle. Everything else is an opt-in that orbits: the palette generator (`palette-generator`, `cli`, the website's Palette Studio) writes the styles' `palette.css` and nothing else; `components`, `canvas`, `particle-system`, `scroller` and `content-editor` plug into the app. The styles never depend on an opt-in.
 
-- `nightshade` is a thin umbrella package; avoid runtime logic here.
-- Keep packaging and export layers minimal and aligned.
+### Packages
 
-## Change Checklist
+- Styles: `stylesheets` (generated palette, scales, context, roles, base, utilities, modules).
+- Palette generator: `palette-generator` (scheme-aware OKLCH ramps and tone contexts, `PaletteSpecSchema`), `cli` (`nightshade palette`).
+- Standard components (opt-in): `components` (Vue controls and layout). Depends on `stylesheets`.
+- Other opt-ins: `canvas`, `particle-system`, `scroller`, `content-editor` (private prototype).
+- Utility: `util` (geometry helpers, `dom/` input classes, `readStored`/`writeStored`). Framework-free.
+- Distribution: `nightshade`, a thin umbrella package. No runtime logic here.
+- Methodology: `methodology`, the rules and the `nightshade` skill for apps grown from the seed. Its `AGENTS.md` is the source of the Nightshade methodology block above (synced with `npx nightshade-methodology sync`). When the model, tokens or grammar change, update it and the skill references with them.
+- Website: `website`, the VitePress documentation site (private). It is an app grown from the seed.
 
-- [ ] Scope changes to the correct package(s).
-- [ ] Follow all repository-wide rules in this file.
-- [ ] Keep docs concise/scannable and use proper fenced code blocks.
-- [ ] Run relevant build/dev checks (`npm run build` or package-specific scripts).
-- [ ] Ensure commit messages follow Conventional Commit format when committing.
+### Library conventions
+
+- Components are the public API. They take props and emit events; they never `inject` app state. `$nightshade.defaults` is the only provided value.
+- A component with real behavior (animation loops, scroll tracking, editing) delegates to a controller class in the same package (`ParticleSystemController`, `ScrollerController`, `ContentEditor`). Controllers are plain classes with `mount`/`unmount` and reactive state; consumers can use them without the component.
+- Packages are directories by role: `components/`, `editor/` or the controller at `src/`, `helpers/`, `dom/`, `schema/`. Keep `index.ts` the only aggregator.
+- Keep the `./src` subpath export on every package; the website and sibling packages import sources through it. Don't remove an export subpath without a major version.
+- Package versions are kept in lockstep. Inter-package dependencies use exact versions; `bump-version` keeps them in sync.
+- The website is the one app-shaped package: site-wide state lives in `managers/` classes, provided once from the theme's `enhanceApp`. `views/` inject managers, `components/` take props only, `pages/` are Markdown and stay thin (no `<script setup>`; site views and components are registered globally).
+
+### Components and CSS
+
+The Nightshade methodology block above applies to the packages too: tiers, roles, the variable grammar, the prop grammar and class naming. On top of it:
+
+- The standard components and the opt-ins' components are multi-tone: they read roles and the context ramp, never `--color-*`. The website is an app, and its single-tone views and components may read ramps directly.
+- Drive visual variants through context classes (`tone-*`, `input-size-*`) and computed style objects (`baseStyle`, `effectiveStyle`).
+- Emit `update:modelValue` for v-model controls, and preserve the slot names `before`, default and `after`.
+- `packages/stylesheets/index.css` is an ordered list of layered imports with `layer(nightshade)`, in tier order: `scales/` → `settings/` → `context/` → `roles/`, then `base.css` and `utilities.css`. It doesn't import `palette.css`: apps bring their own, and the shipped one is a starter (the generator's defaults) that only the website imports. A new module is exported in `package.json` and has its own `index.css`.
+- `palette.css` is generated with `npm run palette -w @nightshadeui/stylesheets`. The neutral contexts (`:root` = base, `.tone-inverse` = base mirrored) live in `context/tones.css`, and the neutral role overrides in `roles/tones.css`. The styles read `base`, `primary` and `secondary` by name (`REQUIRED_RAMPS` in the generator); never make them depend on another.
+- Keep utilities single-purpose and low-specificity, and don't add parallel alias systems.
+- Use scoped component CSS, grouped as base, states, then variants and modifiers. Avoid wrappers that one container can replace.
+- Run `npx nightshade-methodology tokens packages` before reporting done.
+
+### Docs
+
+- Keep Markdown short and scannable, with practical examples and fenced code blocks with language hints.
+- Put one blank line between Markdown blocks, including around HTML and component blocks.
+- Website pages teach: one concept per section, concise copy, live demos in `<Demo>`. Site navigation lives in `NavigationManager`, in model order. The site uses Source Sans 3, Cormorant Garamond (h1 and h2 titles and the wordmark, weight 600; h3 and below use Source Sans 3, with h5 and h6 in spaced uppercase) and Source Code Pro; no eyebrows outside the home hero.
+
+### Process
+
+- Commit types: `feat`, `fix`, `docs`, `chore`, `style`, `refactor`, `build`.
+- Before reporting done: `npm run build`, `npm run lint`.
+- Release with `npm version <bump>`: it builds, syncs workspace versions with `bump-version`, pushes, then publishes every non-private workspace.
+
+### House rules
+
+- Don't test in a browser unless asked. Code, lint and reading the source are enough.
+- Always lead with a joke when providing updates. It has to be funny.
