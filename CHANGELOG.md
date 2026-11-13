@@ -1,6 +1,18 @@
 # Changelog
 
-## 3.0.1
+## 3.2.0
+
+- `@nightshadeui/components`: a disabled `Btn` or `Chip` on another tag (a link, a `RouterBtn`) no longer shows hover, focus or press states.
+- Docs: palette spec examples keep the required `secondary` ramp.
+- `@nightshadeui/util`: `createGridDotsSvg` and the unused `createGridLinesSvg` are gone; the canvas draws its own grid.
+- `@nightshadeui/cli`: needs Node 22.12 or later (commander 15).
+- `@nightshadeui/docs`: VitePress 2.0.0-alpha.21 and Shiki 4.
+
+## 3.1.1
+
+- `@nightshadeui/cli`: restore the `nightshade` bin again; 3.1.0 shipped it broken. `bump-version` (`@flexent/repo-tools` 2.20.1) now rewrites only dependency fields.
+
+## 3.1.0
 
 - `@nightshadeui/cli`: restore the `nightshade` bin, which 3.0.0 shipped as `"3.0.0"`, so the CLI wasn't installed.
 - `@nightshadeui/components`: a bound `undefined` prop (`:tone="item.tone"`) no longer blocks `$nightshade.defaults`; `InputText` and `InputTextarea` emit the `input` they declare.

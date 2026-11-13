@@ -294,17 +294,17 @@ export default {
     transition: none;
 }
 
-.Btn:not(:disabled):hover::after, .Btn.Btn-forceHover::after {
+.Btn:not(.Btn-disabled):hover::after, .Btn.Btn-forceHover::after {
     opacity: 1;
 }
 
-.Btn:not(:disabled):focus-visible, .Btn.Btn-forceFocus {
+.Btn:not(.Btn-disabled):focus-visible, .Btn.Btn-forceFocus {
     z-index: 10;
     --Btn-outline: var(--tone-focus-outline);
     --Btn-border: var(--tone-focus-border);
 }
 
-.Btn:not(:disabled):active, .Btn.Btn-forceActive {
+.Btn:not(.Btn-disabled):active, .Btn.Btn-forceActive {
     padding-top: 1px;
     box-shadow:
         0 6px 12px var(--shadow-light) inset,

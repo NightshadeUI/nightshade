@@ -148,12 +148,12 @@ export default {
 
 /* States */
 
-.Chip:not(:disabled):hover::after,
+.Chip:not(.Chip-disabled):hover::after,
 .Chip-forceHover::after {
     opacity: 1;
 }
 
-.Chip:not(:disabled):focus-visible,
+.Chip:not(.Chip-disabled):focus-visible,
 .Chip-forceFocus {
     z-index: 10;
     --Chip-outline: var(--tone-focus-outline);

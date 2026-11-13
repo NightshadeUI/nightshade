@@ -1,6 +1,9 @@
+import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
 import { defineDocsConfig } from '@nightshadeui/docs/config';
+
+const { version } = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
 
 export default defineDocsConfig({
     srcDir: 'pages',
@@ -35,14 +38,14 @@ export default defineDocsConfig({
             'link',
             {
                 rel: 'stylesheet',
-                href: 'https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500&family=Source+Sans+3:ital,wght@0,300..700;1,300..700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap',
+                href: 'https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500&family=Source+Sans+3:ital,wght@0,300..700;1,300..700&family=Fraunces&display=swap',
             },
         ],
     ],
     themeConfig: {
         brand: {
             name: 'Nightshade',
-            version: '3.0',
+            version: version.split('.').slice(0, 2).join('.'),
         },
         social: [
             {

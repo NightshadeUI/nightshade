@@ -314,7 +314,7 @@ export default {
 }
 
 .Ring-principles text {
-    font: italic 600 24px/1 var(--font-alt);
+    font: 400 24px/1 var(--font-alt);
 }
 
 .Ring-active circle {
@@ -405,7 +405,7 @@ export default {
 }
 
 .ItemTitle {
-    font: 600 26px/1.3 var(--font-alt);
+    font: 400 26px/1.3 var(--font-alt);
 }
 
 .Item-active .ItemTitle {

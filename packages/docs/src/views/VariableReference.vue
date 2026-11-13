@@ -21,7 +21,7 @@
 
         <section class="Guide">
             <h2 class="GuideTitle">
-                Everything can be overridden. Not everything should be.
+                Everything can be overridden, not everything should be
             </h2>
             <p class="GuideNote">
                 Every entry says how it goes when you override it. Pick a card to see only those.

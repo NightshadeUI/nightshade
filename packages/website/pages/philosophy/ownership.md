@@ -6,7 +6,7 @@ title: Growing your own
 
 <p class="Lead">The point of a seed is what it grows into. Here's how to turn Nightshade into your organization's design system, one layer at a time, without forking it.</p>
 
-## 1. Start from a palette spec
+## Start from a palette spec
 
 Open the [Palette Studio](/studio), tune the hues and curves, and copy the spec. Keep it in your repository as the single source of your colors.
 
@@ -14,7 +14,7 @@ Open the [Palette Studio](/studio), tune the hues and curves, and copy the spec.
 npx nightshade palette -f design/palette.json -o src/styles/palette.css
 ```
 
-## 2. Reassign roles, not components
+## Reassign roles, not components
 
 Roles are the meaning layer. Changing what a deep surface or a primary button is takes one variable, and every component follows.
 
@@ -27,7 +27,7 @@ Roles are the meaning layer. Changing what a deep surface or a primary button is
 }
 ```
 
-## 3. Add tones for your domain
+## Add tones for your domain
 
 Plans, environments, statuses: if your product has a color vocabulary, make each word a tone. Add a ramp to the spec and regenerate:
 
@@ -37,7 +37,7 @@ Plans, environments, statuses: if your product has a color vocabulary, make each
 
 The generator writes `--color-pro-*` and `.tone-pro`, and every role resolves against it. Now `<Btn tone="pro">` works, and so does `<section class="tone-pro">` around anything.
 
-## 4. Tune the scales
+## Tune the scales
 
 A handful of variables sets the character of the whole system:
 
@@ -47,11 +47,11 @@ A handful of variables sets the character of the whole system:
     --radius-m: 6px;
     --font-size-m: 15px;
     --font-main: "Source Sans 3", sans-serif;
-    --font-alt: "Cormorant Garamond", serif;
+    --font-alt: "DM Serif Display", serif;
 }
 ```
 
-## 5. Wrap, map or replace components
+## Wrap, map or replace components
 
 Your system's components can wrap the standard ones, or skip them and read the same roles directly. Already on a component library? Map its variables to the roles once, at your `:root`. Either way, everything speaks the same grammar.
 
@@ -70,7 +70,7 @@ Your system's components can wrap the standard ones, or skip them and read the s
 </style>
 ```
 
-## 6. Ship it as your package
+## Ship it as your package
 
 Put your CSS in its own cascade layer after Nightshade's, and publish it. Apps depend on your system, not on Nightshade directly.
 

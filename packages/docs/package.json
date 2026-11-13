@@ -31,7 +31,7 @@
     },
     "peerDependencies": {
         "@nightshadeui/particle-system": "3.1.1",
-        "vitepress": "^2.0.0-alpha.17",
+        "vitepress": "^2.0.0-alpha.21",
         "vue": "^3.5.22"
     },
     "peerDependenciesMeta": {
@@ -40,11 +40,11 @@
         }
     },
     "dependencies": {
-        "@fortawesome/fontawesome-free": "^7.2.0",
+        "@fortawesome/fontawesome-free": "^7.3.1",
         "@nightshadeui/components": "3.1.1",
         "@nightshadeui/stylesheets": "3.1.1",
         "@nightshadeui/util": "3.1.1",
-        "lightningcss": "^1.30.2",
-        "shiki": "^3.23.0"
+        "lightningcss": "^1.33.0",
+        "shiki": "^4.6.0"
     }
 }

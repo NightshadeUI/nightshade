@@ -1,5 +1,6 @@
 import './theme.css';
 
+import HeroBackdrop from '@nightshadeui/docs/hero-backdrop';
 import { DocsTheme } from '@nightshadeui/docs/src';
 import { Theme } from 'vitepress';
 import { Component, reactive } from 'vue';
@@ -26,6 +27,7 @@ const theme: Theme = {
         for (const [path, module] of Object.entries(siteComponents)) {
             app.component(path.replace(/^.*\/|\.vue$/g, ''), module.default);
         }
+        app.component('HeroBackdrop', HeroBackdrop);
         app.provide('paletteManager', reactive(new PaletteManager()));
         app.provide('canvasDemoManager', new CanvasDemoManager());
         app.provide('particleDemoManager', new ParticleDemoManager());

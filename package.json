@@ -38,21 +38,27 @@
         "@nightshadeui/website": "./packages/website"
     },
     "devDependencies": {
-        "@fastify/pre-commit": "^2.2.1",
-        "@flexent/eslint-config": "^2.20.1",
-        "@flexent/eslint-config-vue": "^2.20.1",
-        "@flexent/methodology": "^2.20.1",
-        "@flexent/repo-tools": "^2.20.1",
-        "@types/node": "^24.9.1",
-        "@vitejs/plugin-vue": "^6.0.1",
-        "eslint": "^9.38.0",
-        "lightningcss": "^1.30.2",
+        "@fastify/pre-commit": "^2.2.2",
+        "@flexent/eslint-config": "^2.22.1",
+        "@flexent/eslint-config-vue": "^2.22.1",
+        "@flexent/methodology": "^2.22.1",
+        "@flexent/repo-tools": "^2.22.1",
+        "@types/node": "^24.19.2",
+        "@vitejs/plugin-vue": "^6.0.11",
+        "@vue/language-core": "^3.3.14",
+        "eslint": "^9.39.5",
+        "lightningcss": "^1.33.0",
         "npm-run-all": "^4.1.5",
-        "typescript": "^5.9.3",
-        "vite": "^7.1.12",
-        "vite-plugin-dts": "^4.5.4"
+        "typescript": "^6.0.3",
+        "vite": "^8.3.8",
+        "vite-plugin-dts": "^5.1.2"
     },
     "peerDependencies": {
         "vue": "^3.5.22"
+    },
+    "overrides": {
+        "@typescript-eslint/typescript-estree": {
+            "minimatch": "^11.0.8"
+        }
     }
 }

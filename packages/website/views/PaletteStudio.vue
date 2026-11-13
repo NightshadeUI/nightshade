@@ -306,7 +306,7 @@ export default {
 
 .Title {
     margin: 0 0 var(--sp2);
-    font: 600 clamp(44px, 6vw, 72px)/1.05 var(--font-alt);
+    font: 400 clamp(44px, 6vw, 72px)/1.05 var(--font-alt);
     letter-spacing: -0.02em;
 }
 
@@ -350,7 +350,7 @@ code {
 
 .SectionTitle {
     margin: 0;
-    font: 600 32px/1.1 var(--font-alt);
+    font: 400 32px/1.1 var(--font-alt);
     letter-spacing: -0.01em;
 }
 

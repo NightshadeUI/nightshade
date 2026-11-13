@@ -12,8 +12,8 @@
         "build": "vitepress build"
     },
     "devDependencies": {
-        "vitepress": "^2.0.0-alpha.17",
-        "vue": "^3.5.22"
+        "vitepress": "^2.0.0-alpha.21",
+        "vue": "^3.5.45"
     },
     "dependencies": {
         "@nightshadeui/canvas": "3.1.1",

@@ -53,7 +53,7 @@ Each step is `light-dark(<light>, <dark>)`, where the dark value is the ramp mir
 
 ## The spec
 
-Every field is optional; anything you leave out takes the default. The [Palette Studio](/studio) copies a complete spec for you.
+Every field is optional; anything you leave out takes the default. A `ramps` list replaces the default ramps, and must keep `base`, `primary` and `secondary`: the styles read them by name. The [Palette Studio](/studio) copies a complete spec for you.
 
 
 ```json
@@ -63,6 +63,7 @@ Every field is optional; anything you leave out takes the default. The [Palette 
     "ramps": [
         { "name": "base", "hue": 320, "chroma": 0.2, "lightness": 1 },
         { "name": "primary", "hue": 340, "chroma": 1.2, "lightness": 1 },
+        { "name": "secondary", "hue": 172, "chroma": 0.72, "lightness": 1 },
         { "name": "brand", "hue": 250, "chroma": 1, "lightness": 1 }
     ]
 }

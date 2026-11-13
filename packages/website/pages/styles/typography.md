@@ -14,7 +14,7 @@ title: Typography
 | `--font-alt` | `--font-main` | display text and headings, if your system has a second voice |
 | `--font-monospace` | `monospace` | code |
 
-This site sets them to Source Sans 3, Cormorant Garamond and Source Code Pro.
+This site sets them to Source Sans 3, DM Serif Display and Source Code Pro.
 
 ## Size scale
 

@@ -8,10 +8,12 @@
  */
 :root {
     --font-main: "Source Sans 3", system-ui, sans-serif;
-    --font-alt: "Cormorant Garamond", Georgia, serif;
+    --font-alt: "Fraunces", Georgia, serif;
     --font-monospace: "Source Code Pro", ui-monospace, monospace;
     --font-size-m: 17px;
     --font-weight-bold: 600;
+    /* DM Serif Display has one weight: the theme's bold and italic titles render it as drawn, never faked */
+    font-synthesis: none;
 
     --radius-m: 6px;
 
@@ -25,8 +27,7 @@
 
 .Wordmark {
     font-family: var(--font-alt);
-    font-style: italic;
-    font-weight: 600;
+    font-weight: 400;
     letter-spacing: -0.01em;
 }
 

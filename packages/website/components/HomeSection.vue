@@ -47,7 +47,7 @@ export default {
 
 .Title {
     margin: 0;
-    font: 600 clamp(36px, 5vw, 56px)/1.05 var(--font-alt);
+    font: 400 clamp(36px, 5vw, 56px)/1.05 var(--font-alt);
     letter-spacing: -0.02em;
 }
 

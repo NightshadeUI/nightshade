@@ -10,7 +10,7 @@
                 </div>
                 <h1 class="Title">
                     Grow your own<br />
-                    <em class="GradientText">design system.</em>
+                    <span class="GradientText">design system</span>
                 </h1>
                 <p class="Lead">
                     Not a framework to fight, a seed to grow from: CSS variables first,
@@ -186,12 +186,11 @@ export default {
 
 .Title {
     margin: var(--sp3) 0 var(--sp3);
-    font: 600 clamp(44px, 8vw, 100px)/0.98 var(--font-alt);
+    font: 400 clamp(44px, 8vw, 100px)/0.98 var(--font-alt);
     letter-spacing: -0.02em;
 }
 
-.Title em {
-    font-style: italic;
+.Title .GradientText {
     padding-right: 0.08em;
 }
 
@@ -280,7 +279,7 @@ export default {
 }
 
 .SpecimenTitle {
-    font: italic 600 26px/1 var(--font-alt);
+    font: 400 26px/1 var(--font-alt);
 }
 
 .HueValue {

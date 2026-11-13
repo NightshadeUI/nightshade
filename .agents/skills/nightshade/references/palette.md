@@ -17,7 +17,8 @@ While prototyping, `@nightshadeui/stylesheets/palette.css` is a starter: the gen
     "chromaCurve": [0.01, 0.02, 0.03, 0.06, 0.09, 0.12, 0.12, 0.09, 0.06, 0.03, 0.02, 0.01],
     "ramps": [
         { "name": "base", "hue": 320, "chroma": 0.2, "lightness": 1 },
-        { "name": "primary", "hue": 340, "chroma": 1.2, "lightness": 1 }
+        { "name": "primary", "hue": 340, "chroma": 1.2, "lightness": 1 },
+        { "name": "secondary", "hue": 172, "chroma": 0.72, "lightness": 1 }
     ]
 }
 ```

@@ -196,7 +196,7 @@ export default {
 
 .Text {
     margin-left: auto;
-    font: 600 24px/1 var(--font-alt);
+    font: 400 24px/1 var(--font-alt);
     color: var(--tone-text);
 }
 

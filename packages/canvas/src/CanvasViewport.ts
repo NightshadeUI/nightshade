@@ -1,5 +1,4 @@
 import {
-    createGridDotsSvg,
     DomEventProxy,
     getCssColorVar,
     getCssVarNumber,
@@ -45,19 +44,7 @@ export class CanvasViewport {
     }
 
     getCanvasStyle() {
-        const majorColor = getCssColorVar(this.viewportEl, '--CanvasView-grid-major-fill', 'var(--border-deep)');
-        const minorColor = getCssColorVar(this.viewportEl, '--CanvasView-grid-minor-fill', 'var(--border-base)');
-        const subdivisions = getCssVarNumber(this.viewportEl, '--CanvasView-grid-subdivisions', 4);
-        const majorRadius = getCssVarNumber(this.viewportEl, '--CanvasView-grid-major-radius', 2);
-        const minorRadius = getCssVarNumber(this.viewportEl, '--CanvasView-grid-minor-radius', 1);
-        const svg = createGridDotsSvg(
-            this.space.cellSize,
-            subdivisions,
-            majorColor,
-            majorRadius,
-            minorColor,
-            minorRadius,
-        );
+        const svg = this.createGridSvg();
         const url = `data:image/svg+xml;base64,${window.btoa(svg)}`;
         return {
             background: `url(${url}) repeat`,
@@ -122,6 +109,36 @@ export class CanvasViewport {
             x: canvasPos.x * this.space.zoom - viewportSize.x * 0.5,
             y: canvasPos.y * this.space.zoom - viewportSize.y * 0.5,
         });
+    }
+
+    /** One grid cell: minor dots at every subdivision, major dots at the corners. */
+    private createGridSvg() {
+        const cellSize = this.space.cellSize;
+        const subdivisions = getCssVarNumber(this.viewportEl, '--CanvasView-grid-subdivisions', 4);
+        const step = Math.round(cellSize / subdivisions);
+        const minorCoords = Array.from({ length: subdivisions + 1 }, (_, i) => i * step);
+        minorCoords[subdivisions] = cellSize;
+        const layers = [
+            {
+                coords: minorCoords,
+                radius: getCssVarNumber(this.viewportEl, '--CanvasView-grid-minor-radius', 1),
+                fill: getCssColorVar(this.viewportEl, '--CanvasView-grid-minor-fill', 'var(--border-base)'),
+            },
+            {
+                coords: [0, cellSize],
+                radius: getCssVarNumber(this.viewportEl, '--CanvasView-grid-major-radius', 2),
+                fill: getCssColorVar(this.viewportEl, '--CanvasView-grid-major-fill', 'var(--border-deep)'),
+            },
+        ];
+        const circles = layers
+            .filter(layer => layer.radius > 0)
+            .flatMap(layer => layer.coords.flatMap(x => layer.coords.map(y =>
+                `<circle cx="${x}" cy="${y}" r="${layer.radius}" fill="${layer.fill}"/>`)));
+        return [
+            `<svg xmlns="http://www.w3.org/2000/svg" width="${cellSize}" height="${cellSize}" viewBox="0 0 ${cellSize} ${cellSize}">`,
+            ...circles,
+            '</svg>',
+        ].join('');
     }
 
     private setViewportScroll(pos: Point) {

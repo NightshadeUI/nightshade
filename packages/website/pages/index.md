@@ -8,7 +8,7 @@ titleTemplate: Grow your own design system
 
 <HomeSection
     title="The model"
-    tagline="Principles, styles, and your system. Everything else is opt-in."
+    tagline="Principles, styles and your system: everything else is opt-in"
     text="Install the stylesheets, generate a palette, and you're ready: override the essentials at your :root and build your own. Standard components, canvas, particles and scroller orbit your system. Use them, map your own component library to the same variables, or ignore them. Hover anything to find it in the legend.">
 
 <LayerRings />
@@ -17,7 +17,7 @@ titleTemplate: Grow your own design system
 
 <HomeSection
     title="From seed to button"
-    tagline="Four steps: scale, context, role, component."
+    tagline="Four steps: scale, context, role, component"
     text="Colors take four steps from a raw value to a component; sizes take three. Components read only the last, generic slot, so one class re-tones or re-sizes a whole subtree.">
 
 <TokenChain />
@@ -26,7 +26,7 @@ titleTemplate: Grow your own design system
 
 <HomeSection
     title="Two axes"
-    tagline="Any tone, five sizes, one grammar."
+    tagline="Any tone, five sizes, one grammar"
     text="Controls take the same tone and size, and the same switches where they apply: flat, outline, round, translucent. Toggle them in the hero above: the styles are look-agnostic, so every combination has to hold up.">
 
 <Demo>
@@ -37,7 +37,7 @@ titleTemplate: Grow your own design system
 
 <HomeSection
     title="Roles"
-    tagline="A complete, finite vocabulary."
+    tagline="A complete, finite vocabulary"
     text="Building your own component? Ask three questions. Is it the canvas: a panel, text, a divider? Use a canvas role. Is it the control's accent: fill, border, focus? Use a tone role. Neither? A step of the context ramp, like --tone-200, still follows the tone and the scheme.">
 
 <RoleVocabulary />
@@ -46,7 +46,7 @@ titleTemplate: Grow your own design system
 
 <HomeSection
     title="Open tones"
-    tagline="A new tone is one ramp away."
+    tagline="A new tone is one ramp away"
     text="Every ramp in your palette spec becomes a tone: the generator writes its color scale and its .tone-<name> context, and every component re-tones with that one class. Nothing else to register.">
 
 <div class="OpenTones Prose">
@@ -84,7 +84,7 @@ Add a tone in the [Palette Studio](/studio) and this whole site gets it.
 
 </HomeSection>
 
-<HomeSection title="Get started" tagline="Plant it in three steps.">
+<HomeSection title="Get started" tagline="Plant it in three steps">
 
 <div class="HomeSteps Prose">
 <div class="HomeStep">

@@ -5,7 +5,8 @@
     ],
     "compilerOptions": {
         "rootDir": "src",
-        "outDir": "out"
+        "outDir": "out",
+        "types": ["node"]
     },
     "references": [
         { "path": "../palette-generator" }
