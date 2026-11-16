@@ -14,7 +14,7 @@
         <span class="Divider" />
         <div class="Group">
             <Btn
-                v-for="option in playgroundManager.stateOptions"
+                v-for="option in stateOptions"
                 :key="option.key"
                 :label="option.label"
                 :tone="playgroundManager.options[option.key] ? 'secondary' : undefined"
@@ -37,12 +37,32 @@
 <script>
 /**
  * Sets the control options every demo on the site follows.
+ * `active` adds the Active switch, for pages with buttons: no other control has a pressed state.
  */
 export default {
 
     inject: [
         'playgroundManager',
     ],
+
+    props: {
+        active: { type: Boolean, default: false },
+    },
+
+    computed: {
+
+        stateOptions() {
+            return this.playgroundManager.stateOptions.filter(option => this.active || option.key !== 'forceActive');
+        },
+
+    },
+
+    mounted() {
+        // A forced press left on from another page would have no switch here to turn it off
+        if (!this.active) {
+            this.playgroundManager.clearOption('forceActive');
+        }
+    },
 
 };
 </script>

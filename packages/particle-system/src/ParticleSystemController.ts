@@ -1,5 +1,5 @@
 import { Event } from 'nanoevent';
-import { reactive } from 'vue';
+import { reactive, shallowReactive } from 'vue';
 
 import {
     createNoise,
@@ -12,6 +12,12 @@ import { ParticleState, ParticleSystemConfig } from './types.js';
 
 const MAX_PARTICLE_INDEX = Number.MAX_SAFE_INTEGER;
 
+/**
+ * Runs one particle system. Once mounted it ticks itself every frame;
+ * a renderer that draws several systems (`ParticleCanvasController`) leaves it unmounted and ticks it instead.
+ *
+ * The particle list is shallow-reactive: renderers redraw on `updated`, not on particle fields.
+ */
 export class ParticleSystemController {
 
     started = new Event<void>();
@@ -20,7 +26,7 @@ export class ParticleSystemController {
     finished = new Event<void>();
     updated = new Event<void>();
 
-    particles = reactive<ParticleState[]>([]);
+    particles = shallowReactive<ParticleState[]>([]);
     config = resolveParticleConfig();
 
     private index = 0;

@@ -83,6 +83,12 @@ export class PlaygroundManager {
         this.saveLook();
     }
 
+    clearOption(key: PlaygroundOption) {
+        if (this.options[key]) {
+            this.toggleOption(key);
+        }
+    }
+
     reset() {
         this.options = this.createDefaultOptions();
         this.saveLook();

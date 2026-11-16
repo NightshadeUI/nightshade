@@ -3,47 +3,20 @@
         ref="backdrop"
         class="HeroBackdrop"
         aria-hidden="true">
-        <ParticleSystem
-            class="Emitter Emitter-bottomLeft tone-primary"
-            :config="primaryBlobConfig">
-            <template #default="{ particle, htmlStyle }">
-                <div
-                    class="Blob"
-                    :style="centered(particle, htmlStyle)" />
-            </template>
-        </ParticleSystem>
-        <ParticleSystem
-            class="Emitter Emitter-topRight tone-secondary"
-            :config="secondaryBlobConfig">
-            <template #default="{ particle, htmlStyle }">
-                <div
-                    class="Blob"
-                    :style="centered(particle, htmlStyle)" />
-            </template>
-        </ParticleSystem>
-        <ParticleSystem
-            class="Emitter Emitter-bottomRight tone-primary"
-            :config="primarySparkConfig">
-            <template #default="{ particle, htmlStyle }">
-                <div
-                    class="Spark"
-                    :style="centered(particle, htmlStyle)" />
-            </template>
-        </ParticleSystem>
-        <ParticleSystem
-            class="Emitter Emitter-topLeft tone-secondary"
-            :config="secondarySparkConfig">
-            <template #default="{ particle, htmlStyle }">
-                <div
-                    class="Spark"
-                    :style="centered(particle, htmlStyle)" />
-            </template>
-        </ParticleSystem>
+        <span
+            ref="primary"
+            class="Swatch tone-primary" />
+        <span
+            ref="secondary"
+            class="Swatch tone-secondary" />
+        <ParticleCanvas
+            ref="particles"
+            :layers="layers" />
     </div>
 </template>
 
 <script>
-import { ParticleSystem } from '@nightshadeui/particle-system/src';
+import { ParticleCanvas, ParticleSystemController } from '@nightshadeui/particle-system/src';
 import { markRaw } from 'vue';
 
 const REPEL_RADIUS = 140;
@@ -53,26 +26,32 @@ const DAMPING = 1.2;
 const NUDGE_FORCE = 48;
 /** Within this distance of the center the pull fades out, so the two clouds almost meet. */
 const NUDGE_FALLOFF = 240;
+/** Sprites in px: blobs are soft discs that scale up well, sparks are solid ones drawn much smaller. */
+const BLOB_SPRITE = {
+    size: 256,
+    soft: true,
+};
+const SPARK_SPRITE = {
+    size: 32,
+    soft: false,
+};
 
 /**
  * A hero's backdrop: primary blobs from the bottom left, secondary from the top right,
  * and small sparks the other way around: primary from the bottom right, secondary from the top left.
  * Sparks drift toward the center and almost meet; the pointer pushes them away, which is the only way the tones mix.
- * Both are drawn with tone roles, so they follow the palette as it changes.
+ * All four systems share one canvas and one frame loop. Each draws a sprite painted in its tone's `--tone-fill`,
+ * read from a swatch every frame, so the particles follow the palette and the color scheme as they change.
  */
 export default {
 
     components: {
-        ParticleSystem,
+        ParticleCanvas,
     },
 
     data() {
-        const isPaused = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         return {
-            primaryBlobConfig: markRaw(this.createBlobConfig(7, [14, -8], isPaused)),
-            secondaryBlobConfig: markRaw(this.createBlobConfig(13, [-14, 8], isPaused)),
-            primarySparkConfig: markRaw(this.createSparkConfig(11, [0.85, 0.85], isPaused)),
-            secondarySparkConfig: markRaw(this.createSparkConfig(17, [0.15, 0.15], isPaused)),
+            layers: markRaw(this.createLayers()),
         };
     },
 
@@ -84,6 +63,7 @@ export default {
     mounted() {
         this.resizeObserver = new ResizeObserver(([entry]) => {
             this.bounds = [entry.contentRect.width, entry.contentRect.height];
+            this.$refs.particles.drawFrame();
         });
         this.resizeObserver.observe(this.$refs.backdrop);
         window.addEventListener('pointermove', this.onPointerMove);
@@ -95,6 +75,37 @@ export default {
     },
 
     methods: {
+
+        /** Blobs first, then sparks on top. Anchors are emitter origins as fractions of the backdrop. */
+        createLayers() {
+            const isPaused = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const primaryBlobs = this.createBlobConfig(7, [14, -8], isPaused);
+            const secondaryBlobs = this.createBlobConfig(13, [-14, 8], isPaused);
+            const primarySparks = this.createSparkConfig(11, [0.85, 0.85], isPaused);
+            const secondarySparks = this.createSparkConfig(17, [0.15, 0.15], isPaused);
+            return [
+                this.createLayer('primary', BLOB_SPRITE, [0.12, 0.88], primaryBlobs),
+                this.createLayer('secondary', BLOB_SPRITE, [0.88, 0.12], secondaryBlobs),
+                this.createLayer('primary', SPARK_SPRITE, [0.85, 0.85], primarySparks),
+                this.createLayer('secondary', SPARK_SPRITE, [0.15, 0.15], secondarySparks),
+            ];
+        },
+
+        createLayer(tone, shape, anchor, config) {
+            const sprite = {
+                tone,
+                soft: shape.soft,
+                color: '',
+                image: document.createElement('canvas'),
+            };
+            sprite.image.width = shape.size;
+            sprite.image.height = shape.size;
+            return {
+                controller: new ParticleSystemController(config),
+                beforeDraw: () => this.paintSprite(sprite),
+                draw: (ctx, particle) => this.drawParticle(ctx, particle, sprite.image, anchor),
+            };
+        },
 
         /** Blobs of one tone, drifting from a corner toward the center and fading out before they get there. */
         createBlobConfig(seed, velocity, isPaused) {
@@ -138,13 +149,43 @@ export default {
             };
         },
 
-        centered(particle, htmlStyle) {
-            const offset = `${-0.5 * Math.max(0, particle.size)}px`;
-            return {
-                ...htmlStyle,
-                marginLeft: offset,
-                marginTop: offset,
-            };
+        /**
+         * Repaints a sprite when its tone's fill changes: a white disc (soft-edged for blobs) recolored in place,
+         * so any color the browser resolves works.
+         */
+        paintSprite(sprite) {
+            const color = getComputedStyle(this.$refs[sprite.tone]).color;
+            if (color === sprite.color) {
+                return;
+            }
+            sprite.color = color;
+            const size = sprite.image.width;
+            const radius = size / 2;
+            const ctx = sprite.image.getContext('2d');
+            ctx.globalCompositeOperation = 'source-over';
+            ctx.clearRect(0, 0, size, size);
+            if (sprite.soft) {
+                const gradient = ctx.createRadialGradient(radius, radius, 0, radius, radius, radius);
+                gradient.addColorStop(0, 'rgb(255 255 255 / 1)');
+                gradient.addColorStop(1, 'rgb(255 255 255 / 0)');
+                ctx.fillStyle = gradient;
+            } else {
+                ctx.fillStyle = 'rgb(255 255 255)';
+            }
+            ctx.beginPath();
+            ctx.arc(radius, radius, radius, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.globalCompositeOperation = 'source-in';
+            ctx.fillStyle = color;
+            ctx.fillRect(0, 0, size, size);
+        },
+
+        drawParticle(ctx, particle, image, anchor) {
+            const size = Math.max(0, particle.size);
+            const x = anchor[0] * this.bounds[0] + particle.position[0];
+            const y = anchor[1] * this.bounds[1] + particle.position[1];
+            ctx.globalAlpha = Math.min(1, Math.max(0, particle.opacity));
+            ctx.drawImage(image, x - size / 2, y - size / 2, size, size);
         },
 
         fade(particle, peak) {
@@ -208,41 +249,8 @@ export default {
         radial-gradient(ellipse at 100% 0%, var(--HeroBackdrop-glow-secondary), transparent 55%);
 }
 
-.Emitter {
+.Swatch {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-}
-
-.Emitter-bottomLeft {
-    top: 88%;
-    left: 12%;
-}
-
-.Emitter-topRight {
-    top: 12%;
-    left: 88%;
-}
-
-.Emitter-topLeft {
-    top: 15%;
-    left: 15%;
-}
-
-.Emitter-bottomRight {
-    top: 85%;
-    left: 85%;
-}
-
-.Blob {
-    border-radius: 50%;
-    background: radial-gradient(closest-side, var(--tone-fill), transparent);
-}
-
-.Spark {
-    border-radius: 50%;
-    background: var(--tone-fill);
+    color: var(--tone-fill);
 }
 </style>

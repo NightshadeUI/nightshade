@@ -20,7 +20,7 @@ npm i -D @nightshadeui/docs vitepress vue
 |-----------|-------|
 | `<VariableReference />` | every variable, by tier, searchable, with override guidance, your values and your own variables |
 | `<PaletteReference />` | every ramp your palette defines |
-| `<ToneMatrix />`, `<ToneRoles />` | every tone at every size (a button, or your control from the `{ tone, size }` slot), and every tone role in every tone |
+| `<ToneMatrix />`, `<ToneRoles />` | every tone at every size (a button, or your control from the `{ tone, size }` slot), and an app card taken apart into every tone role, one tone at a time |
 | `<RoleVocabulary />` | the canvas and tone roles |
 | `<TypeScale />`, `<SpacingScale />`, `<InputSizes />` | the scales |
 | `<Demo>` | a live stage for your examples; `dual` shows both schemes (`stacked` puts them one above the other) |

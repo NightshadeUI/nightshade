@@ -118,7 +118,7 @@ Stated once against the context ramp; read them inside any `.tone-*` context.
 
 | Role | Step | Neutral (`base`) override |
 |------|------|---------------------------|
-| `--tone-text` | 500 | 900 |
+| `--tone-text` | 600 | 900 |
 | `--tone-tint` | 100 | — |
 | `--tone-tint-text` | 900 | — |
 | `--tone-fill` | 500 | 100 |

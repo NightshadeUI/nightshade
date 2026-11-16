@@ -20,6 +20,22 @@ export const toneRoles = [
     'focus-border',
 ];
 
+/** A ramp's steps, from the canvas end to the ink end. */
+export const rampSteps = [
+    0,
+    50,
+    100,
+    200,
+    300,
+    400,
+    500,
+    600,
+    700,
+    800,
+    900,
+    950,
+];
+
 export const inputMetrics = [
     'major-height',
     'minor-height',

@@ -40,7 +40,9 @@
                             :href="action.link"
                             :label="action.text"
                             :icon="action.icon"
-                            :tone="index === 0 ? 'primary' : undefined"
+                            tone="primary"
+                            :ghost="index > 0"
+                            :outline="index > 0"
                             size="l" />
                     </div>
                 </div>

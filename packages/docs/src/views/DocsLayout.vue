@@ -11,7 +11,8 @@
         </SiteHeader>
         <div
             v-if="layout === 'doc'"
-            class="Doc">
+            class="Doc"
+            :class="{ 'Doc-wide': !outlineShown }">
             <aside class="Sidebar">
                 <SiteSidebar />
             </aside>
@@ -19,7 +20,9 @@
                 <Content class="Prose" />
                 <PageNav />
             </main>
-            <aside class="Outline">
+            <aside
+                v-if="outlineShown"
+                class="Outline">
                 <PageOutline :key="siteManager.path" />
             </aside>
         </div>
@@ -57,7 +60,8 @@
 <script>
 /**
  * The page frame. The `layout` frontmatter picks the body:
- * `doc` (the default) has the sidebar and the outline, `home` is the landing from `hero` and `features`
+ * `doc` (the default) has the sidebar and the outline (`outline: false` gives its width to the content),
+ * `home` is the landing from `hero` and `features`
  * followed by the page content, and `page` gives the content the whole width.
  */
 export default {
@@ -78,6 +82,10 @@ export default {
 
         layout() {
             return this.$frontmatter.layout ?? 'doc';
+        },
+
+        outlineShown() {
+            return this.$frontmatter.outline !== false;
         },
 
     },
@@ -161,6 +169,20 @@ export default {
     max-width: calc(var(--Site-wide-width) + 2 * var(--Site-gutter));
     margin: 0 auto;
     padding: 0 var(--Site-gutter) var(--sp12);
+}
+
+/* Without the outline, the content takes its column and the content width */
+.Doc-wide {
+    grid-template-columns: 260px minmax(0, 1fr);
+}
+
+.Doc-wide .Main {
+    max-width: none;
+}
+
+/* A landing with no Markdown below the hero ends at the hero */
+.HomeContent:has(> div:empty) {
+    display: none;
 }
 
 @media (max-width: 1180px) {

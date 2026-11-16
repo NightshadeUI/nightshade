@@ -7,7 +7,8 @@
 :root,
 [class^="tone-"],
 [class*=" tone-"] {
-    --tone-text: var(--tone-500);
+    /* A step past the fill toward the ink end: darker on a light canvas, lighter on a dark one */
+    --tone-text: var(--tone-600);
     --tone-tint: var(--tone-100);
     --tone-tint-text: var(--tone-900);
     --tone-fill: var(--tone-500);

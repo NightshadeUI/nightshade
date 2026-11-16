@@ -141,7 +141,7 @@
         }
 
         a:not(.header-anchor):not(.Btn) {
-            color: var(--color-primary-500);
+            color: var(--color-primary-600);
             text-decoration: underline;
             text-decoration-color: color-mix(in oklab, currentColor, transparent 60%);
             text-underline-offset: 3px;
@@ -310,25 +310,25 @@
         .custom-block.tip {
             --tone-fill: var(--color-secondary-500);
             --tone-border: var(--color-secondary-600);
-            --tone-text: var(--color-secondary-500);
+            --tone-text: var(--color-secondary-600);
         }
 
         .custom-block.info {
             --tone-fill: var(--color-primary-500);
             --tone-border: var(--color-primary-600);
-            --tone-text: var(--color-primary-500);
+            --tone-text: var(--color-primary-600);
         }
 
         .custom-block.warning {
             --tone-fill: var(--color-warning-500, var(--color-primary-500));
             --tone-border: var(--color-warning-600, var(--color-primary-600));
-            --tone-text: var(--color-warning-500, var(--color-primary-500));
+            --tone-text: var(--color-warning-600, var(--color-primary-600));
         }
 
         .custom-block.danger {
             --tone-fill: var(--color-danger-500, var(--color-primary-500));
             --tone-border: var(--color-danger-600, var(--color-primary-600));
-            --tone-text: var(--color-danger-500, var(--color-primary-500));
+            --tone-text: var(--color-danger-600, var(--color-primary-600));
         }
 
         .custom-block-title {

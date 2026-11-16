@@ -38,7 +38,7 @@ Component styles sit in the `nightshade-components` layer, after the styles' `ni
 
 ## The grammar
 
-<PlaygroundBar />
+<PlaygroundBar active />
 
 <Demo>
     <Btn label="Button" tone="primary" />
@@ -122,7 +122,7 @@ That's what the Flat, Round, Outline and Translucent switches do, in the home pa
 A few things to know:
 
 - **Explicit props win.** `<Btn :round="false">` stays square, whatever the defaults say. It's a handy way to pin a look that shouldn't follow the app. A bound `undefined` (`:tone="item.tone"`) isn't explicit: the defaults still apply.
-- **Defaults cascade like context.** A component that provides its own `$nightshade` overrides them for its subtree. The demos on this site do exactly that, to add the state switches (disabled, hover, focus, active) of the playground bar.
+- **Defaults cascade like context.** A component that provides its own `$nightshade` overrides them for its subtree. The demos on this site do exactly that, to add the state switches of the playground bar: disabled, hover and focus, and active where a page has buttons, the one control with a pressed state.
 - **Any prop can have a default,** not only the looks: `size: 's'` makes a dense app, and `tone` sets a brand tone for every control that doesn't choose one. Prefer a context class for a region, and defaults for the whole app.
 - **Every combination holds up.** Flat, round, outline and translucent are independent switches, and the standard components are built to look right in all sixteen. That's what a look-agnostic base buys you.
 

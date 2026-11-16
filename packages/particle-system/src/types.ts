@@ -1,5 +1,7 @@
 import { Vector2 } from '@nightshadeui/util/vector2';
 
+import { ParticleSystemController } from './ParticleSystemController.js';
+
 export type NumberRange = [number, number];
 export type Vector2Range = [Vector2, Vector2];
 
@@ -53,4 +55,27 @@ export interface ParticleState {
     turbulence: number;
     noiseScale: number;
     t: number;
+}
+
+export type ParticleDraw = (ctx: CanvasRenderingContext2D, particle: ParticleState, canvas: HTMLCanvasElement) => void;
+export type ParticleLayerDraw = (
+    ctx: CanvasRenderingContext2D,
+    particles: ParticleState[],
+    canvas: HTMLCanvasElement,
+) => void;
+export type ParticleCanvasClear = (ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement) => void;
+
+/**
+ * One particle system drawn on a shared canvas. Layers draw in order, so the last one is on top.
+ */
+export interface ParticleLayer {
+    controller: ParticleSystemController;
+    draw: ParticleDraw;
+    beforeDraw?: ParticleLayerDraw;
+    afterDraw?: ParticleLayerDraw;
+}
+
+export interface ParticleCanvasOptions {
+    clear?: ParticleCanvasClear;
+    pixelRatio?: number;
 }

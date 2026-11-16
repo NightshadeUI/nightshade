@@ -6,17 +6,26 @@
 </template>
 
 <script>
+import { markRaw } from 'vue';
+
+import { ParticleCanvasController } from '../ParticleCanvasController.js';
 import { ParticleSystemController } from '../ParticleSystemController.js';
 
+/**
+ * Draws particle systems on one canvas, on one frame loop.
+ * `controller`, `config`, `draw`, `beforeDraw` and `afterDraw` describe a single layer;
+ * `layers` stacks several systems instead, each with its own controller and draw functions.
+ */
 export default {
 
     props: {
         controller: { type: Object },
         config: { type: Object },
-        draw: { type: Function, required: true },
-        clear: { type: Function },
+        draw: { type: Function },
         beforeDraw: { type: Function },
         afterDraw: { type: Function },
+        layers: { type: Array },
+        clear: { type: Function },
         pixelRatio: { type: Number },
     },
 
@@ -40,13 +49,32 @@ export default {
     data() {
         return {
             localController: null,
-            resizeObserver: null,
+            canvasController: markRaw(new ParticleCanvasController()),
         };
     },
 
     computed: {
         particleController() {
             return this.controller ?? this.localController;
+        },
+
+        effectiveLayers() {
+            if (this.layers) {
+                return this.layers;
+            }
+            return [{
+                controller: this.particleController,
+                draw: this.draw,
+                beforeDraw: this.beforeDraw,
+                afterDraw: this.afterDraw,
+            }];
+        },
+
+        canvasOptions() {
+            return {
+                clear: this.clear,
+                pixelRatio: this.pixelRatio,
+            };
         },
 
         isRunning() {
@@ -72,45 +100,41 @@ export default {
             deep: true,
             handler(config) {
                 if (config != null) {
-                    this.particleController?.setConfig(config);
+                    this.particleController.setConfig(config);
                 }
             },
         },
         controller(controller, previousController) {
-            this.unmountController(previousController ?? this.localController);
-            this.mountController(controller ?? this.localController);
-            this.drawFrame();
+            this.unlistenController(previousController ?? this.localController);
+            this.listenController(controller ?? this.localController);
+        },
+        effectiveLayers(layers) {
+            this.canvasController.setLayers(layers);
+        },
+        canvasOptions(options) {
+            this.canvasController.setOptions(options);
         },
     },
 
     created() {
-        this.localController = new ParticleSystemController(this.config ?? {});
+        this.localController = markRaw(new ParticleSystemController(this.config ?? {}));
     },
 
     mounted() {
-        this.mountCanvas();
-        this.mountController(this.particleController);
+        this.listenController(this.particleController);
+        this.canvasController.setOptions(this.canvasOptions);
+        this.canvasController.setLayers(this.effectiveLayers);
+        this.canvasController.mount(this.$refs.canvas);
     },
 
     beforeUnmount() {
-        this.unmountController(this.particleController);
-        this.unmountCanvas();
+        this.unlistenController(this.particleController);
+        this.canvasController.unmount();
     },
 
     methods: {
 
-        mountCanvas() {
-            this.resizeObserver = new ResizeObserver(() => this.resizeCanvas());
-            this.resizeObserver.observe(this.$refs.canvas);
-            this.resizeCanvas();
-        },
-
-        unmountCanvas() {
-            this.resizeObserver?.disconnect();
-            this.resizeObserver = null;
-        },
-
-        mountController(controller) {
+        listenController(controller) {
             if (this.config != null) {
                 controller.setConfig(this.config);
             }
@@ -118,20 +142,13 @@ export default {
             controller.paused.on(() => this.$emit('paused'), this);
             controller.resumed.on(() => this.$emit('resumed'), this);
             controller.finished.on(() => this.$emit('finished'), this);
-            controller.updated.on(() => this.drawFrame(), this);
-            controller.mount();
         },
 
-        unmountController(controller) {
-            if (!controller) {
-                return;
-            }
+        unlistenController(controller) {
             controller.started.removeAll(this);
             controller.paused.removeAll(this);
             controller.resumed.removeAll(this);
             controller.finished.removeAll(this);
-            controller.updated.removeAll(this);
-            controller.unmount();
         },
 
         reset() {
@@ -150,52 +167,8 @@ export default {
             this.particleController.stop();
         },
 
-        resizeCanvas() {
-            const canvas = this.$refs.canvas;
-            const rect = canvas.getBoundingClientRect();
-            const ratio = this.getPixelRatio();
-            const width = Math.max(1, Math.round(rect.width * ratio));
-            const height = Math.max(1, Math.round(rect.height * ratio));
-            if (canvas.width !== width) {
-                canvas.width = width;
-            }
-            if (canvas.height !== height) {
-                canvas.height = height;
-            }
-            this.drawFrame();
-        },
-
         drawFrame() {
-            const canvas = this.$refs.canvas;
-            if (!canvas) {
-                return;
-            }
-            const ctx = canvas.getContext('2d');
-            const particles = this.particleController.particles;
-            if (!ctx) {
-                return;
-            }
-            const ratio = this.getPixelRatio();
-            ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
-            this.clearFrame(ctx, canvas);
-            this.beforeDraw?.(ctx, particles, canvas);
-            for (const particle of particles) {
-                this.draw(ctx, particle, canvas);
-            }
-            this.afterDraw?.(ctx, particles, canvas);
-        },
-
-        clearFrame(ctx, canvas) {
-            if (this.clear) {
-                this.clear(ctx, canvas);
-                return;
-            }
-            const ratio = this.getPixelRatio();
-            ctx.clearRect(0, 0, canvas.width / ratio, canvas.height / ratio);
-        },
-
-        getPixelRatio() {
-            return Math.max(1, this.pixelRatio ?? window.devicePixelRatio ?? 1);
+            this.canvasController.drawFrame();
         },
     },
 

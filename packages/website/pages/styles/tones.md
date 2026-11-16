@@ -44,7 +44,7 @@ Roles are stated once, against the context ramp, and every tone context re-resol
 
 | Role | Chromatic tones | `base` | `inverse` | Meaning |
 |------|-----------------|--------|-----------|---------|
-| `--tone-text` | `500` | `900` | `0` | tone-colored text and icons on the canvas |
+| `--tone-text` | `600` | `900` | `0` | tone-colored text and icons on the canvas |
 | `--tone-tint` | `100` | `100` | `100` | a soft background: chips, callouts, selection |
 | `--tone-tint-text` | `900` | `900` | `900` | text on the tint |
 | `--tone-fill` | `500` | `100` | `0` | the solid fill of a control |

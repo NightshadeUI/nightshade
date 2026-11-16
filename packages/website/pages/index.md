@@ -16,6 +16,15 @@ titleTemplate: Grow your own design system
 </HomeSection>
 
 <HomeSection
+    title="Anatomy"
+    tagline="One card, every tone role"
+    text="Components never pick colors: they read roles, named for what a color does, like a fill, a border or a focus ring. Each line names the role that colors a part, and the ramp step it lands on in light and dark. Switch the tone, and the whole card follows.">
+
+<ToneRoles />
+
+</HomeSection>
+
+<HomeSection
     title="From seed to button"
     tagline="Four steps: scale, context, role, component"
     text="Colors take four steps from a raw value to a component; sizes take three. Components read only the last, generic slot, so one class re-tones or re-sizes a whole subtree.">

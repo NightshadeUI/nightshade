@@ -99,6 +99,7 @@ export default {
             controller.paused.on(() => this.$emit('paused'), this);
             controller.resumed.on(() => this.$emit('resumed'), this);
             controller.finished.on(() => this.$emit('finished'), this);
+            controller.updated.on(() => this.$forceUpdate(), this);
             controller.mount();
         },
 
@@ -110,6 +111,7 @@ export default {
             controller.paused.removeAll(this);
             controller.resumed.removeAll(this);
             controller.finished.removeAll(this);
+            controller.updated.removeAll(this);
             controller.unmount();
         },
 

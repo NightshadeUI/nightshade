@@ -14,7 +14,7 @@ title: Chip
         :key="tone"
         :tone="tone"
         :label="tone"
-        :outline="state.tone === tone"
+        :icon="state.tone === tone ? 'fas fa-check' : undefined"
         @click="state.tone = tone" />
     <Chip
         label="Ripe"
@@ -23,7 +23,7 @@ title: Chip
         @click="state.ripe = !state.ripe" />
 </Demo>
 
-A chip is a button with a smaller voice. Mark the chosen one with any prop, a tone or an outline, and handle `click` yourself. One choice, many, or none at all (tags, navigation) are the same component:
+A chip is a button with a smaller voice. Mark the chosen one any way you like (a tone, an icon, an outline) and handle `click` yourself. The demo uses a check, so the playground's switches still apply to every chip. One choice, many, or none at all (tags, navigation) are the same component:
 
 ```html
 <Chip
@@ -37,7 +37,7 @@ A chip is a button with a smaller voice. Mark the chosen one with any prop, a to
     :key="tone"
     :label="tone"
     :tone="tone"
-    :outline="current === tone"
+    :icon="current === tone ? 'fas fa-check' : undefined"
     @click="current = tone" />
 ```
 

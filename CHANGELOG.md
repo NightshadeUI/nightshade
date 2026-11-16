@@ -1,5 +1,16 @@
 # Changelog
 
+## 3.2.1
+
+- `@nightshadeui/stylesheets`: `--tone-text` reads step `600`, one step past the fill toward the ink end, so tone-colored text and links read on the canvas in both schemes. The docs theme's prose links and callouts follow.
+- `@nightshadeui/docs`: `ToneRoles` is an anatomy figure: one app card taken apart, a leader from each of the eleven tone roles to the part it colors, with the ramp step it lands on (in a badge, split on a slash into light and dark where the schemes differ), and a switch for viewing one tone at a time. On narrow pages the leaders become numbered markers with a legend.
+- `@nightshadeui/docs`: `outline: false` in a page's frontmatter hides the outline and gives its width to the content, keeping the sidebar. A `home` page with no content below the hero renders no empty section. The hero's secondary actions are outlined in the primary tone.
+- `@nightshadeui/docs`: `rampSteps` lists a ramp's twelve steps.
+- `@nightshadeui/particle-system`: `ParticleCanvas` takes `layers`, several systems drawn on one canvas by one frame loop, and pauses that loop while every layer is paused or the canvas is off screen. `ParticleCanvasController` is that renderer without Vue. `draw` is optional when `layers` is set. The particle list is shallow-reactive, so stepping particles no longer goes through Vue proxies: renderers redraw on `updated`.
+- `@nightshadeui/docs`: `HeroBackdrop` draws its four emitters on one canvas from tone-colored sprites, instead of hundreds of DOM nodes, and still follows the palette and the color scheme live.
+- Website: the home page takes the tone roles apart in a new Anatomy section, right after the model.
+- Website: the playground bar shows Active only on pages with buttons, the one control with a pressed state, and turns a forced press off elsewhere. The Chip demo marks the chosen chip with a check, so the Outline switch reaches every chip.
+
 ## 3.2.0
 
 - `@nightshadeui/stylesheets`: `--surface-raised` is now a real elevated surface: one step above the page in dark mode. It used to resolve to nearly white there, because the ramp is already scheme-aware. New `--surface-knob` keeps toggle and slider knobs light in both schemes. `Bubble` (and so popups and menus) and the slider tooltip sit on `--surface-raised`.

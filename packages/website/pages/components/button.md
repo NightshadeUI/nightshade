@@ -6,7 +6,7 @@ title: Button
 
 <p class="Lead">The primitive everything else follows. A button sets the height, padding, radius and focus ring that the rest of the system matches.</p>
 
-<PlaygroundBar />
+<PlaygroundBar active />
 
 ## Tones
 
