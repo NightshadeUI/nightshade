@@ -12,12 +12,16 @@
             "types": "./dist/index.d.ts",
             "import": "./dist/index.js"
         },
-        "./css": "./dist/components.css",
+        "./css": {
+            "types": "./css.d.ts",
+            "default": "./dist/components.css"
+        },
         "./src": "./src/index.ts"
     },
     "files": [
         "dist",
-        "src"
+        "src",
+        "css.d.ts"
     ],
     "scripts": {
         "build:watch": "vite build --watch",

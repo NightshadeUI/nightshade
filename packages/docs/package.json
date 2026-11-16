@@ -23,7 +23,8 @@
         "src",
         "out/config",
         "out/helpers",
-        "out/catalog"
+        "out/catalog",
+        "!src/test"
     ],
     "scripts": {
         "build": "tsc -b",

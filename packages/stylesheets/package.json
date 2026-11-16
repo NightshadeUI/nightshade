@@ -6,7 +6,10 @@
     "license": "ISC",
     "sideEffects": false,
     "exports": {
-        ".": "./index.css",
+        ".": {
+            "types": "./css.d.ts",
+            "default": "./index.css"
+        },
         "./palette.css": "./palette.css",
         "./scales/*": "./scales/*",
         "./settings/*": "./settings/*",
@@ -14,8 +17,14 @@
         "./context/*": "./context/*",
         "./base.css": "./base.css",
         "./utilities.css": "./utilities.css",
-        "./kbd": "./modules/kbd/index.css",
-        "./transitions": "./modules/transitions/index.css"
+        "./kbd": {
+            "types": "./css.d.ts",
+            "default": "./modules/kbd/index.css"
+        },
+        "./transitions": {
+            "types": "./css.d.ts",
+            "default": "./modules/transitions/index.css"
+        }
     },
     "scripts": {
         "palette": "nightshade palette -o palette.css"
