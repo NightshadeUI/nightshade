@@ -13,7 +13,7 @@ title: Tones and roles
 | `base` | neutral | most controls; the default |
 | `inverse` | neutral, flipped | tooltips, controls on dark bands |
 | `primary` | the brand | the main action on a screen |
-| `secondary` | a second voice | focus rings, highlights, links |
+| `secondary` | a second voice | highlights, links |
 | `tertiary` | a quiet accent | toolbars, secondary actions |
 | `success` | it worked | confirmations |
 | `warning` | careful | reversible risk |
@@ -52,7 +52,7 @@ Roles are stated once, against the context ramp, and every tone context re-resol
 | `--tone-fill-text` | contrast | `950` | `950` | text on the fill |
 | `--tone-border` | `600` | `400` | `0` | the edge of a control |
 | `--tone-shadow` | `800` | `--shadow-medium` | `0` (dark: `500`) | the tinted part of a raised control's shadow |
-| `--tone-focus-outline`, `--tone-focus-border` | `300`, `600` | secondary `300`, `600` | secondary `300`, `600` | the focus ring, outside and inside |
+| `--tone-focus-outline`, `--tone-focus-border` | `300`, `600` | `--input-focus-outline`, `-border` | `--input-focus-outline`, `-border` | the focus ring, outside and inside |
 
 Steps are read from the tone's own context ramp, so `inverse`'s `0` is `base`'s `950`.
 

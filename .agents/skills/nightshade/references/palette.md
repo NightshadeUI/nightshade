@@ -33,7 +33,7 @@ While prototyping, `@nightshadeui/stylesheets/palette.css` is a starter: the gen
 | `ramps[].lightness` | multiplier on the lightness curve (above 1 lightens, below darkens) |
 | `ramps[].lightnessCurve`, `ramps[].chromaCurve` | optional: this ramp's own twelve-value curve, in place of the palette's; the multipliers still apply |
 
-Every field is optional. Leave out `ramps` and you get the starter seven: `base`, `primary`, `secondary`, `tertiary`, `success`, `warning`, `danger`. A spec with `ramps` replaces that list. It must keep `base`, `primary` and `secondary`, the ramps the styles read by name, and the generator refuses a spec without them. Ramp names are lowercase and kebab-case, and `inverse` is reserved.
+Every field is optional. Leave out `ramps` and you get the starter seven: `base`, `primary`, `secondary`, `tertiary`, `success`, `warning`, `danger`. A spec with `ramps` replaces that list. It must keep `base` and `primary`, the ramps the styles read by name, and the generator refuses a spec without them. Ramp names are lowercase and kebab-case, and `inverse` is reserved.
 
 ## Generating
 

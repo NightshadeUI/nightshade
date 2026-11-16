@@ -16,4 +16,9 @@
     --input-hover-overlay: rgba(127, 127, 127, .1);
     --input-hover-filter: brightness(.96);
 
+    /* Focus colors for the neutral tones, which have no hue of their own. Colored tones focus in their own ramp. */
+
+    --input-focus-outline: var(--color-primary-300);
+    --input-focus-border: var(--color-primary-600);
+
 }

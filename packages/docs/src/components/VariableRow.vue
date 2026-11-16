@@ -199,7 +199,7 @@ export default {
 
 .SiteValue {
     font-size: var(--font-size-xs);
-    color: var(--color-secondary-600);
+    color: var(--color-secondary-600, var(--color-primary-600));
 }
 
 .SiteValue code {

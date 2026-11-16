@@ -53,7 +53,7 @@ Each step is `light-dark(<light>, <dark>)`, where the dark value is the ramp mir
 
 ## The spec
 
-Every field is optional; anything you leave out takes the default. A `ramps` list replaces the default ramps, and must keep `base`, `primary` and `secondary`: the styles read them by name. The [Palette Studio](/studio) copies a complete spec for you.
+Every field is optional; anything you leave out takes the default. A `ramps` list replaces the default ramps, and must keep `base` and `primary`: the styles read them by name. The [Palette Studio](/studio) copies a complete spec for you.
 
 ```json
 {
@@ -79,7 +79,7 @@ Every field is optional; anything you leave out takes the default. A `ramps` lis
 | `ramps[].lightnessCurve` | optional: this ramp's own lightness curve, in place of the palette's |
 | `ramps[].chromaCurve` | optional: this ramp's own chroma curve, in place of the palette's |
 
-Three ramps are required, because the styles read them by name: `base` (the canvas roles, `:root` and `inverse` are built on it), and `primary` and `secondary` (neutral controls focus in `secondary`). The generator refuses a spec without them. Every other ramp is yours to name.
+Two ramps are required, because the styles read them by name: `base` (the canvas roles, `:root` and `inverse` are built on it) and `primary` (neutral controls focus in it, through `--input-focus-outline|border`). The generator refuses a spec without them. Every other ramp is yours to name.
 
 ## In code
 

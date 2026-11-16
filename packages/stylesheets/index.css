@@ -4,7 +4,7 @@
  *
  * The palette is not included: import your own generated `palette.css`,
  * or the starter one (`@nightshadeui/stylesheets/palette.css`) while prototyping.
- * The styles read three ramps by name: `base`, `primary` and `secondary`.
+ * The styles read two ramps by name: `base` and `primary` (the neutral tones' focus).
  */
 
 /*

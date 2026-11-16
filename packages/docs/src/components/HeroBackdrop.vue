@@ -8,7 +8,7 @@
             class="Swatch tone-primary" />
         <span
             ref="secondary"
-            class="Swatch tone-secondary" />
+            class="Swatch Swatch-secondary" />
         <ParticleCanvas
             ref="particles"
             :layers="layers" />
@@ -243,7 +243,8 @@ export default {
     overflow: hidden;
     pointer-events: none;
     --HeroBackdrop-glow-primary: color-mix(in oklab, var(--color-primary-500), transparent 82%);
-    --HeroBackdrop-glow-secondary: color-mix(in oklab, var(--color-secondary-500), transparent 86%);
+    --HeroBackdrop-secondary: var(--color-secondary-500, var(--color-primary-500));
+    --HeroBackdrop-glow-secondary: color-mix(in oklab, var(--HeroBackdrop-secondary), transparent 86%);
     background:
         radial-gradient(ellipse at 0% 100%, var(--HeroBackdrop-glow-primary), transparent 55%),
         radial-gradient(ellipse at 100% 0%, var(--HeroBackdrop-glow-secondary), transparent 55%);
@@ -252,5 +253,9 @@ export default {
 .Swatch {
     position: absolute;
     color: var(--tone-fill);
+}
+
+.Swatch-secondary {
+    color: var(--HeroBackdrop-secondary);
 }
 </style>

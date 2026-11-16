@@ -470,7 +470,7 @@ code {
 .Copied {
     margin-left: auto;
     font-size: var(--font-size-s);
-    color: var(--color-secondary-600);
+    color: var(--color-secondary-600, var(--color-primary-600));
 }
 
 /* Catalog */

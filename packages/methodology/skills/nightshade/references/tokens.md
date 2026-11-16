@@ -8,7 +8,7 @@ Enumerable ladders, in `scales/`. Single values live in `settings/`, below.
 
 ### Color ramps
 
-Generated into the app's `palette.css`, one ramp per entry in the palette spec. `base`, `primary` and `secondary` are required; the styles read them by name. The starter spec adds `tertiary`, `success`, `warning` and `danger`.
+Generated into the app's `palette.css`, one ramp per entry in the palette spec. `base` and `primary` are required; the styles read them by name. The starter spec adds `tertiary`, `success`, `warning` and `danger`.
 
 | Variable | Meaning |
 |----------|---------|
@@ -70,7 +70,7 @@ Single values, in `settings/`. Same tier as the scales; some pick a step of one.
 
 Fixed for every size: `--input-border-size` (1px), `--input-outline-size` (2px), `--input-outline-offset` (0).
 
-Shared states: `--input-disabled-opacity` (.6), `--input-disabled-filter` (`saturate(50%)`), `--input-hover-overlay` (a 10% grey, for filled controls), `--input-hover-filter` (`brightness(.96)`, for wells).
+Shared states: `--input-disabled-opacity` (.6), `--input-disabled-filter` (`saturate(50%)`), `--input-hover-overlay` (a 10% grey, for filled controls), `--input-hover-filter` (`brightness(.96)`, for wells), `--input-focus-outline` and `--input-focus-border` (primary 300 and 600: the neutral tones' focus ring; point them at another ramp for another accent).
 
 ## Context
 
@@ -126,8 +126,8 @@ Stated once against the context ramp; read them inside any `.tone-*` context.
 | `--tone-fill-text` | contrast | 950 |
 | `--tone-border` | 600 | 400 |
 | `--tone-shadow` | 800 (dark: 100) | `--shadow-medium` |
-| `--tone-focus-outline` | 300 | secondary 300 |
-| `--tone-focus-border` | 600 | secondary 600 |
+| `--tone-focus-outline` | 300 | `--input-focus-outline` |
+| `--tone-focus-border` | 600 | `--input-focus-border` |
 
 Tint is a soft background with readable text on it (chips, badges, callouts). Fill is a control's solid face, with `--tone-fill-text` on it. Top and bottom are the ends of a filled control's gradient.
 

@@ -249,7 +249,7 @@ export const VARIABLE_GROUPS: VariableGroup[] = [
         entries: [
             {
                 name: '--color-<ramp>-<step>',
-                members: ['base', 'primary', 'secondary'].flatMap(ramp => RAMP_STEPS.map(step => `--color-${ramp}-${step}`)),
+                members: ['base', 'primary'].flatMap(ramp => RAMP_STEPS.map(step => `--color-${ramp}-${step}`)),
                 value: 'oklch, light-dark()',
                 about: 'Step 0 is the canvas end in both schemes. Read them freely in single-tone components.',
                 stance: 'avoid',
@@ -260,7 +260,7 @@ export const VARIABLE_GROUPS: VariableGroup[] = [
             },
             {
                 name: '--color-<ramp>-contrast',
-                members: ['base', 'primary', 'secondary'].map(ramp => `--color-${ramp}-contrast`),
+                members: ['base', 'primary'].map(ramp => `--color-${ramp}-contrast`),
                 value: 'black or white',
                 about: 'Whichever reads on step 500, per scheme.',
                 stance: 'avoid',
@@ -372,6 +372,15 @@ export const VARIABLE_GROUPS: VariableGroup[] = [
                 stance: 'care',
                 instead: 'Too strong or too weak in one scheme? Adjust it, but test filled and well controls in both.',
                 preview: 'none',
+            },
+            {
+                name: '--input-focus-outline',
+                members: ['--input-focus-outline', '--input-focus-border'],
+                value: 'primary 300 and 600',
+                about: 'The focus ring of neutral controls, which have no hue of their own.',
+                stance: 'yours',
+                instead: 'Point them at another ramp\'s steps (--color-secondary-300, -600) for another accent.',
+                preview: 'color',
             },
         ],
     },
@@ -587,11 +596,11 @@ export const VARIABLE_GROUPS: VariableGroup[] = [
             {
                 name: '--tone-focus-outline',
                 members: ['--tone-focus-outline', '--tone-focus-border'],
-                value: '300 and 600; neutral tones: secondary',
+                value: '300 and 600; neutral tones: the focus settings',
                 about: 'The focus ring, outside and inside.',
                 stance: 'care',
-                instead: 'Neutral controls focus in secondary. Reassign on :root, .tone-base, ' +
-                    '.tone-inverse for another accent.',
+                instead: 'Neutral controls focus in --input-focus-outline|border: set those ' +
+                    'for another accent.',
                 preview: 'color',
             },
         ],

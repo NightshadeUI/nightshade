@@ -14,4 +14,4 @@ npx nightshade palette -f palette.json -o src/palette.css
 | `-s, --selector <selector>` | the selector that holds the ramps; `:root` by default |
 | `--raw` | emit bare ramp declarations, without a selector or tone contexts |
 
-Without `-f`, it prints the starter palette. The spec must keep the `base`, `primary` and `secondary` ramps. Needs Node 22.12 or later.
+Without `-f`, it prints the starter palette. The spec must keep the `base` and `primary` ramps. Needs Node 22.12 or later.

@@ -9,9 +9,9 @@ export const RAMP_ANCHOR_INDEX = 6;
 
 /**
  * Ramps the styles read by name: `base` for the canvas and the neutral tones,
- * `primary` and `secondary` for brand accents (neutral controls focus in `secondary`).
+ * and `primary`, the brand accent neutral controls focus in.
  */
-export const REQUIRED_RAMPS = ['base', 'primary', 'secondary'];
+export const REQUIRED_RAMPS = ['base', 'primary'];
 
 /** Ramp names the generator won't take: `inverse` is the mirrored `base` tone the styles define. */
 export const RESERVED_RAMPS = ['inverse'];

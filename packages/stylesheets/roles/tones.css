@@ -22,7 +22,8 @@
 }
 
 /*
- * Neutral tones fill controls from the canvas end of the ramp, not from its middle.
+ * Neutral tones fill controls from the canvas end of the ramp, not from its middle,
+ * and focus in the accent the focus settings pick (`--input-focus-outline|border`).
  */
 
 :root,
@@ -34,8 +35,8 @@
     --tone-fill-text: var(--tone-950);
     --tone-border: var(--tone-400);
     --tone-shadow: var(--shadow-medium);
-    --tone-focus-outline: var(--color-secondary-300);
-    --tone-focus-border: var(--color-secondary-600);
+    --tone-focus-outline: var(--input-focus-outline);
+    --tone-focus-border: var(--input-focus-border);
 }
 
 .tone-inverse {
@@ -46,6 +47,6 @@
     --tone-fill-text: var(--tone-950);
     --tone-border: var(--tone-0);
     --tone-shadow: light-dark(var(--tone-0), var(--tone-500));
-    --tone-focus-outline: var(--color-secondary-300);
-    --tone-focus-border: var(--color-secondary-600);
+    --tone-focus-outline: var(--input-focus-outline);
+    --tone-focus-border: var(--input-focus-border);
 }

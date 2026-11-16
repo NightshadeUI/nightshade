@@ -45,12 +45,11 @@ export const inputMetrics = [
     'gap',
 ];
 
-/** The tones every palette has: the neutral pair and the two accents the styles read by name. */
+/** The tones every palette has: the neutral pair and the accent the styles read by name. */
 export const requiredTones = [
     'base',
     'inverse',
     'primary',
-    'secondary',
 ];
 
 export const schemeStorageKey = 'nightshade-docs-scheme';

@@ -13,4 +13,4 @@ const spec = PaletteSpecSchema.decode(JSON.parse(input));
 const css = generatePaletteCss(spec, ':root');
 ```
 
-A spec has twelve-step `lightnessCurve` and `chromaCurve`, and `ramps` of `{ name, hue, chroma, lightness }`. A ramp may bring its own `lightnessCurve` or `chromaCurve` in place of the palette's; its multipliers apply to either. The spec must keep `base`, `primary` and `secondary`: the styles read them by name.
+A spec has twelve-step `lightnessCurve` and `chromaCurve`, and `ramps` of `{ name, hue, chroma, lightness }`. A ramp may bring its own `lightnessCurve` or `chromaCurve` in place of the palette's; its multipliers apply to either. The spec must keep `base` and `primary`: the styles read them by name.

@@ -76,7 +76,11 @@ export default {
     height: var(--sp1-5);
     max-width: 100%;
     border-radius: var(--radius-s);
-    background: linear-gradient(to right, var(--color-primary-500), var(--color-secondary-500));
+    background: linear-gradient(
+        to right,
+        var(--color-primary-500),
+        var(--color-secondary-500, var(--color-primary-500))
+    );
 }
 
 .Probe {

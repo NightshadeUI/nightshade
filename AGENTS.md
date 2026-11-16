@@ -19,7 +19,7 @@ These are the always-on rules. For the token catalog, the palette workflow, comp
 ## Color
 
 - `palette.css` is generated from the project's palette spec with `npx nightshade palette`, and imported next to `@nightshadeui/stylesheets`, which brings none. Never edit it by hand: change the spec, regenerate, and commit both. The starter `@nightshadeui/stylesheets/palette.css` is for prototypes only.
-- The spec must have `base`, `primary` and `secondary` ramps: the styles read them by name (neutral controls focus in `secondary`). Every other ramp is the app's choice.
+- The spec must have `base` and `primary` ramps: the styles read them by name. Every other ramp is the app's choice.
 - A new tone is a new ramp in the spec, and the generator emits its `.tone-<name>`. Never hand-write per-tone variables or roles.
 - **Multi-tone components** (controls meant to work in any tone: buttons, inputs, toggles, chips) read roles, and the context ramp (`--tone-200`) when no role fits. They never read `--color-*`, so one `.tone-*` class re-tones them.
 - **Single-tone components**, which is most of what an app builds, may read ramp steps directly (`--color-primary-600`, `--color-base-100`). Prefer a canvas role when one names the use (`--surface-deep` for a well).
@@ -39,7 +39,7 @@ These are the always-on rules. For the token catalog, the palette workflow, comp
 
 - Each component exposes its knobs as `--<Component>-*`, defaulted on its root class from roles and the size context, and read without per-use fallbacks.
 - **One grammar for those variables.** Named after a role, they hold a color (`--Btn-fill`, `--Chip-text`, `--Toggle-border`, `--Btn-shadow`). Named after a CSS property, they hold a full value (`--Btn-background`, `--Btn-box-shadow`, `--Toggle-border-size`). Named after a metric, they hold a length (`--Btn-size`, `--Btn-padding`, `--Slider-knob-size`). Parts go in between (`--Slider-track-background`). No `-color` and no `-surface` suffixes.
-- **States are shared:** `--input-disabled-opacity|filter`, `--input-hover-overlay` for filled controls, `--input-hover-filter` for wells. Focus rings use `:focus-visible` (text fields: `:focus-within`).
+- **States are shared:** `--input-disabled-opacity|filter`, `--input-hover-overlay` for filled controls, `--input-hover-filter` for wells, `--input-focus-outline|border` for the neutral tones' focus ring (`primary` by default; colored tones focus in their own ramp). Focus rings use `:focus-visible` (text fields: `:focus-within`).
 - **Controls draw their props from one set,** and take the ones that apply: `tone`, `size`, `flat`, `outline`, `round`, `translucent`, `disabled`, `force*`. No prop means something else on another control. `tone` and `size` have no default: when they're omitted the control inherits the context, so add the `.tone-*` or `.input-size-*` class only when the prop is set.
 - Root and sub-element classes are PascalCase and short (`Btn`, `Label`). Modifier and state classes are prefixed with the component and camelCased (`Btn-flat`, `Toggle-forceFocus`).
 - Set a look for a region with a context class, and for the whole app with `$nightshade.defaults`. Don't repeat the same props on every instance.
@@ -114,7 +114,7 @@ Principles → styles (`stylesheets`) → the app's own system. Simplicity is th
 - Palette generator: `palette-generator` (scheme-aware OKLCH ramps and tone contexts, `PaletteSpecSchema`), `cli` (`nightshade palette`).
 - Standard components (opt-in): `components` (Vue controls and layout). Depends on `stylesheets`.
 - Other opt-ins: `canvas`, `particle-system`, `scroller`. The unfinished `content-editor` prototype is parked in `.archive/`, outside the workspaces.
-- Docs theme (opt-in): `docs`, a VitePress theme for an app's own design-system site: the frame, a landing, `defineDocsConfig` and live references (variables, palette, tones, scales) that read the site's styles. Sites configure it through `themeConfig` and extend it with `extends: DocsTheme`. It knows nothing about Nightshade's own site. Its frame is single-tone, like an app's: it may read `base`, `primary` and `secondary` steps, and any other ramp only with a fallback to one of them. It ships sources, which the site's Vite compiles (`defineDocsConfig` keeps them out of pre-bundling).
+- Docs theme (opt-in): `docs`, a VitePress theme for an app's own design-system site: the frame, a landing, `defineDocsConfig` and live references (variables, palette, tones, scales) that read the site's styles. Sites configure it through `themeConfig` and extend it with `extends: DocsTheme`. It knows nothing about Nightshade's own site. Its frame is single-tone, like an app's: it may read `base` and `primary` steps, and any other ramp (`secondary` included) only with a fallback to one of them. It ships sources, which the site's Vite compiles (`defineDocsConfig` keeps them out of pre-bundling).
 - Utility: `util` (geometry helpers, `dom/` input classes, `readStored`/`writeStored`). Framework-free.
 - Distribution: `nightshade`, a thin umbrella package. No runtime logic here.
 - Methodology: `methodology`, the rules and the `nightshade` skill for apps grown from the seed. Its `AGENTS.md` is the source of the Nightshade methodology block above (synced with `npx nightshade-methodology sync`). When the model, tokens or grammar change, update it and the skill references with them.
@@ -137,7 +137,7 @@ The Nightshade methodology block above applies to the packages too: tiers, roles
 - Drive visual variants through context classes (`tone-*`, `input-size-*`) and computed style objects (`baseStyle`, `effectiveStyle`).
 - Emit `update:modelValue` for v-model controls, and preserve the slot names `before`, default and `after`.
 - `packages/stylesheets/index.css` is an ordered list of layered imports with `layer(nightshade)`, in tier order: `scales/` → `settings/` → `context/` → `roles/`, then `base.css` and `utilities.css`. It doesn't import `palette.css`: apps bring their own, and the shipped one is a starter (the generator's defaults) that only the website imports. A new module is exported in `package.json` and has its own `index.css`.
-- `palette.css` is generated with `npm run palette -w @nightshadeui/stylesheets`. The neutral contexts (`:root` = base, `.tone-inverse` = base mirrored) live in `context/tones.css`, and the neutral role overrides in `roles/tones.css`. The styles read `base`, `primary` and `secondary` by name (`REQUIRED_RAMPS` in the generator); never make them depend on another.
+- `palette.css` is generated with `npm run palette -w @nightshadeui/stylesheets`. The neutral contexts (`:root` = base, `.tone-inverse` = base mirrored) live in `context/tones.css`, and the neutral role overrides in `roles/tones.css`. The styles read `base` and `primary` by name (`REQUIRED_RAMPS` in the generator); never make them depend on another.
 - Keep utilities single-purpose and low-specificity, and don't add parallel alias systems.
 - Use scoped component CSS, grouped as base, states, then variants and modifiers. Avoid wrappers that one container can replace.
 - Run `npx nightshade-methodology tokens packages` before reporting done.
