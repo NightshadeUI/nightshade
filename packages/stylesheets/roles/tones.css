@@ -10,7 +10,7 @@
     /* A step past the fill toward the ink end: darker on a light canvas, lighter on a dark one */
     --tone-text: var(--tone-600);
     --tone-tint: var(--tone-100);
-    --tone-tint-text: var(--tone-900);
+    --tone-tint-text: var(--tone-700);
     --tone-fill: var(--tone-500);
     --tone-fill-top: light-dark(var(--tone-400), var(--tone-600));
     --tone-fill-bottom: light-dark(var(--tone-600), var(--tone-400));
