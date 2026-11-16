@@ -49,4 +49,10 @@ export interface DocsThemeConfig {
     tones?: string[];
     /** The system's own variables, listed in the variable reference next to Nightshade's. */
     variableGroups?: VariableGroup[];
+    /**
+     * Whom the variable reference speaks to. `foundation` (the default): authors of a system built on Nightshade,
+     * with how far each variable is meant to be overridden. `usage`: apps built on a finished system,
+     * with how to use each variable: what to read, what to set on a class, what to avoid.
+     */
+    variableView?: 'foundation' | 'usage';
 }

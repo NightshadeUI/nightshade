@@ -116,9 +116,20 @@ export default {
 }
 
 .Sample {
+    position: relative;
+    isolation: isolate;
     display: flex;
     align-items: center;
     gap: var(--sp1);
+}
+
+/* Grid lines are centered on each `--sp` step, and the box runs half a line past both edges,
+   so the lines at a control's top and bottom edges both show and sit symmetrically on them. */
+.Sample::before {
+    content: '';
+    position: absolute;
+    inset: -0.5px 0;
+    z-index: -1;
     background-image: repeating-linear-gradient(
         to bottom,
         color-mix(in oklab, var(--color-primary-500), transparent 85%) 0 1px,

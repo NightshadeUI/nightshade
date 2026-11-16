@@ -4,7 +4,15 @@
             <h1 class="Title">
                 Variables
             </h1>
-            <p class="Lead">
+            <p
+                v-if="usageView"
+                class="Lead">
+                The vocabulary of your app's CSS: what to read, what to set on a class of your own, and what to
+                leave alone. Speak it, and whatever you build stays coherent with the rest of the system.
+            </p>
+            <p
+                v-else
+                class="Lead">
                 The variables are the interface of your design system: a finite, layered set that everything reads,
                 and a handful of knobs you set. Speak them, and whatever you build stays coherent with the rest.
             </p>
@@ -20,28 +28,45 @@
         </header>
 
         <section class="Guide">
-            <h2 class="GuideTitle">
+            <h2
+                v-if="usageView"
+                class="GuideTitle">
+                How to use each one
+            </h2>
+            <h2
+                v-else
+                class="GuideTitle">
                 Everything can be overridden, not everything should be
             </h2>
-            <p class="GuideNote">
+            <p
+                v-if="usageView"
+                class="GuideNote">
+                Every entry says whether your CSS reads it, sets it on a class, or avoids it, and what to use instead.
+                Pick a card to see only those.
+            </p>
+            <p
+                v-else
+                class="GuideNote">
                 Every entry says how it goes when you override it. Pick a card to see only those.
             </p>
-            <div class="Stances">
+            <div
+                class="Stances"
+                :style="{ '--VariableReference-cards': kinds.length }">
                 <button
-                    v-for="item in stances"
+                    v-for="item in kinds"
                     :key="item.id"
                     class="StanceCard"
                     :class="[
                         `tone-${item.tone}`,
                         {
-                            'StanceCard-active': stance === item.id,
+                            'StanceCard-active': kind === item.id,
                         },
                     ]"
-                    @click="toggleStance(item.id)">
+                    @click="toggleKind(item.id)">
                     <span class="StanceHead">
                         <i :class="item.icon" />
                         <span class="StanceTitle">{{ item.title }}</span>
-                        <span class="StanceCount">{{ stanceCounts[item.id] }}</span>
+                        <span class="StanceCount">{{ kindCounts[item.id] }}</span>
                     </span>
                     <span class="StanceNote">{{ item.note }}</span>
                 </button>
@@ -101,7 +126,9 @@
                     <h3 class="GroupTitle">
                         {{ group.title }}
                     </h3>
-                    <code class="GroupFile">{{ group.file }}</code>
+                    <code
+                        v-if="!usageView"
+                        class="GroupFile">{{ group.file }}</code>
                 </div>
                 <p class="GroupNote">
                     {{ group.note }}
@@ -111,8 +138,8 @@
                         v-for="entry in group.entries"
                         :key="entry.name"
                         :entry="entry"
-                        :stance="stanceInfo[entry.stance]"
-                        :siteValue="siteValues[entry.name]"
+                        :badge="kindInfo[entry.kind]"
+                        :siteValue="usageView ? '' : siteValues[entry.name]"
                         @copy="copyName" />
                 </ul>
             </div>
@@ -130,11 +157,11 @@
 <script>
 import { Chip, InputText } from '@nightshadeui/components';
 
-import { VARIABLE_GROUPS, VARIABLE_STANCES, VARIABLE_TIERS } from '../catalog/variables.js';
+import { readVariableUsage, VARIABLE_GROUPS, VARIABLE_STANCES, VARIABLE_TIERS, VARIABLE_USES } from '../catalog/variables.js';
 
 /**
  * The whole variable vocabulary on one page, with the site's own groups: by tier, searchable,
- * with how far each variable is meant to be overridden.
+ * with how far each variable is meant to be overridden, or, in the usage view, how to use it.
  */
 export default {
 
@@ -150,10 +177,9 @@ export default {
     data() {
         return {
             tiers: VARIABLE_TIERS,
-            stances: VARIABLE_STANCES,
             query: '',
             tier: null,
-            stance: null,
+            kind: null,
             copied: '',
             siteValues: {},
         };
@@ -161,22 +187,55 @@ export default {
 
     computed: {
 
-        /** Nightshade's groups, then the system's own. */
+        /** The usage view speaks to apps built on the system; the foundation view, to the system's authors. */
+        usageView() {
+            return this.siteManager.config.variableView === 'usage';
+        },
+
+        /** The cards: how to use each variable, or how far to override it. */
+        kinds() {
+            return this.usageView ? VARIABLE_USES : VARIABLE_STANCES;
+        },
+
+        /**
+         * Nightshade's groups, then the system's own, each entry with its `kind`.
+         * The usage view takes each entry's usage text, and the system's live value for its settings.
+         */
         groups() {
-            return [
+            const groups = [
                 ...VARIABLE_GROUPS,
                 ...this.siteManager.config.variableGroups ?? [],
             ];
+            if (!this.usageView) {
+                return groups.map(group => ({
+                    ...group,
+                    entries: group.entries.map(entry => ({ ...entry, kind: entry.stance })),
+                }));
+            }
+            return groups.map(group => ({
+                ...group,
+                note: group.usageNote ?? group.note,
+                entries: group.entries.map(entry => {
+                    const usage = readVariableUsage(group, entry);
+                    return {
+                        ...entry,
+                        kind: usage.use,
+                        about: usage.about,
+                        instead: usage.instead,
+                        value: this.siteValues[entry.name] ?? entry.value,
+                    };
+                }),
+            }));
         },
 
-        stanceInfo() {
-            return Object.fromEntries(this.stances.map(item => [item.id, item]));
+        kindInfo() {
+            return Object.fromEntries(this.kinds.map(item => [item.id, item]));
         },
 
-        stanceCounts() {
+        kindCounts() {
             const entries = this.groups.flatMap(group => group.entries);
-            return Object.fromEntries(this.stances.map(item => {
-                return [item.id, entries.filter(entry => entry.stance === item.id).length];
+            return Object.fromEntries(this.kinds.map(item => {
+                return [item.id, entries.filter(entry => entry.kind === item.id).length];
             }));
         },
 
@@ -195,8 +254,8 @@ export default {
                     value: this.tiers.length,
                 },
                 {
-                    label: 'knobs made for you',
-                    value: this.stanceCounts.yours,
+                    label: this.usageView ? 'component variables to set' : 'knobs to specify',
+                    value: this.kindCounts[this.usageView ? 'set' : 'specify'],
                 },
             ];
         },
@@ -235,7 +294,7 @@ export default {
         },
 
         matchesEntry(group, entry) {
-            if (this.stance && entry.stance !== this.stance) {
+            if (this.kind && entry.kind !== this.kind) {
                 return false;
             }
             const query = this.query.trim().toLowerCase();
@@ -250,25 +309,42 @@ export default {
             return text.includes(query);
         },
 
-        toggleStance(stance) {
-            this.stance = this.stance === stance ? null : stance;
+        toggleKind(kind) {
+            this.kind = this.kind === kind ? null : kind;
         },
 
         toggleTier(tier) {
             this.tier = this.tier === tier ? null : tier;
         },
 
-        /** The knobs this site sets differently, read from the live page. */
+        /**
+         * The values this system sets, read from the live page. The usage view shows its settings in place of
+         * Nightshade's defaults; the foundation view, the knobs it specifies differently.
+         */
         readSiteValues() {
             const style = getComputedStyle(document.documentElement);
-            const entries = this.groups.flatMap(group => group.entries)
-                .filter(entry => entry.stance === 'yours' && !entry.name.includes('<'));
-            for (const entry of entries) {
-                const value = style.getPropertyValue(entry.name).trim();
-                if (value && value !== entry.value) {
-                    this.siteValues[entry.name] = value;
+            const groups = [
+                ...VARIABLE_GROUPS,
+                ...this.siteManager.config.variableGroups ?? [],
+            ];
+            for (const group of groups) {
+                for (const entry of group.entries) {
+                    if (entry.name.includes('<') || !this.showsSiteValue(group, entry)) {
+                        continue;
+                    }
+                    const value = style.getPropertyValue(entry.name).trim();
+                    if (value && value !== entry.value) {
+                        this.siteValues[entry.name] = value;
+                    }
                 }
             }
+        },
+
+        showsSiteValue(group, entry) {
+            if (this.usageView) {
+                return group.tier === 'raw' && entry.preview !== 'color' && !entry.members;
+            }
+            return entry.stance === 'specify';
         },
 
         copyName(name) {
@@ -367,7 +443,7 @@ code {
 
 .Stances {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(var(--VariableReference-cards, 4), minmax(0, 1fr));
     gap: var(--sp1-5);
 }
 

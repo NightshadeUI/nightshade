@@ -2,7 +2,7 @@
     <li
         :id="anchor"
         class="VariableRow"
-        :class="`VariableRow-${entry.stance}`">
+        :class="`VariableRow-${entry.kind ?? entry.stance}`">
         <span
             class="Preview"
             :class="`Preview-${entry.preview}`"
@@ -37,9 +37,9 @@
         <Chip
             class="Stance"
             tagName="span"
-            :label="stance.title"
-            :icon="stance.icon"
-            :tone="stance.tone"
+            :label="badge.title"
+            :icon="badge.icon"
+            :tone="badge.tone"
             size="xs"
             :flat="true"
             :round="true"
@@ -52,7 +52,7 @@
 import { Chip } from '@nightshadeui/components';
 
 /**
- * One catalog entry: a live preview, its names (click to copy), what it's for, and how far to override it.
+ * One catalog entry: a live preview, its names (click to copy), what it's for, and its stance or use.
  */
 export default {
 
@@ -62,7 +62,8 @@ export default {
 
     props: {
         entry: { type: Object, required: true },
-        stance: { type: Object, required: true },
+        /** How far to override it, or how to use it: a stance or a use, with its title, icon and tone. */
+        badge: { type: Object, required: true },
         siteValue: { type: String, default: '' },
     },
 
@@ -224,8 +225,13 @@ export default {
     color: var(--text-subtle);
 }
 
+/* One line of the text tall, so it sits on the first line however many the text wraps to */
 .Instead i {
-    margin-top: .3em;
+    flex: none;
+    align-self: flex-start;
+    display: grid;
+    place-items: center;
+    height: calc(1.5 * var(--font-size-s));
     font-size: var(--font-size-xxs);
     color: var(--text-faint);
 }

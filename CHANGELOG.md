@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+- `@nightshadeui/docs`: the variable reference has a usage view for systems built on Nightshade. `variableView: 'usage'` in `themeConfig` turns it into a searchable reference for the apps built on the system: each variable says whether an app's CSS reads it, sets it on a class of its own, or avoids it, and what to use instead, and settings show the system's own values. Every catalog entry carries its `usage`; a `variableGroups` entry may too. The default view, for authors of systems, is unchanged.
+- `@nightshadeui/docs`: the stance `yours` is now `specify`, so the stances read in order: Specify, Fine tune, Override with care, Look elsewhere. `variableGroups` entries with `stance: 'yours'` need the new name.
+
 ## 3.2.1
 
 - `@nightshadeui/stylesheets`: `--tone-text` reads step `600`, one step past the fill toward the ink end, so tone-colored text and links read on the canvas in both schemes. The docs theme's prose links and callouts follow.

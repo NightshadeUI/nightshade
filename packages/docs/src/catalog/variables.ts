@@ -8,12 +8,26 @@ export type VariableTier = 'raw' | 'context' | 'role' | 'component';
 
 /**
  * How it goes when you override it:
- * - `yours`: a knob, made for overriding;
+ * - `specify`: a knob, made for the system to set at its :root;
  * - `tune`: a sensible default, fine to change;
  * - `care`: reaches far; fine for a specific look, check every tone and both schemes;
  * - `avoid`: works against the system; a better knob exists.
  */
-export type VariableStance = 'yours' | 'tune' | 'care' | 'avoid';
+export type VariableStance = 'specify' | 'tune' | 'care' | 'avoid';
+
+/**
+ * What an app built on a finished system does with it, for the usage view:
+ * - `read`: read it in your CSS wherever it names what you need;
+ * - `set`: set it on a class of your own, for one component or a region;
+ * - `avoid`: plumbing between the tiers, or the system's own settings; the entry says what to use instead.
+ */
+export type VariableUse = 'read' | 'set' | 'avoid';
+
+export interface VariableUsage {
+    use: VariableUse;
+    about: string;
+    instead?: string;
+}
 
 export type VariablePreview = 'color' | 'length' | 'radius' | 'shadow' | 'text' | 'font' | 'none';
 
@@ -24,6 +38,8 @@ export interface VariableEntry {
     about: string;
     stance: VariableStance;
     instead?: string;
+    /** How an app uses it, for the usage view. Omitted, component variables are `set` and the rest `read`. */
+    usage?: VariableUsage;
     preview: VariablePreview;
     sample?: string;
 }
@@ -34,6 +50,8 @@ export interface VariableGroup {
     title: string;
     note: string;
     file: string;
+    /** The note for the usage view, where `note` speaks to a system's author. */
+    usageNote?: string;
     entries: VariableEntry[];
 }
 
@@ -45,6 +63,14 @@ export interface VariableTierInfo {
 
 export interface VariableStanceInfo {
     id: VariableStance;
+    title: string;
+    tone: string;
+    icon: string;
+    note: string;
+}
+
+export interface VariableUseInfo {
+    id: VariableUse;
     title: string;
     tone: string;
     icon: string;
@@ -63,15 +89,15 @@ const METRICS = ['major-height', 'minor-height', 'major-padding', 'minor-padding
 
 export const VARIABLE_STANCES: VariableStanceInfo[] = [
     {
-        id: 'yours',
-        title: 'Made for you',
+        id: 'specify',
+        title: 'Specify',
         tone: 'success',
         icon: 'fas fa-hand-pointer',
         note: 'The knobs. Set them at your :root, and everything downstream follows.',
     },
     {
         id: 'tune',
-        title: 'Tune to fit',
+        title: 'Fine tune',
         tone: 'secondary',
         icon: 'fas fa-sliders',
         note: 'A sensible default that some systems want different. Change it, and look at the result.',
@@ -91,6 +117,39 @@ export const VARIABLE_STANCES: VariableStanceInfo[] = [
         note: 'Overriding it works against the system. There is a better knob, and the entry names it.',
     },
 ];
+
+export const VARIABLE_USES: VariableUseInfo[] = [
+    {
+        id: 'read',
+        title: 'Read',
+        tone: 'success',
+        icon: 'fas fa-book-open',
+        note: 'The vocabulary of your CSS. Read the variable that names what you mean, never a literal.',
+    },
+    {
+        id: 'set',
+        title: 'Set on a class',
+        tone: 'secondary',
+        icon: 'fas fa-sliders',
+        note: 'Assign it on a class of your own, to restyle one component or everything in a region.',
+    },
+    {
+        id: 'avoid',
+        title: 'Avoid',
+        tone: 'danger',
+        icon: 'fas fa-signs-post',
+        note: 'Plumbing between the tiers, or the system\'s own settings. The entry says what to use instead.',
+    },
+];
+
+/** How an app uses an entry: its own `usage`, or `set` for component variables and `read` for the rest. */
+export function readVariableUsage(group: VariableGroup, entry: VariableEntry): VariableUsage {
+    return entry.usage ?? {
+        use: group.tier === 'component' ? 'set' : 'read',
+        about: entry.about,
+        instead: entry.instead,
+    };
+}
 
 export const VARIABLE_TIERS: VariableTierInfo[] = [
     {
@@ -127,7 +186,12 @@ export const VARIABLE_GROUPS: VariableGroup[] = [
                 name: '--sp',
                 value: '8px',
                 about: 'The grid unit. Every gap, padding and control height is a multiple of it.',
-                stance: 'yours',
+                stance: 'specify',
+                usage: {
+                    use: 'read',
+                    about: 'The grid unit. Read a step whenever one exists; calc(n * var(--sp)) keeps a length off ' +
+                        'the ladder on the grid.',
+                },
                 preview: 'length',
             },
             {
@@ -136,6 +200,11 @@ export const VARIABLE_GROUPS: VariableGroup[] = [
                 value: '--sp0-25 … --sp100',
                 about: 'Multiples of the unit: quarters and halves up to 2.5, then whole steps, then every fourth.',
                 stance: 'avoid',
+                usage: {
+                    use: 'read',
+                    about: 'Every gap, padding and offset: halves up to 2.5, then whole steps, then every fourth.',
+                    instead: 'A literal px is drift: pick the nearest step.',
+                },
                 instead: 'Set --sp and every step follows. Missing a step? Add it to the scale, for everyone.',
                 preview: 'length',
                 sample: '--sp3',
@@ -153,7 +222,11 @@ export const VARIABLE_GROUPS: VariableGroup[] = [
                 name: '--radius-m',
                 value: '4px',
                 about: 'The corner of controls and cards. The other two derive from it.',
-                stance: 'yours',
+                stance: 'specify',
+                usage: {
+                    use: 'read',
+                    about: 'The corner of controls and cards.',
+                },
                 preview: 'radius',
             },
             {
@@ -162,6 +235,11 @@ export const VARIABLE_GROUPS: VariableGroup[] = [
                 value: '½ and 2 × --radius-m',
                 about: 'The small and large corners: tags and insets, panels and dialogs.',
                 stance: 'tune',
+                usage: {
+                    use: 'read',
+                    about: 'The small and large corners: tags and insets, panels and dialogs.',
+                    instead: 'A round control takes half its own height, not a radius.',
+                },
                 preview: 'radius',
             },
         ],
@@ -177,7 +255,11 @@ export const VARIABLE_GROUPS: VariableGroup[] = [
                 name: '--font-size-m',
                 value: '16px',
                 about: 'Body size. The whole size ladder is computed from it.',
-                stance: 'yours',
+                stance: 'specify',
+                usage: {
+                    use: 'read',
+                    about: 'Body size: the m step of the ladder.',
+                },
                 preview: 'font',
             },
             {
@@ -186,6 +268,11 @@ export const VARIABLE_GROUPS: VariableGroup[] = [
                 value: 'm − 6, 4, 2px; m × 1.25, 1.5, 1.875, 2.25',
                 about: 'Smaller steps subtract, larger ones multiply, so the ladder keeps its shape at any body size.',
                 stance: 'care',
+                usage: {
+                    use: 'read',
+                    about: 'Text sizes, from captions to display headings.',
+                    instead: 'A literal font size is drift: pick a step, so headings and body keep their rhythm.',
+                },
                 instead: 'Change --font-size-m first. Moving one step breaks the rhythm between headings and body.',
                 preview: 'font',
                 sample: '--font-size-xl',
@@ -196,6 +283,10 @@ export const VARIABLE_GROUPS: VariableGroup[] = [
                 value: '200, 300, 400, 500, 700',
                 about: 'Named weights. Match them to what your typeface actually ships.',
                 stance: 'tune',
+                usage: {
+                    use: 'read',
+                    about: 'Named weights. Read the name, not a number, so the weight follows the typeface.',
+                },
                 preview: 'none',
             },
         ],
@@ -216,6 +307,10 @@ export const VARIABLE_GROUPS: VariableGroup[] = [
                 value: 'n/12 of the container; --vgr<n>: of the viewport',
                 about: 'Fractions, not design decisions.',
                 stance: 'avoid',
+                usage: {
+                    use: 'read',
+                    about: 'Widths on a twelve-column grid: --gr6 is half the container, --vgr6 half the viewport.',
+                },
                 instead: 'There is nothing to tune. For a different column count, use your own fractions.',
                 preview: 'none',
             },
@@ -234,6 +329,12 @@ export const VARIABLE_GROUPS: VariableGroup[] = [
                 value: 'm: --sp4 high, --sp2-5 minor, --sp1-5 padding',
                 about: 'Every control of one size reads its row, through the size context.',
                 stance: 'care',
+                usage: {
+                    use: 'avoid',
+                    about: 'The rows of the control size scale, which the size context reads.',
+                    instead: 'Read --input-major-height and the rest; put an .input-size-* class on a region to ' +
+                        'change its size.',
+                },
                 instead: 'Move a whole row together, and keep heights on the grid, so fields and buttons stay aligned.',
                 preview: 'length',
                 sample: '--input-size-m-major-height',
@@ -246,6 +347,7 @@ export const VARIABLE_GROUPS: VariableGroup[] = [
         title: 'Color ramps',
         note: 'Generated from your palette spec: twelve scheme-aware steps per ramp.',
         file: 'palette.css (yours)',
+        usageNote: 'Twelve scheme-aware steps per ramp, generated from the system\'s palette.',
         entries: [
             {
                 name: '--color-<ramp>-<step>',
@@ -253,6 +355,13 @@ export const VARIABLE_GROUPS: VariableGroup[] = [
                 value: 'oklch, light-dark()',
                 about: 'Step 0 is the canvas end in both schemes. Read them freely in single-tone components.',
                 stance: 'avoid',
+                usage: {
+                    use: 'read',
+                    about: 'Scheme-aware steps of every ramp, for single-tone CSS: a brand mark, a chart series, a ' +
+                        'status dot.',
+                    instead: 'In a control that takes any tone, read a tone role. Prefer a canvas role where one ' +
+                        'names the use.',
+                },
                 instead: 'Change the palette spec and regenerate. Hand-edited steps drift from ' +
                     'the curves and the other scheme.',
                 preview: 'color',
@@ -264,6 +373,11 @@ export const VARIABLE_GROUPS: VariableGroup[] = [
                 value: 'black or white',
                 about: 'Whichever reads on step 500, per scheme.',
                 stance: 'avoid',
+                usage: {
+                    use: 'read',
+                    about: 'Black or white, whichever reads on the ramp\'s step 500.',
+                    instead: 'On a control\'s fill, read --tone-fill-text.',
+                },
                 instead: 'Tune the ramp\'s lightness in the spec; the contrast flips where it needs to.',
                 preview: 'color',
                 sample: '--color-primary-contrast',
@@ -281,28 +395,45 @@ export const VARIABLE_GROUPS: VariableGroup[] = [
                 name: '--font-main',
                 value: 'sans-serif',
                 about: 'The face of body text and controls.',
-                stance: 'yours',
+                stance: 'specify',
+                usage: {
+                    use: 'read',
+                    about: 'The face of body text and controls.',
+                },
                 preview: 'none',
             },
             {
                 name: '--font-alt',
                 value: '--font-main',
                 about: 'A second face, for display and headings.',
-                stance: 'yours',
+                stance: 'specify',
+                usage: {
+                    use: 'read',
+                    about: 'The display face, for headings and titles.',
+                },
                 preview: 'none',
             },
             {
                 name: '--font-monospace',
                 value: 'monospace',
                 about: 'Code and tabular figures.',
-                stance: 'yours',
+                stance: 'specify',
+                usage: {
+                    use: 'read',
+                    about: 'Code, identifiers and tabular figures.',
+                },
                 preview: 'none',
             },
             {
                 name: '--line-height',
                 value: '1.5',
                 about: 'The line height every face starts from.',
-                stance: 'yours',
+                stance: 'specify',
+                usage: {
+                    use: 'avoid',
+                    about: 'The line height every face starts from.',
+                    instead: 'Read the line height of the face you set: --line-height-main and the rest.',
+                },
                 preview: 'none',
             },
             {
@@ -315,6 +446,10 @@ export const VARIABLE_GROUPS: VariableGroup[] = [
                 value: '--line-height',
                 about: 'One face\'s line height, where it differs: a display face often sets tighter, code looser.',
                 stance: 'tune',
+                usage: {
+                    use: 'read',
+                    about: 'Each face\'s line height: read it with its face.',
+                },
                 preview: 'none',
             },
             {
@@ -322,6 +457,11 @@ export const VARIABLE_GROUPS: VariableGroup[] = [
                 value: '--font-weight-normal',
                 about: 'The page\'s default weight.',
                 stance: 'tune',
+                usage: {
+                    use: 'avoid',
+                    about: 'The page\'s default weight. Body text has it already.',
+                    instead: 'Read a named weight: --font-weight-bold.',
+                },
                 preview: 'none',
             },
             {
@@ -329,6 +469,11 @@ export const VARIABLE_GROUPS: VariableGroup[] = [
                 value: '--font-size-m',
                 about: 'The page\'s default size, picked from the scale.',
                 stance: 'care',
+                usage: {
+                    use: 'avoid',
+                    about: 'The page\'s default size. Body text has it already.',
+                    instead: 'Read a step: --font-size-s.',
+                },
                 instead: 'Set --font-size-m: it moves body text and the whole ladder together.',
                 preview: 'none',
             },
@@ -346,6 +491,10 @@ export const VARIABLE_GROUPS: VariableGroup[] = [
                 value: '1px',
                 about: 'Outlined controls\' border. 2px gives a heavier look.',
                 stance: 'tune',
+                usage: {
+                    use: 'read',
+                    about: 'The border of outlined controls, for a control of your own.',
+                },
                 preview: 'none',
             },
             {
@@ -354,6 +503,10 @@ export const VARIABLE_GROUPS: VariableGroup[] = [
                 value: '2px, offset 0',
                 about: 'The focus ring\'s width and its distance from the control.',
                 stance: 'tune',
+                usage: {
+                    use: 'read',
+                    about: 'The focus ring\'s width and offset, for a focusable of your own.',
+                },
                 preview: 'none',
             },
             {
@@ -362,6 +515,10 @@ export const VARIABLE_GROUPS: VariableGroup[] = [
                 value: '.6, saturate(50%)',
                 about: 'How a disabled control fades.',
                 stance: 'tune',
+                usage: {
+                    use: 'read',
+                    about: 'How a disabled control fades, for a control of your own.',
+                },
                 preview: 'none',
             },
             {
@@ -370,6 +527,10 @@ export const VARIABLE_GROUPS: VariableGroup[] = [
                 value: '10% grey; brightness(.96)',
                 about: 'Hover on filled controls (an overlay) and on wells (a filter).',
                 stance: 'care',
+                usage: {
+                    use: 'read',
+                    about: 'Hover on filled controls (an overlay) and on wells (a filter), for a control of your own.',
+                },
                 instead: 'Too strong or too weak in one scheme? Adjust it, but test filled and well controls in both.',
                 preview: 'none',
             },
@@ -378,7 +539,11 @@ export const VARIABLE_GROUPS: VariableGroup[] = [
                 members: ['--input-focus-outline', '--input-focus-border'],
                 value: 'primary 300 and 600',
                 about: 'The focus ring of neutral controls, which have no hue of their own.',
-                stance: 'yours',
+                stance: 'specify',
+                usage: {
+                    use: 'read',
+                    about: 'The focus ring and border of any focusable of your own: a card, a row, a tab.',
+                },
                 instead: 'Point them at another ramp\'s steps (--color-secondary-300, -600) for another accent.',
                 preview: 'color',
             },
@@ -400,6 +565,12 @@ export const VARIABLE_GROUPS: VariableGroup[] = [
                 value: 'the current tone\'s ramp',
                 about: 'Read them in multi-tone components when no role names the step you need.',
                 stance: 'avoid',
+                usage: {
+                    use: 'read',
+                    about: 'The current tone\'s ramp, in a component meant to take any tone, when no role names the ' +
+                        'step.',
+                    instead: 'Pick a tone with a .tone-* class; never assign these.',
+                },
                 instead: 'Set them with a .tone-* class. To change a tone, change its ramp in the spec.',
                 preview: 'color',
                 sample: '--tone-300',
@@ -419,6 +590,12 @@ export const VARIABLE_GROUPS: VariableGroup[] = [
                 value: 'the current size\'s row',
                 about: 'What controls read: --input-major-height, --input-gap and the rest.',
                 stance: 'avoid',
+                usage: {
+                    use: 'read',
+                    about: 'The current size: --input-major-height, --input-gap and the rest. Read them so your ' +
+                        'controls line up.',
+                    instead: 'Pick a size with an .input-size-* class; never assign these.',
+                },
                 instead: 'Set them with an .input-size-* class. To change a size, change its row in the scale.',
                 preview: 'length',
                 sample: '--input-major-height',
@@ -438,6 +615,10 @@ export const VARIABLE_GROUPS: VariableGroup[] = [
                 value: 'base 0, border 100',
                 about: 'Level 1: the page, and the edges and dividers on it.',
                 stance: 'care',
+                usage: {
+                    use: 'read',
+                    about: 'Level 1: the page, and the edges and dividers on it.',
+                },
                 instead: 'Reassign a level to change what it means everywhere. Keep each surface with its border.',
                 preview: 'color',
             },
@@ -447,6 +628,10 @@ export const VARIABLE_GROUPS: VariableGroup[] = [
                 value: 'base 50, border 100',
                 about: 'Level 2: a region inside the page: sidebars, cards, code.',
                 stance: 'care',
+                usage: {
+                    use: 'read',
+                    about: 'Level 2: a region inside the page: sidebars, cards, code.',
+                },
                 instead: 'Reassign a level to change what it means everywhere. Keep each surface with its border.',
                 preview: 'color',
             },
@@ -456,6 +641,10 @@ export const VARIABLE_GROUPS: VariableGroup[] = [
                 value: 'base 100, border 200',
                 about: 'Level 3: a well: fields, tracks, toggles, tool panels.',
                 stance: 'care',
+                usage: {
+                    use: 'read',
+                    about: 'Level 3: a well: fields, tracks, toggles, tool panels.',
+                },
                 instead: 'Reassign a level to change what it means everywhere. Keep each surface with its border.',
                 preview: 'color',
             },
@@ -465,6 +654,10 @@ export const VARIABLE_GROUPS: VariableGroup[] = [
                 value: 'base 0 / 50, border 100 / 200',
                 about: 'Above the page: popups, menus, tooltips. A step lighter than the page in dark mode.',
                 stance: 'care',
+                usage: {
+                    use: 'read',
+                    about: 'Above the page: popups, menus, tooltips.',
+                },
                 instead: 'Check popups in dark mode after changing it.',
                 preview: 'color',
             },
@@ -473,6 +666,10 @@ export const VARIABLE_GROUPS: VariableGroup[] = [
                 value: 'base 0 / 800',
                 about: 'The moving part of a control: toggle and slider knobs. Light in both schemes.',
                 stance: 'tune',
+                usage: {
+                    use: 'read',
+                    about: 'The moving part of a control: toggle and slider knobs.',
+                },
                 preview: 'color',
             },
             {
@@ -480,6 +677,10 @@ export const VARIABLE_GROUPS: VariableGroup[] = [
                 value: 'black 10% / 20%',
                 about: 'The scrim behind modals.',
                 stance: 'tune',
+                usage: {
+                    use: 'read',
+                    about: 'The scrim behind modals and drawers.',
+                },
                 preview: 'color',
             },
         ],
@@ -496,6 +697,10 @@ export const VARIABLE_GROUPS: VariableGroup[] = [
                 value: 'base 950',
                 about: 'Body text.',
                 stance: 'care',
+                usage: {
+                    use: 'read',
+                    about: 'Body text.',
+                },
                 instead: 'Reassign for a softer ink, but keep contrast with every surface level.',
                 preview: 'text',
             },
@@ -505,6 +710,10 @@ export const VARIABLE_GROUPS: VariableGroup[] = [
                 value: 'base 600, base 500',
                 about: 'Secondary text; hints, captions and placeholders.',
                 stance: 'care',
+                usage: {
+                    use: 'read',
+                    about: 'Secondary text; hints, captions and placeholders.',
+                },
                 instead: 'Reassign for a softer ink, but keep contrast with every surface level.',
                 preview: 'text',
             },
@@ -523,6 +732,10 @@ export const VARIABLE_GROUPS: VariableGroup[] = [
                 value: 'black 10/20/30% (dark: 20/40/60%)',
                 about: 'Colors, not shadows: each component owns its own offsets and blur.',
                 stance: 'tune',
+                usage: {
+                    use: 'read',
+                    about: 'Shadow colors: write your own offsets and blur around one.',
+                },
                 preview: 'shadow',
                 sample: '--shadow-medium',
             },
@@ -538,6 +751,10 @@ export const VARIABLE_GROUPS: VariableGroup[] = [
                 value: 'mix 15/50/75%, blur 3px, white rim',
                 about: 'How much shows through translucent controls, how blurred, and their inner rim light.',
                 stance: 'tune',
+                usage: {
+                    use: 'read',
+                    about: 'The mix, blur and rim light of translucent surfaces.',
+                },
                 preview: 'none',
             },
             {
@@ -545,6 +762,10 @@ export const VARIABLE_GROUPS: VariableGroup[] = [
                 value: 'inverse of the text, 25%',
                 about: 'Lifts text off any fill. Computed from the current text color.',
                 stance: 'avoid',
+                usage: {
+                    use: 'read',
+                    about: 'Lifts text off any fill, from the current text color.',
+                },
                 instead: 'Set a component\'s own text shadow (--Btn-text-shadow) instead.',
                 preview: 'none',
             },
@@ -564,6 +785,10 @@ export const VARIABLE_GROUPS: VariableGroup[] = [
                 value: '500; bevel 400 → 600; contrast',
                 about: 'A control\'s solid face, the ends of its gradient, and the text on it.',
                 stance: 'care',
+                usage: {
+                    use: 'read',
+                    about: 'A control\'s solid face, the ends of its gradient, and the text on it.',
+                },
                 instead: 'Reassign on [class^="tone-"] for every tone at once. A fill that\'s off for ' +
                     'one tone is a ramp to tune in the spec.',
                 preview: 'color',
@@ -574,6 +799,10 @@ export const VARIABLE_GROUPS: VariableGroup[] = [
                 value: '100, text 900',
                 about: 'A soft background and the text on it: chips, badges, callouts.',
                 stance: 'care',
+                usage: {
+                    use: 'read',
+                    about: 'A soft background and the text on it: chips, badges, callouts.',
+                },
                 instead: 'Reassign on [class^="tone-"] for every tone at once.',
                 preview: 'color',
             },
@@ -583,6 +812,10 @@ export const VARIABLE_GROUPS: VariableGroup[] = [
                 value: '500, border 600',
                 about: 'Tone-colored text and icons on the canvas, and a control\'s edge.',
                 stance: 'care',
+                usage: {
+                    use: 'read',
+                    about: 'Tone-colored text and icons on the canvas, and a control\'s edge.',
+                },
                 instead: 'Reassign on [class^="tone-"] for every tone at once.',
                 preview: 'text',
             },
@@ -591,6 +824,10 @@ export const VARIABLE_GROUPS: VariableGroup[] = [
                 value: '800 (dark: 100)',
                 about: 'The tinted part of a raised control\'s shadow.',
                 stance: 'tune',
+                usage: {
+                    use: 'read',
+                    about: 'The tinted part of a raised control\'s shadow.',
+                },
                 preview: 'shadow',
             },
             {
@@ -599,6 +836,10 @@ export const VARIABLE_GROUPS: VariableGroup[] = [
                 value: '300 and 600; neutral tones: the focus settings',
                 about: 'The focus ring, outside and inside.',
                 stance: 'care',
+                usage: {
+                    use: 'read',
+                    about: 'The focus ring in the current tone, outside and inside.',
+                },
                 instead: 'Neutral controls focus in --input-focus-outline|border: set those ' +
                     'for another accent.',
                 preview: 'color',
@@ -624,7 +865,12 @@ export const VARIABLE_GROUPS: VariableGroup[] = [
                 ],
                 value: 'defaulted from roles and the size context',
                 about: 'Set them on a class of your own to restyle one component without touching the rest.',
-                stance: 'yours',
+                stance: 'specify',
+                usage: {
+                    use: 'set',
+                    about: 'Each component\'s knobs. Set them on a class of your own, for one use or a whole region.',
+                    instead: 'Never copy a component\'s CSS to change one value.',
+                },
                 preview: 'none',
             },
         ],
