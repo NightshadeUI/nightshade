@@ -1,6 +1,6 @@
 {
     "name": "@nightshadeui/canvas",
-    "version": "3.4.0",
+    "version": "3.5.0",
     "description": "Nightshade canvas viewport primitives",
     "author": "Boris Okunskiy",
     "license": "ISC",
@@ -25,7 +25,7 @@
         "vue": "^3.5.22"
     },
     "dependencies": {
-        "@nightshadeui/util": "3.4.0",
+        "@nightshadeui/util": "3.5.0",
         "@flexent/init-decorator": "^2.22.0",
         "mesh-ioc": "^4.3.1",
         "nanoevent": "^1.0.0"
