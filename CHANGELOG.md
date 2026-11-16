@@ -2,6 +2,18 @@
 
 ## 3.2.0
 
+- `@nightshadeui/stylesheets`: `--surface-raised` is now a real elevated surface: one step above the page in dark mode. It used to resolve to nearly white there, because the ramp is already scheme-aware. New `--surface-knob` keeps toggle and slider knobs light in both schemes. `Bubble` (and so popups and menus) and the slider tooltip sit on `--surface-raised`.
+- `@nightshadeui/components`: new `Tooltip`, a `ContextPopup` that opens on hover or keyboard focus, with a title and a text or a slot for rich content, and the `v-tooltip` directive (`v-tooltip="'Saves the draft'"` or `v-tooltip="{ title, text }"`). `ContextPopup` takes an `anchorEl` and `anchorDir="auto"`, which anchors on the side it opens towards.
+- `@nightshadeui/stylesheets`: the entry declares `@layer nightshade, nightshade-components` up front, so an app's own layer, declared after the import, wins over both. The `kbd` keycap is redrawn on the raised surface, flat, for both schemes.
+- `@nightshadeui/components`: cherry-pick components. Each module imports its own CSS, so `import { Btn } from '@nightshadeui/components'` ships only Btn's styles. `@nightshadeui/components/css` still links them all. The `nightshade-components` layer is now in the sources, so `./src` and `dist` style alike. `@nightshadeui/util` is external, no longer bundled. `nightshade/css` is the styles only, because component CSS comes with the components.
+- `@nightshadeui/docs`: the theme's CSS sits in the `nightshade-docs` layer, and its prose rules (headings, links, tables) stop at `<Demo>`. The theme no longer registers every standard component globally: its views import what they use, and the site registers the components its pages need.
+- `@nightshadeui/scroller`: `t` is recomputed on resize too.
+- `@nightshadeui/content-editor` is retired: the unfinished prototype is parked in `.archive/`.
+- `@nightshadeui/components`: `HGroup` and `VGroup` take any step of the spacing scale as `gap`, through `--HGroup-gap` and `--VGroup-gap`, which a class can also set; `justify` takes `space-evenly`, and an unset `justify` no longer renders a stray class. `ToolPanel` drops a padding rule that restated the size context, and takes its size as a minimum height, so oversized contents keep its padding on every side.
+- `@nightshadeui/docs`: `<Demo dual>` keeps both schemes the same width and scrolls content that doesn't fit, instead of pushing the second stage out. `ToneMatrix` sizes each column to its content, so it fits the stage, and its default button reads "Button".
+- Every published package has a README.
+- Docs: corrected the model's tier rule ("the tiers inside it"), the role-reassignment example (it rewrote ramp steps), stale role values, the palette import rule, the particle features, and the variable grammar, which now names metric variables (`--Btn-size`).
+- Website: the Bubble sides and alignments demo gives each bubble its own anchor. The Scroller demo compares four anchor settings on one 2400px track. The particle demo stacks its preview above its controls. Raised surfaces get a section of their own on the Depth page.
 - `@nightshadeui/components`: a disabled `Btn` or `Chip` on another tag (a link, a `RouterBtn`) no longer shows hover, focus or press states.
 - Docs: palette spec examples keep the required `secondary` ramp.
 - `@nightshadeui/util`: `createGridDotsSvg` and the unused `createGridLinesSvg` are gone; the canvas draws its own grid.

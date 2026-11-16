@@ -12,7 +12,7 @@
     --font-monospace: "Source Code Pro", ui-monospace, monospace;
     --font-size-m: 17px;
     --font-weight-bold: 600;
-    /* DM Serif Display has one weight: the theme's bold and italic titles render it as drawn, never faked */
+    /* Fraunces is loaded in one weight: bold and italic titles render it as drawn, never faked */
     font-synthesis: none;
 
     --radius-m: 6px;

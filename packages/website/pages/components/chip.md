@@ -47,7 +47,7 @@ Every tone your styles define, at every size, in both schemes. The playground ba
 
 <Demo dual stacked>
 <ToneMatrix v-slot="{ tone, size }">
-    <Chip :tone="tone" :size="size" :label="tone" icon="fas fa-tag" />
+    <Chip :tone="tone" :size="size" label="Chip" icon="fas fa-tag" />
 </ToneMatrix>
 </Demo>
 
@@ -61,7 +61,7 @@ Chip speaks the [control grammar](/components/): `tone`, `size`, `flat`, `outlin
 | `icon` | string | an icon class, drawn in the text color |
 | `tagName` | string | `button` by default |
 
-## Roles it reads
+## Variables
 
 | Variable | Default |
 |----------|---------|

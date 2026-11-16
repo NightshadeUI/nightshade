@@ -64,7 +64,7 @@ export default {
 } satisfies Theme;
 ```
 
-Import your stylesheets (Nightshade's, your palette and your `:root`). The theme brings only what its frame needs (its own CSS, Font Awesome, the `kbd` and `transitions` modules, and the standard components, registered globally), so the site looks like your system. To wrap the frame, set `Layout` to a component that renders `<DocsLayout>`; its `header-actions` slot adds buttons to the header.
+Import your stylesheets (Nightshade's, your palette and your `:root`). The theme brings only what its frame needs (its own CSS, Font Awesome, the `kbd` and `transitions` modules), so the site looks like your system. It registers no controls: register the components your pages use, your own and the standard ones you pick. Its CSS sits in the `nightshade-docs` layer, and its prose rules stop at `<Demo>`, so demos look the way they would in an app. To wrap the frame, set `Layout` to a component that renders `<DocsLayout>`; its `header-actions` slot adds buttons to the header.
 
 ## Layouts
 

@@ -9,6 +9,8 @@
 </template>
 
 <script>
+import { Btn } from '@nightshadeui/components';
+
 const schemes = {
     auto: {
         label: 'auto',
@@ -28,6 +30,10 @@ const schemes = {
 };
 
 export default {
+
+    components: {
+        Btn,
+    },
 
     inject: [
         'appearanceManager',

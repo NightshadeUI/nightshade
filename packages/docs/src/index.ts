@@ -1,7 +1,6 @@
 import '@fortawesome/fontawesome-free/css/all.css';
 import './styles/docs.css';
 
-import { standardComponents } from '@nightshadeui/components/src';
 import { Theme } from 'vitepress';
 import { Component, reactive } from 'vue';
 
@@ -30,15 +29,12 @@ const docsComponents = import.meta.glob<{ default: Component }>([
  * The docs theme. A site extends it (`extends: DocsTheme`) to register its own components and managers,
  * or to wrap `DocsLayout` in a layout of its own.
  *
- * Provides `siteManager`, `appearanceManager` and `stylesManager`, and registers the standard components
- * and the theme's views globally, so Markdown pages use them by name.
+ * Provides `siteManager`, `appearanceManager` and `stylesManager`, and registers the theme's views globally,
+ * so Markdown pages use them by name. It registers no controls: the site registers the components its pages use.
  */
 export const DocsTheme: Theme = {
     Layout: DocsLayout,
     enhanceApp({ app, router, siteData }) {
-        for (const [name, component] of Object.entries(standardComponents)) {
-            app.component(name, component);
-        }
         for (const [path, module] of Object.entries(docsComponents)) {
             app.component(path.replace(/^.*\/|\.vue$/g, ''), module.default);
         }

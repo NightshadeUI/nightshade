@@ -153,28 +153,35 @@ export default {
 </script>
 
 <style scoped>
-.InputSelect:not(.InputSelect-disabled) {
-    cursor: pointer;
-}
+/* The order, stated wherever these styles load first: the styles, then the components */
+@layer nightshade, nightshade-components;
 
-select {
-    -webkit-appearance: none;
-    appearance: none;
-    box-sizing: border-box;
-    flex: 1;
-    padding: 0;
-    border: 0;
-    width: 100%;
-    min-width: 0;
-    outline: 0;
-    user-select: text;
-    background: transparent;
-    color: inherit;
-    font: inherit;
-    cursor: inherit;
-}
+@layer nightshade-components {
 
-select[aria-readonly='true'] {
-    pointer-events: none;
+    .InputSelect:not(.InputSelect-disabled) {
+        cursor: pointer;
+    }
+
+    select {
+        -webkit-appearance: none;
+        appearance: none;
+        box-sizing: border-box;
+        flex: 1;
+        padding: 0;
+        border: 0;
+        width: 100%;
+        min-width: 0;
+        outline: 0;
+        user-select: text;
+        background: transparent;
+        color: inherit;
+        font: inherit;
+        cursor: inherit;
+    }
+
+    select[aria-readonly='true'] {
+        pointer-events: none;
+    }
+
 }
 </style>

@@ -128,6 +128,8 @@
 </template>
 
 <script>
+import { Chip, InputText } from '@nightshadeui/components';
+
 import { VARIABLE_GROUPS, VARIABLE_STANCES, VARIABLE_TIERS } from '../catalog/variables.js';
 
 /**
@@ -135,6 +137,11 @@ import { VARIABLE_GROUPS, VARIABLE_STANCES, VARIABLE_TIERS } from '../catalog/va
  * with how far each variable is meant to be overridden.
  */
 export default {
+
+    components: {
+        Chip,
+        InputText,
+    },
 
     inject: [
         'siteManager',

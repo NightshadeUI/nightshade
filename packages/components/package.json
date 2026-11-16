@@ -4,11 +4,13 @@
     "description": "Standard Nightshade components: opt-in Vue primitives that read the styles",
     "author": "Boris Okunskiy",
     "license": "ISC",
-    "sideEffects": false,
+    "sideEffects": [
+        "*.css"
+    ],
     "exports": {
         ".": {
             "types": "./dist/index.d.ts",
-            "import": "./dist/components.mjs"
+            "import": "./dist/index.js"
         },
         "./css": "./dist/components.css",
         "./src": "./src/index.ts"

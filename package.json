@@ -27,7 +27,6 @@
         "@nightshadeui/canvas": "./packages/canvas",
         "@nightshadeui/cli": "./packages/cli",
         "@nightshadeui/components": "./packages/components",
-        "@nightshadeui/content-editor": "./packages/content-editor",
         "@nightshadeui/docs": "./packages/docs",
         "@nightshadeui/methodology": "./packages/methodology",
         "@nightshadeui/palette-generator": "./packages/palette-generator",

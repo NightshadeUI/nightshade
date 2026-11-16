@@ -24,7 +24,7 @@ Every ramp is scheme-aware. The dark scheme reads the ramp mirrored, so a step k
 }
 ```
 
-That's why roles rarely need `light-dark()`: `--border-base: var(--color-base-200)` is right in both schemes.
+That's why roles rarely need `light-dark()`: `--border-deep: var(--color-base-200)` is right in both schemes. The few that do pick a different step per scheme, like `--surface-raised`, which sits a step above the page in the dark.
 
 Set `color-scheme` and the whole system follows. Nightshade's base sets `light dark` on `html`, and `data-theme="light"` or `"dark"` pins one. It works on any element: `color-scheme: dark` on a panel makes a dark island.
 
@@ -37,14 +37,15 @@ Each ramp also gets `--color-<ramp>-contrast`: black or white, whichever reads b
 The canvas is the neutral world that tones are placed on. Surfaces come in three levels for three levels of nesting, and each level has its own border. Pick the level you sit on, then use its pair.
 
 <TokenTable :tokens="[
-    { name: '--surface-base', value: 'base 0', note: 'Level 1: the page. Fields and popovers.' },
+    { name: '--surface-base', value: 'base 0', note: 'Level 1: the page, and the fields on it.' },
     { name: '--border-base', value: 'base 100', note: 'Edges and dividers on the base surface.' },
     { name: '--surface-shade', value: 'base 50', note: 'Level 2: a region inside the page: sidebars, cards, code.' },
     { name: '--border-shade', value: 'base 100', note: 'Edges and dividers on the shade surface.' },
     { name: '--surface-deep', value: 'base 100', note: 'Level 3: a well: fields, tracks, toggles, tool panels.' },
     { name: '--border-deep', value: 'base 200', note: 'Edges and dividers on the deep surface.' },
-    { name: '--surface-raised', value: 'base 0 / base 800', note: 'Things that sit above: knobs, popovers.' },
-    { name: '--border-raised', value: 'base 100 / base 700', note: 'The edge of a raised surface.' },
+    { name: '--surface-raised', value: 'base 0 / base 50', note: 'Things that float above: popups, menus, tooltips.' },
+    { name: '--border-raised', value: 'base 100 / base 200', note: 'The edge of a raised surface.' },
+    { name: '--surface-knob', value: 'base 0 / base 800', note: 'Knobs: light in both schemes.' },
     { name: '--surface-overlay', value: 'black 10% / 20%', note: 'The scrim behind modal overlays.' },
     { name: '--text-base', value: 'base 950', note: 'Body text.' },
     { name: '--text-subtle', value: 'base 600', note: 'Secondary text.' },
@@ -88,7 +89,7 @@ The canvas is the neutral world that tones are placed on. Surfaces come in three
     width: var(--sp2-5);
     height: 100%;
     border-radius: var(--radius-s);
-    background: var(--surface-raised);
+    background: var(--surface-knob);
     box-shadow: 0 1px 3px var(--shadow-light);
 }
 </style>
@@ -98,16 +99,16 @@ The canvas is the neutral world that tones are placed on. Surfaces come in three
 When you style your own pieces, the outermost tier that says what you mean usually serves best:
 
 ```css
-/* Works, until the palette or the scheme changes */
+/* Says how light, not what for */
 .Card {
     background: var(--color-base-50);
-    border: 1px solid var(--color-base-200);
+    border: 1px solid var(--color-base-100);
 }
 
-/* Says what it means */
+/* Says what it means, and follows when the meaning is reassigned */
 .Card {
-    background: var(--surface-base);
-    border: 1px solid var(--border-base);
+    background: var(--surface-shade);
+    border: 1px solid var(--border-shade);
 }
 ```
 

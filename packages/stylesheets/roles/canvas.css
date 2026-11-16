@@ -18,10 +18,15 @@
     --surface-deep: var(--color-base-100);
     --border-deep: var(--color-base-200);
 
-    /* Off the levels: things that sit above, and the scrim under modals */
+    /*
+     * Off the levels. raised: popups, menus, tooltips and cards that float above the page,
+     * one step lighter than the page in the dark scheme. knob: the moving part of a control,
+     * light in both schemes. overlay: the scrim under modals.
+     */
 
-    --surface-raised: light-dark(var(--color-base-0), var(--color-base-800));
-    --border-raised: light-dark(var(--color-base-100), var(--color-base-700));
+    --surface-raised: light-dark(var(--color-base-0), var(--color-base-50));
+    --border-raised: light-dark(var(--color-base-100), var(--color-base-200));
+    --surface-knob: light-dark(var(--color-base-0), var(--color-base-800));
     --surface-overlay: light-dark(rgba(0,0,0,.1), rgba(0,0,0,.2));
 
     /* Text */

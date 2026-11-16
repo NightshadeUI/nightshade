@@ -17,7 +17,6 @@
     },
     "dependencies": {
         "@nightshadeui/canvas": "3.1.1",
-        "@nightshadeui/content-editor": "3.1.1",
         "@nightshadeui/docs": "3.1.1",
         "@nightshadeui/components": "3.1.1",
         "@nightshadeui/palette-generator": "3.1.1",

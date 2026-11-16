@@ -49,10 +49,16 @@
 </template>
 
 <script>
+import { Chip } from '@nightshadeui/components';
+
 /**
  * One catalog entry: a live preview, its names (click to copy), what it's for, and how far to override it.
  */
 export default {
+
+    components: {
+        Chip,
+    },
 
     props: {
         entry: { type: Object, required: true },

@@ -151,17 +151,19 @@ Controls share one set of props. A new control takes the ones that make sense fo
 
 ## Using the standard components
 
-`@nightshadeui/components` is an opt-in set of Vue controls on this grammar: `Btn`, `RouterBtn`, `Chip`, `InputText`, `InputTextarea`, `InputSelect`, `InputGroup`, `Toggle`, `Checkbox`, `Slider`, `HGroup`, `VGroup`, `Filler`, `ToolPanel`, `Tab`, `Bubble`, `ContextPopup`, `ContextMenu`, `BaseMenu`, `ModalOverlay`.
+`@nightshadeui/components` is an opt-in set of Vue controls on this grammar: `Btn`, `RouterBtn`, `Chip`, `InputText`, `InputTextarea`, `InputSelect`, `InputGroup`, `Toggle`, `Checkbox`, `Slider`, `HGroup`, `VGroup`, `Filler`, `ToolPanel`, `Tab`, `Bubble`, `ContextPopup`, `Tooltip` (with the `v-tooltip` directive), `ContextMenu`, `BaseMenu`, `ModalOverlay`.
+
+Import the ones you use. Each brings its own CSS (in the `nightshade-components` layer), so an app that uses `Btn` and `Toggle` ships only their styles:
 
 ```ts
 import '@nightshadeui/stylesheets';
-import '@nightshadeui/components/css';
-import { standardComponents } from '@nightshadeui/components';
+import { Btn, Toggle } from '@nightshadeui/components';
 
-for (const [name, component] of Object.entries(standardComponents)) {
-    app.component(name, component);
-}
+app.component('Btn', Btn);
+app.component('Toggle', Toggle);
 ```
+
+Or register all of them: `standardComponents` maps every name to its component.
 
 Restyle them through their variables, on a class of your own, before reaching for a new component:
 

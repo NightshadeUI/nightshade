@@ -58,72 +58,79 @@ export default {
 </script>
 
 <style scoped>
-.Tab {
-    --Tab-size: var(--input-major-height);
-    --Tab-cap-size: var(--input-major-height);
-    --Tab-font-size: var(--input-font-size);
+/* The order, stated wherever these styles load first: the styles, then the components */
+@layer nightshade, nightshade-components;
 
-    --Tab-background: var(--tone-fill);
-    --Tab-text: var(--tone-fill-text);
+@layer nightshade-components {
 
-    --Tab-shadow: var(--shadow-medium);
-    --Tab-filter: drop-shadow(0 0 .5px var(--Tab-shadow));
+    .Tab {
+        --Tab-size: var(--input-major-height);
+        --Tab-cap-size: var(--input-major-height);
+        --Tab-font-size: var(--input-font-size);
 
-    display: flex;
-    cursor: pointer;
-    position: relative;
+        --Tab-background: var(--tone-fill);
+        --Tab-text: var(--tone-fill-text);
 
-    color: var(--Tab-text);
-    filter: var(--Tab-filter);
+        --Tab-shadow: var(--shadow-medium);
+        --Tab-filter: drop-shadow(0 0 .5px var(--Tab-shadow));
 
-    font-size: var(--Tab-font-size);
-}
+        display: flex;
+        cursor: pointer;
+        position: relative;
 
-.TabCap, .Content {
-    position: relative;
-    z-index: 2;
-}
+        color: var(--Tab-text);
+        filter: var(--Tab-filter);
 
-.Content {
-    min-width: 0;
-    display: flex;
-    align-items: center;
-    background: var(--Tab-background);
-}
+        font-size: var(--Tab-font-size);
+    }
 
-.TabLabel {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
+    .TabCap, .Content {
+        position: relative;
+        z-index: 2;
+    }
 
-.Tab-h {
-    flex-flow: row;
-    height: var(--Tab-size);
-}
+    .Content {
+        min-width: 0;
+        display: flex;
+        align-items: center;
+        background: var(--Tab-background);
+    }
 
-.Tab-v {
-    flex-flow: column;
-    width: var(--Tab-size);
-}
+    .TabLabel {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 
-.Tab-v .Content {
-    writing-mode: vertical-lr;
-    text-orientation: sideways-right;
-    transform: rotate(180deg);
-    transform-origin: 50% 50%;
-}
+    .Tab-h {
+        flex-flow: row;
+        height: var(--Tab-size);
+    }
 
-.TabCap {
-    flex: 0 0 var(--Tab-cap-size);
-    fill: var(--Tab-background);
-}
+    .Tab-v {
+        flex-flow: column;
+        width: var(--Tab-size);
+    }
 
-.Tab-h .TabCap {
-    width: var(--Tab-cap-size);
-}
+    .Tab-v .Content {
+        writing-mode: vertical-lr;
+        text-orientation: sideways-right;
+        transform: rotate(180deg);
+        transform-origin: 50% 50%;
+    }
 
-.Tab-v .TabCap {
-    height: var(--Tab-cap-size);
+    .TabCap {
+        flex: 0 0 var(--Tab-cap-size);
+        fill: var(--Tab-background);
+    }
+
+    .Tab-h .TabCap {
+        width: var(--Tab-cap-size);
+    }
+
+    .Tab-v .TabCap {
+        height: var(--Tab-cap-size);
+    }
+
 }
 </style>

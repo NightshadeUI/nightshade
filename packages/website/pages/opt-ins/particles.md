@@ -4,7 +4,7 @@ title: Particle system
 
 # Particle system
 
-<p class="Lead">Emitters with spawn rate, lifetime, velocity, gravity and drag, rendered as HTML elements you style with CSS, or drawn on a canvas.</p>
+<p class="Lead">Emitters with spawn rate, lifetime, velocity, acceleration and turbulence, rendered as HTML elements you style with CSS, or drawn on a canvas.</p>
 
 ```bash
 npm i @nightshadeui/particle-system

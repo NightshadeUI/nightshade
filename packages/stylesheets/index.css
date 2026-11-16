@@ -7,6 +7,12 @@
  * The styles read three ramps by name: `base`, `primary` and `secondary`.
  */
 
+/*
+ * The layer order, declared up front: the styles, then the standard components.
+ * Any layer the app declares after this import comes later, and wins over both.
+ */
+@layer nightshade, nightshade-components;
+
 /* 1. Raw values, no meaning yet. Scales: enumerable ladders */
 @import './scales/spacing.css' layer(nightshade);
 @import './scales/radius.css' layer(nightshade);

@@ -33,6 +33,7 @@ export default {
         dir: { type: String, default: 'v' },
         align: { type: String, default: 'auto' },
         anchorRef: { type: String },
+        anchorEl: { default: null },
         anchorDir: { type: String, default: 'middle' },
         overlayEnabled: { type: Boolean, default: true },
         overlayShown: { type: Boolean, default: true },
@@ -83,8 +84,12 @@ export default {
             if (!anchorEl) {
                 return;
             }
-            this.pos = this.getAnchorPoint(anchorEl, this.resolvedProps.anchorDir);
+            const { anchorDir } = this.resolvedProps;
+            this.pos = this.getAnchorPoint(anchorEl, anchorDir === 'auto' ? 'middle' : anchorDir);
             this.calcDirAlign();
+            if (anchorDir === 'auto') {
+                this.pos = this.getAnchorPoint(anchorEl, this.actualDir);
+            }
             this.ready = true;
             this.$nextTick(() => this.$emit('ready'));
         },
@@ -113,6 +118,9 @@ export default {
         },
 
         getAnchorEl() {
+            if (this.resolvedProps.anchorEl) {
+                return this.resolvedProps.anchorEl;
+            }
             if (this.resolvedProps.anchorRef) {
                 const ref = this.findRef(this.$parent, this.resolvedProps.anchorRef);
                 if (ref) {

@@ -69,7 +69,9 @@ export default defineDocsConfig({
 
 ## Theme
 
-The theme brings no styles of its own beyond the frame (its CSS, Font Awesome, the `kbd` and `transitions` modules) and registers the standard components. Import your styles, and register your own components so pages can use them.
+The theme brings no styles of its own beyond the frame (its CSS, Font Awesome, the `kbd` and `transitions` modules), and registers no controls. Import your styles, and register the components your pages use: your own, and the standard ones you pick.
+
+The theme's CSS sits in the `nightshade-docs` layer, so your styles win over it, and its prose rules (headings, links, tables) stop at `<Demo>`: a demo shows your components the way an app would.
 
 ```ts
 // docs/.vitepress/theme/index.ts

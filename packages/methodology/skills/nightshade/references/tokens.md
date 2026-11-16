@@ -98,7 +98,8 @@ The page, read from the base ramp. A tone context never changes them.
 | `--surface-base` / `--border-base` | base 0 / 100 | the page, and dividers on it |
 | `--surface-shade` / `--border-shade` | base 50 / 100 | a region inside the page: a sidebar, a code block |
 | `--surface-deep` / `--border-deep` | base 100 / 200 | a well inside that: tracks, toggles, tool strips |
-| `--surface-raised` / `--border-raised` | base 0 / 100 (dark: 800 / 700) | something above the page: a knob, a popover |
+| `--surface-raised` / `--border-raised` | base 0 / 100 (dark: 50 / 200) | something that floats above the page: a popup, a menu, a tooltip |
+| `--surface-knob` | base 0 (dark: 800) | the moving part of a control: a toggle or slider knob, light in both schemes |
 | `--surface-overlay` | a 10% / 20% black | the scrim under a modal |
 | `--text-base` | base 950 | body text |
 | `--text-subtle` | base 600 | secondary text |

@@ -99,28 +99,28 @@
                     <Btn
                         label="H"
                         size="s"
-                        :tone="testNode.resizable === 'horizontal' ? 'primary' : 'base'"
+                        :tone="testNode.resizable === 'horizontal' ? 'primary' : undefined"
                         flat
                         outline
                         @click="testNode.resizable = 'horizontal'" />
                     <Btn
                         label="V"
                         size="s"
-                        :tone="testNode.resizable === 'vertical' ? 'primary' : 'base'"
+                        :tone="testNode.resizable === 'vertical' ? 'primary' : undefined"
                         flat
                         outline
                         @click="testNode.resizable = 'vertical'" />
                     <Btn
                         label="Both"
                         size="s"
-                        :tone="testNode.resizable === 'both' ? 'primary' : 'base'"
+                        :tone="testNode.resizable === 'both' ? 'primary' : undefined"
                         flat
                         outline
                         @click="testNode.resizable = 'both'" />
                     <Btn
                         label="None"
                         size="s"
-                        :tone="testNode.resizable === 'none' ? 'primary' : 'base'"
+                        :tone="testNode.resizable === 'none' ? 'primary' : undefined"
                         flat
                         outline
                         @click="testNode.resizable = 'none'" />

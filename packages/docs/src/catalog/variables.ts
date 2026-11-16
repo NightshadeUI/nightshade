@@ -453,10 +453,17 @@ export const VARIABLE_GROUPS: VariableGroup[] = [
             {
                 name: '--surface-raised',
                 members: ['--surface-raised', '--border-raised'],
-                value: 'base 0 / 800, border 100 / 700',
-                about: 'Above the page: knobs, popovers.',
+                value: 'base 0 / 50, border 100 / 200',
+                about: 'Above the page: popups, menus, tooltips. A step lighter than the page in dark mode.',
                 stance: 'care',
-                instead: 'Check knobs and popovers in dark mode after changing it: raised is lighter there.',
+                instead: 'Check popups in dark mode after changing it.',
+                preview: 'color',
+            },
+            {
+                name: '--surface-knob',
+                value: 'base 0 / 800',
+                about: 'The moving part of a control: toggle and slider knobs. Light in both schemes.',
+                stance: 'tune',
                 preview: 'color',
             },
             {

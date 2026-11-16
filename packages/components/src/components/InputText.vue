@@ -81,23 +81,30 @@ export default {
 </script>
 
 <style scoped>
-.InputText:not(.InputText-disabled) {
-    cursor: text;
-}
+/* The order, stated wherever these styles load first: the styles, then the components */
+@layer nightshade, nightshade-components;
 
-input, textarea {
-    -webkit-appearance: none;
-    box-sizing: border-box;
-    flex: 1;
-    padding: 0;
-    border: 0;
-    width: 100%;
-    min-width: 0;
-    outline: 0;
-    user-select: text;
-    background: transparent;
-    color: inherit;
-    font: inherit;
-    cursor: inherit;
+@layer nightshade-components {
+
+    .InputText:not(.InputText-disabled) {
+        cursor: text;
+    }
+
+    input, textarea {
+        -webkit-appearance: none;
+        box-sizing: border-box;
+        flex: 1;
+        padding: 0;
+        border: 0;
+        width: 100%;
+        min-width: 0;
+        outline: 0;
+        user-select: text;
+        background: transparent;
+        color: inherit;
+        font: inherit;
+        cursor: inherit;
+    }
+
 }
 </style>

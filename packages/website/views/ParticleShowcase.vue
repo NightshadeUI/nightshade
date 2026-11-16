@@ -28,89 +28,85 @@
         </div>
 
         <div class="Panel">
-            <HGroup align="stretch">
-                <Btn
-                    label="HTML"
-                    size="s"
-                    :tone="renderMode === 'html' ? 'primary' : 'base'"
-                    @click="setRenderMode('html')" />
-                <Btn
-                    label="Canvas"
-                    size="s"
-                    :tone="renderMode === 'canvas' ? 'primary' : 'base'"
-                    @click="setRenderMode('canvas')" />
-            </HGroup>
-
-            <HGroup align="stretch">
-                <Btn
-                    label="Reset"
-                    size="s"
-                    tone="primary"
-                    @click="particleController.reset()" />
-                <Btn
-                    label="Pause"
-                    size="s"
-                    :disabled="!particleController.isRunning"
-                    @click="particleController.pause()" />
-                <Btn
-                    label="Resume"
-                    size="s"
-                    :disabled="!particleController.isPaused"
-                    @click="particleController.resume()" />
-                <Btn
-                    label="Stop"
-                    size="s"
-                    :disabled="particleController.isPaused && particleController.isDrained"
-                    @click="particleController.stop()" />
+            <HGroup
+                justify="space-between"
+                wrap>
+                <InputGroup>
+                    <Btn
+                        v-for="mode in ['html', 'canvas']"
+                        :key="mode"
+                        :label="mode === 'html' ? 'HTML' : 'Canvas'"
+                        size="s"
+                        :tone="renderMode === mode ? 'primary' : undefined"
+                        @click="renderMode = mode" />
+                </InputGroup>
+                <HGroup>
+                    <Btn
+                        label="Reset"
+                        size="s"
+                        tone="primary"
+                        @click="particleController.reset()" />
+                    <Btn
+                        label="Pause"
+                        size="s"
+                        :disabled="!particleController.isRunning"
+                        @click="particleController.pause()" />
+                    <Btn
+                        label="Resume"
+                        size="s"
+                        :disabled="!particleController.isPaused"
+                        @click="particleController.resume()" />
+                    <Btn
+                        label="Stop"
+                        size="s"
+                        :disabled="particleController.isPaused && particleController.isDrained"
+                        @click="particleController.stop()" />
+                </HGroup>
             </HGroup>
 
             <div class="Controls">
-                <label
+                <div
                     v-for="control in controls"
                     :key="control.key"
-                    class="Control"
-                    :class="{ 'Control-vector': control.vector }">
-                    <span>{{ control.label }}</span>
-                    <template v-if="control.vector">
-                        <Slider
-                            v-model="settings[control.key][0]"
-                            tone="secondary"
-                            size="s"
-                            tooltip="dynamic"
-                            :formatTooltip="formatValue"
-                            :min="control.min"
-                            :max="control.max"
-                            :step="control.step ?? 1" />
-                        <Slider
-                            v-model="settings[control.key][1]"
-                            tone="secondary"
-                            size="s"
-                            tooltip="dynamic"
-                            :formatTooltip="formatValue"
-                            :min="control.min"
-                            :max="control.max"
-                            :step="control.step ?? 1" />
-                    </template>
-                    <template v-else>
-                        <Slider
-                            v-model="settings[control.key]"
-                            tone="secondary"
-                            size="s"
-                            flat
-                            tooltip="dynamic"
-                            :formatTooltip="formatValue"
-                            :min="control.min"
-                            :max="control.max"
-                            :step="control.step ?? 1" />
-                    </template>
-                </label>
+                    class="Control">
+                    <span class="ControlLabel">{{ control.label }}</span>
+                    <div
+                        v-if="control.axes"
+                        class="Axes">
+                        <label
+                            v-for="(axis, i) in control.axes"
+                            :key="axis"
+                            class="Axis">
+                            <span class="AxisLabel">{{ axis }}</span>
+                            <Slider
+                                v-model="settings[control.key][i]"
+                                tone="secondary"
+                                size="s"
+                                tooltip="dynamic"
+                                :formatTooltip="formatValue"
+                                :min="control.min"
+                                :max="control.max"
+                                :step="control.step ?? 1" />
+                        </label>
+                    </div>
+                    <Slider
+                        v-else
+                        v-model="settings[control.key]"
+                        tone="secondary"
+                        size="s"
+                        tooltip="dynamic"
+                        :formatTooltip="formatValue"
+                        :min="control.min"
+                        :max="control.max"
+                        :step="control.step ?? 1" />
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-import { Btn, HGroup } from '@nightshadeui/components/src';
+import { Btn, HGroup, InputGroup, Slider } from '@nightshadeui/components/src';
 import { ParticleCanvas, ParticleSystem } from '@nightshadeui/particle-system/src';
 
 export default {
@@ -118,8 +114,10 @@ export default {
     components: {
         Btn,
         HGroup,
+        InputGroup,
         ParticleCanvas,
         ParticleSystem,
+        Slider,
     },
 
     inject: [
@@ -160,7 +158,7 @@ export default {
                 { key: 'startCount', label: 'Start count', min: 0, max: 500 },
                 { key: 'rateOverTime', label: 'Rate', min: 0, max: 80 },
                 { key: 'lifetime', label: 'Lifetime', min: 0.1, max: 20, step: 0.1 },
-                { key: 'shape', label: 'Shape', min: 0, max: 640, vector: true },
+                { key: 'shape', label: 'Shape', min: 0, max: 640, axes: ['w', 'h'] },
                 { key: 'size', label: 'Size', min: 2, max: 120 },
                 { key: 'sizeOverTime', label: 'Size over time', min: -60, max: 60 },
                 { key: 'opacity', label: 'Opacity', min: 0, max: 1, step: 0.05 },
@@ -169,10 +167,10 @@ export default {
                 { key: 'radialAcceleration', label: 'Radial acceleration', min: -360, max: 360 },
                 { key: 'rotation', label: 'Rotation', min: -360, max: 360 },
                 { key: 'rotationOverTime', label: 'Rotation over time', min: -360, max: 360 },
-                { key: 'scale', label: 'Scale', min: 0.1, max: 5, step: 0.05, vector: true },
-                { key: 'scaleOverTime', label: 'Scale over time', min: -2, max: 2, step: 0.02, vector: true },
-                { key: 'linearVelocity', label: 'Linear velocity', min: -180, max: 180, vector: true },
-                { key: 'linearAcceleration', label: 'Linear acceleration', min: -120, max: 120, vector: true },
+                { key: 'scale', label: 'Scale', min: 0.1, max: 5, step: 0.05, axes: ['x', 'y'] },
+                { key: 'scaleOverTime', label: 'Scale over time', min: -2, max: 2, step: 0.02, axes: ['x', 'y'] },
+                { key: 'linearVelocity', label: 'Linear velocity', min: -180, max: 180, axes: ['x', 'y'] },
+                { key: 'linearAcceleration', label: 'Linear acceleration', min: -120, max: 120, axes: ['x', 'y'] },
                 { key: 'turbulence', label: 'Turbulence', min: 0, max: 720 },
                 { key: 'noiseScale', label: 'Noise scale', min: 0.001, max: 0.12, step: 0.001 },
             ],
@@ -195,12 +193,6 @@ export default {
     },
 
     methods: {
-        setRenderMode(renderMode) {
-            if (this.renderMode === renderMode) {
-                return;
-            }
-            this.renderMode = renderMode;
-        },
 
         updateMouse(event) {
             const rect = event.currentTarget.getBoundingClientRect();
@@ -262,25 +254,17 @@ export default {
 <style scoped>
 .ParticleShowcase {
     display: flex;
-    flex-flow: row;
+    flex-flow: column;
     gap: var(--sp2);
-    margin: var(--sp2);
-}
-
-@media (max-width: 960px) {
-    .ParticleShowcase {
-        flex-flow: column;
-        margin: var(--sp);
-    }
+    margin: var(--sp3) 0;
 }
 
 .Preview {
-    flex: 1;
     position: relative;
-    min-height: 480px;
+    height: 360px;
     overflow: hidden;
     border: var(--input-border-size) solid var(--border-base);
-    border-radius: var(--radius-m);
+    border-radius: var(--radius-l);
 }
 
 .Emitter {
@@ -314,42 +298,53 @@ export default {
 }
 
 .Panel {
-    display: grid;
+    display: flex;
+    flex-flow: column;
     gap: var(--sp3);
     padding: var(--sp2);
     border: var(--input-border-size) solid var(--border-base);
-    border-radius: var(--radius-m);
+    border-radius: var(--radius-l);
     background: var(--surface-base);
 }
 
 .Controls {
     display: grid;
-    gap: var(--sp2);
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--sp2) var(--sp3);
 }
 
 .Control {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(120px, 180px);
-    gap: var(--sp);
-    align-items: center;
+    display: flex;
+    flex-flow: column;
+    gap: var(--sp0-5);
+    min-width: 0;
+}
+
+.ControlLabel {
     font-size: var(--font-size-s);
+    color: var(--text-subtle);
 }
 
-.Control-vector {
-    grid-template-columns: minmax(0, 1fr) minmax(120px, 180px) minmax(120px, 180px);
+.Axes {
+    display: flex;
+    gap: var(--sp1);
 }
 
-.Control .Slider {
-    width: 100%;
+.Axis {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    gap: var(--sp0-5);
+    min-width: 0;
 }
 
-@media (max-width: 800px) {
-    .ParticleShowcase {
-        grid-template-columns: 1fr;
-    }
+.AxisLabel {
+    font: var(--font-size-xxs)/1 var(--font-monospace);
+    color: var(--text-faint);
+}
 
-    .Preview {
-        min-height: 420px;
-    }
+.Axis .Slider {
+    flex: 1;
+    min-width: 0;
 }
 </style>

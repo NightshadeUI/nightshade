@@ -123,7 +123,7 @@
                         :key="size"
                         :label="size"
                         size="s"
-                        :tone="gridSize === size ? 'primary' : 'base'"
+                        :tone="gridSize === size ? 'primary' : undefined"
                         @click="gridSize = size" />
                 </InputGroup>
             </div>
@@ -178,7 +178,7 @@
                         :key="format.id"
                         :label="format.label"
                         size="s"
-                        :tone="exportFormat === format.id ? 'primary' : 'base'"
+                        :tone="exportFormat === format.id ? 'primary' : undefined"
                         @click="exportFormat = format.id" />
                 </InputGroup>
             </div>

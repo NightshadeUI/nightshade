@@ -89,5 +89,5 @@ Every tone your styles define, at every size, in both schemes. The playground ba
 |----------|---------|
 | `--Toggle-size`, `--Checkbox-size` | `--input-minor-height` |
 | `--Toggle-background`, `--Checkbox-background` | `--surface-deep`, then `--tone-fill` when on |
-| `--Toggle-knob-background` | `--surface-raised`, then `--tone-fill-text` when on |
+| `--Toggle-knob-background` | `--surface-knob`, then `--tone-fill-text` when on |
 | `--Toggle-width` | 1.618 × the height |

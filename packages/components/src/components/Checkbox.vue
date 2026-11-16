@@ -139,118 +139,125 @@ export default {
 </script>
 
 <style scoped>
-.Checkbox {
-    --Checkbox-size: var(--input-minor-height);
+/* The order, stated wherever these styles load first: the styles, then the components */
+@layer nightshade, nightshade-components;
 
-    --Checkbox-outline: transparent;
+@layer nightshade-components {
 
-    --Checkbox-background: var(--surface-deep);
+    .Checkbox {
+        --Checkbox-size: var(--input-minor-height);
 
-    --Checkbox-border-size: 0px;
-    --Checkbox-border: transparent;
-    --Checkbox-radius: var(--radius-m);
+        --Checkbox-outline: transparent;
 
-    --Checkbox-box-shadow: 0 1px 3px var(--Checkbox-shadow) inset, 0 0 5px -1px var(--Checkbox-shadow) inset;
-    --Checkbox-shadow: var(--shadow-light);
-    --Checkbox-mark-text-shadow: 0 1px 1px var(--text-shadow-auto);
+        --Checkbox-background: var(--surface-deep);
 
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    width: var(--Checkbox-size);
-    height: var(--Checkbox-size);
-    overflow: hidden;
+        --Checkbox-border-size: 0px;
+        --Checkbox-border: transparent;
+        --Checkbox-radius: var(--radius-m);
 
-    border: var(--Checkbox-border-size) solid var(--Checkbox-border);
-    border-radius: var(--Checkbox-radius);
+        --Checkbox-box-shadow: 0 1px 3px var(--Checkbox-shadow) inset, 0 0 5px -1px var(--Checkbox-shadow) inset;
+        --Checkbox-shadow: var(--shadow-light);
+        --Checkbox-mark-text-shadow: 0 1px 1px var(--text-shadow-auto);
 
-    background: var(--Checkbox-background);
-    outline: var(--input-outline-size) solid var(--Checkbox-outline);
-    outline-offset: var(--input-outline-offset);
-    background-clip: border-box;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        width: var(--Checkbox-size);
+        height: var(--Checkbox-size);
+        overflow: hidden;
 
-    font-size: var(--Checkbox-size);
-    color: var(--tone-fill-text);
-    text-shadow: var(--Checkbox-mark-text-shadow);
-    box-shadow: var(--Checkbox-box-shadow);
+        border: var(--Checkbox-border-size) solid var(--Checkbox-border);
+        border-radius: var(--Checkbox-radius);
 
-    cursor: pointer;
-    user-select: none;
+        background: var(--Checkbox-background);
+        outline: var(--input-outline-size) solid var(--Checkbox-outline);
+        outline-offset: var(--input-outline-offset);
+        background-clip: border-box;
 
-    transition: background-color .3s, border-radius .3s;
-}
+        font-size: var(--Checkbox-size);
+        color: var(--tone-fill-text);
+        text-shadow: var(--Checkbox-mark-text-shadow);
+        box-shadow: var(--Checkbox-box-shadow);
 
-.Checkbox input {
-    display: none;
-}
+        cursor: pointer;
+        user-select: none;
 
-.Mark {
-    opacity: 0;
+        transition: background-color .3s, border-radius .3s;
+    }
 
-    transition: opacity .1s, border-radius .3s;
-}
+    .Checkbox input {
+        display: none;
+    }
 
-.MarkGlyph {
-    width: 1em;
-    height: 1em;
-}
+    .Mark {
+        opacity: 0;
 
-.Checkbox-active .Mark {
-    opacity: 1;
-}
+        transition: opacity .1s, border-radius .3s;
+    }
 
-/* Marks */
+    .MarkGlyph {
+        width: 1em;
+        height: 1em;
+    }
 
-.Checkbox-mark-dot .Mark::after {
-    content: '●';
-}
+    .Checkbox-active .Mark {
+        opacity: 1;
+    }
 
-.Checkbox-mark-knob .Mark {
-    content: '';
-    width: calc(var(--Checkbox-size) - var(--sp));
-    height: calc(var(--Checkbox-size) - var(--sp));
-    border-radius: calc(var(--Checkbox-radius) - 2px);
-    background: var(--tone-fill-text);
-    box-shadow: 0 1px 2px var(--Checkbox-shadow);
-}
+    /* Marks */
 
-/* States */
+    .Checkbox-mark-dot .Mark::after {
+        content: '●';
+    }
 
-.Checkbox-disabled {
-    cursor: not-allowed;
-    opacity: var(--input-disabled-opacity);
-    filter: var(--input-disabled-filter);
-}
+    .Checkbox-mark-knob .Mark {
+        content: '';
+        width: calc(var(--Checkbox-size) - var(--sp));
+        height: calc(var(--Checkbox-size) - var(--sp));
+        border-radius: calc(var(--Checkbox-radius) - 2px);
+        background: var(--tone-fill-text);
+        box-shadow: 0 1px 2px var(--Checkbox-shadow);
+    }
 
-.Checkbox:not(.Checkbox-disabled):hover, .Checkbox.Checkbox-forceHover {
-    filter: var(--input-hover-filter);
-}
+    /* States */
 
-.Checkbox:not(.Checkbox-disabled):focus-visible, .Checkbox.Checkbox-forceFocus {
-    z-index: 10;
-    --Checkbox-outline: var(--tone-focus-outline);
-    --Checkbox-border: var(--tone-focus-border);
-}
+    .Checkbox-disabled {
+        cursor: not-allowed;
+        opacity: var(--input-disabled-opacity);
+        filter: var(--input-disabled-filter);
+    }
 
-.Checkbox-active {
-    --Checkbox-background: var(--tone-fill);
-}
+    .Checkbox:not(.Checkbox-disabled):hover, .Checkbox.Checkbox-forceHover {
+        filter: var(--input-hover-filter);
+    }
 
-/* Styles */
+    .Checkbox:not(.Checkbox-disabled):focus-visible, .Checkbox.Checkbox-forceFocus {
+        z-index: 10;
+        --Checkbox-outline: var(--tone-focus-outline);
+        --Checkbox-border: var(--tone-focus-border);
+    }
 
-.Checkbox-round {
-    --Checkbox-radius: calc(.5 * var(--Checkbox-size));
-}
+    .Checkbox-active {
+        --Checkbox-background: var(--tone-fill);
+    }
 
-.Checkbox-outline {
-    --Checkbox-border: var(--tone-border);
-    --Checkbox-border-size: var(--input-border-size);
-}
+    /* Styles */
 
-.Checkbox-flat {
-    --Checkbox-box-shadow: none;
-    --Checkbox-shadow: transparent;
-    --Checkbox-mark-text-shadow: none;
+    .Checkbox-round {
+        --Checkbox-radius: calc(.5 * var(--Checkbox-size));
+    }
+
+    .Checkbox-outline {
+        --Checkbox-border: var(--tone-border);
+        --Checkbox-border-size: var(--input-border-size);
+    }
+
+    .Checkbox-flat {
+        --Checkbox-box-shadow: none;
+        --Checkbox-shadow: transparent;
+        --Checkbox-mark-text-shadow: none;
+    }
+
 }
 </style>

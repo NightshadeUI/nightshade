@@ -189,197 +189,203 @@ export default {
 </script>
 
 <style scoped>
-.Btn {
-    --Btn-size: var(--input-major-height);
-    --Btn-padding: var(--input-major-padding);
-    --Btn-gap: var(--input-gap);
-    --Btn-font-size: var(--input-font-size);
+/* The order, stated wherever these styles load first: the styles, then the components */
+@layer nightshade, nightshade-components;
 
-    --Btn-text: var(--tone-fill-text);
+@layer nightshade-components {
 
-    --Btn-outline: transparent;
+    .Btn {
+        --Btn-size: var(--input-major-height);
+        --Btn-padding: var(--input-major-padding);
+        --Btn-gap: var(--input-gap);
+        --Btn-font-size: var(--input-font-size);
 
-    --Btn-fill: var(--tone-fill);
-    --Btn-fill-top: var(--tone-fill-top);
-    --Btn-fill-bottom: var(--tone-fill-bottom);
-    --Btn-background: linear-gradient(
-        to bottom,
-        var(--Btn-fill-top),
-        var(--Btn-fill-bottom)
-    );
+        --Btn-text: var(--tone-fill-text);
 
-    --Btn-border-size: 0px;
-    --Btn-border: transparent;
-    --Btn-radius: var(--radius-m);
+        --Btn-outline: transparent;
 
-    --Btn-shadow: var(--tone-shadow);
-    --Btn-box-shadow:
-        0 1px 1px var(--Btn-shadow),
-        0 1px 5px var(--shadow-medium);
-    --Btn-text-shadow: 0 1px 1px var(--text-shadow-auto);
+        --Btn-fill: var(--tone-fill);
+        --Btn-fill-top: var(--tone-fill-top);
+        --Btn-fill-bottom: var(--tone-fill-bottom);
+        --Btn-background: linear-gradient(
+            to bottom,
+            var(--Btn-fill-top),
+            var(--Btn-fill-bottom)
+        );
 
-    -webkit-appearance: none;
-    appearance: none;
+        --Btn-border-size: 0px;
+        --Btn-border: transparent;
+        --Btn-radius: var(--radius-m);
 
-    position: relative;
-    margin: 0;
-    padding: 0 calc(var(--Btn-padding) - var(--Btn-border-size));
-    height: var(--Btn-size);
-    line-height: var(--Btn-size);
-    box-sizing: border-box;
+        --Btn-shadow: var(--tone-shadow);
+        --Btn-box-shadow:
+            0 1px 1px var(--Btn-shadow),
+            0 1px 5px var(--shadow-medium);
+        --Btn-text-shadow: 0 1px 1px var(--text-shadow-auto);
 
-    display: inline-flex;
-    align-items: center;
-    justify-content: flex-start;
-    flex-shrink: 0;
-    gap: var(--Btn-gap);
+        -webkit-appearance: none;
+        appearance: none;
 
-    border: var(--Btn-border-size) solid var(--Btn-border);
-    border-radius: var(--Btn-radius);
+        position: relative;
+        margin: 0;
+        padding: 0 calc(var(--Btn-padding) - var(--Btn-border-size));
+        height: var(--Btn-size);
+        line-height: var(--Btn-size);
+        box-sizing: border-box;
 
-    color: var(--Btn-text);
-    text-shadow: var(--Btn-text-shadow);
-    outline: var(--input-outline-size) solid var(--Btn-outline);
-    outline-offset: var(--input-outline-offset);
-    background: var(--Btn-background);
-    box-shadow: var(--Btn-box-shadow);
+        display: inline-flex;
+        align-items: center;
+        justify-content: flex-start;
+        flex-shrink: 0;
+        gap: var(--Btn-gap);
 
-    cursor: pointer;
-    user-select: none;
+        border: var(--Btn-border-size) solid var(--Btn-border);
+        border-radius: var(--Btn-radius);
 
-    font-family: inherit;
-    font-size: var(--Btn-font-size);
+        color: var(--Btn-text);
+        text-shadow: var(--Btn-text-shadow);
+        outline: var(--input-outline-size) solid var(--Btn-outline);
+        outline-offset: var(--input-outline-offset);
+        background: var(--Btn-background);
+        box-shadow: var(--Btn-box-shadow);
 
-    transition: color .3s, outline .3s, filter .3s, border-radius .3s;
+        cursor: pointer;
+        user-select: none;
+
+        font-family: inherit;
+        font-size: var(--Btn-font-size);
+
+        transition: color .3s, outline .3s, filter .3s, border-radius .3s;
+    }
+
+    .Btn::after {
+        content: '';
+        position: absolute;
+        z-index: 1;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: var(--Btn-radius);
+
+        background: var(--input-hover-overlay);
+        mix-blend-mode: color-dodge;
+        pointer-events: none;
+        opacity: 0;
+    }
+
+    .Label {
+        line-height: var(--Btn-size);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .Icon {
+        width: var(--sp2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: var(--Btn-font-size);
+    }
+
+    .Btn-iconPos-right .Icon {
+        order: 100;
+    }
+
+    /* States */
+
+    .Btn:focus, .Btn:active, .Btn:hover {
+        transition: none;
+    }
+
+    .Btn:not(.Btn-disabled):hover::after, .Btn.Btn-forceHover::after {
+        opacity: 1;
+    }
+
+    .Btn:not(.Btn-disabled):focus-visible, .Btn.Btn-forceFocus {
+        z-index: 10;
+        --Btn-outline: var(--tone-focus-outline);
+        --Btn-border: var(--tone-focus-border);
+    }
+
+    .Btn:not(.Btn-disabled):active, .Btn.Btn-forceActive {
+        padding-top: 1px;
+        box-shadow:
+            0 6px 12px var(--shadow-light) inset,
+            0 1px 2px var(--shadow-medium) inset;
+    }
+
+    .Btn-disabled {
+        opacity: var(--input-disabled-opacity);
+        filter: var(--input-disabled-filter);
+        cursor: not-allowed;
+    }
+
+    /* Styles */
+
+    .Btn-round {
+        --Btn-radius: calc(.5 * var(--Btn-size));
+    }
+
+    .Btn-outline {
+        --Btn-border: var(--tone-border);
+        --Btn-border-size: var(--input-border-size);
+    }
+
+    .Btn-ghost {
+        --Btn-fill: transparent;
+        --Btn-fill-top: transparent;
+        --Btn-fill-bottom: transparent;
+        --Btn-border: var(--tone-text);
+        --Btn-text: var(--tone-text);
+        --Btn-text-shadow: none;
+        --Btn-box-shadow: none;
+    }
+
+    .Btn-flat {
+        --Btn-fill-top: var(--Btn-fill);
+        --Btn-fill-bottom: var(--Btn-fill);
+        --Btn-text-shadow: none;
+        --Btn-box-shadow: none;
+    }
+
+    .Btn-translucent {
+        --Btn-background: linear-gradient(
+            to bottom,
+            color-mix(in srgb, var(--Btn-fill-top), transparent var(--translucency-mix-light)),
+            color-mix(in srgb, var(--Btn-fill-bottom), transparent var(--translucency-mix-light))
+        );
+        --Btn-box-shadow:
+            0 1px 1px var(--Btn-shadow),
+            0 1px 5px var(--shadow-medium),
+            0 0 3px var(--translucency-highlight) inset;
+
+        backdrop-filter: blur(var(--translucency-blur));
+    }
+
+    .Btn-flat.Btn-translucent {
+        --Btn-box-shadow: 0 0 3px var(--translucency-highlight) inset;
+    }
+
+    .Btn-ghost.Btn-translucent {
+        --Btn-background: transparent;
+        --Btn-box-shadow: none;
+        backdrop-filter: none;
+    }
+
+    .Btn-square {
+        padding-left: 0;
+        padding-right: 0;
+        width: var(--Btn-size);
+        justify-content: center;
+    }
+
+    .Btn-block {
+        flex: 1 1 auto;
+        display: flex;
+        justify-content: center;
+    }
+
 }
-
-.Btn::after {
-    content: '';
-    position: absolute;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: var(--Btn-radius);
-
-    background: var(--input-hover-overlay);
-    mix-blend-mode: color-dodge;
-    pointer-events: none;
-    opacity: 0;
-}
-
-.Label {
-    line-height: var(--Btn-size);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.Icon {
-    width: var(--sp2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: var(--Btn-font-size);
-}
-
-.Btn-iconPos-right .Icon {
-    order: 100;
-}
-
-/* States */
-
-.Btn:focus, .Btn:active, .Btn:hover {
-    transition: none;
-}
-
-.Btn:not(.Btn-disabled):hover::after, .Btn.Btn-forceHover::after {
-    opacity: 1;
-}
-
-.Btn:not(.Btn-disabled):focus-visible, .Btn.Btn-forceFocus {
-    z-index: 10;
-    --Btn-outline: var(--tone-focus-outline);
-    --Btn-border: var(--tone-focus-border);
-}
-
-.Btn:not(.Btn-disabled):active, .Btn.Btn-forceActive {
-    padding-top: 1px;
-    box-shadow:
-        0 6px 12px var(--shadow-light) inset,
-        0 1px 2px var(--shadow-medium) inset;
-}
-
-.Btn-disabled {
-    opacity: var(--input-disabled-opacity);
-    filter: var(--input-disabled-filter);
-    cursor: not-allowed;
-}
-
-/* Styles */
-
-.Btn-round {
-    --Btn-radius: calc(.5 * var(--Btn-size));
-}
-
-.Btn-outline {
-    --Btn-border: var(--tone-border);
-    --Btn-border-size: var(--input-border-size);
-}
-
-.Btn-ghost {
-    --Btn-fill: transparent;
-    --Btn-fill-top: transparent;
-    --Btn-fill-bottom: transparent;
-    --Btn-border: var(--tone-text);
-    --Btn-text: var(--tone-text);
-    --Btn-text-shadow: none;
-    --Btn-box-shadow: none;
-}
-
-.Btn-flat {
-    --Btn-fill-top: var(--Btn-fill);
-    --Btn-fill-bottom: var(--Btn-fill);
-    --Btn-text-shadow: none;
-    --Btn-box-shadow: none;
-}
-
-.Btn-translucent {
-    --Btn-background: linear-gradient(
-        to bottom,
-        color-mix(in srgb, var(--Btn-fill-top), transparent var(--translucency-mix-light)),
-        color-mix(in srgb, var(--Btn-fill-bottom), transparent var(--translucency-mix-light))
-    );
-    --Btn-box-shadow:
-        0 1px 1px var(--Btn-shadow),
-        0 1px 5px var(--shadow-medium),
-        0 0 3px var(--translucency-highlight) inset;
-
-    backdrop-filter: blur(var(--translucency-blur));
-}
-
-.Btn-flat.Btn-translucent {
-    --Btn-box-shadow: 0 0 3px var(--translucency-highlight) inset;
-}
-
-.Btn-ghost.Btn-translucent {
-    --Btn-background: transparent;
-    --Btn-box-shadow: none;
-    backdrop-filter: none;
-}
-
-.Btn-square {
-    padding-left: 0;
-    padding-right: 0;
-    width: var(--Btn-size);
-    justify-content: center;
-}
-
-.Btn-block {
-    flex: 1 1 auto;
-    display: flex;
-    justify-content: center;
-}
-
 </style>

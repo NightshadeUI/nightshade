@@ -20,7 +20,6 @@ title: Opt-ins
 | [`@nightshadeui/canvas`](/opt-ins/canvas) | an infinite, zoomable canvas with movable, resizable objects | stable |
 | [`@nightshadeui/particle-system`](/opt-ins/particles) | particle emitters rendered as HTML or on a canvas | stable |
 | [`@nightshadeui/scroller`](/opt-ins/scroller) | scroll progress of an element, from 0 to 1 | stable |
-| [`@nightshadeui/content-editor`](/opt-ins/content-editor) | a block editor over a JSON document | prototype |
 | [`@nightshadeui/docs`](/opt-ins/docs) | a documentation site for your own design system | new |
 
 Your app is welcome to grow its own the same way. Anything built on the same variables snaps in.

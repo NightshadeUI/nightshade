@@ -99,32 +99,39 @@ export default {
 </script>
 
 <style scoped>
-.InputTextarea:not(.InputTextarea-disabled) {
-    cursor: text;
-}
+/* The order, stated wherever these styles load first: the styles, then the components */
+@layer nightshade, nightshade-components;
 
-input, textarea {
-    -webkit-appearance: none;
-    box-sizing: border-box;
-    flex: 1;
-    padding: 0;
-    border: 0;
-    width: 100%;
-    min-width: 0;
-    outline: 0;
-    user-select: text;
-    background: transparent;
-    color: inherit;
-    font: inherit;
-    cursor: inherit;
-    resize: none;
-}
+@layer nightshade-components {
 
-.InputBase:deep(.Container) {
-    overflow-y: auto;
-}
+    .InputTextarea:not(.InputTextarea-disabled) {
+        cursor: text;
+    }
 
-textarea {
-    align-self: flex-start;
+    input, textarea {
+        -webkit-appearance: none;
+        box-sizing: border-box;
+        flex: 1;
+        padding: 0;
+        border: 0;
+        width: 100%;
+        min-width: 0;
+        outline: 0;
+        user-select: text;
+        background: transparent;
+        color: inherit;
+        font: inherit;
+        cursor: inherit;
+        resize: none;
+    }
+
+    .InputBase:deep(.Container) {
+        overflow-y: auto;
+    }
+
+    textarea {
+        align-self: flex-start;
+    }
+
 }
 </style>

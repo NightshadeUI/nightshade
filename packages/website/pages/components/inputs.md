@@ -162,7 +162,7 @@ Every tone your styles define, at every size, in both schemes. The playground ba
 
 <Demo dual stacked>
 <ToneMatrix v-slot="{ tone, size }">
-    <InputText :tone="tone" :size="size" :placeholder="tone" style="width: 112px" />
+    <InputText :tone="tone" :size="size" placeholder="Text" style="width: calc(2.5 * var(--input-major-height))" />
 </ToneMatrix>
 </Demo>
 

@@ -82,108 +82,115 @@ export default {
 </script>
 
 <style scoped>
-.Chip {
-    --Chip-size: var(--input-major-height);
-    --Chip-padding: var(--input-major-padding);
-    --Chip-gap: var(--input-gap);
-    --Chip-font-size: var(--input-font-size);
+/* The order, stated wherever these styles load first: the styles, then the components */
+@layer nightshade, nightshade-components;
 
-    --Chip-background: var(--tone-tint);
-    --Chip-text: var(--tone-tint-text);
-    --Chip-icon: var(--tone-tint-text);
+@layer nightshade-components {
 
-    --Chip-border-size: 0px;
-    --Chip-border: transparent;
-    --Chip-outline: transparent;
-    --Chip-radius: var(--radius-m);
+    .Chip {
+        --Chip-size: var(--input-major-height);
+        --Chip-padding: var(--input-major-padding);
+        --Chip-gap: var(--input-gap);
+        --Chip-font-size: var(--input-font-size);
 
-    --Chip-box-shadow: 0 1px 1px var(--shadow-light);
+        --Chip-background: var(--tone-tint);
+        --Chip-text: var(--tone-tint-text);
+        --Chip-icon: var(--tone-tint-text);
 
-    -webkit-appearance: none;
-    appearance: none;
+        --Chip-border-size: 0px;
+        --Chip-border: transparent;
+        --Chip-outline: transparent;
+        --Chip-radius: var(--radius-m);
 
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    flex-shrink: 0;
-    gap: var(--Chip-gap);
-    box-sizing: border-box;
-    height: var(--Chip-size);
-    margin: 0;
-    padding: 0 calc(var(--Chip-padding) - var(--Chip-border-size));
+        --Chip-box-shadow: 0 1px 1px var(--shadow-light);
 
-    border: var(--Chip-border-size) solid var(--Chip-border);
-    border-radius: var(--Chip-radius);
-    outline: var(--input-outline-size) solid var(--Chip-outline);
-    outline-offset: var(--input-outline-offset);
+        -webkit-appearance: none;
+        appearance: none;
 
-    background: var(--Chip-background);
-    box-shadow: var(--Chip-box-shadow);
-    color: var(--Chip-text);
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        flex-shrink: 0;
+        gap: var(--Chip-gap);
+        box-sizing: border-box;
+        height: var(--Chip-size);
+        margin: 0;
+        padding: 0 calc(var(--Chip-padding) - var(--Chip-border-size));
 
-    font-family: inherit;
-    font-size: var(--Chip-font-size);
-    line-height: 1;
-    white-space: nowrap;
-    cursor: pointer;
-    user-select: none;
+        border: var(--Chip-border-size) solid var(--Chip-border);
+        border-radius: var(--Chip-radius);
+        outline: var(--input-outline-size) solid var(--Chip-outline);
+        outline-offset: var(--input-outline-offset);
 
-    transition: background-color .2s, color .2s, border-color .2s, border-radius .3s;
-}
+        background: var(--Chip-background);
+        box-shadow: var(--Chip-box-shadow);
+        color: var(--Chip-text);
 
-.Chip::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    background: var(--input-hover-overlay);
-    mix-blend-mode: color-dodge;
-    pointer-events: none;
-    opacity: 0;
-}
+        font-family: inherit;
+        font-size: var(--Chip-font-size);
+        line-height: 1;
+        white-space: nowrap;
+        cursor: pointer;
+        user-select: none;
 
-.Icon {
-    color: var(--Chip-icon);
-}
+        transition: background-color .2s, color .2s, border-color .2s, border-radius .3s;
+    }
 
-/* States */
+    .Chip::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        background: var(--input-hover-overlay);
+        mix-blend-mode: color-dodge;
+        pointer-events: none;
+        opacity: 0;
+    }
 
-.Chip:not(.Chip-disabled):hover::after,
-.Chip-forceHover::after {
-    opacity: 1;
-}
+    .Icon {
+        color: var(--Chip-icon);
+    }
 
-.Chip:not(.Chip-disabled):focus-visible,
-.Chip-forceFocus {
-    z-index: 10;
-    --Chip-outline: var(--tone-focus-outline);
-    --Chip-border: var(--tone-focus-border);
-}
+    /* States */
 
-.Chip-disabled {
-    opacity: var(--input-disabled-opacity);
-    filter: var(--input-disabled-filter);
-    cursor: not-allowed;
-}
+    .Chip:not(.Chip-disabled):hover::after,
+    .Chip-forceHover::after {
+        opacity: 1;
+    }
 
-/* Styles */
+    .Chip:not(.Chip-disabled):focus-visible,
+    .Chip-forceFocus {
+        z-index: 10;
+        --Chip-outline: var(--tone-focus-outline);
+        --Chip-border: var(--tone-focus-border);
+    }
 
-.Chip-round {
-    --Chip-radius: calc(.5 * var(--Chip-size));
-}
+    .Chip-disabled {
+        opacity: var(--input-disabled-opacity);
+        filter: var(--input-disabled-filter);
+        cursor: not-allowed;
+    }
 
-.Chip-outline {
-    --Chip-border-size: var(--input-border-size);
-    --Chip-border: var(--tone-border);
-}
+    /* Styles */
 
-.Chip-flat {
-    --Chip-box-shadow: none;
-}
+    .Chip-round {
+        --Chip-radius: calc(.5 * var(--Chip-size));
+    }
 
-.Chip-translucent {
-    --Chip-background: color-mix(in srgb, var(--tone-tint), transparent var(--translucency-mix-medium));
-    --Chip-box-shadow: 0 0 3px var(--translucency-highlight) inset;
-    backdrop-filter: blur(var(--translucency-blur));
+    .Chip-outline {
+        --Chip-border-size: var(--input-border-size);
+        --Chip-border: var(--tone-border);
+    }
+
+    .Chip-flat {
+        --Chip-box-shadow: none;
+    }
+
+    .Chip-translucent {
+        --Chip-background: color-mix(in srgb, var(--tone-tint), transparent var(--translucency-mix-medium));
+        --Chip-box-shadow: 0 0 3px var(--translucency-highlight) inset;
+        backdrop-filter: blur(var(--translucency-blur));
+    }
+
 }
 </style>

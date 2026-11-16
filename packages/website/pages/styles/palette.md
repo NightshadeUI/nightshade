@@ -55,7 +55,6 @@ Each step is `light-dark(<light>, <dark>)`, where the dark value is the ramp mir
 
 Every field is optional; anything you leave out takes the default. A `ramps` list replaces the default ramps, and must keep `base`, `primary` and `secondary`: the styles read them by name. The [Palette Studio](/studio) copies a complete spec for you.
 
-
 ```json
 {
     "lightnessCurve": [1, 0.98, 0.94, 0.88, 0.8, 0.72, 0.64, 0.56, 0.48, 0.42, 0.36, 0.32],
@@ -77,7 +76,6 @@ Every field is optional; anything you leave out takes the default. A `ramps` lis
 | `ramps[].hue` | OKLCH hue, 0 to 360 |
 | `ramps[].chroma` | multiplier on the chroma curve |
 | `ramps[].lightness` | multiplier on the lightness curve |
-
 
 Three ramps are required, because the styles read them by name: `base` (the canvas roles, `:root` and `inverse` are built on it), and `primary` and `secondary` (neutral controls focus in `secondary`). The generator refuses a spec without them. Every other ramp is yours to name.
 

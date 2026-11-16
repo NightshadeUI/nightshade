@@ -1,5 +1,6 @@
 import './theme.css';
 
+import { standardComponents, vTooltip } from '@nightshadeui/components/src';
 import HeroBackdrop from '@nightshadeui/docs/hero-backdrop';
 import { DocsTheme } from '@nightshadeui/docs/src';
 import { Theme } from 'vitepress';
@@ -24,9 +25,13 @@ const theme: Theme = {
     extends: DocsTheme,
     Layout: SiteLayout,
     enhanceApp({ app }) {
+        for (const [name, component] of Object.entries(standardComponents)) {
+            app.component(name, component);
+        }
         for (const [path, module] of Object.entries(siteComponents)) {
             app.component(path.replace(/^.*\/|\.vue$/g, ''), module.default);
         }
+        app.directive('tooltip', vTooltip);
         app.component('HeroBackdrop', HeroBackdrop);
         app.provide('paletteManager', reactive(new PaletteManager()));
         app.provide('canvasDemoManager', new CanvasDemoManager());

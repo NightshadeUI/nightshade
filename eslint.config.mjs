@@ -12,6 +12,7 @@ export default [
     {
         ignores: [
             '**/.vitepress/cache',
+            '.archive',
         ]
     }
 ];

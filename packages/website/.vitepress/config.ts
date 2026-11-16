@@ -201,10 +201,6 @@ export default defineDocsConfig({
                         link: '/opt-ins/scroller',
                     },
                     {
-                        title: 'Content editor',
-                        link: '/opt-ins/content-editor',
-                    },
-                    {
                         title: 'Docs theme',
                         link: '/opt-ins/docs',
                     },
@@ -225,5 +221,14 @@ export default defineDocsConfig({
     },
     vite: {
         publicDir: fileURLToPath(new URL('../public', import.meta.url)),
+        resolve: {
+            // The site reads the components' sources, and so does the docs theme it extends: one copy of each.
+            alias: [
+                {
+                    find: /^@nightshadeui\/components$/,
+                    replacement: '@nightshadeui/components/src',
+                },
+            ],
+        },
     },
 });

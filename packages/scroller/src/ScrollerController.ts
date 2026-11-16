@@ -23,12 +23,14 @@ export class ScrollerController {
     mount(el: HTMLElement) {
         this.el = el;
         window.addEventListener('scroll', this.onScroll, { passive: true });
+        window.addEventListener('resize', this.onScroll, { passive: true });
         this.update();
     }
 
     unmount() {
         this.el = null;
         window.removeEventListener('scroll', this.onScroll);
+        window.removeEventListener('resize', this.onScroll);
         cancelAnimationFrame(this.frame);
     }
 

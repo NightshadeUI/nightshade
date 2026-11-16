@@ -83,6 +83,8 @@
 </template>
 
 <script>
+import { Btn, Chip } from '@nightshadeui/components';
+
 const groups = [
     {
         id: 'canvas',
@@ -103,7 +105,11 @@ const groups = [
             },
             {
                 names: ['--surface-raised', '--border-raised'],
-                use: 'Knobs, popovers: anything that sits above.',
+                use: 'Popups, menus, tooltips: anything that floats above.',
+            },
+            {
+                names: ['--surface-knob'],
+                use: 'Knobs: the moving part of a control.',
             },
             {
                 names: ['--text-base', '--text-subtle', '--text-faint'],
@@ -188,6 +194,11 @@ const source = `.Plant {
  * The complete role vocabulary, and a component built from nothing else.
  */
 export default {
+
+    components: {
+        Btn,
+        Chip,
+    },
 
     data() {
         return {

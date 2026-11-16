@@ -23,7 +23,7 @@ Every variable, with what it's for and how far to override it, is on one page: [
 
 ## The rules
 
-1. **Each tier reads only the tiers before it.** A role may read the context or a raw value; a scale reads nothing, and a setting at most picks a step of a scale. Inside the role tier, canvas roles come first: a tone role may read one (the neutral tone's shadow is `--shadow-medium`), never the reverse.
+1. **Each tier reads only the tiers before it.** A role may read the context or a raw value; a scale reads only its own base step (`--sp`, `--font-size-m`, `--radius-m`), and a setting at most picks a step of a scale. Inside the role tier, canvas roles come first: a tone role may read one (the neutral tone's shadow is `--shadow-medium`), never the reverse.
 2. **Multi-tone components read roles, not ramps.** A control that takes a `tone` (a button, an input) reads roles and the input size context, and the context ramp (`--tone-200`) when no role names what it needs, so one class re-tones it. A single-tone component, which is most of what an app builds, may read ramp steps directly (`--color-primary-600`). Neither calls `light-dark()`: the steps are already scheme-aware.
 3. **`light-dark()` lives in the generated palette**, and in the few roles that pick different steps per scheme.
 4. **`:root` is the default context:** the `base` tone and the `m` input size. Every component inherits from it unless told otherwise.
@@ -43,7 +43,7 @@ Every variable, with what it's for and how far to override it, is on one page: [
 | Control settings | setting | `--input-border-size`, `--input-outline-*`, `--input-disabled-*`, `--input-hover-*` |
 | Tone context | context | `--tone-<step>`, `--tone-contrast`, set by `.tone-<tone>` |
 | Size context | context | `--input-<metric>`, set by `.input-size-<size>` |
-| Canvas | role | `--surface-base*`, `--text-base*`, `--border-base`, `--shadow-*`, `--translucency-*` |
+| Canvas | role | `--surface-*`, `--border-*`, `--text-*`, `--shadow-*`, `--text-shadow-auto`, `--translucency-*` |
 | Tone | role | `--tone-text`, `--tone-tint`, `--tone-tint-text`, `--tone-fill*`, `--tone-border`, `--tone-shadow`, `--tone-focus-*` |
 | Component | component | `--<Component>-*` |
 
@@ -83,11 +83,18 @@ Everything is in `@layer nightshade`. Unlayered CSS beats any layer, so a plain 
 @import './palette.css';
 ```
 
+The palette goes where your `:root` goes: unlayered next to an unlayered `:root`, as here, or in your system's own layer when you ship one ([Growing your own](/philosophy/ownership#ship-it-as-your-package)).
+
 ## Taking only some of it
 
-Each file is exported on its own. A system that brings its own reset can skip it:
+Each file is exported on its own. A system that brings its own reset imports the tiers and skips `base.css`:
 
 ```css
-@import '@nightshadeui/stylesheets/palette.css' layer(nightshade);
+@layer nightshade, nightshade-components;
+
+@import '@nightshadeui/stylesheets/scales/spacing.css' layer(nightshade);
+/* … the other scales, settings and context files, in the same order … */
 @import '@nightshadeui/stylesheets/roles/canvas.css' layer(nightshade);
+@import '@nightshadeui/stylesheets/roles/tones.css' layer(nightshade);
+@import './palette.css';
 ```

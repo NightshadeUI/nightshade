@@ -136,38 +136,45 @@ export default {
 </script>
 
 <style scoped>
-.BaseMenu {
-    --BaseMenu-padding: var(--sp);
-    --BaseMenu-gap: var(--sp0-5);
-    --BaseMenu-min-width: var(--sp24);
+/* The order, stated wherever these styles load first: the styles, then the components */
+@layer nightshade, nightshade-components;
 
-    padding: var(--BaseMenu-padding);
-    gap: var(--BaseMenu-gap);
-    min-width: var(--BaseMenu-min-width);
-}
+@layer nightshade-components {
 
-.Header {
-    padding: var(--sp) var(--input-major-padding) 0;
-    font-size: var(--font-size-s);
-    font-weight: var(--font-weight-bold);
-    text-transform: uppercase;
-    opacity: 0.5;
-    user-select: none;
-}
+    .BaseMenu {
+        --BaseMenu-padding: var(--sp);
+        --BaseMenu-gap: var(--sp0-5);
+        --BaseMenu-min-width: var(--sp24);
 
-.Separator {
-    height: var(--input-border-size);
-    background: var(--border-base);
-}
+        padding: var(--BaseMenu-padding);
+        gap: var(--BaseMenu-gap);
+        min-width: var(--BaseMenu-min-width);
+    }
 
-.Title {
-    flex: 1;
-    text-align: left;
-}
+    .Header {
+        padding: var(--sp) var(--input-major-padding) 0;
+        font-size: var(--font-size-s);
+        font-weight: var(--font-weight-bold);
+        text-transform: uppercase;
+        opacity: 0.5;
+        user-select: none;
+    }
 
-.Item {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    .Separator {
+        height: var(--input-border-size);
+        background: var(--border-base);
+    }
+
+    .Title {
+        flex: 1;
+        text-align: left;
+    }
+
+    .Item {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
 }
 </style>

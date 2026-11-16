@@ -95,7 +95,7 @@ export default {
 }
 
 .Demo-dual {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .Demo-stacked {
@@ -104,6 +104,8 @@ export default {
 
 .Stage {
     position: relative;
+    min-width: 0;
+    overflow-x: auto;
     padding: var(--sp5) var(--sp3);
     background: var(--surface-base);
     color: var(--text-base);

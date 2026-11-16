@@ -22,7 +22,7 @@
                         <Btn
                             :tone="tone"
                             :size="size"
-                            :label="tone" />
+                            label="Button" />
                     </slot>
                 </div>
             </template>
@@ -31,6 +31,8 @@
 </template>
 
 <script>
+import { Btn } from '@nightshadeui/components';
+
 import { inputSizes } from '../helpers/commons.js';
 
 /**
@@ -38,6 +40,10 @@ import { inputSizes } from '../helpers/commons.js';
  * from `{ tone, size }`. Put it in a `<Demo>` for a stage, both schemes (`dual stacked`) and the demo defaults.
  */
 export default {
+
+    components: {
+        Btn,
+    },
 
     inject: [
         'stylesManager',
@@ -61,10 +67,12 @@ export default {
 
 .Grid {
     display: grid;
-    grid-template-columns: auto repeat(5, minmax(max-content, 1fr));
+    grid-template-columns: repeat(6, max-content);
+    justify-content: space-between;
     align-items: center;
-    gap: var(--sp1-5) var(--sp2);
-    min-width: 760px;
+    gap: var(--sp1-5);
+    width: max-content;
+    min-width: 100%;
 }
 
 .Corner,
@@ -76,10 +84,6 @@ export default {
 
 .ColumnLabel {
     text-align: center;
-}
-
-.RowLabel {
-    padding-right: var(--sp2);
 }
 
 .Cell {

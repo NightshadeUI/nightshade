@@ -11,7 +11,7 @@ These are the always-on rules. For the token catalog, the palette workflow, comp
 - **Raw values** come in two shapes. Scales are enumerable ladders: `--color-<ramp>-<step>` and `--color-<ramp>-contrast`, `--sp*`, `--radius-s|m|l`, `--font-size-*`, `--font-weight-*`, `--gr*`, and the control sizes `--input-size-<size>-<metric>`. Settings are single values: `--font-main|alt|monospace`, `--font-size`, `--font-weight`, `--line-height` and `--line-height-main|alt|monospace`, `--input-border-size`, `--input-outline-size|offset`, and the shared states below.
 - **Context** is set by classes on a subtree. `.tone-<tone>` points the context ramp `--tone-0` … `--tone-950` at one ramp. `.input-size-<xs|s|m|l|xl>` sets `--input-major-height`, `--input-minor-height`, `--input-major-padding`, `--input-minor-padding`, `--input-gap` and `--input-font-size`. `:root` is the default context: tone `base`, size `m`.
 - **Roles** are the meaning, stated once:
-  - Canvas roles: `--surface-base`/`--border-base`, `--surface-shade`/`--border-shade`, `--surface-deep`/`--border-deep`, `--surface-raised`/`--border-raised`, `--surface-overlay`, `--text-base|subtle|faint`, `--shadow-light|medium|heavy`, `--text-shadow-auto`, `--translucency-*`.
+  - Canvas roles: `--surface-base`/`--border-base`, `--surface-shade`/`--border-shade`, `--surface-deep`/`--border-deep`, `--surface-raised`/`--border-raised`, `--surface-knob`, `--surface-overlay`, `--text-base|subtle|faint`, `--shadow-light|medium|heavy`, `--text-shadow-auto`, `--translucency-*`.
   - Tone roles: `--tone-text`, `--tone-tint`, `--tone-tint-text`, `--tone-fill`, `--tone-fill-top|bottom`, `--tone-fill-text`, `--tone-border`, `--tone-shadow`, `--tone-focus-outline|border`. They resolve against whatever tone context they're read in.
   - This list is complete. Add a role only when every tone (or every canvas level) can answer it.
 - **Customize at your `:root`**, in a cascade layer after Nightshade's: scales and settings change the character, roles change the meaning. Never copy a component's CSS to change one value.
@@ -38,7 +38,7 @@ These are the always-on rules. For the token catalog, the palette workflow, comp
 ## Components
 
 - Each component exposes its knobs as `--<Component>-*`, defaulted on its root class from roles and the size context, and read without per-use fallbacks.
-- **One grammar for those variables.** Named after a role, they hold a color (`--Btn-fill`, `--Chip-text`, `--Toggle-border`, `--Btn-shadow`). Named after a CSS property, they hold a full value (`--Btn-background`, `--Btn-box-shadow`, `--Toggle-border-size`). Parts go in between (`--Slider-track-background`). No `-color` and no `-surface` suffixes.
+- **One grammar for those variables.** Named after a role, they hold a color (`--Btn-fill`, `--Chip-text`, `--Toggle-border`, `--Btn-shadow`). Named after a CSS property, they hold a full value (`--Btn-background`, `--Btn-box-shadow`, `--Toggle-border-size`). Named after a metric, they hold a length (`--Btn-size`, `--Btn-padding`, `--Slider-knob-size`). Parts go in between (`--Slider-track-background`). No `-color` and no `-surface` suffixes.
 - **States are shared:** `--input-disabled-opacity|filter`, `--input-hover-overlay` for filled controls, `--input-hover-filter` for wells. Focus rings use `:focus-visible` (text fields: `:focus-within`).
 - **Controls draw their props from one set,** and take the ones that apply: `tone`, `size`, `flat`, `outline`, `round`, `translucent`, `disabled`, `force*`. No prop means something else on another control. `tone` and `size` have no default: when they're omitted the control inherits the context, so add the `.tone-*` or `.input-size-*` class only when the prop is set.
 - Root and sub-element classes are PascalCase and short (`Btn`, `Label`). Modifier and state classes are prefixed with the component and camelCased (`Btn-flat`, `Toggle-forceFocus`).
@@ -106,14 +106,14 @@ Nightshade is a seed for application-owned design systems: principles, styles as
 
 ### The model
 
-Principles → styles (`stylesheets`) → the app's own system. Simplicity is the first principle. Everything else is an opt-in that orbits: the palette generator (`palette-generator`, `cli`, the website's Palette Studio) writes the styles' `palette.css` and nothing else; `components`, `canvas`, `particle-system`, `scroller` and `content-editor` plug into the app, and `docs` gives the app's system a site of its own. The styles never depend on an opt-in.
+Principles → styles (`stylesheets`) → the app's own system. Simplicity is the first principle. Everything else is an opt-in that orbits: the palette generator (`palette-generator`, `cli`, the website's Palette Studio) writes the styles' `palette.css` and nothing else; `components`, `canvas`, `particle-system` and `scroller` plug into the app, and `docs` gives the app's system a site of its own. The styles never depend on an opt-in.
 
 ### Packages
 
 - Styles: `stylesheets` (generated palette, scales, context, roles, base, utilities, modules).
 - Palette generator: `palette-generator` (scheme-aware OKLCH ramps and tone contexts, `PaletteSpecSchema`), `cli` (`nightshade palette`).
 - Standard components (opt-in): `components` (Vue controls and layout). Depends on `stylesheets`.
-- Other opt-ins: `canvas`, `particle-system`, `scroller`, `content-editor` (private prototype).
+- Other opt-ins: `canvas`, `particle-system`, `scroller`. The unfinished `content-editor` prototype is parked in `.archive/`, outside the workspaces.
 - Docs theme (opt-in): `docs`, a VitePress theme for an app's own design-system site: the frame, a landing, `defineDocsConfig` and live references (variables, palette, tones, scales) that read the site's styles. Sites configure it through `themeConfig` and extend it with `extends: DocsTheme`. It knows nothing about Nightshade's own site. Its frame is single-tone, like an app's: it may read `base`, `primary` and `secondary` steps, and any other ramp only with a fallback to one of them. It ships sources, which the site's Vite compiles (`defineDocsConfig` keeps them out of pre-bundling).
 - Utility: `util` (geometry helpers, `dom/` input classes, `readStored`/`writeStored`). Framework-free.
 - Distribution: `nightshade`, a thin umbrella package. No runtime logic here.
@@ -123,8 +123,8 @@ Principles → styles (`stylesheets`) → the app's own system. Simplicity is th
 ### Library conventions
 
 - Components are the public API. They take props and emit events; they never `inject` app state. `$nightshade.defaults` is the only provided value.
-- A component with real behavior (animation loops, scroll tracking, editing) delegates to a controller class in the same package (`ParticleSystemController`, `ScrollerController`, `ContentEditor`). Controllers are plain classes with `mount`/`unmount` and reactive state; consumers can use them without the component.
-- Packages are directories by role: `components/`, `editor/` or the controller at `src/`, `helpers/`, `dom/`, `schema/`. Keep `index.ts` the only aggregator.
+- A component with real behavior (animation loops, scroll tracking, editing) delegates to a controller class in the same package (`ParticleSystemController`, `ScrollerController`). Controllers are plain classes with `mount`/`unmount` and reactive state; consumers can use them without the component.
+- Packages are directories by role: `components/`, the controller at `src/`, `helpers/`, `dom/`, `schema/`. Keep `index.ts` the only aggregator.
 - Keep the `./src` subpath export on every package; the website and sibling packages import sources through it. Don't remove an export subpath without a major version.
 - Package versions are kept in lockstep. Inter-package dependencies use exact versions; `bump-version` keeps them in sync.
 - The website is the one app-shaped package: site-wide state lives in `managers/` classes, provided once from the theme's `enhanceApp`. `views/` inject managers, `components/` take props only, `pages/` are Markdown and stay thin (no `<script setup>`; site views and components are registered globally).

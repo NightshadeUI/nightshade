@@ -2,7 +2,6 @@
     <div
         class="ToolPanel"
         :class="[
-            resolvedProps.size && `ToolPanel-size-${resolvedProps.size}`,
             resolvedProps.size && `input-size-${resolvedProps.size}`,
             {
                 'ToolPanel-flat': resolvedProps.flat,
@@ -34,50 +33,52 @@ export default {
 </script>
 
 <style scoped>
-.ToolPanel {
-    --ToolPanel-size: var(--input-major-height);
-    --ToolPanel-padding: var(--input-minor-padding);
-    --ToolPanel-gap: var(--input-gap);
+/* The order, stated wherever these styles load first: the styles, then the components */
+@layer nightshade, nightshade-components;
 
-    --ToolPanel-background: var(--surface-deep);
+@layer nightshade-components {
 
-    --ToolPanel-border-size: 0px;
-    --ToolPanel-border: var(--border-deep);
-    --ToolPanel-radius: var(--radius-m);
+    .ToolPanel {
+        --ToolPanel-size: var(--input-major-height);
+        --ToolPanel-padding: var(--input-minor-padding);
+        --ToolPanel-gap: var(--input-gap);
 
-    --ToolPanel-shadow: var(--shadow-light);
-    --ToolPanel-box-shadow: 0 1px 1px var(--ToolPanel-shadow) inset, 0 0 5px var(--ToolPanel-shadow) inset;
+        --ToolPanel-background: var(--surface-deep);
 
-    display: flex;
-    align-items: center;
-    gap: var(--ToolPanel-gap);
-    padding: calc(var(--ToolPanel-padding) - var(--ToolPanel-border-size));
-    height: var(--ToolPanel-size);
-    min-height: 0;
+        --ToolPanel-border-size: 0px;
+        --ToolPanel-border: var(--border-deep);
+        --ToolPanel-radius: var(--radius-m);
 
-    border: var(--ToolPanel-border-size) solid var(--ToolPanel-border);
-    border-radius: var(--ToolPanel-radius);
-    box-shadow: var(--ToolPanel-box-shadow);
-    background: var(--ToolPanel-background);
+        --ToolPanel-shadow: var(--shadow-light);
+        --ToolPanel-box-shadow: 0 1px 1px var(--ToolPanel-shadow) inset, 0 0 5px var(--ToolPanel-shadow) inset;
 
-    transition: color .3s, background-color .3s, border-radius .3s, filter .3s;
-}
+        display: flex;
+        align-items: center;
+        gap: var(--ToolPanel-gap);
+        padding: calc(var(--ToolPanel-padding) - var(--ToolPanel-border-size));
+        min-height: var(--ToolPanel-size);
 
-.ToolPanel-size-s {
-    --ToolPanel-padding: var(--sp0-25);
-}
+        border: var(--ToolPanel-border-size) solid var(--ToolPanel-border);
+        border-radius: var(--ToolPanel-radius);
+        box-shadow: var(--ToolPanel-box-shadow);
+        background: var(--ToolPanel-background);
 
-/* Styles */
+        transition: color .3s, background-color .3s, border-radius .3s, filter .3s;
+    }
 
-.ToolPanel-round {
-    --ToolPanel-radius: calc(.5 * var(--ToolPanel-size));
-}
+    /* Styles */
 
-.ToolPanel-outline {
-    --ToolPanel-border-size: var(--input-border-size);
-}
+    .ToolPanel-round {
+        --ToolPanel-radius: calc(.5 * var(--ToolPanel-size));
+    }
 
-.ToolPanel-flat {
-    --ToolPanel-box-shadow: none;
+    .ToolPanel-outline {
+        --ToolPanel-border-size: var(--input-border-size);
+    }
+
+    .ToolPanel-flat {
+        --ToolPanel-box-shadow: none;
+    }
+
 }
 </style>

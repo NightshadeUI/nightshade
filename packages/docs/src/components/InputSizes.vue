@@ -38,12 +38,20 @@
 </template>
 
 <script>
+import { Btn, InputText, Toggle } from '@nightshadeui/components';
+
 import { inputSizes } from '../helpers/commons.js';
 
 /**
  * Every control size, with the metrics it resolves to on this page.
  */
 export default {
+
+    components: {
+        Btn,
+        InputText,
+        Toggle,
+    },
 
     data() {
         return {

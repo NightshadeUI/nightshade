@@ -94,7 +94,7 @@ The canvas knobs are component knobs now, defaulted on `.CanvasView` from roles:
 | `--text-color-subtle` | `--text-subtle` |
 | `--text-color-sublime` | `--text-faint` |
 | `--overlay-surface` | `--surface-overlay` |
-| `--color-base-0` / `-800` on knobs | `--surface-raised` |
+| `--color-base-0` / `-800` on knobs | `--surface-knob` |
 | `--shadow-color-<strength>` | `--shadow-<strength>` |
 | `--translucency-highlight-color` | `--translucency-highlight` |
 | `--ui-auto-text-shadow-color` | `--text-shadow-auto` |

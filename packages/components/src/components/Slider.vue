@@ -435,255 +435,264 @@ export default {
 </script>
 
 <style scoped>
-.Slider {
-    --Slider-ratio: 0;
-    --Slider-inset-position: calc(var(--Slider-knob-size) / 2 + var(--Slider-ratio) * (100% - var(--Slider-knob-size)));
+/* The order, stated wherever these styles load first: the styles, then the components */
+@layer nightshade, nightshade-components;
 
-    --Slider-track-height: calc(var(--input-minor-height) - var(--sp));
-    --Slider-knob-size: var(--input-minor-height);
+@layer nightshade-components {
 
-    --Slider-outline: transparent;
+    .Slider {
+        --Slider-ratio: 0;
+        --Slider-inset-position: calc(
+            var(--Slider-knob-size) / 2 + var(--Slider-ratio) * (100% - var(--Slider-knob-size))
+        );
 
-    --Slider-track-background: var(--surface-deep);
-    --Slider-fill-background: var(--tone-fill);
-    --Slider-knob-background: var(--surface-raised);
-    --Slider-knob-transparency: 0%;
+        --Slider-track-height: calc(var(--input-minor-height) - var(--sp));
+        --Slider-knob-size: var(--input-minor-height);
 
-    --Slider-border-size: 0px;
-    --Slider-border: transparent;
-    --Slider-radius: var(--radius-m);
-    --Slider-knob-radius: var(--radius-m);
+        --Slider-outline: transparent;
 
-    --Slider-shadow: var(--shadow-light);
-    --Slider-track-box-shadow: 0 1px 3px var(--Slider-shadow) inset, 0 0 5px -1px var(--Slider-shadow) inset;
-    --Slider-knob-box-shadow: 0 0 3px var(--Slider-shadow), 0 1px 5px var(--Slider-shadow);
+        --Slider-track-background: var(--surface-deep);
+        --Slider-fill-background: var(--tone-fill);
+        --Slider-knob-background: var(--surface-knob);
+        --Slider-knob-transparency: 0%;
 
-    --Slider-tooltip-background: var(--surface-base);
-    --Slider-tooltip-text: var(--text-base);
-    --Slider-tooltip-shadow: var(--shadow-light);
+        --Slider-border-size: 0px;
+        --Slider-border: transparent;
+        --Slider-radius: var(--radius-m);
+        --Slider-knob-radius: var(--radius-m);
 
-    position: relative;
-    display: block;
-    width: 100%;
+        --Slider-shadow: var(--shadow-light);
+        --Slider-track-box-shadow: 0 1px 3px var(--Slider-shadow) inset, 0 0 5px -1px var(--Slider-shadow) inset;
+        --Slider-knob-box-shadow: 0 0 3px var(--Slider-shadow), 0 1px 5px var(--Slider-shadow);
 
-    outline: 0;
-    cursor: pointer;
-    touch-action: none;
-    user-select: none;
-}
+        --Slider-tooltip-background: var(--surface-raised);
+        --Slider-tooltip-text: var(--text-base);
+        --Slider-tooltip-shadow: var(--shadow-light);
 
-.HitArea {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    touch-action: none;
-}
+        position: relative;
+        display: block;
+        width: 100%;
 
-.TrackArea {
-    position: relative;
-    z-index: 1;
-    height: var(--Slider-knob-size);
-    pointer-events: none;
-}
+        outline: 0;
+        cursor: pointer;
+        touch-action: none;
+        user-select: none;
+    }
 
-.Track {
-    position: absolute;
-    z-index: 1;
-    top: 50%;
-    left: 0;
-    right: 0;
-    height: var(--Slider-track-height);
-    transform: translateY(-50%);
-    overflow: hidden;
+    .HitArea {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        touch-action: none;
+    }
 
-    border: var(--Slider-border-size) solid var(--Slider-border);
-    border-radius: var(--Slider-radius);
-    outline: var(--input-outline-size) solid var(--Slider-outline);
-    outline-offset: var(--input-outline-offset);
-    background: var(--Slider-track-background);
-    box-shadow: var(--Slider-track-box-shadow);
+    .TrackArea {
+        position: relative;
+        z-index: 1;
+        height: var(--Slider-knob-size);
+        pointer-events: none;
+    }
 
-    transition: filter .3s, border-radius .3s;
-}
+    .Track {
+        position: absolute;
+        z-index: 1;
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: var(--Slider-track-height);
+        transform: translateY(-50%);
+        overflow: hidden;
 
-.Fill {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
+        border: var(--Slider-border-size) solid var(--Slider-border);
+        border-radius: var(--Slider-radius);
+        outline: var(--input-outline-size) solid var(--Slider-outline);
+        outline-offset: var(--input-outline-offset);
+        background: var(--Slider-track-background);
+        box-shadow: var(--Slider-track-box-shadow);
 
-    border-radius: inherit;
-    background: var(--Slider-fill-background);
+        transition: filter .3s, border-radius .3s;
+    }
 
-    pointer-events: none;
-}
+    .Fill {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
 
-.Fill.Slider-fill-track {
-    width: var(--Slider-inset-position);
-}
+        border-radius: inherit;
+        background: var(--Slider-fill-background);
 
-.Knob {
-    position: absolute;
-    z-index: 2;
-    top: 50%;
-    left: var(--Slider-inset-position);
-    width: var(--Slider-knob-size);
-    height: var(--Slider-knob-size);
-    transform: translate(-50%, -50%);
+        pointer-events: none;
+    }
 
-    border-radius: var(--Slider-knob-radius);
-    background: color-mix(in srgb, var(--Slider-knob-background), transparent var(--Slider-knob-transparency));
-    box-shadow: var(--Slider-knob-box-shadow);
-    outline: var(--input-outline-size) solid var(--Slider-outline);
+    .Fill.Slider-fill-track {
+        width: var(--Slider-inset-position);
+    }
 
-    transition: border-radius .3s;
-}
+    .Knob {
+        position: absolute;
+        z-index: 2;
+        top: 50%;
+        left: var(--Slider-inset-position);
+        width: var(--Slider-knob-size);
+        height: var(--Slider-knob-size);
+        transform: translate(-50%, -50%);
 
-.Tooltip {
-    --Slider-tooltip-background: var(--tone-fill);
-    --Slider-tooltip-text: var(--tone-fill-text);
-    --Slider-tooltip-height: calc(var(--font-size-s) + var(--sp1));
-    --Bubble-background: var(--Slider-tooltip-background);
-    --Bubble-shadow: var(--Slider-tooltip-shadow);
-    --Bubble-arrow-size: 8px;
+        border-radius: var(--Slider-knob-radius);
+        background: color-mix(in srgb, var(--Slider-knob-background), transparent var(--Slider-knob-transparency));
+        box-shadow: var(--Slider-knob-box-shadow);
+        outline: var(--input-outline-size) solid var(--Slider-outline);
 
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-}
+        transition: border-radius .3s;
+    }
 
-.TooltipContent {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
-    height: var(--Slider-tooltip-height);
-    padding: 0 var(--sp1);
+    .Tooltip {
+        --Slider-tooltip-background: var(--tone-fill);
+        --Slider-tooltip-text: var(--tone-fill-text);
+        --Slider-tooltip-height: calc(var(--font-size-s) + var(--sp1));
+        --Bubble-background: var(--Slider-tooltip-background);
+        --Bubble-shadow: var(--Slider-tooltip-shadow);
+        --Bubble-arrow-size: 8px;
 
-    font-size: var(--font-size-s);
-    line-height: 1;
-    color: var(--Slider-tooltip-text);
-    white-space: nowrap;
-}
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+    }
 
-.TooltipBody {
-    cursor: text;
-}
+    .TooltipContent {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        height: var(--Slider-tooltip-height);
+        padding: 0 var(--sp1);
 
-.TooltipInput {
-    -webkit-appearance: none;
-    -moz-appearance: textfield;
-    appearance: textfield;
-    box-sizing: border-box;
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    border: 0;
-    outline: 0;
-    background: transparent;
-    color: inherit;
-    font: inherit;
-    text-align: center;
-    cursor: text;
-    user-select: text;
-}
+        font-size: var(--font-size-s);
+        line-height: 1;
+        color: var(--Slider-tooltip-text);
+        white-space: nowrap;
+    }
 
-.TooltipInput::-webkit-outer-spin-button,
-.TooltipInput::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
+    .TooltipBody {
+        cursor: text;
+    }
 
-.Scale {
-    position: relative;
-    z-index: 1;
-    margin-top: var(--sp1);
-    height: var(--sp3);
-}
+    .TooltipInput {
+        -webkit-appearance: none;
+        -moz-appearance: textfield;
+        appearance: textfield;
+        box-sizing: border-box;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        outline: 0;
+        background: transparent;
+        color: inherit;
+        font: inherit;
+        text-align: center;
+        cursor: text;
+        user-select: text;
+    }
 
-.Tick {
-    position: absolute;
-    left: calc(var(--Slider-knob-size) / 2 + var(--Slider-ratio) * (100% - var(--Slider-knob-size)));
-    transform: translateX(-50%);
-    text-align: center;
-}
+    .TooltipInput::-webkit-outer-spin-button,
+    .TooltipInput::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
 
-.Mark {
-    width: 1px;
-    height: var(--sp1);
-    margin: 0 auto;
-    background: var(--tone-border);
-}
+    .Scale {
+        position: relative;
+        z-index: 1;
+        margin-top: var(--sp1);
+        height: var(--sp3);
+    }
 
-.Label {
-    margin-top: var(--sp0-25);
+    .Tick {
+        position: absolute;
+        left: calc(var(--Slider-knob-size) / 2 + var(--Slider-ratio) * (100% - var(--Slider-knob-size)));
+        transform: translateX(-50%);
+        text-align: center;
+    }
 
-    font-size: var(--font-size-xs);
-    color: var(--text-base);
-    white-space: nowrap;
-}
+    .Mark {
+        width: 1px;
+        height: var(--sp1);
+        margin: 0 auto;
+        background: var(--tone-border);
+    }
 
-/* States */
+    .Label {
+        margin-top: var(--sp0-25);
 
-.Slider-disabled {
-    cursor: not-allowed;
-    opacity: var(--input-disabled-opacity);
-    filter: var(--input-disabled-filter);
-}
+        font-size: var(--font-size-xs);
+        color: var(--text-base);
+        white-space: nowrap;
+    }
 
-.Slider-disabled .HitArea {
-    pointer-events: none;
-}
+    /* States */
 
-.Slider:not(.Slider-disabled):hover .Track,
-.Slider.Slider-forceHover .Track {
-    filter: var(--input-hover-filter);
-}
+    .Slider-disabled {
+        cursor: not-allowed;
+        opacity: var(--input-disabled-opacity);
+        filter: var(--input-disabled-filter);
+    }
 
-.Slider:not(.Slider-disabled):focus-visible,
-.Slider.Slider-forceFocus {
-    --Slider-outline: var(--tone-focus-outline);
-    --Slider-border: var(--tone-focus-border);
-}
+    .Slider-disabled .HitArea {
+        pointer-events: none;
+    }
 
-/* Styles */
+    .Slider:not(.Slider-disabled):hover .Track,
+    .Slider.Slider-forceHover .Track {
+        filter: var(--input-hover-filter);
+    }
 
-.Slider-round {
-    --Slider-radius: calc(.5 * var(--Slider-track-height));
-    --Slider-knob-radius: calc(.5 * var(--Slider-knob-size));
-}
+    .Slider:not(.Slider-disabled):focus-visible,
+    .Slider.Slider-forceFocus {
+        --Slider-outline: var(--tone-focus-outline);
+        --Slider-border: var(--tone-focus-border);
+    }
 
-.Slider-outline {
-    --Slider-border: var(--tone-border);
-    --Slider-border-size: var(--input-border-size);
-}
+    /* Styles */
 
-.Slider-flat {
-    --Slider-track-box-shadow: none;
-}
+    .Slider-round {
+        --Slider-radius: calc(.5 * var(--Slider-track-height));
+        --Slider-knob-radius: calc(.5 * var(--Slider-knob-size));
+    }
 
-.Slider-translucent {
-    --Slider-knob-box-shadow:
-        0 0 2px var(--shadow-medium),
-        0 1px 5px var(--shadow-light),
-        0 0 3px var(--translucency-highlight) inset;
-    --Slider-knob-transparency: var(--translucency-mix-heavy);
-}
+    .Slider-outline {
+        --Slider-border: var(--tone-border);
+        --Slider-border-size: var(--input-border-size);
+    }
 
-.Slider-translucent .Knob {
-    backdrop-filter: blur(var(--translucency-blur));
-}
+    .Slider-flat {
+        --Slider-track-box-shadow: none;
+    }
 
-.Fill.Slider-fill-inset {
-    top: var(--input-minor-padding);
-    left: calc(var(--Slider-knob-size) / 2);
-    width: calc(var(--Slider-ratio) * (100% - var(--Slider-knob-size)));
-    height: calc(100% - 2 * var(--input-minor-padding));
-    border-radius: var(--Slider-radius);
-}
+    .Slider-translucent {
+        --Slider-knob-box-shadow:
+            0 0 2px var(--shadow-medium),
+            0 1px 5px var(--shadow-light),
+            0 0 3px var(--translucency-highlight) inset;
+        --Slider-knob-transparency: var(--translucency-mix-heavy);
+    }
 
-.Fill.Slider-fill-none {
-    display: none;
+    .Slider-translucent .Knob {
+        backdrop-filter: blur(var(--translucency-blur));
+    }
+
+    .Fill.Slider-fill-inset {
+        top: var(--input-minor-padding);
+        left: calc(var(--Slider-knob-size) / 2);
+        width: calc(var(--Slider-ratio) * (100% - var(--Slider-knob-size)));
+        height: calc(100% - 2 * var(--input-minor-padding));
+        border-radius: var(--Slider-radius);
+    }
+
+    .Fill.Slider-fill-none {
+        display: none;
+    }
+
 }
 </style>

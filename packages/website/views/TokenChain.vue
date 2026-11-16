@@ -5,12 +5,12 @@
                 <Btn
                     label="Tone axis"
                     size="s"
-                    :tone="axis === 'tone' ? 'primary' : 'base'"
+                    :tone="axis === 'tone' ? 'primary' : undefined"
                     @click="axis = 'tone'" />
                 <Btn
                     label="Size axis"
                     size="s"
-                    :tone="axis === 'size' ? 'primary' : 'base'"
+                    :tone="axis === 'size' ? 'primary' : undefined"
                     @click="axis = 'size'" />
             </InputGroup>
             <div class="Options">

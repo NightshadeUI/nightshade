@@ -19,6 +19,7 @@ import Tab from './Tab.vue';
 import TabCap from './TabCap.vue';
 import Toggle from './Toggle.vue';
 import ToolPanel from './ToolPanel.vue';
+import Tooltip from './Tooltip.vue';
 import VGroup from './VGroup.vue';
 
 export {
@@ -43,5 +44,6 @@ export {
     TabCap,
     Toggle,
     ToolPanel,
+    Tooltip,
     VGroup,
 };

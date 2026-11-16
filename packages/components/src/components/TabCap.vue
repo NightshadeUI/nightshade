@@ -27,20 +27,27 @@ export default {
 </script>
 
 <style scoped>
-.TabCap {}
+/* The order, stated wherever these styles load first: the styles, then the components */
+@layer nightshade, nightshade-components;
 
-path {
-    transform-origin: 50% 50%;
-    stroke: none;
+@layer nightshade-components {
+
+    .TabCap {}
+
+    path {
+        transform-origin: 50% 50%;
+        stroke: none;
+    }
+
+    .TabCap-top.TabCap-start path { transform: scale(1, 1) }
+    .TabCap-top.TabCap-end path { transform: scale(-1, 1) }
+    .TabCap-bottom.TabCap-start path { transform: scale(1, -1) }
+    .TabCap-bottom.TabCap-end path { transform: scale(-1, -1) }
+
+    .TabCap-right.TabCap-start path { transform: scale(1, 1) rotate(90deg) }
+    .TabCap-right.TabCap-end path { transform: scale(-1, 1) rotate(-90deg) }
+    .TabCap-left.TabCap-start path { transform: scale(1, -1) rotate(-90deg) }
+    .TabCap-left.TabCap-end path { transform: scale(-1, -1) rotate(90deg) }
+
 }
-
-.TabCap-top.TabCap-start path { transform: scale(1, 1) }
-.TabCap-top.TabCap-end path { transform: scale(-1, 1) }
-.TabCap-bottom.TabCap-start path { transform: scale(1, -1) }
-.TabCap-bottom.TabCap-end path { transform: scale(-1, -1) }
-
-.TabCap-right.TabCap-start path { transform: scale(1, 1) rotate(90deg) }
-.TabCap-right.TabCap-end path { transform: scale(-1, 1) rotate(-90deg) }
-.TabCap-left.TabCap-start path { transform: scale(1, -1) rotate(-90deg) }
-.TabCap-left.TabCap-end path { transform: scale(-1, -1) rotate(90deg) }
 </style>

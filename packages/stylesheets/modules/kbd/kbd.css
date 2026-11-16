@@ -1,25 +1,23 @@
 /*
- * A keycap: a raised face on a short base, read from the canvas roles.
+ * A keycap: a raised face with a deeper bottom edge, read from the canvas roles.
  */
 kbd {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
-    min-width: 1.75em;
-    height: 1.75em;
-    margin: 0 .15em;
-    padding: 0 .45em;
+    min-width: 1.6em;
+    height: 1.6em;
+    margin: 0 .1em;
+    padding: 0 .4em;
 
-    border: 1px solid var(--border-deep);
-    border-bottom-width: 3px;
-    border-radius: var(--radius-m);
-    background: linear-gradient(to bottom, var(--surface-raised), var(--surface-shade));
-    box-shadow:
-        0 1px 2px var(--shadow-light),
-        0 1px 0 var(--translucency-highlight) inset;
+    border: 1px solid var(--border-raised);
+    border-bottom: 2px solid var(--border-deep);
+    border-radius: var(--radius-s);
+    background: var(--surface-raised);
+    box-shadow: 0 1px 1px var(--shadow-light);
 
     color: var(--text-subtle);
-    font: var(--font-weight-bold) .8em/1 var(--font-main);
+    font: var(--font-weight-bold) .78em/1 var(--font-main);
     vertical-align: .1em;
 }

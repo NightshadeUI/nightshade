@@ -65,6 +65,6 @@ Every tone your styles define, at every size, in both schemes. The playground ba
 | `--Slider-track-height` | `--input-minor-height` minus one grid unit |
 | `--Slider-track-background` | `--surface-deep` |
 | `--Slider-fill-background` | `--tone-fill` |
-| `--Slider-knob-background` | `--surface-raised` |
+| `--Slider-knob-background` | `--surface-knob` |
 
 The track surface can be any background, which is how the hue sliders on this site get their rainbow.

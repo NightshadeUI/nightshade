@@ -42,7 +42,13 @@
 </template>
 
 <script>
+import { Btn } from '@nightshadeui/components';
+
 export default {
+
+    components: {
+        Btn,
+    },
 
     inject: [
         'siteManager',

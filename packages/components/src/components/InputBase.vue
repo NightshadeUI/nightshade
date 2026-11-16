@@ -121,158 +121,165 @@ export default {
 </script>
 
 <style scoped>
-.InputBase {
-    --InputBase-size: var(--input-major-height);
-    --InputBase-padding-x: var(--input-major-padding);
-    --InputBase-padding-y: var(--input-minor-padding);
-    --InputBase-gap: var(--input-gap);
-    --InputBase-font-size: var(--input-font-size);
+/* The order, stated wherever these styles load first: the styles, then the components */
+@layer nightshade, nightshade-components;
 
-    --InputBase-text: var(--text-base);
-    --InputBase-background: var(--surface-base);
+@layer nightshade-components {
 
-    --InputBase-outline: transparent;
-    --InputBase-outline-size: var(--input-outline-size);
-    --InputBase-outline-offset: var(--input-outline-offset);
+    .InputBase {
+        --InputBase-size: var(--input-major-height);
+        --InputBase-padding-x: var(--input-major-padding);
+        --InputBase-padding-y: var(--input-minor-padding);
+        --InputBase-gap: var(--input-gap);
+        --InputBase-font-size: var(--input-font-size);
 
-    --InputBase-border-size: var(--input-border-size);
-    --InputBase-border: var(--tone-border);
-    --InputBase-radius: var(--radius-m);
+        --InputBase-text: var(--text-base);
+        --InputBase-background: var(--surface-base);
 
-    --InputBase-shadow: var(--shadow-light);
-    --InputBase-box-shadow: 0 1px 5px -1px var(--InputBase-shadow) inset;
+        --InputBase-outline: transparent;
+        --InputBase-outline-size: var(--input-outline-size);
+        --InputBase-outline-offset: var(--input-outline-offset);
 
-    --InputBase-label-text: var(--text-base);
-    --InputBase-label-font-size: var(--font-size-s);
+        --InputBase-border-size: var(--input-border-size);
+        --InputBase-border: var(--tone-border);
+        --InputBase-radius: var(--radius-m);
 
-    position: relative;
-    display: flex;
-    flex-flow: column nowrap;
-    outline: 0;
-}
+        --InputBase-shadow: var(--shadow-light);
+        --InputBase-box-shadow: 0 1px 5px -1px var(--InputBase-shadow) inset;
 
-.Container {
-    position: relative;
-    z-index: 1;
+        --InputBase-label-text: var(--text-base);
+        --InputBase-label-font-size: var(--font-size-s);
 
-    display: flex;
-    align-items: center;
-    box-sizing: border-box;
-    padding:
-        calc(var(--InputBase-padding-y) - var(--InputBase-border-size))
-        calc(var(--InputBase-padding-x) - var(--InputBase-border-size));
-    gap: var(--InputBase-gap);
-    width: 100%;
-    min-height: var(--InputBase-size);
+        position: relative;
+        display: flex;
+        flex-flow: column nowrap;
+        outline: 0;
+    }
 
-    color: var(--InputBase-text);
-    background: var(--InputBase-background);
-    box-shadow: var(--InputBase-box-shadow);
+    .Container {
+        position: relative;
+        z-index: 1;
 
-    outline: var(--InputBase-outline-size) solid var(--InputBase-outline);
-    outline-offset: var(--InputBase-outline-offset);
+        display: flex;
+        align-items: center;
+        box-sizing: border-box;
+        padding:
+            calc(var(--InputBase-padding-y) - var(--InputBase-border-size))
+            calc(var(--InputBase-padding-x) - var(--InputBase-border-size));
+        gap: var(--InputBase-gap);
+        width: 100%;
+        min-height: var(--InputBase-size);
 
-    border: var(--InputBase-border-size) solid var(--InputBase-border);
-    border-radius: var(--InputBase-radius);
+        color: var(--InputBase-text);
+        background: var(--InputBase-background);
+        box-shadow: var(--InputBase-box-shadow);
 
-    font-size: var(--InputBase-font-size);
+        outline: var(--InputBase-outline-size) solid var(--InputBase-outline);
+        outline-offset: var(--InputBase-outline-offset);
 
-    transition: color .3s, outline .3s, border-radius .3s, filter .3s;
-}
+        border: var(--InputBase-border-size) solid var(--InputBase-border);
+        border-radius: var(--InputBase-radius);
 
-/* States */
+        font-size: var(--InputBase-font-size);
 
-.InputBase:not(.InputBase-disabled):focus-within, .InputBase.InputBase-forceFocus {
-    z-index: 10;
-    --InputBase-outline: var(--tone-focus-outline);
-    --InputBase-border: var(--tone-focus-border);
-    --InputBase-label-text: var(--tone-focus-border);
-}
+        transition: color .3s, outline .3s, border-radius .3s, filter .3s;
+    }
 
-.InputBase-disabled {
-    --InputBase-background: var(--surface-deep);
-}
+    /* States */
 
-.InputBase-disabled .Container {
-    opacity: var(--input-disabled-opacity);
-    filter: var(--input-disabled-filter);
-    cursor: not-allowed;
-}
+    .InputBase:not(.InputBase-disabled):focus-within, .InputBase.InputBase-forceFocus {
+        z-index: 10;
+        --InputBase-outline: var(--tone-focus-outline);
+        --InputBase-border: var(--tone-focus-border);
+        --InputBase-label-text: var(--tone-focus-border);
+    }
 
-/* Styles */
+    .InputBase-disabled {
+        --InputBase-background: var(--surface-deep);
+    }
 
-.InputBase-fixedHeight .Container {
-    height: var(--InputBase-size);
-}
+    .InputBase-disabled .Container {
+        opacity: var(--input-disabled-opacity);
+        filter: var(--input-disabled-filter);
+        cursor: not-allowed;
+    }
 
-.InputBase-round {
-    --InputBase-radius: calc(.5 * var(--InputBase-size));
-}
+    /* Styles */
 
-.InputBase-flat {
-    --InputBase-box-shadow: none;
-}
+    .InputBase-fixedHeight .Container {
+        height: var(--InputBase-size);
+    }
 
-/* Labels */
+    .InputBase-round {
+        --InputBase-radius: calc(.5 * var(--InputBase-size));
+    }
 
-.Label {
-    max-width: calc(100% - 2 * var(--sp2));
-}
+    .InputBase-flat {
+        --InputBase-box-shadow: none;
+    }
 
-.Label.TabLabel {
-    align-self: flex-start;
-    position: relative;
-    z-index: 0;
-    margin: 0 var(--sp2);
+    /* Labels */
 
-    --Tab-size: calc(.75 * var(--InputBase-size));
-    --Tab-cap-size: calc(.75 * var(--InputBase-size));
-    --Tab-font-size: var(--InputBase-font-size);
-}
+    .Label {
+        max-width: calc(100% - 2 * var(--sp2));
+    }
 
-.Label.TextLabel {
-    margin: 0 var(--InputBase-padding-x);
-    height: var(--sp3);
-    line-height: 1.5;
-    font-size: var(--InputBase-label-font-size);
+    .Label.TabLabel {
+        align-self: flex-start;
+        position: relative;
+        z-index: 0;
+        margin: 0 var(--sp2);
 
-    color: var(--InputBase-text);
+        --Tab-size: calc(.75 * var(--InputBase-size));
+        --Tab-cap-size: calc(.75 * var(--InputBase-size));
+        --Tab-font-size: var(--InputBase-font-size);
+    }
 
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
+    .Label.TextLabel {
+        margin: 0 var(--InputBase-padding-x);
+        height: var(--sp3);
+        line-height: 1.5;
+        font-size: var(--InputBase-label-font-size);
 
-.Label.InlineLabel {
-    position: absolute;
-    z-index: 2;
-    top: -2px;
-    left: -2px;
-    margin: 0 var(--InputBase-padding-x);
-    padding: 0 2px;
-    transform: translateY(-50%);
-    height: var(--sp2);
-    line-height: var(--sp2);
+        color: var(--InputBase-text);
 
-    font-size: var(--InputBase-label-font-size);
-    border-radius: var(--radius-m);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 
-    color: var(--InputBase-label-text);
-    text-shadow:
-        0 0 3px var(--InputBase-background),
-        0 0 3px var(--InputBase-background),
-        0 0 3px var(--InputBase-background),
-        0 0 3px var(--InputBase-background),
-        0 0 3px var(--InputBase-background),
-        0 0 3px var(--InputBase-background),
-        0 0 3px var(--InputBase-background),
-        0 0 3px var(--InputBase-background),
-        0 0 3px var(--InputBase-background),
-        0 0 3px var(--InputBase-background);
+    .Label.InlineLabel {
+        position: absolute;
+        z-index: 2;
+        top: -2px;
+        left: -2px;
+        margin: 0 var(--InputBase-padding-x);
+        padding: 0 2px;
+        transform: translateY(-50%);
+        height: var(--sp2);
+        line-height: var(--sp2);
 
-    user-select: none;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+        font-size: var(--InputBase-label-font-size);
+        border-radius: var(--radius-m);
+
+        color: var(--InputBase-label-text);
+        text-shadow:
+            0 0 3px var(--InputBase-background),
+            0 0 3px var(--InputBase-background),
+            0 0 3px var(--InputBase-background),
+            0 0 3px var(--InputBase-background),
+            0 0 3px var(--InputBase-background),
+            0 0 3px var(--InputBase-background),
+            0 0 3px var(--InputBase-background),
+            0 0 3px var(--InputBase-background),
+            0 0 3px var(--InputBase-background),
+            0 0 3px var(--InputBase-background);
+
+        user-select: none;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
 }
 </style>

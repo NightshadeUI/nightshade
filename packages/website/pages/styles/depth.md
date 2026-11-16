@@ -20,7 +20,26 @@ Shadow roles are colors, not full `box-shadow` values, so components decide geom
 
 Each tone adds its own tint: a primary button's shadow mixes `--tone-shadow` with `--shadow-medium`.
 
-`--text-shadow-auto` is the one shadow that picks its own color: the inverse of the text it sits under, at 25%. Filled buttons and checkbox marks use it to lift their text off any tone. Where relative colors aren't supported, it's transparent.
+## Raised surfaces
+
+Two surfaces sit off the page levels. `--surface-raised` (with `--border-raised`) is for things that float above the page: popups, menus, tooltips. In the dark scheme it's a step lighter than the page, so it reads as closer. `--surface-knob` is the moving part of a control, a toggle or slider knob, and stays light in both schemes.
+
+<Demo dual>
+    <div class="RaisedSample">Raised</div>
+    <Toggle :modelValue="false" />
+    <Slider :modelValue="40" style="width: 120px" />
+</Demo>
+
+<style>
+.RaisedSample {
+    padding: var(--sp1) var(--sp2);
+    border: 1px solid var(--border-raised);
+    border-radius: var(--radius-l);
+    background: var(--surface-raised);
+    box-shadow: 0 2px 8px var(--shadow-medium);
+    font-size: var(--font-size-s);
+}
+</style>
 
 ## Translucency
 
@@ -62,7 +81,7 @@ Translucent controls blend their surface with what's behind them and blur it.
 
 ## Automatic text shadow
 
-`--text-shadow-auto` is a faint shadow in the inverse of the current text color. It lifts text off a gradient surface without knowing which tone it's on. Browsers without relative color syntax get no shadow.
+`--text-shadow-auto` is the one shadow that picks its own color: the inverse of the current text color, at 25%. It lifts text off a gradient surface without knowing which tone it's on; filled buttons and checkbox marks use it. Browsers without relative color syntax get no shadow.
 
 ```css
 .Label {

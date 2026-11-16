@@ -21,23 +21,33 @@ export default {
 </script>
 
 <style scoped>
-.InputGroup {
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: end;
-    gap: var(--input-border-size);
-}
+/* The order, stated wherever these styles load first: the styles, then the components */
+@layer nightshade, nightshade-components;
 
-/* Joined edges: a control's own frame, or the frame inside a wrapper (`InputText` frames its field in `.InputBase`) */
-.InputGroup:deep(> .InputElement:not(:first-child)),
-.InputGroup:deep(> :not(:first-child) > .InputElement) {
-    border-start-start-radius: 0;
-    border-end-start-radius: 0;
-}
+@layer nightshade-components {
 
-.InputGroup:deep(> .InputElement:not(:last-child)),
-.InputGroup:deep(> :not(:last-child) > .InputElement) {
-    border-start-end-radius: 0;
-    border-end-end-radius: 0;
+    .InputGroup {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: end;
+        gap: var(--input-border-size);
+    }
+
+    /*
+     * Joined edges: a control's own frame, or the frame inside a wrapper
+     * (`InputText` frames its field in `.InputBase`)
+     */
+    .InputGroup:deep(> .InputElement:not(:first-child)),
+    .InputGroup:deep(> :not(:first-child) > .InputElement) {
+        border-start-start-radius: 0;
+        border-end-start-radius: 0;
+    }
+
+    .InputGroup:deep(> .InputElement:not(:last-child)),
+    .InputGroup:deep(> :not(:last-child) > .InputElement) {
+        border-start-end-radius: 0;
+        border-end-end-radius: 0;
+    }
+
 }
 </style>

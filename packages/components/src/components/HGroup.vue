@@ -2,10 +2,10 @@
     <component
         :is="resolvedProps.tagName"
         class="HGroup"
+        :style="gapStyle"
         :class="[
             `HGroup-align-${resolvedProps.align}`,
-            `HGroup-justify-${resolvedProps.justify}`,
-            `HGroup-gap-${resolvedProps.gap}`,
+            resolvedProps.justify && `HGroup-justify-${resolvedProps.justify}`,
             {
                 'HGroup-wrap': resolvedProps.wrap,
             }
@@ -25,50 +25,56 @@ export default {
         tagName: { type: String, default: 'div' },
         align: { type: String, default: 'center' },
         justify: { type: String },
-        gap: { type: String, default: '1' },
+        gap: { type: [String, Number] },
         wrap: { type: Boolean, default: false },
-    }
+    },
+
+    computed: {
+
+        // `gap` names a step of the spacing scale: `1` is `--sp1`, `0-5` is `--sp0-5`.
+        gapStyle() {
+            const { gap } = this.resolvedProps;
+            if (gap == null) {
+                return {};
+            }
+            return {
+                '--HGroup-gap': String(gap) === '0' ? '0px' : `var(--sp${gap})`,
+            };
+        },
+
+    },
 
 };
 </script>
 
 <style scoped>
-.HGroup {
-    display: flex;
-    flex-flow: row nowrap;
+/* The order, stated wherever these styles load first: the styles, then the components */
+@layer nightshade, nightshade-components;
+
+@layer nightshade-components {
+
+    .HGroup {
+        --HGroup-gap: var(--sp1);
+
+        display: flex;
+        gap: var(--HGroup-gap);
+        flex-flow: row nowrap;
+    }
+
+    .HGroup-align-stretch { align-items: stretch; }
+    .HGroup-align-baseline { align-items: baseline; }
+    .HGroup-align-center { align-items: center; }
+    .HGroup-align-start { align-items: flex-start; }
+    .HGroup-align-end { align-items: flex-end; }
+
+    .HGroup-justify-center { justify-content: center; }
+    .HGroup-justify-start { justify-content: flex-start; }
+    .HGroup-justify-end { justify-content: flex-end; }
+    .HGroup-justify-space-around { justify-content: space-around; }
+    .HGroup-justify-space-between { justify-content: space-between; }
+    .HGroup-justify-space-evenly { justify-content: space-evenly; }
+
+    .HGroup-wrap { flex-wrap: wrap; }
+
 }
-
-.HGroup-align-stretch { align-items: stretch; }
-.HGroup-align-baseline { align-items: baseline; }
-.HGroup-align-center { align-items: center; }
-.HGroup-align-start { align-items: flex-start; }
-.HGroup-align-end { align-items: flex-end; }
-
-.HGroup-justify-center { justify-content: center; }
-.HGroup-justify-start { justify-content: flex-start; }
-.HGroup-justify-end { justify-content: flex-end; }
-.HGroup-justify-space-around { justify-content: space-around; }
-.HGroup-justify-space-between { justify-content: space-between; }
-
-.HGroup-gap-0 { gap: 0 }
-.HGroup-gap-0-25 { gap: var(--sp0-25) }
-.HGroup-gap-0-5 { gap: var(--sp0-5) }
-.HGroup-gap-1 { gap: var(--sp1) }
-.HGroup-gap-1-5 { gap: var(--sp1-5) }
-.HGroup-gap-2 { gap: var(--sp2) }
-.HGroup-gap-2-5 { gap: var(--sp2-5) }
-.HGroup-gap-3 { gap: var(--sp3) }
-.HGroup-gap-4 { gap: var(--sp4) }
-.HGroup-gap-5 { gap: var(--sp5) }
-.HGroup-gap-6 { gap: var(--sp6) }
-.HGroup-gap-7 { gap: var(--sp7) }
-.HGroup-gap-8 { gap: var(--sp8) }
-.HGroup-gap-9 { gap: var(--sp9) }
-.HGroup-gap-10 { gap: var(--sp10) }
-.HGroup-gap-12 { gap: var(--sp12) }
-.HGroup-gap-16 { gap: var(--sp16) }
-.HGroup-gap-24 { gap: var(--sp24) }
-.HGroup-gap-32 { gap: var(--sp32) }
-
-.HGroup-wrap { flex-wrap: wrap; }
 </style>

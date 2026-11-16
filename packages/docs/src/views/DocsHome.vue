@@ -77,6 +77,8 @@
 </template>
 
 <script>
+import { Btn } from '@nightshadeui/components';
+
 /**
  * The landing, from the page's frontmatter: a `hero` (`logo`, `name`, `title`, `tagline`, `actions`;
  * `backdrop` for the name of a registered component behind it, `true` for `HeroBackdrop`;
@@ -84,6 +86,10 @@
  * and `features` (`icon`, `title`, `details`, `link`). The page's own content follows it.
  */
 export default {
+
+    components: {
+        Btn,
+    },
 
     computed: {
 

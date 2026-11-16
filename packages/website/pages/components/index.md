@@ -14,9 +14,19 @@ Already have a component library? Skip this package and map that library's varia
 npm i @nightshadeui/stylesheets @nightshadeui/components
 ```
 
+Import the components you use. Each one brings its own CSS, so the app ships only the styles of what it imports:
+
 ```ts
 import '@nightshadeui/stylesheets';
-import '@nightshadeui/components/css';
+import { Btn, InputText } from '@nightshadeui/components';
+
+app.component('Btn', Btn);
+app.component('InputText', InputText);
+```
+
+Or register them all at once:
+
+```ts
 import { standardComponents } from '@nightshadeui/components';
 
 for (const [name, component] of Object.entries(standardComponents)) {
@@ -24,7 +34,7 @@ for (const [name, component] of Object.entries(standardComponents)) {
 }
 ```
 
-Or import components one by one: `import { Btn, InputText } from '@nightshadeui/components'`. The `nightshade` package bundles both.
+Component styles sit in the `nightshade-components` layer, after the styles' `nightshade` layer. `@nightshadeui/components/css` still links every component's CSS at once, for apps that load styles apart from scripts. The `nightshade` package bundles the styles and the components.
 
 ## The grammar
 
@@ -107,7 +117,7 @@ app.provide('$nightshade', reactive({
 }));
 ```
 
-That's what the Flat, Round, Outline and Translucent switches on the home page do: they set the defaults for this whole site. Because the defaults object is reactive, the site re-renders in place.
+That's what the Flat, Round, Outline and Translucent switches do, in the home page hero and in the playground bar: they set the defaults for this whole site. Because the defaults object is reactive, the site re-renders in place.
 
 A few things to know:
 
@@ -163,7 +173,7 @@ The names follow one grammar across every component:
 
 Parts add their name in between: `--Slider-track-background`, `--Toggle-knob-transparency`.
 
-States are shared across controls, in the input size scale: `--input-disabled-opacity`, `--input-disabled-filter`, `--input-hover-overlay` (filled controls) and `--input-hover-filter` (wells). Focus rings show on keyboard focus, with `:focus-visible`; text fields show theirs whenever they're focused.
+States are shared across controls, in the control settings: `--input-disabled-opacity`, `--input-disabled-filter`, `--input-hover-overlay` (filled controls) and `--input-hover-filter` (wells). Focus rings show on keyboard focus, with `:focus-visible`; text fields show theirs whenever they're focused.
 
 ## Inventory
 
@@ -175,4 +185,4 @@ States are shared across controls, in the input size scale: `--input-disabled-op
 | `Toggle`, `Checkbox` | [Toggle and checkbox](/components/toggle) |
 | `Slider` | [Slider](/components/slider) |
 | `HGroup`, `VGroup`, `Filler`, `ToolPanel`, `Tab` | [Layout](/components/layout) |
-| `Bubble`, `ContextPopup`, `ModalOverlay`, `BaseMenu`, `ContextMenu` | [Overlays and menus](/components/overlays) |
+| `Bubble`, `ContextPopup`, `Tooltip` (and `v-tooltip`), `ModalOverlay`, `BaseMenu`, `ContextMenu` | [Overlays and menus](/components/overlays) |

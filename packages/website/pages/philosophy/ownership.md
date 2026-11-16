@@ -16,14 +16,23 @@ npx nightshade palette -f design/palette.json -o src/styles/palette.css
 
 ## Reassign roles, not components
 
-Roles are the meaning layer. Changing what a deep surface or a primary button is takes one variable, and every component follows.
+Roles are the meaning layer. Changing what a deep surface or subtle text is takes one variable, and every component follows.
 
 ```css
 :root {
-    --surface-deep: var(--color-base-100);
-    --color-primary-500: var(--color-primary-600);
-    --color-primary-400: var(--color-primary-500);
-    --color-primary-600: var(--color-primary-700);
+    --surface-deep: var(--color-base-200);
+    --border-deep: var(--color-base-300);
+    --text-subtle: var(--color-base-700);
+}
+```
+
+Tone roles are stated on every tone context, not only on `:root`, so reassign them on the same selectors to change them for every tone:
+
+```css
+:root,
+[class^="tone-"],
+[class*=" tone-"] {
+    --tone-border: var(--tone-700);
 }
 ```
 

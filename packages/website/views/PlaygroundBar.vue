@@ -6,7 +6,7 @@
                 v-for="option in playgroundManager.lookOptions"
                 :key="option.key"
                 :label="option.label"
-                :tone="playgroundManager.options[option.key] ? 'primary' : 'base'"
+                :tone="playgroundManager.options[option.key] ? 'primary' : undefined"
                 size="s"
                 flat
                 @click="playgroundManager.toggleOption(option.key)" />
@@ -17,7 +17,7 @@
                 v-for="option in playgroundManager.stateOptions"
                 :key="option.key"
                 :label="option.label"
-                :tone="playgroundManager.options[option.key] ? 'secondary' : 'base'"
+                :tone="playgroundManager.options[option.key] ? 'secondary' : undefined"
                 size="s"
                 flat
                 @click="playgroundManager.toggleOption(option.key)" />
