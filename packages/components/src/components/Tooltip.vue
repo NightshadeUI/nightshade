@@ -4,9 +4,10 @@
         :dir="resolvedProps.dir"
         :align="resolvedProps.align"
         :anchorEl="anchor"
-        anchorDir="auto"
         :overlayEnabled="false"
         :overlayShown="false"
+        @mouseenter="cancelHide"
+        @mouseleave="scheduleHide"
         @hide="hide">
         <div
             :id="tooltipId"
@@ -33,10 +34,12 @@ import { nightshadeMixin } from '../helpers/props.js';
 import ContextPopup from './ContextPopup.vue';
 
 const SHOW_DELAY = 300;
+const HIDE_DELAY = 100;
 
 /**
  * Shows a bubble while its anchor is hovered or focused from the keyboard.
  * The anchor is the parent element, or `anchorEl` (which `v-tooltip` passes).
+ * The pointer can cross from the anchor onto the bubble, so a bubble that opens under it stays open.
  */
 export default {
 
@@ -75,13 +78,14 @@ export default {
 
     created() {
         this.showTimer = null;
+        this.hideTimer = null;
         this.anchorTitle = null;
     },
 
     mounted() {
         this.anchor = this.resolvedProps.anchorEl ?? this.$el.parentElement;
         this.anchor.addEventListener('pointerenter', this.onPointerEnter);
-        this.anchor.addEventListener('pointerleave', this.hide);
+        this.anchor.addEventListener('pointerleave', this.scheduleHide);
         this.anchor.addEventListener('pointerdown', this.hide);
         this.anchor.addEventListener('focusin', this.onFocusIn);
         this.anchor.addEventListener('focusout', this.hide);
@@ -90,7 +94,7 @@ export default {
     beforeUnmount() {
         this.hide();
         this.anchor.removeEventListener('pointerenter', this.onPointerEnter);
-        this.anchor.removeEventListener('pointerleave', this.hide);
+        this.anchor.removeEventListener('pointerleave', this.scheduleHide);
         this.anchor.removeEventListener('pointerdown', this.hide);
         this.anchor.removeEventListener('focusin', this.onFocusIn);
         this.anchor.removeEventListener('focusout', this.hide);
@@ -100,6 +104,7 @@ export default {
 
         show() {
             clearTimeout(this.showTimer);
+            this.cancelHide();
             if (this.shown || !this.hasContent) {
                 return;
             }
@@ -113,6 +118,7 @@ export default {
 
         hide() {
             clearTimeout(this.showTimer);
+            this.cancelHide();
             if (!this.shown) {
                 return;
             }
@@ -124,8 +130,22 @@ export default {
             this.shown = false;
         },
 
+        scheduleHide() {
+            clearTimeout(this.showTimer);
+            clearTimeout(this.hideTimer);
+            this.hideTimer = setTimeout(() => this.hide(), HIDE_DELAY);
+        },
+
+        cancelHide() {
+            clearTimeout(this.hideTimer);
+        },
+
         onPointerEnter(ev) {
             if (ev.pointerType !== 'mouse') {
+                return;
+            }
+            this.cancelHide();
+            if (this.shown) {
                 return;
             }
             clearTimeout(this.showTimer);

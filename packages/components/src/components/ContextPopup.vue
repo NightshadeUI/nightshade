@@ -34,7 +34,7 @@ export default {
         align: { type: String, default: 'auto' },
         anchorRef: { type: String },
         anchorEl: { default: null },
-        anchorDir: { type: String, default: 'middle' },
+        anchorDir: { type: String, default: 'auto' },
         overlayEnabled: { type: Boolean, default: true },
         overlayShown: { type: Boolean, default: true },
         arrowShown: { type: Boolean, default: true },

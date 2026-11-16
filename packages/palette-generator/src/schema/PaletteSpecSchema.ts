@@ -42,6 +42,16 @@ export const PaletteSpecSchema = new Schema<PaletteSpec>({
                         type: 'number',
                         minimum: 0,
                     },
+                    lightnessCurve: {
+                        type: 'array',
+                        items: { type: 'number' },
+                        optional: true,
+                    },
+                    chromaCurve: {
+                        type: 'array',
+                        items: { type: 'number' },
+                        optional: true,
+                    },
                 },
             },
             optional: true,

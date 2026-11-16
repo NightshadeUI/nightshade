@@ -40,110 +40,126 @@ export default {
 
 @layer nightshade-components {
 
+    /* A point: the arrow's tip. The arrow and the body sit outside it, on the `dir` side */
     .Bubble {
         --Bubble-background: var(--surface-raised);
         --Bubble-arrow-size: var(--sp);
         --Bubble-arrow-offset: var(--sp2);
         --Bubble-radius: var(--radius-m);
+        --Bubble-max-width: calc(100vw - var(--sp4));
         --Bubble-shadow: var(--shadow-light);
         --Bubble-filter: drop-shadow(0 1px 3px var(--Bubble-shadow));
 
         position: absolute;
         z-index: 10;
+        width: 0;
+        height: 0;
         filter: var(--Bubble-filter);
     }
 
+    /* A point has no width to shrink into, so the body takes its content's */
     .Body {
         position: absolute;
+        width: max-content;
+        max-width: var(--Bubble-max-width);
         min-width: var(--sp6);
         min-height: var(--sp2);
         border-radius: var(--Bubble-radius);
         background: var(--Bubble-background);
     }
 
+    /* Clipped to the triangle, so it covers nothing past the tip */
     .Arrow {
         position: absolute;
-        z-index: 5;
-        width: 0;
-        height: 0;
-        border: var(--Bubble-arrow-size) solid transparent;
-        transform: translate(-50%, -50%);
+        background: var(--Bubble-background);
     }
 
     /* Directions */
 
     .Bubble-top > .Body {
-        margin-bottom: var(--Bubble-arrow-size);
-        bottom: 0;
+        bottom: var(--Bubble-arrow-size);
     }
 
     .Bubble-bottom > .Body {
-        margin-top: var(--Bubble-arrow-size);
-        top: 0;
+        top: var(--Bubble-arrow-size);
     }
 
     .Bubble-left > .Body {
-        margin-right: var(--Bubble-arrow-size);
-        right: 0;
+        right: var(--Bubble-arrow-size);
     }
 
     .Bubble-right > .Body {
-        margin-left: var(--Bubble-arrow-size);
-        left: 0;
+        left: var(--Bubble-arrow-size);
     }
 
-    /* Alignments */
+    /* Alignments: where the arrow lands along the body's edge */
 
     .Bubble-start.Bubble-top > .Body,
     .Bubble-start.Bubble-bottom > .Body {
-        left: 0;
-        transform: translateX(calc(-1 * var(--Bubble-arrow-offset)));
+        left: calc(-1 * var(--Bubble-arrow-offset));
     }
 
     .Bubble-center.Bubble-top > .Body,
     .Bubble-center.Bubble-bottom > .Body {
+        left: 0;
         transform: translateX(-50%);
     }
 
     .Bubble-end.Bubble-top > .Body,
     .Bubble-end.Bubble-bottom > .Body {
-        right: 0;
-        transform: translateX(var(--Bubble-arrow-offset));
+        right: calc(-1 * var(--Bubble-arrow-offset));
     }
 
     .Bubble-start.Bubble-left > .Body,
     .Bubble-start.Bubble-right > .Body {
-        top: 0;
-        transform: translateY(calc(-1 * var(--Bubble-arrow-offset)));
+        top: calc(-1 * var(--Bubble-arrow-offset));
     }
 
     .Bubble-center.Bubble-left > .Body,
     .Bubble-center.Bubble-right > .Body {
+        top: 0;
         transform: translateY(-50%);
     }
 
     .Bubble-end.Bubble-left > .Body,
     .Bubble-end.Bubble-right > .Body {
-        bottom: 0;
-        transform: translateY(var(--Bubble-arrow-offset));
+        bottom: calc(-1 * var(--Bubble-arrow-offset));
     }
 
     /* Arrows */
 
+    .Bubble-top > .Arrow,
+    .Bubble-bottom > .Arrow {
+        left: calc(-1 * var(--Bubble-arrow-size));
+        width: calc(2 * var(--Bubble-arrow-size));
+        height: var(--Bubble-arrow-size);
+    }
+
+    .Bubble-left > .Arrow,
+    .Bubble-right > .Arrow {
+        top: calc(-1 * var(--Bubble-arrow-size));
+        width: var(--Bubble-arrow-size);
+        height: calc(2 * var(--Bubble-arrow-size));
+    }
+
     .Bubble-top > .Arrow {
-        border-top-color: var(--Bubble-background);
+        bottom: 0;
+        clip-path: polygon(0 0, 100% 0, 50% 100%);
     }
 
     .Bubble-bottom > .Arrow {
-        border-bottom-color: var(--Bubble-background);
+        top: 0;
+        clip-path: polygon(50% 0, 100% 100%, 0 100%);
     }
 
     .Bubble-left > .Arrow {
-        border-left-color: var(--Bubble-background);
+        right: 0;
+        clip-path: polygon(0 0, 100% 50%, 0 100%);
     }
 
     .Bubble-right > .Arrow {
-        border-right-color: var(--Bubble-background);
+        left: 0;
+        clip-path: polygon(0 50%, 100% 0, 100% 100%);
     }
 
 }

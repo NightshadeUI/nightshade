@@ -62,29 +62,32 @@ export default {
 .PaletteReference {
     display: flex;
     flex-flow: column;
-    gap: var(--sp2-5);
+    gap: var(--sp2);
     margin: var(--sp3) 0;
 }
 
 .RampName {
     display: block;
     margin-bottom: var(--sp0-5);
-    font: 600 var(--font-size-s)/1.5 var(--font-monospace);
+    font: 500 var(--font-size-xs)/1.4 var(--font-monospace);
 }
 
 .Steps {
     display: grid;
     grid-template-columns: repeat(12, minmax(0, 1fr));
-    border: 1px solid var(--border-base);
-    border-radius: var(--radius-l);
-    overflow: hidden;
+    gap: var(--sp0-25);
 }
 
+/* Each step on its own, outlined in its own ink: a shared border clashes with every ramp but base */
 .Step {
-    height: var(--sp6);
+    display: flex;
+    align-items: flex-end;
+    height: var(--sp7);
     margin: 0;
-    padding: 0;
+    padding: var(--sp0-5);
     border: 0;
+    border-radius: var(--radius-m);
+    box-shadow: 0 0 0 1px color-mix(in oklab, currentColor 10%, transparent) inset;
     font: 500 var(--font-size-xxs)/1 var(--font-monospace);
     cursor: copy;
 }

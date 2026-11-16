@@ -14,11 +14,11 @@ import { PaletteRampSpec, PaletteSpec, RampStep } from './types.js';
  * The dark ramp is the light ramp mirrored, so a step keeps its meaning in both schemes:
  * `0` is always the canvas end, `950` always the ink end.
  * Throws when the palette lacks a ramp the styles read by name, names a ramp twice or takes a reserved name,
- * or has a curve without one value per step.
+ * or has a curve (its own or a ramp's) without one value per step.
  */
 export function generatePaletteOklch(palette: PaletteSpec = {}) {
     const ramps = palette.ramps ?? DEFAULT_RAMPS;
-    checkPalette(palette, ramps.map(ramp => ramp.name));
+    checkPalette(palette, ramps);
     const out: Record<string, string> = {};
     for (const ramp of ramps) {
         Object.assign(out, generateRampOklch(ramp, palette));
@@ -45,11 +45,12 @@ export function generateRampOklch(ramp: PaletteRampSpec, palette: PaletteSpec = 
 }
 
 /**
- * Samples one ramp along the curves, as the light scheme sees it.
+ * Samples one ramp along its curves, as the light scheme sees it.
+ * A ramp's own curve takes the place of the palette's; the multipliers apply to either.
  */
 export function generateRampSteps(ramp: PaletteRampSpec, palette: PaletteSpec = {}): RampStep[] {
-    const lightnessCurve = palette.lightnessCurve ?? DEFAULT_LIGHTNESS_CURVE;
-    const chromaCurve = palette.chromaCurve ?? DEFAULT_CHROMA_CURVE;
+    const lightnessCurve = ramp.lightnessCurve ?? palette.lightnessCurve ?? DEFAULT_LIGHTNESS_CURVE;
+    const chromaCurve = ramp.chromaCurve ?? palette.chromaCurve ?? DEFAULT_CHROMA_CURVE;
     return RAMP_STEPS.map((step, index) => {
         return {
             step,
@@ -106,7 +107,8 @@ function round(value: number) {
     return Math.round(value * 10000) / 10000;
 }
 
-function checkPalette(palette: PaletteSpec, names: string[]) {
+function checkPalette(palette: PaletteSpec, ramps: PaletteRampSpec[]) {
+    const names = ramps.map(ramp => ramp.name);
     const missing = REQUIRED_RAMPS.filter(name => !names.includes(name));
     if (missing.length > 0) {
         throw new Error(`A palette needs these ramps, which the styles read by name: ${missing.join(', ')}.`);
@@ -119,8 +121,8 @@ function checkPalette(palette: PaletteSpec, names: string[]) {
     if (reserved.length > 0) {
         throw new Error(`These ramp names are reserved: ${reserved.join(', ')}.`);
     }
-    const curves = [palette.lightnessCurve, palette.chromaCurve];
+    const curves = [palette, ...ramps].flatMap(owner => [owner.lightnessCurve, owner.chromaCurve]);
     if (curves.some(curve => curve && curve.length !== RAMP_STEPS.length)) {
-        throw new Error(`A palette's curves have one value per step: ${RAMP_STEPS.length} values each.`);
+        throw new Error(`A palette's curves, and its ramps' own, have one value per step: ${RAMP_STEPS.length} values each.`);
     }
 }

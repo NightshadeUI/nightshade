@@ -71,11 +71,13 @@ Every field is optional; anything you leave out takes the default. A `ramps` lis
 | Field | Means |
 |-------|-------|
 | `lightnessCurve` | twelve OKLCH lightness values, one per step from `0` to `950` |
-| `chromaCurve` | twelve OKLCH chroma values, shared by every ramp |
+| `chromaCurve` | twelve OKLCH chroma values, one per step |
 | `ramps[].name` | becomes `--color-<name>-<step>` and `.tone-<name>` |
 | `ramps[].hue` | OKLCH hue, 0 to 360 |
 | `ramps[].chroma` | multiplier on the chroma curve |
 | `ramps[].lightness` | multiplier on the lightness curve |
+| `ramps[].lightnessCurve` | optional: this ramp's own lightness curve, in place of the palette's |
+| `ramps[].chromaCurve` | optional: this ramp's own chroma curve, in place of the palette's |
 
 Three ramps are required, because the styles read them by name: `base` (the canvas roles, `:root` and `inverse` are built on it), and `primary` and `secondary` (neutral controls focus in `secondary`). The generator refuses a spec without them. Every other ramp is yours to name.
 
