@@ -1,6 +1,6 @@
 {
     "name": "nightshade",
-    "version": "3.3.0",
+    "version": "3.4.0",
     "description": "A seed for application-owned design systems: CSS variables first, Vue primitives optional",
     "author": "Boris Okunskiy",
     "license": "ISC",
@@ -16,8 +16,8 @@
         }
     },
     "dependencies": {
-        "@nightshadeui/components": "3.3.0",
-        "@nightshadeui/stylesheets": "3.3.0"
+        "@nightshadeui/components": "3.4.0",
+        "@nightshadeui/stylesheets": "3.4.0"
     },
     "peerDependencies": {
         "vue": "^3.5.22"
