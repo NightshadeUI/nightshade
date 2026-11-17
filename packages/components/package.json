@@ -1,6 +1,6 @@
 {
     "name": "@nightshadeui/components",
-    "version": "3.9.0",
+    "version": "3.10.0",
     "description": "Standard Nightshade components: opt-in Vue primitives that read the styles",
     "author": "Boris Okunskiy",
     "license": "ISC",
@@ -47,7 +47,7 @@
         }
     },
     "dependencies": {
-        "@nightshadeui/util": "3.9.0",
-        "@nightshadeui/stylesheets": "3.9.0"
+        "@nightshadeui/util": "3.10.0",
+        "@nightshadeui/stylesheets": "3.10.0"
     }
 }
