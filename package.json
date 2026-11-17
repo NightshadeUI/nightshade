@@ -5,6 +5,13 @@
     "private": true,
     "author": "Boris Okunskiy",
     "license": "ISC",
+    "devEngines": {
+        "packageManager": {
+            "name": "npm",
+            "version": ">=11.19.1",
+            "onFail": "error"
+        }
+    },
     "workspaces": [
         "packages/*"
     ],
