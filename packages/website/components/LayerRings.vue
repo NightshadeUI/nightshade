@@ -302,27 +302,26 @@ export default {
 
 .Ring-app circle {
     fill: var(--surface-base);
-    stroke-dasharray: 4 6;
+    /* stroke-dasharray: 4 6; */
 }
 
 .Ring text,
 .Satellite text {
-    font: 600 13px/1 var(--font-main);
+    font: 600 var(--font-size-xs) var(--font-main);
+    line-height: var(--line-height-main);
     fill: var(--text-subtle);
     pointer-events: none;
     transition: fill .3s;
 }
 
 .Ring-principles text {
-    font: 400 24px/1 var(--font-alt);
+    font: 400 var(--font-size-xl) var(--font-alt);
+    line-height: var(--line-height-prose);
 }
 
 .Ring-active circle {
     stroke: var(--color-primary-600);
     stroke-width: 1.5;
-}
-
-.Ring-active:not(.Ring-app) circle {
     fill: color-mix(in oklab, var(--color-primary-500), var(--surface-base) 60%);
 }
 
@@ -351,7 +350,7 @@ export default {
 }
 
 .Satellite text {
-    font-size: 11px;
+    font-size: var(--font-size-xxs);
 }
 
 .Link {
@@ -399,13 +398,14 @@ export default {
 .ItemLink {
     display: flex;
     flex-flow: row wrap;
-    align-items: baseline;
+    align-items: center;
     justify-content: space-between;
     gap: var(--sp0-5) var(--sp2);
 }
 
 .ItemTitle {
-    font: 400 26px/1.3 var(--font-alt);
+    font: 400 var(--font-size-xl) var(--font-alt);
+    line-height: var(--line-height-prose);
 }
 
 .Item-active .ItemTitle {
@@ -413,7 +413,8 @@ export default {
 }
 
 .Package {
-    font: 400 var(--font-size-xs)/1 var(--font-monospace);
+    font: 400 var(--font-size-xs) var(--font-monospace);
+    line-height: var(--line-height-main);
     color: var(--text-faint);
 }
 
@@ -439,7 +440,8 @@ export default {
 
 .OptInsTitle {
     margin: var(--sp3) 0 var(--sp1);
-    font: 600 var(--font-size-s)/1.2 var(--font-main);
+    font: 600 var(--font-size-s) var(--font-main);
+    line-height: var(--line-height-main);
     color: var(--text-subtle);
 }
 
@@ -463,7 +465,6 @@ export default {
 .OptInLink {
     display: flex;
     flex-flow: column;
-    gap: 2px;
     height: 100%;
     padding: var(--sp1) var(--sp1-5);
 }
@@ -474,7 +475,7 @@ export default {
 
 .OptInNote {
     font-size: var(--font-size-xs);
-    line-height: 1.4;
+    line-height: var(--line-height-main);
     color: var(--text-subtle);
 }
 

@@ -128,7 +128,6 @@ export default {
 
         font-family: inherit;
         font-size: var(--Chip-font-size);
-        line-height: 1;
         white-space: nowrap;
         cursor: pointer;
         user-select: none;

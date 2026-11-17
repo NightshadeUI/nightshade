@@ -65,7 +65,7 @@
 
         :scope {
             font-size: var(--font-size-m);
-            line-height: 1.7;
+            line-height: var(--line-height-prose);
             color: var(--text-base);
         }
 
@@ -75,7 +75,9 @@
 
         h1 {
             margin: 0 0 var(--sp3);
-            font: 600 clamp(40px, 5vw, 56px)/1.08 var(--font-alt);
+            font-family: var(--font-alt);
+            font-size: var(--font-size-xxxl);
+            font-weight: 600;
             letter-spacing: -0.025em;
         }
 
@@ -83,7 +85,9 @@
             margin: var(--sp10) 0 var(--sp2);
             padding-top: var(--sp4);
             border-top: 1px solid var(--border-base);
-            font: 600 32px/1.2 var(--font-alt);
+            font-family: var(--font-alt);
+            font-size: var(--font-size-xxl);
+            font-weight: 600;
             letter-spacing: -0.015em;
         }
 
@@ -123,7 +127,6 @@
         .Lead {
             margin: 0 0 var(--sp5);
             font-size: var(--font-size-l);
-            line-height: 1.6;
             color: var(--text-subtle);
         }
 
@@ -166,7 +169,10 @@
             margin: var(--sp4) 0;
             padding: 0 0 0 var(--sp3);
             border-left: 2px solid var(--color-primary-500);
-            font: italic 600 24px/1.4 var(--font-alt);
+            font-family: var(--font-alt);
+            font-size: var(--font-size-xl);
+            font-style: italic;
+            font-weight: 600;
             color: var(--text-base);
         }
 
@@ -192,10 +198,10 @@
         /* Inline code */
 
         :is(p, li, td, th, h2, h3, h4, h5, h6, .custom-block-title) > code {
-            padding: 0.15em 0.4em;
+            padding: var(--sp0-25) var(--sp0-5);
             border-radius: var(--radius-s);
             background: var(--surface-shade);
-            font-size: 0.86em;
+            font-size: var(--font-size-s);
             color: var(--text-base);
             overflow-wrap: break-word;
         }
@@ -214,8 +220,8 @@
             margin: 0;
             padding: var(--sp2-5) var(--sp3);
             overflow-x: auto;
-            font-size: 13.5px;
-            line-height: 1.7;
+            font-family: var(--font-monospace);
+            font-size: var(--font-size-s);
         }
 
         div[class*='language-'] code {
@@ -226,7 +232,9 @@
             position: absolute;
             top: var(--sp1);
             right: var(--sp1-5);
-            font: 500 var(--font-size-xxs)/1 var(--font-monospace);
+            font-family: var(--font-monospace);
+            font-size: var(--font-size-xxs);
+            font-weight: 500;
             color: var(--text-faint);
             transition: opacity .2s;
         }
@@ -249,7 +257,7 @@
         div[class*='language-'] > button.copy::before {
             content: '\f0c5';
             font: var(--fa-font-regular);
-            font-size: 13px;
+            font-size: var(--font-size-s);
             color: var(--text-subtle);
         }
 

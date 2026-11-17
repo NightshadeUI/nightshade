@@ -1,7 +1,7 @@
 <template>
     <div class="PaletteStudio">
         <header class="Header">
-            <h1 class="Title">
+            <h1>
                 Palette Studio
             </h1>
             <p class="Lead">
@@ -35,7 +35,7 @@
         <section class="Section">
             <div class="SectionHeader">
                 <div>
-                    <h2 class="SectionTitle">
+                    <h2>
                         Curves
                     </h2>
                     <p class="SectionNote">
@@ -72,7 +72,7 @@
         <section class="Section">
             <div class="SectionHeader">
                 <div>
-                    <h2 class="SectionTitle">
+                    <h2>
                         Tones
                     </h2>
                     <p class="SectionNote">
@@ -108,7 +108,7 @@
         <section class="Section">
             <div class="SectionHeader">
                 <div>
-                    <h2 class="SectionTitle">
+                    <h2>
                         On the grid
                     </h2>
                     <p class="SectionNote">
@@ -169,7 +169,7 @@
 
         <section class="Section">
             <div class="SectionHeader">
-                <h2 class="SectionTitle">
+                <h2>
                     Export
                 </h2>
                 <InputGroup>
@@ -304,22 +304,20 @@ export default {
     margin-bottom: var(--sp6);
 }
 
-.Title {
+h1 {
     margin: 0 0 var(--sp2);
-    font: 400 clamp(44px, 6vw, 72px)/1.05 var(--font-alt);
-    letter-spacing: -0.02em;
 }
 
 .Lead {
     margin: 0 0 var(--sp3);
     font-size: var(--font-size-l);
-    line-height: 1.6;
+    line-height: var(--line-height-prose);
     color: var(--text-subtle);
 }
 
-code {
+:not(pre) > code {
     font-family: var(--font-monospace);
-    font-size: 0.88em;
+    font-size: var(--font-size-s);
 }
 
 .Actions {
@@ -348,10 +346,8 @@ code {
     margin-bottom: var(--sp3);
 }
 
-.SectionTitle {
+.SectionHeader h2 {
     margin: 0;
-    font: 400 32px/1.1 var(--font-alt);
-    letter-spacing: -0.01em;
 }
 
 .SectionNote {
@@ -399,7 +395,7 @@ code {
 }
 
 .GridInput {
-    width: calc(28 * var(--sp));
+    width: 224px;
 }
 
 .Code {
@@ -414,7 +410,8 @@ code {
 .Code pre {
     margin: 0;
     padding: var(--sp2) var(--sp2-5);
-    font: 400 13px/1.65 var(--font-monospace);
+    font: 400 var(--font-size-xs) var(--font-monospace);
+    line-height: var(--line-height-prose);
     color: var(--text-base);
 }
 

@@ -197,8 +197,8 @@ export default {
     }
 
     .MarkGlyph {
-        width: 1em;
-        height: 1em;
+        width: var(--Checkbox-size);
+        height: var(--Checkbox-size);
     }
 
     .Checkbox-active .Mark {

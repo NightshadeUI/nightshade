@@ -23,7 +23,7 @@ export default {
 
     data() {
         return {
-            sizes: ['xxxl', 'xxl', 'xl', 'l', 'm', 's', 'xs', 'xxs'],
+            sizes: ['xxxl', 'xxl', 'xl', 'l', 'm', 's', 'xs', 'xxs', 'xxxs'],
         };
     },
 
@@ -46,7 +46,8 @@ export default {
 }
 
 .Name {
-    font: 400 12px/1 var(--font-monospace);
+    font: 400 var(--font-size-xs) var(--font-monospace);
+    line-height: var(--line-height-main);
     color: var(--text-subtle);
 }
 
@@ -54,6 +55,6 @@ export default {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
-    line-height: 1.3;
+    line-height: var(--line-height-prose);
 }
 </style>

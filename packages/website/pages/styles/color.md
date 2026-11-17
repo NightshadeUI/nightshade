@@ -80,7 +80,7 @@ The canvas is the neutral world that tones are placed on. Surfaces come in three
     align-items: center;
     width: var(--sp6);
     height: var(--sp3);
-    padding: 3px;
+    padding: var(--sp0-5);
     border-radius: var(--radius-m);
     background: var(--surface-deep);
 }

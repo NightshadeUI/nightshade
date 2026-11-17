@@ -30,8 +30,8 @@ Single-tone components may read these directly. Multi-tone components read them 
 | Variable | Default |
 |----------|---------|
 | `--font-size-m` | 16px |
-| `--font-size-xxs`, `-xs`, `-s` | `m` minus 6, 4, 2px |
-| `--font-size-l`, `-xl`, `-xxl`, `-xxxl` | `m` × 1.25, 1.5, 1.875, 2.25 |
+| `--font-size-xxxs`, `-xxs`, `-xs`, `-s` | 8, 10, 12, 14px |
+| `--font-size-l`, `-xl`, `-xxl`, `-xxxl` | 20, 24, 40, 88px |
 | `--font-weight-thin|light|normal|bold|heavy` | 200, 300, 400, 500, 700 |
 
 ### Grid fractions
@@ -63,8 +63,9 @@ Single values, in `settings/`. Same tier as the scales; some pick a step of one.
 |----------|---------|
 | `--font-main`, `--font-alt`, `--font-monospace` | `sans-serif`, `--font-main`, `monospace` |
 | `--font-size`, `--font-weight` | `--font-size-m`, `--font-weight-normal` (the body text) |
-| `--line-height` | 1.5 |
+| `--line-height` | `--sp2` |
 | `--line-height-main|alt|monospace` | `--line-height`; set one where a face needs its own |
+| `--line-height-prose` | `1.5`, a ratio, for running text (`.prose`) |
 
 ### Controls
 
@@ -137,4 +138,4 @@ In a single-tone component, read the ramp step you mean (`--color-primary-50`). 
 
 ## Utilities
 
-Single-purpose, low specificity: `.color-subtle`, `.color-faint`, `.color-tone` (text in `--tone-text`; pair it with a `.tone-*` class), `.text-xxs` … `.text-xxxl`, `.text-thin|light|normal|bold|heavy`, `.font-alt`, `.font-monospace`, `.nowrap`, `.flex-1` … `.flex-12`. Optional modules: `@nightshadeui/stylesheets/kbd` and `/transitions`.
+Single-purpose, low specificity: `.color-subtle`, `.color-faint`, `.color-tone` (text in `--tone-text`; pair it with a `.tone-*` class), `.text-xxxs` … `.text-xxxl`, `.text-thin|light|normal|bold|heavy`, `.font-alt`, `.font-monospace`, `.prose`, `.nowrap`, `.flex-1` … `.flex-12`. Optional modules: `@nightshadeui/stylesheets/kbd` and `/transitions`.

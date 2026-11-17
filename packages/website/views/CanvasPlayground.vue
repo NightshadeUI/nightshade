@@ -258,10 +258,10 @@ export default {
 
 .OriginPoint {
     position: absolute;
-    top: -4px;
-    left: -4px;
-    width: 8px;
-    height: 8px;
+    top: calc(-1 * var(--sp0-5));
+    left: calc(-1 * var(--sp0-5));
+    width: var(--sp1);
+    height: var(--sp1);
     background: var(--color-danger-500);
     border-radius: 100%;
 }

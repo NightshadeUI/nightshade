@@ -78,7 +78,8 @@ export default {
 .Corner,
 .ColumnLabel,
 .RowLabel {
-    font: 500 var(--font-size-xxs)/1 var(--font-monospace);
+    font: 500 var(--font-size-xxs) var(--font-monospace);
+    line-height: var(--line-height-main);
     color: var(--text-faint);
 }
 

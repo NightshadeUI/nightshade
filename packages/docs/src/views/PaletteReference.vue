@@ -69,7 +69,8 @@ export default {
 .RampName {
     display: block;
     margin-bottom: var(--sp0-5);
-    font: 500 var(--font-size-xs)/1.4 var(--font-monospace);
+    font: 500 var(--font-size-xs) var(--font-monospace);
+    line-height: var(--line-height-main);
 }
 
 .Steps {
@@ -88,7 +89,8 @@ export default {
     border: 0;
     border-radius: var(--radius-m);
     box-shadow: 0 0 0 1px color-mix(in oklab, currentColor 10%, transparent) inset;
-    font: 500 var(--font-size-xxs)/1 var(--font-monospace);
+    font: 500 var(--font-size-xxs) var(--font-monospace);
+    line-height: var(--line-height-main);
     cursor: copy;
 }
 

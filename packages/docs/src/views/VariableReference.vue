@@ -375,9 +375,9 @@ export default {
     padding: var(--sp8) var(--Site-gutter) var(--sp12);
 }
 
-code {
+:not(pre) > code {
     font-family: var(--font-monospace);
-    font-size: .88em;
+    font-size: var(--font-size-s);
 }
 
 /* Header */
@@ -389,14 +389,12 @@ code {
 
 .Title {
     margin: 0 0 var(--sp2);
-    font: 600 clamp(44px, 6vw, 72px)/1.05 var(--font-alt);
-    letter-spacing: -0.02em;
 }
 
 .Lead {
     margin: 0;
     font-size: var(--font-size-l);
-    line-height: 1.6;
+    line-height: var(--line-height-prose);
     color: var(--text-subtle);
 }
 
@@ -419,7 +417,7 @@ code {
 
 .Stat dd {
     margin: 0 0 var(--sp1);
-    font: 600 64px/1 var(--font-alt);
+    font: 600 var(--font-size-xxl) var(--font-alt);
     font-variant-numeric: lining-nums;
     color: var(--color-primary-600);
 }
@@ -433,7 +431,7 @@ code {
 
 .GuideTitle {
     margin: 0;
-    font: 600 32px/1.15 var(--font-alt);
+    font: 600 var(--font-size-xxl) var(--font-alt);
 }
 
 .GuideNote {
@@ -493,14 +491,15 @@ code {
 }
 
 .StanceCount {
-    font: 600 var(--font-size-xxl)/1 var(--font-alt);
+    font: 600 var(--font-size-xxl) var(--font-alt);
+    line-height: var(--line-height-prose);
     font-variant-numeric: lining-nums;
     color: var(--tone-text);
 }
 
 .StanceNote {
     font-size: var(--font-size-s);
-    line-height: 1.5;
+    line-height: var(--line-height-prose);
     color: var(--text-subtle);
 }
 
@@ -519,14 +518,14 @@ code {
     align-items: center;
     gap: var(--sp1) var(--sp2);
     margin: var(--sp2) 0 0;
-    padding: var(--sp1-5) 0;
+    padding: var(--sp1-5) 0 var(--sp1-5);
     border-bottom: 1px solid var(--border-base);
     background: color-mix(in oklab, var(--surface-base), transparent 10%);
     backdrop-filter: blur(12px);
 }
 
 .Search {
-    flex: 0 1 calc(40 * var(--sp));
+    flex: 0 1 320px;
 }
 
 .SearchIcon {
@@ -558,7 +557,7 @@ code {
 .TierHeader {
     display: flex;
     flex-flow: row wrap;
-    align-items: baseline;
+    align-items: center;
     gap: var(--sp0-5) var(--sp2);
     padding-bottom: var(--sp1);
     border-bottom: 2px solid var(--border-shade);
@@ -566,7 +565,8 @@ code {
 
 .TierTitle {
     margin: 0;
-    font: 600 36px/1.1 var(--font-alt);
+    font: 600 var(--font-size-xxl) var(--font-alt);
+    line-height: var(--line-height-prose);
 }
 
 .TierNote {
@@ -581,14 +581,15 @@ code {
 .GroupHeader {
     display: flex;
     flex-flow: row wrap;
-    align-items: baseline;
+    align-items: center;
     justify-content: space-between;
     gap: var(--sp1);
 }
 
 .GroupTitle {
     margin: 0;
-    font: 600 var(--font-size-l)/1.3 var(--font-main);
+    font: 600 var(--font-size-l) var(--font-main);
+    line-height: var(--line-height-prose);
 }
 
 .GroupFile {

@@ -89,6 +89,12 @@ function checkDeclaration(at, property, value) {
     if (LEGACY.test(property) || LEGACY.test(value)) {
         report(at, `${property} uses a 2.x variable: see the migration reference`);
     }
+    if (property !== 'letter-spacing' && /(?:^|[^\w-])(\d*\.?\d+)(r?em)\b/.test(value)) {
+        report(at, `${property} uses em/rem: only letter-spacing may; font sizes are --font-size-*, every other length a token`);
+    }
+    if (/calc\([^)]*-\s*1px\b/.test(value)) {
+        report(at, `${property} subtracts 1px: don't. box-sizing: border-box already includes the border on a sized box`);
+    }
 }
 
 function report(at, message) {

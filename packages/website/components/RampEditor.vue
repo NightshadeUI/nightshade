@@ -148,7 +148,8 @@ export default {
 }
 
 .Name {
-    font: 500 var(--font-size-s)/1 var(--font-monospace);
+    font: 500 var(--font-size-s) var(--font-monospace);
+    line-height: var(--line-height-main);
 }
 
 .Spacer {
@@ -196,7 +197,8 @@ export default {
 
 .Text {
     margin-left: auto;
-    font: 400 24px/1 var(--font-alt);
+    font: 400 var(--font-size-xl) var(--font-alt);
+    line-height: var(--line-height-prose);
     color: var(--tone-text);
 }
 

@@ -63,7 +63,8 @@ export default {
 
 .Name,
 .Value {
-    font: 400 12px/1 var(--font-monospace);
+    font: 400 var(--font-size-xs) var(--font-monospace);
+    line-height: var(--line-height-main);
     color: var(--text-subtle);
 }
 

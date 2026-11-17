@@ -85,10 +85,10 @@ export default {
 }
 
 .Link {
-    padding: 4px 0 4px var(--sp1-5);
+    padding: var(--sp0-5) 0 var(--sp0-5) var(--sp1-5);
     border-left: 1px solid var(--border-base);
     color: var(--text-subtle);
-    line-height: 1.4;
+    line-height: var(--line-height-main);
     transition: color .2s, border-color .2s;
 }
 

@@ -21,6 +21,7 @@
 .flex-11 { flex: 11 }
 .flex-12 { flex: 12 }
 
+.text-xxxs { font-size: var(--font-size-xxxs) }
 .text-xxs { font-size: var(--font-size-xxs) }
 .text-xs { font-size: var(--font-size-xs) }
 .text-s { font-size: var(--font-size-s) }
@@ -45,6 +46,9 @@
     font-family: var(--font-monospace);
     line-height: var(--line-height-monospace);
 }
+
+/* Running text: an article, a long description */
+.prose { line-height: var(--line-height-prose) }
 
 .nowrap {
     white-space: nowrap;

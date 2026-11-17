@@ -238,7 +238,7 @@ export default {
     .Label.TextLabel {
         margin: 0 var(--InputBase-padding-x);
         height: var(--sp3);
-        line-height: 1.5;
+        line-height: var(--sp3);
         font-size: var(--InputBase-label-font-size);
 
         color: var(--InputBase-text);
@@ -254,7 +254,7 @@ export default {
         top: -2px;
         left: -2px;
         margin: 0 var(--InputBase-padding-x);
-        padding: 0 2px;
+        padding: 0 var(--sp0-25);
         transform: translateY(-50%);
         height: var(--sp2);
         line-height: var(--sp2);

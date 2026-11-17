@@ -107,7 +107,8 @@ export default {
 
 .Preview-text::before {
     content: 'Aa';
-    font: 600 22px/32px var(--font-alt);
+    font: 600 var(--font-size-xl) var(--font-alt);
+    line-height: var(--line-height-prose);
 }
 
 .Preview-none {
@@ -115,12 +116,14 @@ export default {
 }
 
 .Name {
-    font: 500 12.5px/1.4 var(--font-monospace);
+    font: 500 var(--font-size-xs) var(--font-monospace);
+    line-height: var(--line-height-main);
     color: var(--text-base);
 }
 
 .Value {
-    font: 400 12px/1.4 var(--font-monospace);
+    font: 400 var(--font-size-xs) var(--font-monospace);
+    line-height: var(--line-height-main);
     color: var(--text-subtle);
 }
 

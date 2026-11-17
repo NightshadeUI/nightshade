@@ -61,12 +61,13 @@ export default {
 
 .Header {
     display: flex;
-    align-items: baseline;
+    align-items: center;
     gap: var(--sp1);
 }
 
 .Name {
-    font: 500 12px/1.4 var(--font-monospace);
+    font: 500 var(--font-size-xs) var(--font-monospace);
+    line-height: var(--line-height-main);
 }
 
 .Note {
@@ -77,19 +78,20 @@ export default {
 .Steps {
     display: grid;
     grid-template-columns: repeat(12, minmax(0, 1fr));
-    gap: 2px;
+    gap: var(--sp0-25);
 }
 
 .Step {
     display: flex;
     flex-flow: column;
     justify-content: flex-end;
-    gap: 2px;
+    gap: var(--sp0-25);
     height: var(--sp7);
     padding: var(--sp0-5);
     border-radius: var(--radius-m);
     box-shadow: 0 0 0 1px color-mix(in oklab, currentColor 10%, transparent) inset;
-    font: 500 10px/1 var(--font-monospace);
+    font: 500 var(--font-size-xxs) var(--font-monospace);
+    line-height: var(--line-height-main);
     transition: background-color .15s;
 }
 </style>

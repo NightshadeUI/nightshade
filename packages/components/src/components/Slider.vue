@@ -549,7 +549,7 @@ export default {
     .Tooltip {
         --Slider-tooltip-background: var(--tone-fill);
         --Slider-tooltip-text: var(--tone-fill-text);
-        --Slider-tooltip-height: calc(var(--font-size-s) + var(--sp1));
+        --Slider-tooltip-height: var(--sp3);
         --Bubble-background: var(--Slider-tooltip-background);
         --Bubble-shadow: var(--Slider-tooltip-shadow);
         --Bubble-arrow-size: 8px;
@@ -568,7 +568,6 @@ export default {
         padding: 0 var(--sp1);
 
         font-size: var(--font-size-s);
-        line-height: 1;
         color: var(--Slider-tooltip-text);
         white-space: nowrap;
     }

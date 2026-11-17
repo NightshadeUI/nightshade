@@ -23,7 +23,7 @@ Every variable, with what it's for and how far to override it, is on one page: [
 
 ## The rules
 
-1. **Each tier reads only the tiers before it.** A role may read the context or a raw value; a scale reads only its own base step (`--sp`, `--font-size-m`, `--radius-m`), and a setting at most picks a step of a scale. Inside the role tier, canvas roles come first: a tone role may read one (the neutral tone's shadow is `--shadow-medium`), never the reverse.
+1. **Each tier reads only the tiers before it.** A role may read the context or a raw value; a scale reads only its own base step (`--sp`, `--radius-m`), and a setting at most picks a step of a scale. Inside the role tier, canvas roles come first: a tone role may read one (the neutral tone's shadow is `--shadow-medium`), never the reverse.
 2. **Multi-tone components read roles, not ramps.** A control that takes a `tone` (a button, an input) reads roles and the input size context, and the context ramp (`--tone-200`) when no role names what it needs, so one class re-tones it. A single-tone component, which is most of what an app builds, may read ramp steps directly (`--color-primary-600`). Neither calls `light-dark()`: the steps are already scheme-aware.
 3. **`light-dark()` lives in the generated palette**, and in the few roles that pick different steps per scheme.
 4. **`:root` is the default context:** the `base` tone and the `m` input size. Every component inherits from it unless told otherwise.

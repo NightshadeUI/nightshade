@@ -8,8 +8,13 @@
 
     --font-size: var(--font-size-m);
     --font-weight: var(--font-weight-normal);
-    --line-height: 1.5;
+    /*
+     * `--line-height` is one line of a single-line control, inherited by the whole app.
+     * `--line-height-prose` is a ratio, for articles and long copy.
+     */
+    --line-height: var(--sp2);
     --line-height-main: var(--line-height);
     --line-height-alt: var(--line-height);
     --line-height-monospace: var(--line-height);
+    --line-height-prose: 1.5;
 }

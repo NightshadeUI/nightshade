@@ -67,7 +67,7 @@ export default defineDocsConfig({
 
 `themeConfig` also takes `social` (icon links in the header), `footer` (`note`, `legal`), `tones` (a fixed tone list, instead of the one read from your styles) `variableGroups`: your own variables, listed in the variable reference with the same stances, and `variableView`.
 
-The variable reference has two views. The default, `foundation`, speaks to authors of a system built on Nightshade: how far each variable is meant to be overridden (specify, fine tune, override with care, look elsewhere). A system built on Nightshade sets `variableView: 'usage'`, and its reference speaks to the apps built on it instead: which variables their CSS reads, which they set on a class of their own, and which to avoid, with what to use instead. Settings show the system's own values. Give an entry of `variableGroups` a `usage` (`{ use: 'read' | 'set' | 'avoid', about, instead }`) to say how apps use it; without one, component variables are `set` and the rest `read`, with the entry's own `about`.
+The variable reference has two views. The default, `foundation`, speaks to authors of a system built on Nightshade: how far each variable is meant to be overridden (specify, fine tune, override with care, do not override). A system built on Nightshade sets `variableView: 'usage'`, and its reference speaks to the apps built on it instead: which variables their CSS reads, which they set on a class of their own, and which to avoid, with what to use instead. Settings show the system's own values. Give an entry of `variableGroups` a `usage` (`{ use: 'read' | 'set' | 'avoid', about, instead }`) to say how apps use it; without one, component variables are `set` and the rest `read`, with the entry's own `about`.
 
 ## Theme
 

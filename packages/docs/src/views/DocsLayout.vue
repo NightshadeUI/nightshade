@@ -239,6 +239,7 @@ export default {
 
 .DrawerLink {
     font-size: var(--font-size-l);
+    line-height: var(--line-height-prose);
     font-weight: 600;
     color: var(--text-subtle);
 }

@@ -232,7 +232,8 @@ export default {
 
 .GroupTitle {
     margin: 0;
-    font: 600 var(--font-size-l)/1.3 var(--font-main);
+    font: 600 var(--font-size-l) var(--font-main);
+    line-height: var(--line-height-prose);
 }
 
 .GroupNote {
@@ -271,7 +272,8 @@ export default {
 }
 
 .Names {
-    font: 400 var(--font-size-xs)/1.4 var(--font-monospace);
+    font: 400 var(--font-size-xs) var(--font-monospace);
+    line-height: var(--line-height-main);
     overflow-wrap: anywhere;
 }
 
@@ -289,7 +291,7 @@ export default {
     gap: var(--sp2);
     padding: var(--sp3);
     border: 1px solid var(--border-base);
-    border-radius: calc(2 * var(--radius-l));
+    border-radius: var(--radius-l);
     background: var(--surface-shade);
 }
 
@@ -319,7 +321,8 @@ export default {
 }
 
 .PlantName {
-    font: 600 24px/1.2 var(--font-alt);
+    font: 600 var(--font-size-xl) var(--font-alt);
+    line-height: var(--line-height-prose);
 }
 
 .PlantBadge {
@@ -346,7 +349,6 @@ export default {
 .PlantStat {
     display: flex;
     flex-flow: column;
-    gap: 2px;
     padding: var(--sp1) var(--sp1-5);
     border: 1px solid var(--border-shade);
     border-radius: var(--radius-m);
@@ -377,7 +379,8 @@ export default {
     padding: var(--sp1-5) var(--sp2);
     border-radius: var(--radius-l);
     background: var(--surface-base);
-    font: 400 12px/1.6 var(--font-monospace);
+    font: 400 var(--font-size-xs) var(--font-monospace);
+    line-height: var(--line-height-main);
     color: var(--text-subtle);
     overflow-x: auto;
 }

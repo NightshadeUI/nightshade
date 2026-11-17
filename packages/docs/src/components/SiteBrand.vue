@@ -33,7 +33,7 @@ export default {
 
 <style scoped>
 .SiteBrand {
-    --SiteBrand-size: 26px;
+    --SiteBrand-size: var(--sp3);
     --SiteBrand-logo-size: var(--sp4);
 
     display: flex;
@@ -58,15 +58,20 @@ export default {
     font-family: var(--font-alt);
     font-size: var(--SiteBrand-size);
     font-weight: 600;
-    line-height: 1;
+    line-height: var(--SiteBrand-size);
 }
 
 .Version {
     align-self: center;
-    padding: 2px 6px;
+    display: inline-flex;
+    align-items: center;
+    box-sizing: border-box;
+    height: var(--sp2);
+    padding: 0 var(--sp0-5);
     border: 1px solid var(--border-base);
     border-radius: var(--radius-l);
-    font: 600 var(--font-size-xxs)/1.2 var(--font-main);
+    font: 600 var(--font-size-xxs) var(--font-main);
+    line-height: var(--line-height-main);
     color: var(--text-subtle);
 }
 </style>

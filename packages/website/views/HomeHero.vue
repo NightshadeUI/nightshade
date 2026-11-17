@@ -8,7 +8,7 @@
                 <div class="Eyebrow">
                     Nightshade 3.0 · a seed for design systems
                 </div>
-                <h1 class="Title">
+                <h1>
                     Grow your own<br />
                     <span class="GradientText">design system</span>
                 </h1>
@@ -54,6 +54,7 @@
                         :min="0"
                         :max="360"
                         fillStyle="none"
+                        :outline="false"
                         @update:modelValue="setHue($event)" />
                     <div class="Ramp">
                         <div
@@ -184,21 +185,19 @@ export default {
     color: var(--color-primary-600);
 }
 
-.Title {
+h1 {
     margin: var(--sp3) 0 var(--sp3);
-    font: 400 clamp(44px, 8vw, 100px)/0.98 var(--font-alt);
-    letter-spacing: -0.02em;
 }
 
-.Title .GradientText {
-    padding-right: 0.08em;
+h1 .GradientText {
+    padding-right: var(--sp1);
 }
 
 .Lead {
     max-width: 560px;
     margin: 0 0 var(--sp5);
     font-size: var(--font-size-l);
-    line-height: 1.6;
+    line-height: var(--line-height-prose);
     color: var(--text-subtle);
 }
 
@@ -214,7 +213,7 @@ export default {
     gap: var(--sp1-5);
     margin-top: var(--sp4);
     padding: var(--sp1) var(--sp2);
-    border: 1px solid var(--border-deep);
+    border: none;
     border-radius: var(--radius-l);
     background: color-mix(in oklab, var(--surface-base), transparent 40%);
     color: var(--text-subtle);
@@ -240,10 +239,10 @@ export default {
 /* Specimen: a glass half over the backdrop, and a solid half below it */
 
 .Specimen {
-    border: 1px solid color-mix(in oklab, var(--border-base), transparent 20%);
-    border-radius: calc(3 * var(--radius-m));
+    border-radius: var(--radius-l);
     overflow: hidden;
-    box-shadow: 0 40px 80px -32px var(--shadow-heavy);
+    box-shadow: 0 40px 80px -32px var(--shadow-heavy),
+        0 1px 3px var(--shadow-light);
 }
 
 .Glass {
@@ -279,11 +278,13 @@ export default {
 }
 
 .SpecimenTitle {
-    font: 400 26px/1 var(--font-alt);
+    font: 400 var(--font-size-xl) var(--font-alt);
+    line-height: var(--line-height-prose);
 }
 
 .HueValue {
-    font: 500 var(--font-size-s)/1 var(--font-monospace);
+    font: 500 var(--font-size-s) var(--font-monospace);
+    line-height: var(--line-height-main);
     color: var(--color-primary-500);
 }
 
@@ -303,7 +304,7 @@ export default {
 .Ramp {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
-    gap: 2px;
+    gap: var(--sp0-25);
     height: var(--sp4);
 }
 
@@ -331,7 +332,6 @@ export default {
 
 .Footnote code {
     font-family: var(--font-monospace);
-    font-size: 0.92em;
 }
 
 .Footnote a {

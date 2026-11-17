@@ -67,7 +67,7 @@ export default {
 }
 
 .FooterBrand:not(.SiteBrand-withLogo) {
-    --SiteBrand-size: 32px;
+    --SiteBrand-size: var(--sp4);
 }
 
 .Note {

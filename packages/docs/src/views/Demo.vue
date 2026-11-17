@@ -109,6 +109,9 @@ export default {
     padding: var(--sp5) var(--sp3);
     background: var(--surface-base);
     color: var(--text-base);
+    font-family: var(--font-main);
+    font-size: var(--font-size);
+    font-weight: var(--font-weight);
 }
 
 /* The grid is the spacing scale: a line every --sp. Content starts on a line. */
@@ -156,7 +159,8 @@ export default {
     position: absolute;
     top: var(--sp1);
     left: var(--sp1-5);
-    font: 600 var(--font-size-xs)/1 var(--font-main);
+    font-size: var(--font-size-xs);
+    font-weight: 600;
     color: var(--text-faint);
 }
 

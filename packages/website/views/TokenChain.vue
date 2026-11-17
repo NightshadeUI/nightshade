@@ -281,12 +281,14 @@ export default {
     height: var(--sp2-5);
     border-radius: 50%;
     background: color-mix(in oklab, var(--color-primary-500), transparent 85%);
-    font: 500 var(--font-size-xxs)/1 var(--font-monospace);
+    font: 500 var(--font-size-xxs) var(--font-monospace);
+    line-height: var(--line-height-main);
     color: var(--color-primary-500);
 }
 
 .StepTier {
-    font: 600 var(--font-size-s)/1 var(--font-main);
+    font: 600 var(--font-size-s) var(--font-main);
+    line-height: var(--line-height-main);
     color: var(--text-subtle);
 }
 
@@ -295,7 +297,8 @@ export default {
     padding: var(--sp1-5);
     border-radius: var(--radius-m);
     background: var(--surface-shade);
-    font: 400 11.5px/1.6 var(--font-monospace);
+    font: 400 var(--font-size-xxs) var(--font-monospace);
+    line-height: var(--line-height-main);
     overflow-wrap: anywhere;
     color: var(--text-subtle);
 }

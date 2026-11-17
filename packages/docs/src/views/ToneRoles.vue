@@ -51,7 +51,9 @@
                     :key="label.role"
                     class="Label"
                     :style="{ top: `${label.columnTop}px` }">
-                    <RoleLabel :label="label" />
+                    <RoleLabel
+                        :label="label"
+                        :end="true" />
                 </li>
             </ul>
             <div
@@ -118,8 +120,6 @@
 </template>
 
 <script>
-import { h } from 'vue';
-
 import { rampSteps } from '../helpers/commons.js';
 
 /**
@@ -149,60 +149,11 @@ const ELBOW = 16;
 const COMPACT_WIDTH = 640;
 
 /**
- * The step a role reads: one name, or a box split on the diagonal into the light scheme's step and the dark one's,
- * each drawn in its own scheme.
- */
-const RoleStep = {
-    props: {
-        step: { type: [String, Object], required: true },
-    },
-    render() {
-        if (typeof this.step === 'string') {
-            return h('span', { class: 'Step' }, h('span', { class: 'StepBoth' }, this.step));
-        }
-        return h('span', {
-            class: 'Step Step-split',
-            title: `${this.step.light} in light, ${this.step.dark} in dark`,
-        }, [
-            h('span', { class: 'StepLight' }, this.step.light),
-            h('span', { class: 'StepDark' }, this.step.dark),
-        ]);
-    },
-};
-
-/** One role's label: its swatch and name (`--tone-` left out), and the step it reads below. */
-const RoleLabel = {
-    props: {
-        label: { type: Object, required: true },
-    },
-    render() {
-        const { role, step } = this.label;
-        return h('span', {
-            class: 'RoleLabel',
-            title: `--tone-${role}`,
-        }, [
-            h('span', { class: 'RoleHead' }, [
-                h('span', {
-                    class: 'Swatch',
-                    style: { background: `var(--tone-${role})` },
-                }),
-                h('code', { class: 'RoleName' }, role),
-            ]),
-            step ? h('span', { class: 'RoleStep' }, h(RoleStep, { step })) : null,
-        ]);
-    },
-};
-
-/**
  * Every tone role, on the part of a control that uses it: a close-up of a made-up card, in one tone at a time,
  * with a leader from each role's label to where it shows, and the step the role reads in that tone.
  * Below 600px the leaders give way to numbered dots and a legend.
  */
 export default {
-
-    components: {
-        RoleLabel,
-    },
 
     inject: [
         'stylesManager',
@@ -407,7 +358,8 @@ export default {
     border-radius: var(--radius-m);
     background: var(--surface-base);
     color: var(--text-subtle);
-    font: 500 var(--font-size-xs)/1 var(--font-monospace);
+    font: 500 var(--font-size-xs) var(--font-monospace);
+    line-height: var(--line-height-main);
     cursor: pointer;
 }
 
@@ -481,7 +433,8 @@ export default {
 
 .DotNumber {
     fill: var(--text-base);
-    font: 700 9px/1 var(--font-monospace);
+    font: 700 var(--font-size-xxs) var(--font-monospace);
+    line-height: var(--line-height-main);
     text-anchor: middle;
     dominant-baseline: central;
 }
@@ -510,82 +463,6 @@ export default {
 
 .Labels-right .Label {
     left: 0;
-}
-
-.Labels-left :deep(.RoleLabel) {
-    align-items: flex-end;
-    text-align: right;
-}
-
-.Labels-left :deep(.RoleHead) {
-    flex-direction: row-reverse;
-}
-
-:deep(.RoleLabel) {
-    display: flex;
-    flex-flow: column;
-    align-items: flex-start;
-    gap: var(--sp1);
-    white-space: nowrap;
-}
-
-:deep(.RoleHead) {
-    display: flex;
-    align-items: center;
-    gap: var(--sp1);
-    height: var(--sp2);
-}
-
-:deep(.Swatch) {
-    flex-shrink: 0;
-    width: var(--sp1-5);
-    height: var(--sp1-5);
-    border-radius: var(--radius-s);
-    box-shadow: 0 0 0 1px color-mix(in oklab, var(--text-base), transparent 80%) inset;
-}
-
-:deep(.RoleName) {
-    color: var(--text-base);
-    font: 500 var(--font-size-xs)/1 var(--font-monospace);
-}
-
-:deep(.RoleStep) {
-    display: flex;
-    padding: 0 calc(var(--sp1-5) + var(--sp1));
-}
-
-:deep(.Step) {
-    display: inline-flex;
-    overflow: hidden;
-    border: 1px solid var(--text-faint);
-    border-radius: var(--radius-s);
-    font: 400 var(--font-size-xxs)/1 var(--font-monospace);
-}
-
-/* Each half of a split step sets its own scheme, so it reads as a light chip and a dark one on either page */
-:deep(.StepBoth),
-:deep(.StepLight),
-:deep(.StepDark) {
-    display: flex;
-    align-items: center;
-    height: var(--sp2);
-    padding: 0 var(--sp0-5);
-    color: var(--text-subtle);
-    background: var(--surface-base);
-}
-
-:deep(.StepLight) {
-    position: relative;
-    padding-right: var(--sp1-5);
-    border-end-end-radius: var(--sp1) 100%;
-    color-scheme: light;
-    corner-shape: bevel;
-}
-
-:deep(.StepDark) {
-    margin-left: calc(-1 * var(--sp1));
-    padding-left: var(--sp1-5);
-    color-scheme: dark;
 }
 
 /* The close-up: a card drawn from the roles alone, larger than life */
@@ -729,7 +606,8 @@ export default {
     flex-shrink: 0;
     width: var(--sp2-5);
     color: var(--text-faint);
-    font: 700 var(--font-size-xxs)/1 var(--font-monospace);
+    font: 700 var(--font-size-xxs) var(--font-monospace);
+    line-height: var(--line-height-main);
     text-align: center;
 }
 </style>

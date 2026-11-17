@@ -87,7 +87,8 @@ export default {
 
 .Title {
     margin-right: var(--sp0-5);
-    font: 600 var(--font-size-xs)/1 var(--font-main);
+    font: 600 var(--font-size-xs) var(--font-main);
+    line-height: var(--line-height-main);
     color: var(--text-faint);
 }
 

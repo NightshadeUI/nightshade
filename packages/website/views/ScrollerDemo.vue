@@ -141,7 +141,8 @@ export default {
 }
 
 .Value {
-    font: var(--font-weight-bold) var(--font-size-s)/1 var(--font-monospace);
+    font: var(--font-weight-bold) var(--font-size-s) var(--font-monospace);
+    line-height: var(--line-height-main);
     color: var(--text-base);
 }
 
@@ -153,7 +154,8 @@ export default {
 }
 
 .Params {
-    font: var(--font-size-xxs)/1.4 var(--font-monospace);
+    font: var(--font-size-xxs) var(--font-monospace);
+    line-height: var(--line-height-main);
     white-space: pre;
     color: var(--text-faint);
 }

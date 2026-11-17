@@ -7,7 +7,7 @@ These are the always-on rules. For the token catalog, the palette workflow, comp
 ## Tiers
 
 - **Four tiers, and each reads only the tiers before it:** raw values → context → roles → component variables. Sizes have no role tier: raw values → context → component. Inside a tier the order holds too: settings may pick a scale step, and tone roles may read canvas roles (`--tone-shadow: var(--shadow-medium)`), never the reverse.
-- **Raw values** come in two shapes. Scales are enumerable ladders: `--color-<ramp>-<step>` and `--color-<ramp>-contrast`, `--sp*`, `--radius-s|m|l`, `--font-size-*`, `--font-weight-*`, `--gr*`, and the control sizes `--input-size-<size>-<metric>`. Settings are single values: `--font-main|alt|monospace`, `--font-size`, `--font-weight`, `--line-height` and `--line-height-main|alt|monospace`, `--input-border-size`, `--input-outline-size|offset`, and the shared states below.
+- **Raw values** come in two shapes. Scales are enumerable ladders: `--color-<ramp>-<step>` and `--color-<ramp>-contrast`, `--sp*`, `--radius-s|m|l`, `--font-size-*`, `--font-weight-*`, `--gr*`, and the control sizes `--input-size-<size>-<metric>`. Settings are single values: `--font-main|alt|monospace`, `--font-size`, `--font-weight`, `--line-height` and `--line-height-main|alt|monospace|prose`, `--input-border-size`, `--input-outline-size|offset`, and the shared states below.
 - **Context** is set by classes on a subtree. `.tone-<tone>` points the context ramp `--tone-0` … `--tone-950` at one ramp. `.input-size-<xs|s|m|l|xl>` sets `--input-major-height`, `--input-minor-height`, `--input-major-padding`, `--input-minor-padding`, `--input-gap` and `--input-font-size`. `:root` is the default context: tone `base`, size `m`.
 - **Roles** are the meaning, stated once:
   - Canvas roles: `--surface-base`/`--border-base`, `--surface-shade`/`--border-shade`, `--surface-deep`/`--border-deep`, `--surface-raised`/`--border-raised`, `--surface-knob`, `--surface-overlay`, `--text-base|subtle|faint`, `--shadow-light|medium|heavy`, `--text-shadow-auto`, `--translucency-*`.
@@ -30,8 +30,12 @@ These are the always-on rules. For the token catalog, the palette workflow, comp
 ## Size
 
 - Lengths are multiples of `--sp`: `--sp0-5`, `--sp1`, `--sp1-5`, `--sp2`… Prefer a token over a literal `px` whenever one exists.
-- Single-line controls have a fixed height, `--input-major-height`, and are `border-box`, so they land on the grid. Elements inside or beside them (knobs, toggles, checkboxes) take `--input-minor-height`.
-- A control's padding includes its border: `padding: 0 calc(var(--Btn-padding) - var(--Btn-border-size))`. `border-box` only holds a box that has a set size; this keeps a content-sized one the same size and its content in place when `outline` adds a border.
+- `--line-height` is `--sp2`: one line of a single-line control. It is set on the page and inherited, so application components don't fight it. Don't set `line-height` to a spacing step (`--sp7`, `--sp9`); inherit `--line-height`, or for running text read `--line-height-prose`.
+- `--line-height-prose` is `1.5`, a ratio, for articles and long copy (`.prose`).
+- Never `em` or `rem`, except `letter-spacing`. Font sizes are `--font-size-*` (simple `px` in the scale: 8, 10, 12, 14, 16, 20, 24, 40, 88). Don't `calc` a size from another step.
+- Single-line controls have a fixed height, `--input-major-height`, and are `border-box`. Companions take `--input-minor-height`. Size adjusts height and padding (`--input-major-padding`, `--input-minor-padding`, `--input-gap`); leave line-height inherited.
+- `calc()` is for values that have to be derived: a round radius (`calc(.5 * var(--Btn-size))`), a negative offset, adding two tokens. Not for font sizes, and not for `calc(var(--sp2) - 1px)` to "keep the grid".
+- Controls with a variable border (outline is 0 or 1px) subtract `--X-border-size` from padding so the content doesn't jump when the border appears. That's a component calc, not a rule for every box. Never `calc(var(--spN) - 1px)`.
 - A round control's radius is half its own height (`calc(.5 * var(--Btn-size))`), never a radius token.
 
 ## Components

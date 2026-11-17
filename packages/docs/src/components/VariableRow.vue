@@ -153,7 +153,8 @@ export default {
 .Preview-text::before,
 .Preview-font::before {
     content: 'Aa';
-    font: 600 var(--font-size-l)/1 var(--font-alt);
+    font: 600 var(--font-size-l) var(--font-alt);
+    line-height: var(--line-height-prose);
 }
 
 .Preview-font::before {
@@ -173,7 +174,6 @@ export default {
     display: flex;
     flex-flow: column;
     align-items: flex-start;
-    gap: var(--sp0-25);
     min-width: 0;
 }
 
@@ -183,7 +183,8 @@ export default {
     border: 0;
     background: none;
     color: var(--text-base);
-    font: 600 var(--font-size-s)/1.5 var(--font-monospace);
+    font: 600 var(--font-size-s) var(--font-monospace);
+    line-height: var(--line-height-prose);
     text-align: left;
     overflow-wrap: anywhere;
     cursor: copy;
@@ -194,7 +195,8 @@ export default {
 }
 
 .Value {
-    font: 400 var(--font-size-xs)/1.5 var(--font-monospace);
+    font: 400 var(--font-size-xs) var(--font-monospace);
+    line-height: var(--line-height-main);
     color: var(--text-subtle);
 }
 
@@ -215,7 +217,7 @@ export default {
 .Instead {
     margin: 0;
     font-size: var(--font-size-s);
-    line-height: 1.5;
+    line-height: var(--line-height-prose);
 }
 
 .Instead {
@@ -231,7 +233,7 @@ export default {
     align-self: flex-start;
     display: grid;
     place-items: center;
-    height: calc(1.5 * var(--font-size-s));
+    height: var(--sp2);
     font-size: var(--font-size-xxs);
     color: var(--text-faint);
 }

@@ -8,7 +8,7 @@ title: Base and utilities
 
 ## Base
 
-`base.css` sets `box-sizing: border-box` everywhere, removes default margins, applies `--surface-base`, `--text-base` and the type scale to `html`, and sets `color-scheme: light dark`. Pin a scheme with an attribute:
+`base.css` sets `box-sizing: border-box` everywhere, removes default margins, applies `--surface-base` and `--text-base` to `html`, the type scale to `body`, and `color-scheme: light dark`. Pin a scheme with an attribute:
 
 ```html
 <html data-theme="dark">
@@ -20,7 +20,8 @@ title: Base and utilities
 |---------|------|
 | `.color-tone` | the context tone's `text` role as `color`: `class="tone-danger color-tone"` |
 | `.color-subtle`, `.color-faint` | canvas text roles |
-| `.text-xxs` … `.text-xxxl` | font size |
+| `.text-xxxs` … `.text-xxxl` | font size |
+| `.prose` | `--line-height-prose` |
 | `.text-thin` … `.text-heavy` | font weight |
 | `.font-alt`, `.font-monospace` | font family |
 | `.flex-1` … `.flex-12` | `flex` |

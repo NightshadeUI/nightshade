@@ -1,7 +1,7 @@
 <template>
     <section class="HomeSection">
         <header class="Header">
-            <h2 class="Title">
+            <h2>
                 {{ title }}
             </h2>
             <p
@@ -45,22 +45,19 @@ export default {
     margin-bottom: var(--sp5);
 }
 
-.Title {
+h2 {
     margin: 0;
-    font: 400 clamp(36px, 5vw, 56px)/1.05 var(--font-alt);
-    letter-spacing: -0.02em;
 }
 
 .Tagline {
     margin: var(--sp1-5) 0 0;
     font-size: var(--font-size-xl);
     font-weight: 600;
-    line-height: 1.3;
 }
 
 .Text {
     margin: var(--sp1-5) 0 0;
-    line-height: 1.65;
+    line-height: var(--line-height-prose);
     color: var(--text-subtle);
 }
 

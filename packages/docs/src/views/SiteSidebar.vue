@@ -48,15 +48,18 @@ export default {
     margin-bottom: var(--sp1);
     font-size: var(--font-size-s);
     font-weight: 700;
-    line-height: 1.3;
+    line-height: var(--line-height-main);
     color: var(--text-base);
 }
 
 .PageLink {
-    padding: var(--sp0-5) 0 var(--sp0-5) var(--sp1-5);
+    display: flex;
+    align-items: center;
+    min-height: var(--sp4);
+    padding: 0 0 0 var(--sp1-5);
     border-left: 1px solid var(--border-base);
     font-size: var(--font-size-s);
-    line-height: 1.45;
+    line-height: var(--line-height-main);
     color: var(--text-subtle);
     transition: color .2s, border-color .2s;
 }
@@ -66,8 +69,7 @@ export default {
 }
 
 .PageLink-current {
-    border-left: 2px solid var(--color-primary-500);
-    padding-left: calc(var(--sp1-5) - 1px);
+    border-left-color: var(--color-primary-500);
     color: var(--color-primary-600);
     font-weight: 600;
 }

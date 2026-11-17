@@ -51,3 +51,4 @@ Nightshade is a seed for an application-owned design system: principles, styles 
 - The role vocabulary is complete as listed. Role names are two words or more.
 - Component variables follow one grammar: role names hold colors, property names hold full values.
 - Lengths come from `--sp*`; control heights from the size context.
+- `--line-height` is `--sp2` and is inherited; `--line-height-prose` is `1.5` for running text. Never `em` or `rem` except `letter-spacing`. Never `calc(var(--spN) - 1px)`.

@@ -1,0 +1,43 @@
+/*
+ * This site's heading ladder. Nightshade's styles don't map tags to the type scale;
+ * an app does that. Type only: each page keeps its own spacing.
+ */
+h1,
+h2 {
+    font-family: var(--font-alt);
+    font-weight: 400;
+}
+
+h1 {
+    font-size: var(--font-size-xxxl);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+}
+
+h2 {
+    font-size: var(--font-size-xxl);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+}
+
+h3 {
+    font-size: var(--font-size-l);
+    font-weight: var(--font-weight-bold);
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+}
+
+h4 {
+    font-size: var(--font-size-m);
+    font-weight: var(--font-weight-heavy);
+    line-height: 1.35;
+}
+
+h5,
+h6 {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-heavy);
+    line-height: 1.35;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}

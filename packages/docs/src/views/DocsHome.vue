@@ -161,7 +161,10 @@ export default {
 
 .HeroTitle {
     margin: 0;
-    font: 600 clamp(44px, 7vw, 80px)/1.04 var(--font-alt);
+    font-family: var(--font-alt);
+    font-size: var(--font-size-xxxl);
+    font-weight: 600;
+    line-height: var(--line-height-prose);
     letter-spacing: -0.025em;
 }
 
@@ -169,7 +172,7 @@ export default {
     max-width: 640px;
     margin: var(--sp3) 0 0;
     font-size: var(--font-size-xl);
-    line-height: 1.5;
+    line-height: var(--line-height-prose);
     color: var(--text-subtle);
 }
 
@@ -185,7 +188,7 @@ export default {
 .HeroAside {
     padding: var(--sp3);
     border: 1px solid color-mix(in oklab, var(--border-base), transparent 20%);
-    border-radius: calc(3 * var(--radius-m));
+    border-radius: var(--radius-l);
     background: color-mix(in oklab, var(--surface-base), transparent 40%);
     box-shadow:
         0 40px 80px -32px var(--shadow-heavy),
@@ -209,7 +212,7 @@ export default {
     gap: var(--sp1);
     padding: var(--sp3);
     border: 1px solid var(--border-base);
-    border-radius: calc(2 * var(--radius-l));
+    border-radius: var(--radius-l);
     background: var(--surface-base);
     color: var(--text-base);
     transition: border-color .2s, background-color .2s;
@@ -240,7 +243,7 @@ a.Feature:hover {
 .FeatureDetails {
     margin: 0;
     font-size: var(--font-size-s);
-    line-height: 1.6;
+    line-height: var(--line-height-prose);
     color: var(--text-subtle);
 }
 

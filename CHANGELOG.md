@@ -2,8 +2,9 @@
 
 ## Unreleased
 
+- `@nightshadeui/stylesheets`: `--line-height` is `--sp2`, inherited by the app so single-line controls fit the grid. `--line-height-prose` is `1.5` (a ratio) for running text, with a `.prose` class. The type scale is simple pixels: 8, 10, 12, 14, 16, 20, 24, 40, 88 (`xxxs` … `xxxl`). Never `em` or `rem` except `letter-spacing`. Type sits on `body`, not `html`.
+- `@nightshadeui/docs`: article `h1` and page heroes read `--font-size-xxxl` (88px). Prose inherits `--line-height-prose`. The stance `yours` is now `specify`, so the stances read: Specify, Fine tune, Override with care, Do not override. `variableGroups` entries with `stance: 'yours'` need the new name. The type size ladder is Specify throughout: each step is a knob, none is derived from `--font-size-m`.
 - `@nightshadeui/docs`: the variable reference has a usage view for systems built on Nightshade. `variableView: 'usage'` in `themeConfig` turns it into a searchable reference for the apps built on the system: each variable says whether an app's CSS reads it, sets it on a class of its own, or avoids it, and what to use instead, and settings show the system's own values. Every catalog entry carries its `usage`; a `variableGroups` entry may too. The default view, for authors of systems, is unchanged.
-- `@nightshadeui/docs`: the stance `yours` is now `specify`, so the stances read in order: Specify, Fine tune, Override with care, Look elsewhere. `variableGroups` entries with `stance: 'yours'` need the new name.
 
 ## 3.2.1
 

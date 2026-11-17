@@ -339,7 +339,8 @@ export default {
 }
 
 .AxisLabel {
-    font: var(--font-size-xxs)/1 var(--font-monospace);
+    font: var(--font-size-xxs) var(--font-monospace);
+    line-height: var(--line-height-main);
     color: var(--text-faint);
 }
 

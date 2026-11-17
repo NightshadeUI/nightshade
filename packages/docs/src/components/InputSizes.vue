@@ -112,7 +112,8 @@ export default {
 }
 
 .Name {
-    font: 500 var(--font-size-s)/1 var(--font-monospace);
+    font: 500 var(--font-size-s) var(--font-monospace);
+    line-height: var(--line-height-main);
 }
 
 .Sample {
@@ -144,8 +145,8 @@ export default {
 .Metric {
     display: flex;
     flex-flow: column;
-    gap: 2px;
-    font: 400 11px/1.3 var(--font-monospace);
+    font: 400 var(--font-size-xs) var(--font-monospace);
+    line-height: var(--line-height-main);
     color: var(--text-subtle);
 }
 
