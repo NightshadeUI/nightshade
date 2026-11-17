@@ -6,14 +6,14 @@
             class="Section"
             :class="{ 'Section-current': siteManager.isInSection(section) }">
             <a
-                :href="section.link"
+                :href="withBase(section.link)"
                 class="SectionTitle">
                 {{ section.title }}
             </a>
             <a
                 v-for="page in section.pages"
                 :key="page.link"
-                :href="page.link"
+                :href="withBase(page.link)"
                 class="PageLink"
                 :class="{ 'PageLink-current': siteManager.isCurrent(page.link) }">
                 {{ page.title }}
@@ -23,11 +23,19 @@
 </template>
 
 <script>
+import { withBase } from 'vitepress';
+
 export default {
 
     inject: [
         'siteManager',
     ],
+
+    methods: {
+
+        withBase,
+
+    },
 
 };
 </script>

@@ -44,6 +44,8 @@ export default defineDocsConfig({
 
 `themeConfig` also takes `social` (header icon links), `footer` (`note`, `legal`), `tones` (to pin the tone list instead of reading it from the styles) and `variableGroups` (your own public tokens, listed in the variable reference). The variable reference speaks to apps built on the system: the public tokens, their specified values, and when to read them. Nightshade's own site sets `variableView: 'foundation'` to add override guidance for authors of a system.
 
+A site served under a path (GitHub Pages serves a project at `/repo/`) sets VitePress's `base: '/repo/'`. Its config and frontmatter links stay site-absolute (`/styles/`): the theme adds the base to every link it renders and matches the current page without it. VitePress leaves `head` alone, so prefix your favicon there yourself.
+
 ## Theme
 
 ```ts

@@ -7,7 +7,8 @@
                 <SiteBrand
                     class="FooterBrand"
                     :name="siteManager.brand.name"
-                    :logo="siteManager.brand.logo" />
+                    :logo="withBase(siteManager.brand.logo ?? '')"
+                    :href="withBase('/')" />
                 <p
                     v-if="siteManager.footer.note"
                     class="Note">
@@ -19,14 +20,14 @@
                 :key="section.id"
                 class="Column">
                 <a
-                    :href="section.link"
+                    :href="withBase(section.link)"
                     class="ColumnTitle">
                     {{ section.title }}
                 </a>
                 <a
                     v-for="page in section.pages"
                     :key="page.link"
-                    :href="page.link"
+                    :href="withBase(page.link)"
                     class="Link">
                     {{ page.title }}
                 </a>
@@ -41,11 +42,19 @@
 </template>
 
 <script>
+import { withBase } from 'vitepress';
+
 export default {
 
     inject: [
         'siteManager',
     ],
+
+    methods: {
+
+        withBase,
+
+    },
 
 };
 </script>

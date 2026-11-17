@@ -39,7 +39,7 @@ export const DocsTheme: Theme = {
             app.component(path.replace(/^.*\/|\.vue$/g, ''), module.default);
         }
         const config = siteData.value.themeConfig as DocsThemeConfig;
-        const siteManager = reactive(new SiteManager(config));
+        const siteManager = reactive(new SiteManager(config, siteData.value.base));
         siteManager.setPath(router.route.path);
         const onAfterRouteChange = router.onAfterRouteChange;
         router.onAfterRouteChange = async to => {

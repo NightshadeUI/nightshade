@@ -5,6 +5,7 @@
         "src/helpers/define-docs-config.ts",
         "src/helpers/commons.ts",
         "src/catalog/variables.ts",
+        "src/managers/SiteManager.ts",
         "src/test/*.ts"
     ],
     "compilerOptions": {

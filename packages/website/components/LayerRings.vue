@@ -73,7 +73,7 @@
                         :class="{ 'Item-active': activeId === ring.id }"
                         @mouseenter="activeId = ring.id">
                         <a
-                            :href="ring.link"
+                            :href="withBase(ring.link)"
                             class="ItemLink">
                             <span class="ItemTitle">{{ ring.title }}</span>
                             <code class="Package">{{ ring.package }}</code>
@@ -98,7 +98,7 @@
                         :class="{ 'OptIn-active': activeId === satellite.id }"
                         @mouseenter="activeId = satellite.id">
                         <a
-                            :href="satellite.link"
+                            :href="withBase(satellite.link)"
                             class="OptInLink">
                             <span class="OptInTitle">{{ satellite.title }}</span>
                             <span class="OptInNote">{{ satellite.note }}</span>
@@ -111,6 +111,8 @@
 </template>
 
 <script>
+import { withBase } from 'vitepress';
+
 const center = 330;
 const satelliteRadius = 34;
 const satelliteDistance = 285;
@@ -252,6 +254,8 @@ export default {
     },
 
     methods: {
+
+        withBase,
 
         locate(angle, distance) {
             const radians = angle * Math.PI / 180;

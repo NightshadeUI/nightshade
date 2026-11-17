@@ -7,7 +7,10 @@ export class SiteManager {
 
     path = '/';
 
-    constructor(readonly config: DocsThemeConfig) {}
+    constructor(
+        readonly config: DocsThemeConfig,
+        readonly base = '/',
+    ) {}
 
     get brand() {
         return this.config.brand;
@@ -52,7 +55,8 @@ export class SiteManager {
     }
 
     setPath(href: string) {
-        this.path = this.normalizePath(new URL(href, 'http://localhost').pathname);
+        const pathname = new URL(href, 'http://localhost').pathname;
+        this.path = this.normalizePath(this.stripBase(pathname));
     }
 
     isCurrent(link: string) {
@@ -67,6 +71,15 @@ export class SiteManager {
     isActiveTopLink(link: DocsPage) {
         const exact = this.topLinks.some(topLink => this.isCurrent(topLink.link));
         return exact ? this.isCurrent(link.link) : this.currentSection?.link === link.link;
+    }
+
+    /** `/nightshade/` and `/nightshade/styles` are `/` and `/styles` when the site's base is `/nightshade/`. */
+    private stripBase(pathname: string) {
+        const root = this.base.slice(0, -1);
+        if (pathname === root) {
+            return '/';
+        }
+        return pathname.startsWith(this.base) ? pathname.slice(root.length) : pathname;
     }
 
     /** `/styles/index.html`, `/styles/index`, `/styles/` and `/styles` are one page. */

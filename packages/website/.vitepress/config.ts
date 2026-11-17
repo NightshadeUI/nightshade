@@ -8,18 +8,13 @@ const { version } = JSON.parse(readFileSync(new URL('../package.json', import.me
 
 export default defineDocsConfig({
     srcDir: 'pages',
+    // GitHub Pages serves the project at https://nightshadeui.github.io/nightshade/.
+    base: '/nightshade/',
     title: 'Nightshade',
     description: 'The seed for your own design system: CSS variables first, Vue primitives optional.',
     titleTemplate: ':title · Nightshade',
     lang: 'en-US',
     head: [
-        [
-            'link',
-            {
-                rel: 'icon',
-                href: '/favicon.svg',
-            },
-        ],
         [
             'link',
             {

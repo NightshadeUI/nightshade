@@ -2,14 +2,14 @@
     <nav class="PageNav">
         <a
             v-if="siteManager.prevPage"
-            :href="siteManager.prevPage.link"
+            :href="withBase(siteManager.prevPage.link)"
             class="Card Card-prev">
             <span class="Hint">Previous</span>
             <span class="Label">{{ siteManager.prevPage.title }}</span>
         </a>
         <a
             v-if="siteManager.nextPage"
-            :href="siteManager.nextPage.link"
+            :href="withBase(siteManager.nextPage.link)"
             class="Card Card-next">
             <span class="Hint">Next</span>
             <span class="Label">{{ siteManager.nextPage.title }}</span>
@@ -18,11 +18,19 @@
 </template>
 
 <script>
+import { withBase } from 'vitepress';
+
 export default {
 
     inject: [
         'siteManager',
     ],
+
+    methods: {
+
+        withBase,
+
+    },
 
 };
 </script>

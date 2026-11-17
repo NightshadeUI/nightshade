@@ -11,13 +11,14 @@
                 @click="$emit('toggleMenu')" />
             <SiteBrand
                 :name="siteManager.brand.name"
-                :logo="siteManager.brand.logo"
-                :version="siteManager.brand.version" />
+                :logo="withBase(siteManager.brand.logo ?? '')"
+                :version="siteManager.brand.version"
+                :href="withBase('/')" />
             <nav class="Nav">
                 <a
                     v-for="link in siteManager.topLinks"
                     :key="link.link"
-                    :href="link.link"
+                    :href="withBase(link.link)"
                     class="NavLink"
                     :class="{ 'NavLink-active': siteManager.isActiveTopLink(link) }">
                     {{ link.title }}
@@ -30,7 +31,7 @@
                     v-for="item in siteManager.social"
                     :key="item.link"
                     tagName="a"
-                    :href="item.link"
+                    :href="withBase(item.link)"
                     :icon="item.icon"
                     :title="item.title"
                     square
@@ -43,6 +44,7 @@
 
 <script>
 import { Btn } from '@nightshadeui/components';
+import { withBase } from 'vitepress';
 
 export default {
 
@@ -61,6 +63,12 @@ export default {
     emits: [
         'toggleMenu',
     ],
+
+    methods: {
+
+        withBase,
+
+    },
 
 };
 </script>

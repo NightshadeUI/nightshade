@@ -4,7 +4,7 @@ title: Palette and CLI
 
 # Palette and CLI
 
-<p class="Lead"><code>nightshade palette</code> turns a palette spec into CSS: one scheme-aware color ramp and one tone context per ramp. It writes your <code>palette.css</code> and nothing else. The <a href="/studio">Palette Studio</a> is the same generator, with a UI.</p>
+<p class="Lead"><code>nightshade palette</code> turns a palette spec into CSS: one scheme-aware color ramp and one tone context per ramp. It writes your <code>palette.css</code> and nothing else. The <a href="../studio">Palette Studio</a> is the same generator, with a UI.</p>
 
 ## Install
 

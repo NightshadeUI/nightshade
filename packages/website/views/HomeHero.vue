@@ -20,14 +20,14 @@
                 <div class="Ctas">
                     <Btn
                         tagName="a"
-                        href="/studio"
+                        :href="withBase('/studio')"
                         label="Design your own"
                         tone="primary"
                         size="l"
                         icon="fas fa-palette" />
                     <Btn
                         tagName="a"
-                        href="/philosophy/"
+                        :href="withBase('/philosophy/')"
                         label="Read the philosophy"
                         size="l"
                         icon="fas fa-arrow-right"
@@ -103,7 +103,7 @@
                     </div>
                     <p class="Footnote">
                         The switches above set <code>$nightshade.defaults</code> for this whole site.
-                        <a href="/components/#app-wide-defaults">Your app can do the same.</a>
+                        <a :href="withBase('/components/#app-wide-defaults')">Your app can do the same.</a>
                     </p>
                 </div>
             </div>
@@ -113,6 +113,7 @@
 
 <script>
 import { RAMP_STEPS } from '@nightshadeui/palette-generator/src';
+import { withBase } from 'vitepress';
 
 export default {
 
@@ -141,6 +142,8 @@ export default {
     },
 
     methods: {
+
+        withBase,
 
         setHue(hue) {
             this.paletteManager.updateRamp('primary', { hue });

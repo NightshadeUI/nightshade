@@ -45,7 +45,7 @@
                 <a
                     v-for="link in siteManager.topLinks"
                     :key="link.link"
-                    :href="link.link"
+                    :href="withBase(link.link)"
                     class="DrawerLink"
                     :class="{ 'DrawerLink-active': siteManager.isActiveTopLink(link) }">
                     {{ link.title }}
@@ -58,6 +58,8 @@
 </template>
 
 <script>
+import { withBase } from 'vitepress';
+
 /**
  * The page frame. The `layout` frontmatter picks the body:
  * `doc` (the default) has the sidebar and the outline (`outline: false` gives its width to the content),
@@ -109,6 +111,8 @@ export default {
     },
 
     methods: {
+
+        withBase,
 
         onDocumentClick(ev) {
             const button = ev.target.closest('div[class*="language-"] > button.copy');

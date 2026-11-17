@@ -14,7 +14,7 @@
                 <div class="HeroCopy">
                     <img
                         v-if="hero.logo"
-                        :src="hero.logo"
+                        :src="withBase(hero.logo)"
                         alt=""
                         class="HeroLogo" />
                     <p
@@ -37,7 +37,7 @@
                             v-for="(action, index) in hero.actions"
                             :key="action.link"
                             tagName="a"
-                            :href="action.link"
+                            :href="withBase(action.link)"
                             :label="action.text"
                             :icon="action.icon"
                             tone="primary"
@@ -60,7 +60,7 @@
                 :is="feature.link ? 'a' : 'div'"
                 v-for="feature in features"
                 :key="feature.title"
-                :href="feature.link"
+                :href="feature.link ? withBase(feature.link) : undefined"
                 class="Feature">
                 <span
                     v-if="feature.icon"
@@ -80,6 +80,7 @@
 
 <script>
 import { Btn } from '@nightshadeui/components';
+import { withBase } from 'vitepress';
 
 /**
  * The landing, from the page's frontmatter: a `hero` (`logo`, `name`, `title`, `tagline`, `actions`;
@@ -106,6 +107,12 @@ export default {
         features() {
             return this.$frontmatter.features ?? [];
         },
+
+    },
+
+    methods: {
+
+        withBase,
 
     },
 

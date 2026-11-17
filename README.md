@@ -4,6 +4,8 @@ Nightshade is a seed for design systems that applications own.
 
 It isn't a framework to fight. It's a few principles, the styles that follow from them, and an OKLCH palette generator. Install the styles, generate a palette, and build your own. Your app grows the rest, and owns all of it.
 
+Documentation: [nightshadeui.github.io/nightshade](https://nightshadeui.github.io/nightshade/).
+
 ## The model
 
 | Ring | Package | Provides |
