@@ -1,4 +1,4 @@
-import { clamp } from '@nightshadeui/util/src';
+import { clamp } from '@nightshadeui/util';
 import { dependency } from 'mesh-ioc';
 
 import { CanvasSpace } from './CanvasSpace.js';

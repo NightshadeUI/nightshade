@@ -12,7 +12,7 @@ export default defineConfig({
             fileName: 'particle-system',
         },
         rollupOptions: {
-            external: ['vue'],
+            external: ['vue', /^@nightshadeui\//],
         },
         cssMinify: 'lightningcss',
     },

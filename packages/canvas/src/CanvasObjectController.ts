@@ -1,5 +1,4 @@
-import { Box, Point, subtractPoints } from '@nightshadeui/util/src';
-import { clamp } from '@nightshadeui/util/src';
+import { Box, clamp, Point, subtractPoints } from '@nightshadeui/util';
 import { dependency } from 'mesh-ioc';
 
 import { CanvasConfig } from './CanvasConfig.js';

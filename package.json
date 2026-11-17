@@ -19,7 +19,7 @@
         "dev": "run-p dev:*",
         "dev:website": "cd packages/website && npm run dev",
         "preview": "cd packages/website && npm run preview",
-        "build": "npm run build --workspaces --if-present",
+        "build": "tsc -b && npm run build --workspaces --if-present",
         "lint": "eslint --cache",
         "test": "npm run test --workspaces --if-present",
         "preversion": "npm run build",
