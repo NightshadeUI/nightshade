@@ -55,7 +55,7 @@ Need a look the standard control doesn't have? Write it on the grammar: `--AcmeA
 
 ## 6. Ship it as a package
 
-Put your CSS in its own cascade layer after Nightshade's and publish it. Apps then depend on your system, not on Nightshade directly. Nightshade's names, then yours, before any `@import`. The first `@layer` in the document is the order: [model.md](../model.md#cascade-layers).
+Put your CSS in its own cascade layer after Nightshade's and publish it. Apps then depend on your system, not on Nightshade directly. Nightshade's names, then yours, **once**, in that entry, before any `@import`. Components sit in your layer; they never list the order. [model.md](../model.md#cascade-layers).
 
 ```css
 @layer nightshade, nightshade-docs, nightshade-components, acme;
@@ -78,7 +78,7 @@ Ship the look too: export the `$nightshade.defaults` your system wants (`{ flat:
 
 `@nightshadeui/docs` is a VitePress theme for the system's own documentation: a landing, navigation from `themeConfig`, and references (variables, palette, tones, scales) that read your styles live, so they show your system as it is. Import your stylesheets in the theme, register your components, and list your own public tokens in `themeConfig.variableGroups`. The variable reference is for the apps built on the system, not a catalogue of component knobs.
 
-The docs site is an app of yours: it imports the same stylesheets, so it already has the heading ladder. Don't copy a `type.css` or font tags off the Nightshade website; that site is an app. If a heading still clips, your first `@layer` skipped `nightshade-docs` and that layer was appended.
+The docs site is an app of yours: it imports the same stylesheets, so it already has the heading ladder. The docs theme does not map tags. Don't copy a `type.css` or font tags off the Nightshade website; that site is an app.
 
 ```ts
 // docs/.vitepress/config.ts

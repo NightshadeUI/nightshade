@@ -25,7 +25,7 @@ Color knobs feed value knobs, which keeps geometry in one place:
 
 ## Writing a component
 
-The order inside a scoped style block is: base, then states, then looks and modifiers.
+Put the CSS in your cascade layer. Don't list Nightshade's order there: the app's CSS entry does that once. The order inside a scoped style block is: base, then states, then looks and modifiers.
 
 ```vue
 <template>
@@ -63,6 +63,8 @@ export default {
 </script>
 
 <style scoped>
+@layer acme {
+
 .Tag {
     --Tag-size: var(--input-major-height);
     --Tag-padding: var(--input-major-padding);
@@ -114,6 +116,8 @@ export default {
 
 .Tag-flat {
     --Tag-box-shadow: none;
+}
+
 }
 </style>
 ```

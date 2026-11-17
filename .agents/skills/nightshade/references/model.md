@@ -70,9 +70,9 @@ Nightshade's names, weakest first. Do not rename them, do not skip them:
 
 Then libraries you wrap (`primevue`, …), then yours (`acme`, `ubio`, `site`).
 
-The first `@layer` statement in the document is the order. A name first mentioned later is **appended**. Nightshade's files all state the three names above, so whichever of them loads first still reserves `nightshade-docs` in the middle. If **your** `@layer` is first and you skip `nightshade-docs`, that layer lands last and beats you.
+The first `@layer` statement in the document is the order. Declare it **once**, in your CSS entry, before any `@import`. Components and the docs theme put styles in their named layer; they never list the order. A name first mentioned later is **appended**. If you skip `nightshade-docs`, that layer lands last and the docs theme beats you.
 
-State the full list **before any `@import`**, Nightshade's three then yours:
+Nightshade's three, then yours:
 
 ```css
 @layer nightshade, nightshade-docs, nightshade-components, acme;
@@ -93,7 +93,7 @@ Nightshade does not map `h1`–`h6`. You do, in your layer, with display line-he
 |--------|-------|
 | A hue, the curves, a new tone | the palette spec, then regenerate |
 | `--sp`, `--radius-m`, `--font-*` | your `:root` |
-| `h1`–`h6` (size and a display line-height) | your stylesheets; Nightshade does not map tags |
+| `h1`–`h6` (size and a display line-height) | your cascade layer; Nightshade does not map tags |
 | What a surface or border means | your `:root`, reassigning the role |
 | A region's tone or density | a context class on the region |
 | A control's padding or radius | `--<Component>-*` on that control's root class |

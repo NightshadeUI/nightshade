@@ -18,7 +18,8 @@ These are the always-on rules. For the token catalog, the palette workflow, comp
 ## Cascade layers
 
 - Nightshade's names, weakest first: `nightshade`, `nightshade-docs`, `nightshade-components`. Then libraries you wrap, then yours. Do not rename them, do not skip them.
-- The first `@layer` in the document is the order. State it before any `@import`: `@layer nightshade, nightshade-docs, nightshade-components, acme`. A skipped name, first mentioned later, is appended.
+- The first `@layer` in the document is the order. State it **once**, in your CSS entry, before any `@import`: `@layer nightshade, nightshade-docs, nightshade-components, acme`. A skipped name, first mentioned later, is appended.
+- Components put their CSS in a named layer. They never list the order.
 - Stay in the layers. Unlayered CSS beats every layer; don't unlayer to win.
 
 ## Color

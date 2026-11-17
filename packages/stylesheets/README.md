@@ -7,12 +7,16 @@ npm i @nightshadeui/stylesheets
 ```
 
 ```css
-@import '@nightshadeui/stylesheets';
-@import './palette.css'; /* generated with @nightshadeui/cli, or the starter: '@nightshadeui/stylesheets/palette.css' */
+@layer nightshade, nightshade-docs, nightshade-components, acme;
 
-:root {
-    --font-main: "Source Sans 3", sans-serif;
-    --radius-m: 6px;
+@import '@nightshadeui/stylesheets';
+@import './palette.css' layer(acme); /* generated with @nightshadeui/cli, or the starter */
+
+@layer acme {
+    :root {
+        --font-main: "Source Sans 3", sans-serif;
+        --radius-m: 6px;
+    }
 }
 ```
 

@@ -8,10 +8,8 @@
  */
 
 /*
- * Nightshade's cascade layers, weakest first. The first `@layer` in the document
- * is the order; this statement is that first one unless the app spoke earlier.
- * `nightshade-docs` is a reserved seat: empty until `@nightshadeui/docs` loads.
- * Name these three, then yours, if you declare `@layer` before this import.
+ * Default order if this file is first. An app that adds a layer states the
+ * full list before this import. Components never list the order.
  */
 @layer nightshade, nightshade-docs, nightshade-components;
 

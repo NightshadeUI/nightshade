@@ -35,9 +35,6 @@ export default {
 </script>
 
 <style scoped>
-/* Nightshade's order, stated wherever these styles load first. */
-@layer nightshade, nightshade-docs, nightshade-components;
-
 @layer nightshade-components {
 
     /* A point: the arrow's tip. The arrow and the body sit outside it, on the `dir` side */

@@ -53,4 +53,4 @@ Nightshade is a seed for an application-owned design system: principles, styles 
 - Component variables follow one grammar: role names hold colors, property names hold full values.
 - Lengths come from `--sp*`; control heights from the size context.
 - `--line-height` is `--sp2` and is inherited; `--line-height-prose` is `1.5` for running text. Nightshade does not map `h1`–`h6`: the app sets display line-heights as ratios, in its cascade layer. Never `em` or `rem` except `letter-spacing`. Never subtract a border or a pixel from padding: `outline` is a look, not a state, so the box doesn't grow. Chosen drops `ghost`.
-- Cascade layers, weakest first: `nightshade`, `nightshade-docs`, `nightshade-components`, then yours. The first `@layer` in the document is the order. Stay in the layers; don't unlayer to win.
+- Cascade layers, weakest first: `nightshade`, `nightshade-docs`, `nightshade-components`, then yours. The first `@layer` in the document is the order: declare it once in your CSS entry. Components sit in a named layer; they never list the order. Stay in the layers; don't unlayer to win.

@@ -99,9 +99,6 @@ export default {
 </script>
 
 <style scoped>
-/* Nightshade's order, stated wherever these styles load first. */
-@layer nightshade, nightshade-docs, nightshade-components;
-
 @layer nightshade-components {
 
     .InputTextarea:not(.InputTextarea-disabled) {

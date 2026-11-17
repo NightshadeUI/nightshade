@@ -6,7 +6,7 @@ Standard Nightshade controls for Vue 3: buttons, chips, text inputs, toggles, sl
 npm i @nightshadeui/stylesheets @nightshadeui/components
 ```
 
-Import the ones you use. Each brings its own CSS, in the `nightshade-components` layer. Nightshade's cascade layers, weakest first: `nightshade`, `nightshade-docs`, `nightshade-components`.
+Import the ones you use. Each brings its own CSS, in the `nightshade-components` layer:
 
 ```ts
 import '@nightshadeui/stylesheets';

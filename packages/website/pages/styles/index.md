@@ -90,7 +90,7 @@ Nightshade's names, weakest first. Do not rename them, do not skip them:
 | `nightshade-docs` | `@nightshadeui/docs` | the docs theme. Empty until that package loads. |
 | `nightshade-components` | `@nightshadeui/components` | standard controls |
 
-Then libraries you wrap, then yours. The first `@layer` statement in the document is the order. A name first mentioned later is appended.
+Then libraries you wrap, then yours. The first `@layer` statement in the document is the order. Declare it **once**, in your CSS entry, before any `@import`. Components sit in a named layer; they never list the order. A name first mentioned later is appended.
 
 ```css
 @layer nightshade, nightshade-docs, nightshade-components, acme;
