@@ -147,7 +147,7 @@
                             :key="tone"
                             :label="tone"
                             :tone="tone"
-                            :outline="tone === specimenTone"
+                            :ghost="tone !== specimenTone"
                             @click="specimenTone = tone" />
                     </div>
                     <div

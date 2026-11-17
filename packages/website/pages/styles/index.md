@@ -4,22 +4,23 @@ title: Tokens
 
 # Tokens
 
-<p class="Lead">Every Nightshade variable belongs to one tier. A tier reads only the tiers before it, so you always know where a value comes from and where to change it.</p>
+<p class="Lead">Every public Nightshade variable belongs to one tier. A tier reads only the tiers before it, so you always know where a value comes from and where to change it.</p>
 
-## Four tiers
+## Three tiers
 
 | Tier | What it holds | Example |
 |------|---------------|---------|
 | **Raw** | scales (enumerable ladders) and settings (single values), no meaning | `--color-primary-500`, `--sp4`, `--radius-m`, `--input-size-m-major-height`, `--font-main`, `--input-border-size` |
 | **Context** | one tone ramp and one input size, for a subtree | `.tone-primary` → `--tone-500`, `.input-size-s` → `--input-major-height` |
 | **Role** | meaning, stated once | `--surface-deep`, `--border-base`, `--tone-fill`, `--tone-border` |
-| **Component** | a component's own knobs | `--Btn-fill`, `--Slider-knob-size` |
 
-Colors take all four steps. Sizes take three: a size metric's name already says what it's for, so the context is its role.
+A control you write reads the last tier that names what it needs: a role, or the size context. Default `--<Component>-*` on its root class from those. Those locals are the control's own, not tokens. See [Control grammar](/components/).
+
+Colors take all three steps, then the control reads the role. Sizes skip the role: a metric's name already says what it's for.
 
 <TokenChain />
 
-Every variable, with what it's for and how far to override it, is on one page: [Variables](/variables).
+Every public token, with what it's for and how far to override it, is on one page: [Variables](/variables).
 
 ## The rules
 
@@ -27,7 +28,7 @@ Every variable, with what it's for and how far to override it, is on one page: [
 2. **Multi-tone components read roles, not ramps.** A control that takes a `tone` (a button, an input) reads roles and the input size context, and the context ramp (`--tone-200`) when no role names what it needs, so one class re-tones it. A single-tone component, which is most of what an app builds, may read ramp steps directly (`--color-primary-600`). Neither calls `light-dark()`: the steps are already scheme-aware.
 3. **`light-dark()` lives in the generated palette**, and in the few roles that pick different steps per scheme.
 4. **`:root` is the default context:** the `base` tone and the `m` input size. Every component inherits from it unless told otherwise.
-5. **Component variables are prefixed** with the component (`--Btn-*`) and defaulted on its root class, without per-usage fallbacks.
+5. **A control you write** reads roles and the size context, never a ramp, and defaults `--<Component>-*` on its root class. Those locals are not a public family. [Control grammar](/components/).
 
 ## Variable families
 
@@ -45,7 +46,6 @@ Every variable, with what it's for and how far to override it, is on one page: [
 | Size context | context | `--input-<metric>`, set by `.input-size-<size>` |
 | Canvas | role | `--surface-*`, `--border-*`, `--text-*`, `--shadow-*`, `--text-shadow-auto`, `--translucency-*` |
 | Tone | role | `--tone-text`, `--tone-tint`, `--tone-tint-text`, `--tone-fill*`, `--tone-border`, `--tone-shadow`, `--tone-focus-*` |
-| Component | component | `--<Component>-*` |
 
 ## The files, in order
 
@@ -76,25 +76,42 @@ Every variable, with what it's for and how far to override it, is on one page: [
 @import './utilities.css' layer(nightshade);
 ```
 
-Everything is in `@layer nightshade`. Unlayered CSS beats any layer, so a plain `:root { … }` in your app always wins, whatever the specificity. The palette isn't in the list: import your own generated `palette.css` next to the styles, or the starter one while you prototype:
+The palette isn't in that list: import your own generated `palette.css` next to the styles, or the starter one while you prototype. Put it in the same cascade layer as your `:root`.
+
+## Cascade layers
+
+CSS cascade layers, not the token tiers. Later layers win, at any specificity. Unlayered CSS beats every named layer; don't use that to win over Nightshade.
+
+Nightshade's names, weakest first. Do not rename them, do not skip them:
+
+| Layer | Package | Holds |
+|-------|---------|-------|
+| `nightshade` | `@nightshadeui/stylesheets` | scales, settings, context, roles, reset, utilities |
+| `nightshade-docs` | `@nightshadeui/docs` | the docs theme. Empty until that package loads. |
+| `nightshade-components` | `@nightshadeui/components` | standard controls |
+
+Then libraries you wrap, then yours. The first `@layer` statement in the document is the order. A name first mentioned later is appended.
 
 ```css
+@layer nightshade, nightshade-docs, nightshade-components, acme;
+
 @import '@nightshadeui/stylesheets';
-@import './palette.css';
+@import './palette.css' layer(acme);
+@import './type.css' layer(acme);
 ```
 
-The palette goes where your `:root` goes: unlayered next to an unlayered `:root`, as here, or in your system's own layer when you ship one ([Growing your own](/philosophy/ownership#ship-it-as-your-package)).
+A prototype can skip the list and write an unlayered `:root`; it will win, and then fight the next unlayered file. A system stays in the layers. [Growing your own](/philosophy/ownership#ship-it-as-your-package).
 
 ## Taking only some of it
 
 Each file is exported on its own. A system that brings its own reset imports the tiers and skips `base.css`:
 
 ```css
-@layer nightshade, nightshade-components;
+@layer nightshade, nightshade-docs, nightshade-components, acme;
 
 @import '@nightshadeui/stylesheets/scales/spacing.css' layer(nightshade);
 /* … the other scales, settings and context files, in the same order … */
 @import '@nightshadeui/stylesheets/roles/canvas.css' layer(nightshade);
 @import '@nightshadeui/stylesheets/roles/tones.css' layer(nightshade);
-@import './palette.css';
+@import './palette.css' layer(acme);
 ```

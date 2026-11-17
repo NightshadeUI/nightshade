@@ -7,8 +7,8 @@
             <p
                 v-if="usageView"
                 class="Lead">
-                The vocabulary of your app's CSS: what to read, what to set on a class of your own, and what to
-                leave alone. Speak it, and whatever you build stays coherent with the rest of the system.
+                The vocabulary of this system: what exists, which to read, and when. Context follows a class on a
+                subtree; roles name a use. Speak them, and whatever you build stays coherent with the rest.
             </p>
             <p
                 v-else
@@ -27,26 +27,13 @@
             </dl>
         </header>
 
-        <section class="Guide">
-            <h2
-                v-if="usageView"
-                class="GuideTitle">
-                How to use each one
-            </h2>
-            <h2
-                v-else
-                class="GuideTitle">
+        <section
+            v-if="!usageView"
+            class="Guide">
+            <h2 class="GuideTitle">
                 Everything can be overridden, not everything should be
             </h2>
-            <p
-                v-if="usageView"
-                class="GuideNote">
-                Every entry says whether your CSS reads it, sets it on a class, or avoids it, and what to use instead.
-                Pick a card to see only those.
-            </p>
-            <p
-                v-else
-                class="GuideNote">
+            <p class="GuideNote">
                 Every entry says how it goes when you override it. Pick a card to see only those.
             </p>
             <div
@@ -90,6 +77,7 @@
                     label="All tiers"
                     size="s"
                     :tone="tier === null ? 'primary' : undefined"
+                    :ghost="tier !== null"
                     @click="tier = null" />
                 <Chip
                     v-for="item in tiers"
@@ -97,6 +85,7 @@
                     :label="item.title"
                     size="s"
                     :tone="tier === item.id ? 'primary' : undefined"
+                    :ghost="tier !== item.id"
                     @click="toggleTier(item.id)" />
             </div>
             <span
@@ -126,9 +115,7 @@
                     <h3 class="GroupTitle">
                         {{ group.title }}
                     </h3>
-                    <code
-                        v-if="!usageView"
-                        class="GroupFile">{{ group.file }}</code>
+                    <code class="GroupFile">{{ group.file }}</code>
                 </div>
                 <p class="GroupNote">
                     {{ group.note }}
@@ -138,8 +125,9 @@
                         v-for="entry in group.entries"
                         :key="entry.name"
                         :entry="entry"
-                        :badge="kindInfo[entry.kind]"
-                        :siteValue="usageView ? '' : siteValues[entry.name]"
+                        :values="entry.values"
+                        :tier="section.tier"
+                        :badge="usageView ? null : kindInfo[entry.stance]"
                         @copy="copyName" />
                 </ul>
             </div>
@@ -148,8 +136,7 @@
         <p
             v-if="sections.length === 0"
             class="Empty">
-            Nothing matches <code>{{ query }}</code>. The vocabulary is short on purpose: if you're missing a word,
-            it may belong in your own system.
+            Nothing matches <code>{{ query }}</code>. The vocabulary is short on purpose.
         </p>
     </div>
 </template>
@@ -157,11 +144,12 @@
 <script>
 import { Chip, InputText } from '@nightshadeui/components';
 
-import { readVariableUsage, VARIABLE_GROUPS, VARIABLE_STANCES, VARIABLE_TIERS, VARIABLE_USES } from '../catalog/variables.js';
+import { readExampleNames, VARIABLE_GROUPS, VARIABLE_STANCES, VARIABLE_TIERS } from '../catalog/variables.js';
 
 /**
- * The whole variable vocabulary on one page, with the site's own groups: by tier, searchable,
- * with how far each variable is meant to be overridden, or, in the usage view, how to use it.
+ * The public token vocabulary on one page: by tier and category, searchable,
+ * with specified values from the live sheets. Nightshade's docs add how far each
+ * variable is meant to be overridden; a system's docs are the vocabulary itself.
  */
 export default {
 
@@ -172,6 +160,7 @@ export default {
 
     inject: [
         'siteManager',
+        'stylesManager',
     ],
 
     data() {
@@ -181,50 +170,36 @@ export default {
             tier: null,
             kind: null,
             copied: '',
-            siteValues: {},
         };
     },
 
     computed: {
 
-        /** The usage view speaks to apps built on the system; the foundation view, to the system's authors. */
-        usageView() {
-            return this.siteManager.config.variableView === 'usage';
-        },
-
-        /** The cards: how to use each variable, or how far to override it. */
-        kinds() {
-            return this.usageView ? VARIABLE_USES : VARIABLE_STANCES;
-        },
-
         /**
-         * Nightshade's groups, then the system's own, each entry with its `kind`.
-         * The usage view takes each entry's usage text, and the system's live value for its settings.
+         * A system's docs speak to the apps built on it. Nightshade's own docs set
+         * `variableView: 'foundation'` and speak to authors of a system.
          */
+        usageView() {
+            return this.siteManager.config.variableView !== 'foundation';
+        },
+
+        kinds() {
+            return VARIABLE_STANCES;
+        },
+
+        /** Nightshade's groups, then the system's own. Component knobs are not public tokens. */
         groups() {
             const groups = [
                 ...VARIABLE_GROUPS,
                 ...this.siteManager.config.variableGroups ?? [],
-            ];
-            if (!this.usageView) {
-                return groups.map(group => ({
-                    ...group,
-                    entries: group.entries.map(entry => ({ ...entry, kind: entry.stance })),
-                }));
-            }
+            ].filter(group => group.tier !== 'component');
             return groups.map(group => ({
                 ...group,
-                note: group.usageNote ?? group.note,
-                entries: group.entries.map(entry => {
-                    const usage = readVariableUsage(group, entry);
-                    return {
-                        ...entry,
-                        kind: usage.use,
-                        about: usage.about,
-                        instead: usage.instead,
-                        value: this.siteValues[entry.name] ?? entry.value,
-                    };
-                }),
+                note: this.usageView ? group.usageNote ?? group.note : group.note,
+                entries: group.entries.map(entry => ({
+                    ...entry,
+                    values: this.valuesFor(entry),
+                })),
             }));
         },
 
@@ -235,16 +210,15 @@ export default {
         kindCounts() {
             const entries = this.groups.flatMap(group => group.entries);
             return Object.fromEntries(this.kinds.map(item => {
-                return [item.id, entries.filter(entry => entry.kind === item.id).length];
+                return [item.id, entries.filter(entry => entry.stance === item.id).length];
             }));
         },
 
         stats() {
             const names = this.groups
-                .filter(group => group.tier !== 'component')
                 .flatMap(group => group.entries.flatMap(entry => entry.members ?? [entry.name]))
                 .filter(name => !name.startsWith('--color-'));
-            return [
+            const stats = [
                 {
                     label: 'variables in the styles',
                     value: names.length,
@@ -253,11 +227,14 @@ export default {
                     label: 'tiers, each reading the one before',
                     value: this.tiers.length,
                 },
-                {
-                    label: this.usageView ? 'component variables to set' : 'knobs to specify',
-                    value: this.kindCounts[this.usageView ? 'set' : 'specify'],
-                },
             ];
+            if (!this.usageView) {
+                stats.push({
+                    label: 'knobs to specify',
+                    value: this.kindCounts.specify,
+                });
+            }
+            return stats;
         },
 
         sections() {
@@ -273,7 +250,7 @@ export default {
     },
 
     mounted() {
-        this.readSiteValues();
+        this.stylesManager.load();
         window.addEventListener('keydown', this.onKeyDown);
     },
 
@@ -294,19 +271,30 @@ export default {
         },
 
         matchesEntry(group, entry) {
-            if (this.kind && entry.kind !== this.kind) {
+            if (this.kind && entry.stance !== this.kind) {
                 return false;
             }
             const query = this.query.trim().toLowerCase();
             const text = [
                 entry.name,
                 ...entry.members ?? [],
-                entry.value,
+                ...entry.values.map(item => `${item.name} ${item.value}`),
                 entry.about,
                 entry.instead ?? '',
                 group.title,
+                group.file,
             ].join(' ').toLowerCase();
             return text.includes(query);
+        },
+
+        valuesFor(entry) {
+            const source = this.usageView ? 'specified' : 'nightshade';
+            const names = readExampleNames(entry);
+            const keys = names.length ? names : [entry.name];
+            return keys.map(name => ({
+                name,
+                value: this.stylesManager.readVariable(name, source) || entry.value || '',
+            }));
         },
 
         toggleKind(kind) {
@@ -317,39 +305,10 @@ export default {
             this.tier = this.tier === tier ? null : tier;
         },
 
-        /**
-         * The values this system sets, read from the live page. The usage view shows its settings in place of
-         * Nightshade's defaults; the foundation view, the knobs it specifies differently.
-         */
-        readSiteValues() {
-            const style = getComputedStyle(document.documentElement);
-            const groups = [
-                ...VARIABLE_GROUPS,
-                ...this.siteManager.config.variableGroups ?? [],
-            ];
-            for (const group of groups) {
-                for (const entry of group.entries) {
-                    if (entry.name.includes('<') || !this.showsSiteValue(group, entry)) {
-                        continue;
-                    }
-                    const value = style.getPropertyValue(entry.name).trim();
-                    if (value && value !== entry.value) {
-                        this.siteValues[entry.name] = value;
-                    }
-                }
-            }
-        },
-
-        showsSiteValue(group, entry) {
-            if (this.usageView) {
-                return group.tier === 'raw' && entry.preview !== 'color' && !entry.members;
-            }
-            return entry.stance === 'specify';
-        },
-
         copyName(name) {
-            navigator.clipboard.writeText(`var(${name})`);
-            this.copied = `var(${name})`;
+            const text = name.includes('<') ? name : `var(${name})`;
+            navigator.clipboard.writeText(text);
+            this.copied = text;
             setTimeout(() => {
                 this.copied = '';
             }, 1600);
@@ -440,8 +399,10 @@ export default {
 }
 
 .Stances {
+    --VariableReference-cards: 4;
+
     display: grid;
-    grid-template-columns: repeat(var(--VariableReference-cards, 4), minmax(0, 1fr));
+    grid-template-columns: repeat(var(--VariableReference-cards), minmax(0, 1fr));
     gap: var(--sp1-5);
 }
 
@@ -576,6 +537,7 @@ export default {
 
 .Group {
     padding-top: var(--sp3);
+    scroll-margin-top: calc(var(--Site-header-height) + var(--sp10));
 }
 
 .GroupHeader {

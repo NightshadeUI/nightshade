@@ -2,8 +2,11 @@
 @import '@nightshadeui/stylesheets/kbd';
 
 /*
- * The theme's styles sit in the `nightshade-docs` layer, so the site's own styles win over them.
- * Prose rules stop at demos: a demo shows what an app would, without the article's headings, links or tables.
+ * The theme sits in `nightshade-docs`, Nightshade's middle layer. Nightshade's files all
+ * name `nightshade, nightshade-docs, nightshade-components`; if your first `@layer` speaks
+ * first, name those three, then yours, or this layer is appended and beats you.
+ * Prose rules stop at demos and at the live references: those show the system, not an
+ * article's headings, links or tables.
  */
 @layer nightshade, nightshade-docs, nightshade-components;
 
@@ -59,7 +62,22 @@
         background: color-mix(in oklab, var(--color-primary-500), transparent 70%);
     }
 
-    @scope (.Prose) to (.Demo) {
+    /*
+     * Markdown only. Live references have their own headings; if article h2 chrome
+     * reaches them, a border the width of the title sits on the letters.
+     */
+    @scope (.Prose) to (
+        .Demo,
+        .VariableReference,
+        .PaletteReference,
+        .ToneMatrix,
+        .ToneRoles,
+        .RoleVocabulary,
+        .TypeScale,
+        .SpacingScale,
+        .InputSizes,
+        .TokenTable
+    ) {
 
         /* Prose: rendered Markdown */
 

@@ -67,29 +67,33 @@ Your system's components can wrap the standard ones, or skip them and read the s
 ```vue
 <template>
     <Btn
-        class="AcmeAction"
         v-bind="$attrs"
         round />
 </template>
-
-<style scoped>
-.AcmeAction {
-    --Btn-padding: var(--sp2);
-}
-</style>
 ```
+
+Need a look the standard control doesn't have? Write it on the [grammar](/components/): `--AcmeAction-*` on `.AcmeAction`, defaulted from roles.
 
 ## Ship it as your package
 
-Put your CSS in its own cascade layer after Nightshade's, and publish it. Apps depend on your system, not on Nightshade directly.
+Put your CSS in its own cascade layer after Nightshade's, and publish it. Apps depend on your system, not on Nightshade directly. Nightshade's names, then yours, before any `@import`. The first `@layer` in the document is the order: [Tokens](/styles/#cascade-layers).
 
 ```css
-@layer nightshade, nightshade-components, acme;
+@layer nightshade, nightshade-docs, nightshade-components, acme;
 
 @import 'nightshade/css';
 @import './palette.css' layer(acme);
+@import './type.css' layer(acme);
 @import './roles.css' layer(acme);
 ```
+
+```css
+/* type.css — yours, in your layer. Display line-heights are ratios. */
+h1 { font-size: var(--font-size-xxxl); line-height: 1.2; }
+h2 { font-size: var(--font-size-xxl);  line-height: 1.2; }
+```
+
+Don't copy a `type.css` or font tags off this website; this site is an app. Stay in the layers.
 
 ## With a coding agent
 

@@ -168,6 +168,8 @@ Every tone your styles define, at every size, in both schemes. The playground ba
 
 ## Variables
 
+Defaulted on `.InputBase` from roles and the size context, the same way every control is written.
+
 | Variable | Default |
 |----------|---------|
 | `--InputBase-size` | `--input-major-height` |

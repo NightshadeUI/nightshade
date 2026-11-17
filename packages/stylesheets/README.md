@@ -16,6 +16,6 @@ npm i @nightshadeui/stylesheets
 }
 ```
 
-Everything sits in the `nightshade` cascade layer, so your own CSS wins. Opt-in modules: `@nightshadeui/stylesheets/kbd` (keycaps) and `@nightshadeui/stylesheets/transitions` (Vue transition classes).
+Nightshade's cascade layers, weakest first: `nightshade`, `nightshade-docs`, `nightshade-components`. Name those three, then yours, before any `@import`. Stay in the layers; don't unlayer to win. Opt-in modules: `@nightshadeui/stylesheets/kbd` (keycaps) and `@nightshadeui/stylesheets/transitions` (Vue transition classes).
 
 See the [Nightshade repository](https://github.com/NightshadeUI/nightshade) for the model: four tiers, tones, roles and the variable catalog.

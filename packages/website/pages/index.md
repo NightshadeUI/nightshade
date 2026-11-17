@@ -17,8 +17,13 @@ titleTemplate: Grow your own design system
 
 <HomeSection
     title="Anatomy"
-    tagline="One card, every tone role"
-    text="Components never pick colors: they read roles, named for what a color does, like a fill, a border or a focus ring. Each line names the role that colors a part, and the ramp step it lands on in light and dark. Switch the tone, and the whole card follows.">
+    tagline="One card, every tone role">
+
+<template #text>
+
+Write a role, not a color: `--tone-fill` for the face of a control, `--tone-border` for its edge. Each role reads a step of the context ramp (`--tone-500`). Hover a step to see the scale variable (`--color-primary-500`). Inverse mirrors base, so `--tone-0` is `--color-base-950`. Switch the tone, and the whole card follows.
+
+</template>
 
 <ToneRoles />
 

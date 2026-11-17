@@ -121,8 +121,8 @@ export default {
 </script>
 
 <style scoped>
-/* The order, stated wherever these styles load first: the styles, then the components */
-@layer nightshade, nightshade-components;
+/* Nightshade's order, stated wherever these styles load first. */
+@layer nightshade, nightshade-docs, nightshade-components;
 
 @layer nightshade-components {
 
@@ -163,9 +163,7 @@ export default {
         display: flex;
         align-items: center;
         box-sizing: border-box;
-        padding:
-            calc(var(--InputBase-padding-y) - var(--InputBase-border-size))
-            calc(var(--InputBase-padding-x) - var(--InputBase-border-size));
+        padding: var(--InputBase-padding-y) var(--InputBase-padding-x);
         gap: var(--InputBase-gap);
         width: 100%;
         min-height: var(--InputBase-size);

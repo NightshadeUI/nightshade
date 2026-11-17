@@ -46,7 +46,7 @@ Roles are stated once, against the context ramp, and every tone context re-resol
 |------|-----------------|--------|-----------|---------|
 | `--tone-text` | `600` | `900` | `0` | tone-colored text and icons on the canvas |
 | `--tone-tint` | `100` | `100` | `100` | a soft background: chips, callouts, selection |
-| `--tone-tint-text` | `900` | `900` | `900` | text on the tint |
+| `--tone-tint-text` | `700` | `700` | `700` | text on the tint |
 | `--tone-fill` | `500` | `100` | `0` | the solid fill of a control |
 | `--tone-fill-top`, `--tone-fill-bottom` | `400` to `600` | `0` to `200` | `200` to `0` | the two ends of the fill's bevel |
 | `--tone-fill-text` | contrast | `950` | `950` | text on the fill |
@@ -54,7 +54,7 @@ Roles are stated once, against the context ramp, and every tone context re-resol
 | `--tone-shadow` | `800` | `--shadow-medium` | `0` (dark: `500`) | the tinted part of a raised control's shadow |
 | `--tone-focus-outline`, `--tone-focus-border` | `300`, `600` | `--input-focus-outline`, `-border` | `--input-focus-outline`, `-border` | the focus ring, outside and inside |
 
-Steps are read from the tone's own context ramp, so `inverse`'s `0` is `base`'s `950`.
+Steps are read from the tone's own context ramp, so `inverse`'s `--tone-0` is `--color-base-950`. The figure names the role you write and the `--tone-*` step it reads; hover the step for the `--color-*` variable that is.
 
 The neutral tones override a few roles because they fill controls from the canvas end of the ramp, not from its middle; `inverse` fills from the far end, so its fill, border, text and shadow differ from `base`'s too. That's the only difference between tones.
 

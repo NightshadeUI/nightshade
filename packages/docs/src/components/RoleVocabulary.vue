@@ -45,7 +45,7 @@
                         :label="option"
                         :tone="option"
                         size="s"
-                        :outline="option === tone"
+                        :ghost="option !== tone"
                         @click="tone = option" />
                 </div>
             </div>

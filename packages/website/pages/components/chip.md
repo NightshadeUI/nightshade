@@ -14,22 +14,24 @@ title: Chip
         :key="tone"
         :tone="tone"
         :label="tone"
-        :icon="state.tone === tone ? 'fas fa-check' : undefined"
+        :ghost="state.tone !== tone"
         @click="state.tone = tone" />
     <Chip
         label="Ripe"
         icon="fas fa-seedling"
         :tone="state.ripe ? 'success' : undefined"
+        :ghost="!state.ripe"
         @click="state.ripe = !state.ripe" />
 </Demo>
 
-A chip is a button with a smaller voice. Mark the chosen one any way you like (a tone, an icon, an outline) and handle `click` yourself. The demo uses a check, so the playground's switches still apply to every chip. One choice, many, or none at all (tags, navigation) are the same component:
+A chip is a button with a smaller voice. The chosen chip drops `ghost`; the rest stay ghost. Don't toggle `outline` for that: the border is a look, and a row of chips would jump. Handle `click` yourself. One choice, many, or none at all (tags, navigation) are the same component:
 
 ```html
 <Chip
     label="Ripe"
     icon="fas fa-seedling"
     :tone="ripe ? 'success' : undefined"
+    :ghost="!ripe"
     @click="ripe = !ripe" />
 
 <Chip
@@ -37,7 +39,7 @@ A chip is a button with a smaller voice. Mark the chosen one any way you like (a
     :key="tone"
     :label="tone"
     :tone="tone"
-    :icon="current === tone ? 'fas fa-check' : undefined"
+    :ghost="current !== tone"
     @click="current = tone" />
 ```
 
@@ -53,7 +55,7 @@ Every tone your styles define, at every size, in both schemes. The playground ba
 
 ## Props
 
-Chip speaks the [control grammar](/components/): `tone`, `size`, `flat`, `outline`, `round`, `translucent`, `disabled`, `forceHover` and `forceFocus`. On top of it:
+Chip speaks the [control grammar](/components/): `tone`, `size`, `flat`, `outline`, `ghost`, `round`, `translucent`, `disabled`, `forceHover` and `forceFocus`. On top of it:
 
 | Prop | Type | Effect |
 |------|------|--------|
@@ -62,6 +64,8 @@ Chip speaks the [control grammar](/components/): `tone`, `size`, `flat`, `outlin
 | `tagName` | string | `button` by default |
 
 ## Variables
+
+Defaulted on `.Chip` from roles and the size context, the same way every control is written.
 
 | Variable | Default |
 |----------|---------|

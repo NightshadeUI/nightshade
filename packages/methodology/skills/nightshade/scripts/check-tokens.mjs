@@ -93,7 +93,10 @@ function checkDeclaration(at, property, value) {
         report(at, `${property} uses em/rem: only letter-spacing may; font sizes are --font-size-*, every other length a token`);
     }
     if (/calc\([^)]*-\s*1px\b/.test(value)) {
-        report(at, `${property} subtracts 1px: don't. box-sizing: border-box already includes the border on a sized box`);
+        report(at, `${property} subtracts a literal 1px: don't. A sized border-box already includes the border`);
+    }
+    if (/^padding/.test(property) && /calc\([^)]*-\s*var\(--[\w-]*border-size/.test(value)) {
+        report(at, `${property} subtracts a border from padding: don't. Keep outline a look, not a state`);
     }
 }
 

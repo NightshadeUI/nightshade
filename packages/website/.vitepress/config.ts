@@ -54,6 +54,7 @@ export default defineDocsConfig({
                 link: 'https://github.com/NightshadeUI/nightshade',
             },
         ],
+        variableView: 'foundation',
         footer: {
             note: 'A seed for design systems. This site is grown from it: ' +
                 'the same tokens, the same primitives, its own :root.',

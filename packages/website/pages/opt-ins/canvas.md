@@ -39,7 +39,7 @@ const canvas = new CanvasController();
 
 ## Variables
 
-Set them on a class of yours on the `CanvasView`, like any component knob. The controller reads the grid ones from the viewport, with the same defaults, so they work without the component too.
+Defaulted on `.CanvasView` from roles, the same way every control is written. The controller reads the grid ones from the viewport, with the same defaults, so they work without the component too.
 
 | Variable | Default |
 |----------|---------|

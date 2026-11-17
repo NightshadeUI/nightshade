@@ -69,6 +69,7 @@
                             :key="look.key"
                             :label="look.label"
                             :tone="playgroundManager.options[look.key] ? 'primary' : undefined"
+                            :ghost="!playgroundManager.options[look.key]"
                             size="s"
                             @click="playgroundManager.toggleOption(look.key)" />
                     </div>

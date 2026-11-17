@@ -41,40 +41,44 @@ Plans, environments, statuses: if the product has a color vocabulary, make each 
 
 ## 5. Wrap, map or replace components
 
-Wrap the standard components and set their variables, or write your own on the same grammar ([components.md](../components.md)), or map another library's variables to the roles. Whichever you pick, everything speaks the same tiers.
+Wrap the standard components (props and context, not their internals), or write your own on the same grammar ([components.md](../components.md)), or map another library's variables to the roles. Whichever you pick, everything speaks the same tiers.
 
 ```vue
 <template>
     <Btn
-        class="AcmeAction"
         v-bind="$attrs"
         round />
 </template>
-
-<style scoped>
-.AcmeAction {
-    --Btn-padding: var(--sp2);
-}
-</style>
 ```
+
+Need a look the standard control doesn't have? Write it on the grammar: `--AcmeAction-*` on `.AcmeAction`, defaulted from roles.
 
 ## 6. Ship it as a package
 
-Put your CSS in its own cascade layer after Nightshade's and publish it. Apps then depend on your system, not on Nightshade directly.
+Put your CSS in its own cascade layer after Nightshade's and publish it. Apps then depend on your system, not on Nightshade directly. Nightshade's names, then yours, before any `@import`. The first `@layer` in the document is the order: [model.md](../model.md#cascade-layers).
 
 ```css
-@layer nightshade, nightshade-components, acme;
+@layer nightshade, nightshade-docs, nightshade-components, acme;
 
 @import 'nightshade/css';
 @import './palette.css' layer(acme);
+@import './type.css' layer(acme);
 @import './roles.css' layer(acme);
 ```
 
-Ship the look too: export the `$nightshade.defaults` your system wants (`{ flat: true }`), and have every app provide them once at its root.
+```css
+/* type.css — yours, in your layer. Display line-heights are ratios. */
+h1 { font-size: var(--font-size-xxxl); line-height: 1.2; }
+h2 { font-size: var(--font-size-xxl);  line-height: 1.2; }
+```
+
+Ship the look too: export the `$nightshade.defaults` your system wants (`{ flat: true }`), and have every app provide them once at its root. Map `h1`–`h6` in that layer, so apps and the docs site inherit the ladder. Nightshade does not. Stay in the layers.
 
 ## 7. Give it a site
 
-`@nightshadeui/docs` is a VitePress theme for the system's own documentation: a landing, navigation from `themeConfig`, and references (variables, palette, tones, scales) that read your styles live, so they show your system as it is. Import your stylesheets in the theme, register your components, and list your own variables in `themeConfig.variableGroups`.
+`@nightshadeui/docs` is a VitePress theme for the system's own documentation: a landing, navigation from `themeConfig`, and references (variables, palette, tones, scales) that read your styles live, so they show your system as it is. Import your stylesheets in the theme, register your components, and list your own public tokens in `themeConfig.variableGroups`. The variable reference is for the apps built on the system, not a catalogue of component knobs.
+
+The docs site is an app of yours: it imports the same stylesheets, so it already has the heading ladder. Don't copy a `type.css` or font tags off the Nightshade website; that site is an app. If a heading still clips, your first `@layer` skipped `nightshade-docs` and that layer was appended.
 
 ```ts
 // docs/.vitepress/config.ts

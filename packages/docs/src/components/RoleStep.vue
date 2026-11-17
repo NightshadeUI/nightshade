@@ -3,38 +3,56 @@
         v-if="split"
         class="Step Step-split"
         :title="title">
-        <span class="StepLight">{{ step.light }}</span>
-        <span class="StepDark">{{ step.dark }}</span>
+        <span class="StepLight">{{ step.light.context }}</span>
+        <span class="StepDark">{{ step.dark.context }}</span>
     </span>
     <span
         v-else
-        class="Step">
-        <span class="StepBoth">{{ step }}</span>
+        class="Step"
+        :title="title">
+        <span class="StepBoth">{{ step.context }}</span>
     </span>
 </template>
 
 <script>
 /**
- * The step a role reads: one name, or a box split on the diagonal into the light scheme's step and the dark one's,
- * each drawn in its own scheme.
+ * The context variable a role reads (`--tone-500`). Split chips are light on the left,
+ * dark on the right, each in its own scheme. Hover for the scale variable (`--color-primary-500`).
  */
 export default {
 
     props: {
-        step: { type: [String, Object], required: true },
+        step: { type: Object, required: true },
     },
 
     computed: {
 
         split() {
-            return typeof this.step !== 'string';
+            return this.step.light != null;
         },
 
         title() {
             if (!this.split) {
+                return this.step.scale ?? '';
+            }
+            return this.describeSplit(this.step.light.scale, this.step.dark.scale);
+        },
+
+    },
+
+    methods: {
+
+        describeSplit(light, dark) {
+            if (!light && !dark) {
                 return '';
             }
-            return `${this.step.light} in light, ${this.step.dark} in dark`;
+            if (light === dark) {
+                return light;
+            }
+            if (light && dark) {
+                return `${light} in light, ${dark} in dark`;
+            }
+            return light || dark;
         },
 
     },

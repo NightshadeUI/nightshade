@@ -79,7 +79,7 @@ export default {
 
     box-sizing: border-box;
     height: var(--Tag-size);
-    padding: 0 calc(var(--Tag-padding) - var(--Tag-border-size));
+    padding: 0 var(--Tag-padding);
     border: var(--Tag-border-size) solid var(--Tag-border);
     border-radius: var(--Tag-radius);
     outline: var(--input-outline-size) solid var(--Tag-outline);
@@ -121,8 +121,8 @@ export default {
 What makes it snap:
 
 - **Context, not defaults.** `tone` and `size` have no default value, and the class is added only when the prop is set. Without them, the component inherits the region's tone and size.
-- **Heights, not padding.** A single-line control has a fixed `height` from `--input-major-height` and is `border-box`, so it lands on the grid. Inner or companion elements use `--input-minor-height` and sit centered beside it. Leave line-height inherited (`--line-height`, `--sp2`).
-- **Variable borders, not every border.** When `--Tag-border-size` can be 0 or 1px (the outline look), subtract it from padding so the content doesn't jump. That's a component calc. Don't subtract `1px` from every padded box that happens to have a 1px border.
+- **Heights, not padding.** A single-line control has a fixed `height` from `--input-major-height` and is `border-box`, so it lands on the grid. Inner or companion elements use `--input-minor-height` and sit centered beside it. Leave line-height inherited (`--line-height`, `--sp2`). Padding is the padding token: don't subtract the border from it. Content doesn't jump when `outline` stays a look.
+- **Looks, not selected.** `outline` is a look. Chosen drops `ghost`; the rest stay ghost. Don't toggle a border as selected, especially in a row or toolbar that would jump.
 - **Roles, not ramps, when it's multi-tone.** A control that takes a `tone` reads roles, and the context ramp (`--tone-200`) when none fits, never `--color-*`. A single-tone component may read ramp steps directly. Neither calls `light-dark()`.
 - **Shared states.** Disabled uses `--input-disabled-opacity` and `--input-disabled-filter`. Hover on a filled control is an overlay of `--input-hover-overlay`; hover on a well is `filter: var(--input-hover-filter)`. Focus rings use `:focus-visible` (`:focus-within` for text fields) with the focus roles.
 - **A round control's radius is half its own height**, never a radius token.
@@ -141,7 +141,8 @@ Controls share one set of props. A new control takes the ones that make sense fo
 | `tone` | the tone; inherits the context when omitted |
 | `size` | `xs` `s` `m` `l` `xl`; inherits the context when omitted |
 | `flat` | no gradient, no raised shadow |
-| `outline` | a border in `--tone-border` |
+| `outline` | a border in `--tone-border`. A look, not selected |
+| `ghost` | no surface; text in `--tone-text`. Unchosen stays ghost; chosen drops it |
 | `round` | radius of half the control's height |
 | `translucent` | blends with the background (`--translucency-*`) and blurs it |
 | `disabled` | dimmed, ignores input |
@@ -165,16 +166,7 @@ app.component('Toggle', Toggle);
 
 Or register all of them: `standardComponents` maps every name to its component.
 
-Restyle them through their variables, on a class of your own, before reaching for a new component:
-
-```css
-.AcmeAction {
-    --Btn-padding: var(--sp2);
-    --Btn-radius: var(--radius-l);
-}
-```
-
-`RouterBtn` needs `vue-router` in the app. Overlays teleport into an element with `id="overlays"`.
+`RouterBtn` needs `vue-router` in the app. Overlays teleport into an element with `id="overlays"`. Each control's `--<Component>-*` locals are defaulted on its root class from roles; they are how the control is written, not a restyle API.
 
 ## App-wide defaults
 

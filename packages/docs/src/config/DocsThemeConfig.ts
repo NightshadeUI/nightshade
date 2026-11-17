@@ -47,12 +47,12 @@ export interface DocsThemeConfig {
     footer?: DocsFooter;
     /** The tones to show in tone references. Omitted, they are read from the page's `.tone-*` rules. */
     tones?: string[];
-    /** The system's own variables, listed in the variable reference next to Nightshade's. */
+    /** The system's own public tokens, listed in the variable reference next to Nightshade's. */
     variableGroups?: VariableGroup[];
     /**
-     * Whom the variable reference speaks to. `foundation` (the default): authors of a system built on Nightshade,
-     * with how far each variable is meant to be overridden. `usage`: apps built on a finished system,
-     * with how to use each variable: what to read, what to set on a class, what to avoid.
+     * Whom the variable reference speaks to. The default, `usage`, is a system's docs for the apps built on it:
+     * the public tokens, their specified values, and when to read them. Nightshade's own site sets
+     * `foundation`: authors of a system, with how far each variable is meant to be overridden.
      */
     variableView?: 'foundation' | 'usage';
 }

@@ -67,6 +67,8 @@ Single values, in `settings/`. Same tier as the scales; some pick a step of one.
 | `--line-height-main|alt|monospace` | `--line-height`; set one where a face needs its own |
 | `--line-height-prose` | `1.5`, a ratio, for running text (`.prose`) |
 
+Nightshade does not map `h1`–`h6`. The app (or the system grown from the seed) maps tags to `--font-size-*` and sets a display line-height, a ratio, in its cascade layer. Don't scope the ladder to `.Prose` only. Layer order: [model.md](model.md#cascade-layers).
+
 ### Controls
 
 Fixed for every size: `--input-border-size` (1px), `--input-outline-size` (2px), `--input-outline-offset` (0).
@@ -121,7 +123,7 @@ Stated once against the context ramp; read them inside any `.tone-*` context.
 |------|------|---------------------------|
 | `--tone-text` | 600 | 900 |
 | `--tone-tint` | 100 | — |
-| `--tone-tint-text` | 900 | — |
+| `--tone-tint-text` | 700 | — |
 | `--tone-fill` | 500 | 100 |
 | `--tone-fill-top` / `-bottom` | 400 / 600 (mirrored in dark) | 0 / 200 |
 | `--tone-fill-text` | contrast | 950 |

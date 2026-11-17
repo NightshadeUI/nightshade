@@ -1,6 +1,15 @@
+/*
+ * This site's layer order. `nightshade-docs` sits before `site`, so the heading
+ * ladder wins over article defaults without leaving the layers.
+ * type.css is this site's, like Fraunces: not a file other systems import.
+ */
+@layer nightshade, nightshade-docs, nightshade-components, site;
+
 @import '@nightshadeui/stylesheets';
 @import '@nightshadeui/stylesheets/palette.css' layer(nightshade);
-@import './type.css';
+@import './type.css' layer(site);
+
+@layer site {
 
 /*
  * This site is an app grown from the seed: it owns this `:root`.
@@ -103,4 +112,6 @@
     .OpenTones {
         grid-template-columns: minmax(0, 1fr);
     }
+}
+
 }

@@ -146,12 +146,13 @@ const STAGE_HEIGHT = LABEL_GAP * Math.max(...['left', 'right'].map(side => {
     return anatomy.filter(part => part.side === side).length;
 }));
 const ELBOW = 16;
-const COMPACT_WIDTH = 640;
+const COMPACT_WIDTH = 720;
 
 /**
  * Every tone role, on the part of a control that uses it: a close-up of a made-up card, in one tone at a time,
- * with a leader from each role's label to where it shows, and the step the role reads in that tone.
- * Below 600px the leaders give way to numbered dots and a legend.
+ * with a leader from each role's label to where it shows. The label is the variable you write (`--tone-fill`)
+ * and the context step it reads (`--tone-500`); hover the chip for the scale variable (`--color-primary-500`).
+ * Below 720px the leaders give way to numbered dots and a legend.
  */
 export default {
 
@@ -276,7 +277,9 @@ export default {
             };
         },
 
-        // The step each role resolves to in this tone: `500`, `contrast`, `secondary 300`, or `{ light, dark }`
+        // `{ context, scale }` or `{ light, dark }` of those. The chip shows context
+        // (`--tone-500`); hover shows scale (`--color-primary-500`).
+        // Inverse fill is `--tone-0` → `--color-base-950`.
         readSteps() {
             const style = getComputedStyle(this.$refs.card);
             const names = this.readValueNames(style);
@@ -287,21 +290,41 @@ export default {
             return steps;
         },
 
-        // Later entries win: a tone's own step names a value before the ramp it points at
+        // Later context names win: a role that reads `--tone-300` is named that, even
+        // when the color is also `--input-focus-outline`. Shadows win last, so base
+        // `--tone-shadow` names as `--shadow-medium`.
         readValueNames(style) {
             const names = new Map();
             const read = name => style.getPropertyValue(name).trim();
+            const scaleByValue = new Map();
+            const preferredRamp = this.tone === 'inverse' ? 'base' : this.tone;
             for (const ramp of this.stylesManager.ramps) {
                 for (const step of rampSteps) {
-                    names.set(read(`--color-${ramp}-${step}`), `${ramp} ${step}`);
+                    const value = read(`--color-${ramp}-${step}`);
+                    if (!scaleByValue.has(value) || ramp === preferredRamp) {
+                        scaleByValue.set(value, `--color-${ramp}-${step}`);
+                    }
+                }
+                const contrast = read(`--color-${ramp}-contrast`);
+                if (!scaleByValue.has(contrast) || ramp === preferredRamp) {
+                    scaleByValue.set(contrast, `--color-${ramp}-contrast`);
                 }
             }
-            for (const level of ['light', 'medium', 'heavy']) {
-                names.set(read(`--shadow-${level}`), `shadow-${level}`);
+            const remember = (value, context) => {
+                names.set(value, {
+                    context,
+                    scale: scaleByValue.get(value) ?? '',
+                });
+            };
+            for (const name of ['--input-focus-outline', '--input-focus-border']) {
+                remember(read(name), name);
             }
-            names.set(read('--tone-contrast'), 'contrast');
             for (const step of rampSteps) {
-                names.set(read(`--tone-${step}`), String(step));
+                remember(read(`--tone-${step}`), `--tone-${step}`);
+            }
+            remember(read('--tone-contrast'), '--tone-contrast');
+            for (const level of ['light', 'medium', 'heavy']) {
+                remember(read(`--shadow-${level}`), `--shadow-${level}`);
             }
             return names;
         },
@@ -312,9 +335,12 @@ export default {
             }
             const [light, dark] = this.splitLightDark(value);
             if (names.has(light) && names.has(dark)) {
-                return { light: names.get(light), dark: names.get(dark) };
+                return {
+                    light: names.get(light),
+                    dark: names.get(dark),
+                };
             }
-            return '';
+            return null;
         },
 
         splitLightDark(value) {
@@ -391,7 +417,7 @@ export default {
 .Figure {
     position: relative;
     display: grid;
-    grid-template-columns: minmax(110px, 1fr) minmax(280px, 340px) minmax(110px, 1fr);
+    grid-template-columns: minmax(140px, 1fr) minmax(280px, 340px) minmax(140px, 1fr);
     gap: var(--sp5);
     padding: var(--sp5) var(--sp3);
     border: 1px solid var(--border-base);
@@ -589,7 +615,7 @@ export default {
 
 .Legend {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: var(--sp1) var(--sp2);
     margin: var(--sp2) 0 0;
     padding: 0;
@@ -598,13 +624,14 @@ export default {
 
 .LegendItem {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: var(--sp1);
 }
 
 .LegendNumber {
     flex-shrink: 0;
     width: var(--sp2-5);
+    padding-top: var(--sp0-25);
     color: var(--text-faint);
     font: 700 var(--font-size-xxs) var(--font-monospace);
     line-height: var(--line-height-main);

@@ -8,8 +8,9 @@
             {
                 'Chip-round': effectiveStyle.round,
                 'Chip-outline': effectiveStyle.outline,
+                'Chip-ghost': effectiveStyle.ghost,
                 'Chip-flat': effectiveStyle.flat,
-                'Chip-translucent': effectiveStyle.translucent,
+                'Chip-translucent': effectiveStyle.translucent && !effectiveStyle.ghost,
                 'Chip-disabled': resolvedProps.disabled,
                 'Chip-forceFocus': resolvedProps.forceFocus,
                 'Chip-forceHover': resolvedProps.forceHover,
@@ -54,6 +55,7 @@ export default {
         size: { type: String },
         flat: { type: Boolean, default: false },
         outline: { type: Boolean, default: false },
+        ghost: { type: Boolean, default: false },
         round: { type: Boolean, default: false },
         translucent: { type: Boolean, default: false },
 
@@ -71,6 +73,7 @@ export default {
                 size: resolvedProps.size,
                 flat: resolvedProps.flat,
                 outline: resolvedProps.outline,
+                ghost: resolvedProps.ghost,
                 round: resolvedProps.round,
                 translucent: resolvedProps.translucent,
             };
@@ -82,8 +85,8 @@ export default {
 </script>
 
 <style scoped>
-/* The order, stated wherever these styles load first: the styles, then the components */
-@layer nightshade, nightshade-components;
+/* Nightshade's order, stated wherever these styles load first. */
+@layer nightshade, nightshade-docs, nightshade-components;
 
 @layer nightshade-components {
 
@@ -115,7 +118,7 @@ export default {
         box-sizing: border-box;
         height: var(--Chip-size);
         margin: 0;
-        padding: 0 calc(var(--Chip-padding) - var(--Chip-border-size));
+        padding: 0 var(--Chip-padding);
 
         border: var(--Chip-border-size) solid var(--Chip-border);
         border-radius: var(--Chip-radius);
@@ -181,6 +184,14 @@ export default {
         --Chip-border: var(--tone-border);
     }
 
+    .Chip-ghost {
+        --Chip-background: transparent;
+        --Chip-text: var(--tone-text);
+        --Chip-icon: var(--tone-text);
+        --Chip-border: var(--tone-text);
+        --Chip-box-shadow: none;
+    }
+
     .Chip-flat {
         --Chip-box-shadow: none;
     }
@@ -189,6 +200,12 @@ export default {
         --Chip-background: color-mix(in srgb, var(--tone-tint), transparent var(--translucency-mix-medium));
         --Chip-box-shadow: 0 0 3px var(--translucency-highlight) inset;
         backdrop-filter: blur(var(--translucency-blur));
+    }
+
+    .Chip-ghost.Chip-translucent {
+        --Chip-background: transparent;
+        --Chip-box-shadow: none;
+        backdrop-filter: none;
     }
 
 }

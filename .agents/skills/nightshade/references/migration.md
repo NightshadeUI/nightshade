@@ -15,7 +15,7 @@
 - **New roles and settings.** `--tone-tint` and `--tone-tint-text` are a tone's soft background and the text on it. Each font face has its own line height (`--line-height-main|alt|monospace`), and the utilities gain `.text-m` and `.font-monospace`.
 - **Components inherit `tone` and `size`.** They used to default to `base` and `m` and stamp their own class, which broke context. Omit the prop, and a component takes the tone and size of its surroundings. `:root` still gives `base` and `m`. A bound `undefined` (`:tone="item.tone"`) counts as omitted, so `$nightshade.defaults` still reach it.
 - **States are shared.** Disabled and hover looks come from `--input-disabled-opacity|filter` and `--input-hover-overlay|filter`, not per-component values. Focus rings show on `:focus-visible` (text fields: `:focus-within`), so a mouse click no longer rings a button.
-- **Geometry is tighter.** A control's padding includes its border, so `outline` no longer grows it, and round controls take half their own height as radius. Check custom CSS that compensated for either.
+- **Geometry is tighter.** Round controls take half their own height as radius. Check custom CSS that compensated for that.
 - **`--ui-*-z` is gone.** Stacking order has nothing to do with color. Focused controls still rise above their neighbours.
 - **Radius is a scale.** `--border-radius` is now `--radius-m`, with `--radius-s` and `--radius-l` beside it.
 - **The palette is yours.** `@nightshadeui/stylesheets` no longer brings one: import your generated `palette.css` next to it, or the starter `@nightshadeui/stylesheets/palette.css` while prototyping. The styles read `base`, `primary` and `secondary` by name, and the generator throws on a spec without them.

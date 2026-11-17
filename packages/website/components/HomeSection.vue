@@ -14,6 +14,11 @@
                 class="Text">
                 {{ text }}
             </p>
+            <div
+                v-if="$slots.text"
+                class="Text">
+                <slot name="text" />
+            </div>
         </header>
         <div class="Body">
             <slot />
@@ -59,6 +64,15 @@ h2 {
     margin: var(--sp1-5) 0 0;
     line-height: var(--line-height-prose);
     color: var(--text-subtle);
+}
+
+.Text :deep(p) {
+    margin: 0;
+}
+
+.Text :deep(code) {
+    font: 500 var(--font-size-s) var(--font-monospace);
+    letter-spacing: 0;
 }
 
 .HomeSection:last-of-type {

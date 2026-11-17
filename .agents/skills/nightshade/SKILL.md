@@ -14,7 +14,7 @@ Nightshade is a seed for an application-owned design system: principles, styles 
    - The character of the whole system (grid unit, radius, type, a hue): a **scale**, at `:root`, or the palette spec.
    - A color for one region or one control: a **context** class (`.tone-danger`, `.input-size-s`), not new variables.
    - What a surface, border or text color *means* everywhere: a **role**, reassigned once at `:root`.
-   - One component's look: its **component variables** (`--Btn-padding`), set on a class of your own.
+   - A control you write: default `--<Component>-*` on its root class from roles.
    Details: [references/model.md](references/model.md).
 3. **Pick the variable from the vocabulary.** Read [references/tokens.md](references/tokens.md) for the full catalog with defaults. Decide first whether the component is multi-tone (it must work in any tone, like a button) or single-tone (one color scheme, like most app components). Multi-tone components read roles and the context ramp (`--tone-<step>`). Single-tone components may read ramp steps directly. Add a role only when every tone can answer it.
 4. **Write components in the grammar.** Root-class defaults, role-named color locals, property-named value locals, shared states, context classes for `tone` and `size`. Details and a template: [references/components.md](references/components.md).
@@ -40,6 +40,7 @@ Nightshade is a seed for an application-owned design system: principles, styles 
 | A well, a panel, a divider | `--surface-*` and its paired `--border-*` | [tokens.md](references/tokens.md#canvas-roles) |
 | A new control | A component on the grammar | [components.md](references/components.md#writing-a-component) |
 | Your own design system package | The growing recipe | [recipes/growing.md](references/recipes/growing.md) |
+| Cascade layer order | `nightshade`, `nightshade-docs`, `nightshade-components`, then yours | [model.md](references/model.md#cascade-layers) |
 | Upgrading from 2.x | The renames and the script | [migration.md](references/migration.md) |
 
 ## Non-negotiables
@@ -51,4 +52,5 @@ Nightshade is a seed for an application-owned design system: principles, styles 
 - The role vocabulary is complete as listed. Role names are two words or more.
 - Component variables follow one grammar: role names hold colors, property names hold full values.
 - Lengths come from `--sp*`; control heights from the size context.
-- `--line-height` is `--sp2` and is inherited; `--line-height-prose` is `1.5` for running text. Never `em` or `rem` except `letter-spacing`. Never `calc(var(--spN) - 1px)`.
+- `--line-height` is `--sp2` and is inherited; `--line-height-prose` is `1.5` for running text. Nightshade does not map `h1`–`h6`: the app sets display line-heights as ratios, in its cascade layer. Never `em` or `rem` except `letter-spacing`. Never subtract a border or a pixel from padding: `outline` is a look, not a state, so the box doesn't grow. Chosen drops `ghost`.
+- Cascade layers, weakest first: `nightshade`, `nightshade-docs`, `nightshade-components`, then yours. The first `@layer` in the document is the order. Stay in the layers; don't unlayer to win.

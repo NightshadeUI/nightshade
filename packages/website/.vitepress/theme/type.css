@@ -1,6 +1,6 @@
 /*
- * This site's heading ladder. Nightshade's styles don't map tags to the type scale;
- * an app does that. Type only: each page keeps its own spacing.
+ * This site's heading ladder, in the `site` layer. Nightshade the library does not
+ * map tags; this website does, for itself. Type only: each page keeps its own spacing.
  */
 h1,
 h2 {

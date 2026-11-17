@@ -6,11 +6,13 @@
                     label="Tone axis"
                     size="s"
                     :tone="axis === 'tone' ? 'primary' : undefined"
+                    :ghost="axis !== 'tone'"
                     @click="axis = 'tone'" />
                 <Btn
                     label="Size axis"
                     size="s"
                     :tone="axis === 'size' ? 'primary' : undefined"
+                    :ghost="axis !== 'size'"
                     @click="axis = 'size'" />
             </InputGroup>
             <div class="Options">
@@ -20,7 +22,7 @@
                     :label="option"
                     :tone="axis === 'tone' ? option : 'base'"
                     size="s"
-                    :outline="option === current"
+                    :ghost="option !== current"
                     @click="select(option)" />
             </div>
         </div>
@@ -149,14 +151,6 @@ export default {
                     swatch: '--tone-fill',
                     note: neutral ? 'Neutral tones fill from the canvas end.' : 'What a fill is, in any tone.',
                 },
-                {
-                    tier: 'Component',
-                    selector: '.Btn',
-                    property: '--Btn-fill',
-                    value: 'var(--tone-fill)',
-                    swatch: '--tone-fill',
-                    note: 'Reads the role, never the ramp.',
-                },
             ];
         },
 
@@ -177,13 +171,6 @@ export default {
                     property: '--input-major-height',
                     value: `var(--input-size-${size}-major-height)`,
                     note: 'One size for the whole subtree. The name is the role.',
-                },
-                {
-                    tier: 'Component',
-                    selector: '.Btn',
-                    property: '--Btn-size',
-                    value: 'var(--input-major-height)',
-                    note: 'Reads the context, never the scale.',
                 },
             ];
         },
@@ -262,7 +249,7 @@ export default {
     position: absolute;
     z-index: 1;
     top: 50%;
-    right: calc(-1 * var(--sp2) - 1px);
+    right: calc(-1 * var(--sp2));
     width: var(--sp2);
     height: 1px;
     background: var(--color-primary-600);

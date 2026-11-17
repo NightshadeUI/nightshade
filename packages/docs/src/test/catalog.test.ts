@@ -4,7 +4,7 @@ import { dirname, join } from 'node:path';
 import { describe, it } from 'node:test';
 import { fileURLToPath } from 'node:url';
 
-import { VARIABLE_GROUPS } from '../catalog/variables.js';
+import { readExampleNames, VARIABLE_GROUPS, VARIABLE_TIERS } from '../catalog/variables.js';
 
 const STYLESHEETS = join(dirname(fileURLToPath(import.meta.url)), '../../../stylesheets');
 
@@ -22,6 +22,27 @@ describe('variable catalog', () => {
     it('lists only variables the styles or the generated palette declare', () => {
         const unknown = [...cataloged].filter(name => !declared.has(name) && !generated.has(name));
         assert.deepEqual(unknown, [], 'in the catalog, declared nowhere');
+    });
+
+    it('keeps examples inside the family they illustrate', () => {
+        const stray: string[] = [];
+        for (const group of VARIABLE_GROUPS) {
+            for (const entry of group.entries) {
+                const known = new Set(entry.members ?? [entry.name]);
+                for (const name of readExampleNames(entry)) {
+                    if (!known.has(name)) {
+                        stray.push(`${entry.name} example ${name}`);
+                    }
+                }
+            }
+        }
+        assert.deepEqual(stray, []);
+    });
+
+    it('has no component groups: knobs are not public tokens', () => {
+        const components = VARIABLE_GROUPS.filter(group => group.tier === 'component');
+        assert.deepEqual(components.map(group => group.id), []);
+        assert.equal(VARIABLE_TIERS.some(tier => (tier.id as string) === 'component'), false);
     });
 
 });
@@ -46,7 +67,7 @@ function readDeclaredVariables(files: string[]) {
 /** Every variable the catalog names: an entry's own name unless it's a pattern, and its members. */
 function readCatalogedVariables() {
     const names = new Set<string>();
-    for (const group of VARIABLE_GROUPS.filter(group => group.tier !== 'component')) {
+    for (const group of VARIABLE_GROUPS) {
         for (const entry of group.entries) {
             if (!entry.name.includes('<')) {
                 names.add(entry.name);

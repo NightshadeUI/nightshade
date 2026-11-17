@@ -51,4 +51,4 @@ nightshade ─┬─ @nightshadeui/components ─┬─ @nightshadeui/stylesheet
 
 ## Inside the styles
 
-The styles repeat the same pattern on a smaller scale: four tiers, each reading only the tiers before it. That's the subject of the next section, starting with [Tokens](/styles/).
+The styles repeat the same pattern on a smaller scale: raw values, context and roles, each reading only the tiers before it. That's the subject of the next section, starting with [Tokens](/styles/).

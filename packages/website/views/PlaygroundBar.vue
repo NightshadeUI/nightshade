@@ -7,6 +7,7 @@
                 :key="option.key"
                 :label="option.label"
                 :tone="playgroundManager.options[option.key] ? 'primary' : undefined"
+                :ghost="!playgroundManager.options[option.key]"
                 size="s"
                 flat
                 @click="playgroundManager.toggleOption(option.key)" />
@@ -18,6 +19,7 @@
                 :key="option.key"
                 :label="option.label"
                 :tone="playgroundManager.options[option.key] ? 'secondary' : undefined"
+                :ghost="!playgroundManager.options[option.key]"
                 size="s"
                 flat
                 @click="playgroundManager.toggleOption(option.key)" />

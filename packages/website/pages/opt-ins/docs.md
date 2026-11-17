@@ -18,7 +18,7 @@ npm i -D @nightshadeui/docs vitepress vue
 
 | Component | Shows |
 |-----------|-------|
-| `<VariableReference />` | every variable, by tier, searchable, with override guidance, your values and your own variables |
+| `<VariableReference />` | every public token, by category and tier, searchable, with the specified values from your styles |
 | `<PaletteReference />` | every ramp your palette defines |
 | `<ToneMatrix />`, `<ToneRoles />` | every tone at every size (a button, or your control from the `{ tone, size }` slot), and an app card taken apart into every tone role, one tone at a time |
 | `<RoleVocabulary />` | the canvas and tone roles |
@@ -65,15 +65,15 @@ export default defineDocsConfig({
 });
 ```
 
-`themeConfig` also takes `social` (icon links in the header), `footer` (`note`, `legal`), `tones` (a fixed tone list, instead of the one read from your styles) `variableGroups`: your own variables, listed in the variable reference with the same stances, and `variableView`.
+`themeConfig` also takes `social` (icon links in the header), `footer` (`note`, `legal`), `tones` (a fixed tone list, instead of the one read from your styles), `variableGroups` (your own public tokens, listed next to Nightshade's) and `variableView`.
 
-The variable reference has two views. The default, `foundation`, speaks to authors of a system built on Nightshade: how far each variable is meant to be overridden (specify, fine tune, override with care, do not override). A system built on Nightshade sets `variableView: 'usage'`, and its reference speaks to the apps built on it instead: which variables their CSS reads, which they set on a class of their own, and which to avoid, with what to use instead. Settings show the system's own values. Give an entry of `variableGroups` a `usage` (`{ use: 'read' | 'set' | 'avoid', about, instead }`) to say how apps use it; without one, component variables are `set` and the rest `read`, with the entry's own `about`.
+The variable reference speaks to the apps built on the system: the public tokens, grouped by category, with the specified values from your styles. Component knobs (`--Btn-*` and the rest) are not in it; they are not tokens an app reads. Nightshade's own site sets `variableView: 'foundation'`, which adds how far each variable is meant to be overridden (specify, fine tune, override with care, do not override). A system that still sets `variableView: 'usage'` gets the default.
 
 ## Theme
 
 The theme brings no styles of its own beyond the frame (its CSS, Font Awesome, the `kbd` and `transitions` modules), and registers no controls. Import your styles, and register the components your pages use: your own, and the standard ones you pick.
 
-The theme's CSS sits in the `nightshade-docs` layer, so your styles win over it, and its prose rules (headings, links, tables) stop at `<Demo>`: a demo shows your components the way an app would.
+The theme's CSS sits in `nightshade-docs`, Nightshade's middle layer, so your system layer wins over it. Its prose rules (headings, links, tables) stop at `<Demo>` and the live references: a demo shows your components the way an app would, and a catalog heading isn't dressed as an article `h2`. Map `h1`–`h6` in your system layer (display line-heights as ratios, for the whole site): Nightshade does not. If your first `@layer` speaks first, name `nightshade`, `nightshade-docs`, `nightshade-components`, then yours. Don't copy this site's `type.css`.
 
 ```ts
 // docs/.vitepress/theme/index.ts

@@ -42,7 +42,7 @@ export default defineDocsConfig({
 });
 ```
 
-`themeConfig` also takes `social` (header icon links), `footer` (`note`, `legal`), `tones` (to pin the tone list instead of reading it from the styles) and `variableGroups` (your own variables, listed in the variable reference).
+`themeConfig` also takes `social` (header icon links), `footer` (`note`, `legal`), `tones` (to pin the tone list instead of reading it from the styles) and `variableGroups` (your own public tokens, listed in the variable reference). The variable reference speaks to apps built on the system: the public tokens, their specified values, and when to read them. Nightshade's own site sets `variableView: 'foundation'` to add override guidance for authors of a system.
 
 ## Theme
 
@@ -64,7 +64,7 @@ export default {
 } satisfies Theme;
 ```
 
-Import your stylesheets (Nightshade's, your palette and your `:root`). The theme brings only what its frame needs (its own CSS, Font Awesome, the `kbd` and `transitions` modules), so the site looks like your system. It registers no controls: register the components your pages use, your own and the standard ones you pick. Its CSS sits in the `nightshade-docs` layer, and its prose rules stop at `<Demo>`, so demos look the way they would in an app. To wrap the frame, set `Layout` to a component that renders `<DocsLayout>`; its `header-actions` slot adds buttons to the header.
+Import your stylesheets (Nightshade's, your palette and your `:root`). The heading ladder lives in that system layer, with display line-heights as ratios, for the whole site: Nightshade does not map `h1`–`h6`. If your first `@layer` speaks first, name `nightshade`, `nightshade-docs`, `nightshade-components`, then yours. The theme brings only what its frame needs (its own CSS, Font Awesome, the `kbd` and `transitions` modules), so the site looks like your system. It registers no controls: register the components your pages use, your own and the standard ones you pick. Its CSS sits in the `nightshade-docs` layer, and its prose rules stop at `<Demo>` and the live references, so those look the way they would in an app. To wrap the frame, set `Layout` to a component that renders `<DocsLayout>`; its `header-actions` slot adds buttons to the header.
 
 ## Layouts
 
@@ -103,7 +103,7 @@ Registered globally, so pages use them by name:
 
 | Component | Shows |
 |-----------|-------|
-| `<VariableReference />` | every variable, by tier, searchable, with override guidance and your site's values |
+| `<VariableReference />` | every public token, by category and tier, searchable, with the specified values from your styles |
 | `<PaletteReference />` | every ramp the page defines, live |
 | `<ToneMatrix />`, `<ToneRoles />` | every tone at every size (a button, or your control from the `{ tone, size }` slot), and an app card taken apart into every tone role, one tone at a time |
 | `<RoleVocabulary />` | the canvas and tone roles |

@@ -99,8 +99,8 @@ export default {
 </script>
 
 <style scoped>
-/* The order, stated wherever these styles load first: the styles, then the components */
-@layer nightshade, nightshade-components;
+/* Nightshade's order, stated wherever these styles load first. */
+@layer nightshade, nightshade-docs, nightshade-components;
 
 @layer nightshade-components {
 

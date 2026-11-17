@@ -107,6 +107,8 @@ Every tone your styles define, at every size, in both schemes. The playground ba
 
 ## Variables
 
+Defaulted on `.Btn` from roles and the size context, the same way every control is written.
+
 | Variable | Default |
 |----------|---------|
 | `--Btn-size` | `--input-major-height` |

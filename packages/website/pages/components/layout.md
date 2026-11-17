@@ -29,7 +29,7 @@ Rows and columns. `gap` names a step of the [spacing scale](/styles/sizing#spaci
 </HGroup>
 ```
 
-`HGroup` defaults to `gap="1"` and centered items; `VGroup` to `gap="2"` and stretched items. The gap is a variable too, `--HGroup-gap` and `--VGroup-gap`, so a class of your own can set it for every group it styles.
+`HGroup` defaults to `gap="1"` and centered items; `VGroup` to `gap="2"` and stretched items. The gap prop sets `--HGroup-gap` / `--VGroup-gap` on the root, from the spacing scale.
 
 ## Filler
 

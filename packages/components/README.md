@@ -1,12 +1,12 @@
 # @nightshadeui/components
 
-Standard Nightshade controls for Vue 3: buttons, chips, text inputs, toggles, sliders, layout groups and overlays. They read the styles' roles and context, and share one grammar of props: `tone`, `size`, `flat`, `outline`, `round`, `translucent`, `disabled`.
+Standard Nightshade controls for Vue 3: buttons, chips, text inputs, toggles, sliders, layout groups and overlays. They read the styles' roles and context, and share one grammar of props: `tone`, `size`, `flat`, `outline`, `ghost`, `round`, `translucent`, `disabled`.
 
 ```bash
 npm i @nightshadeui/stylesheets @nightshadeui/components
 ```
 
-Import the ones you use. Each brings its own CSS, in the `nightshade-components` layer:
+Import the ones you use. Each brings its own CSS, in the `nightshade-components` layer. Nightshade's cascade layers, weakest first: `nightshade`, `nightshade-docs`, `nightshade-components`.
 
 ```ts
 import '@nightshadeui/stylesheets';

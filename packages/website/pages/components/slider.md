@@ -59,6 +59,8 @@ Every tone your styles define, at every size, in both schemes. The playground ba
 
 ## Variables
 
+Defaulted on `.Slider` from roles and the size context, the same way every control is written.
+
 | Variable | Default |
 |----------|---------|
 | `--Slider-knob-size` | `--input-minor-height` |

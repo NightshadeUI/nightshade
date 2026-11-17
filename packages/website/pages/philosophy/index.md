@@ -39,7 +39,7 @@ One idea runs through every layer: **turn an open space into a short list, then 
 | Any color | Twelve-step ramps sampled from a hue | [Color](/styles/color) |
 | Any ramp step | A handful of roles, the same for every tone | [Tones and roles](/styles/tones) |
 | Any control size | Five input sizes, `xs` to `xl` | [Space and sizing](/styles/sizing#input-sizes) |
-| Any component look | One grammar: tone, size, flat, outline, round | [Control grammar](/components/) |
+| Any component look | One grammar: tone, size, flat, outline, ghost, round | [Control grammar](/components/) |
 
 With a short list in hand, an arbitrary `22px` or `#3a7bd5` rarely comes up. When you do need one, adding it to a vocabulary makes it available to everyone.
 

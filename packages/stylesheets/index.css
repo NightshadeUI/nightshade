@@ -8,10 +8,12 @@
  */
 
 /*
- * The layer order, declared up front: the styles, then the standard components.
- * Any layer the app declares after this import comes later, and wins over both.
+ * Nightshade's cascade layers, weakest first. The first `@layer` in the document
+ * is the order; this statement is that first one unless the app spoke earlier.
+ * `nightshade-docs` is a reserved seat: empty until `@nightshadeui/docs` loads.
+ * Name these three, then yours, if you declare `@layer` before this import.
  */
-@layer nightshade, nightshade-components;
+@layer nightshade, nightshade-docs, nightshade-components;
 
 /* 1. Raw values, no meaning yet. Scales: enumerable ladders */
 @import './scales/spacing.css' layer(nightshade);

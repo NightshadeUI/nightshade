@@ -18,13 +18,13 @@ This site sets them to Source Sans 3, Fraunces and Source Code Pro.
 
 ## Size scale
 
-Each step is a simple `px`. `--font-size-m` is body text; `--font-size-xxxl` is h1. This site maps the tags in `.vitepress/theme/type.css`; an app of yours does the same.
+Each step is a simple `px`. `--font-size-m` is body text; `--font-size-xxxl` is h1. Nightshade's styles don't map tags to the type scale: the app (or the system grown from the seed) does that, in its cascade layer, with display line-heights as ratios. Map the whole site, not only `.Prose`, or titles outside articles inherit `--line-height` (`--sp2`) and clip. This site maps them for itself; don't copy its `type.css` or its font tags.
 
 <TypeScale />
 
 ```css
-h1 { font-size: var(--font-size-xxxl); line-height: 1.1; }  /* 88px */
-h2 { font-size: var(--font-size-xxl);  line-height: 1.15; } /* 40px */
+h1 { font-size: var(--font-size-xxxl); line-height: 1.2; } /* 88px */
+h2 { font-size: var(--font-size-xxl);  line-height: 1.2; } /* 40px */
 ```
 
 ## Weights and leading
@@ -42,7 +42,7 @@ h2 { font-size: var(--font-size-xxl);  line-height: 1.15; } /* 40px */
 
 `--font-weight-bold` is 500, not 700: on screens, medium usually reads as bold without shouting. Set it to what your typeface needs.
 
-`--line-height` is `--sp2`: one line of a single-line control. The page sets it and everything inherits it, so application components don't fight an irregular line height to fit the grid. Don't set `line-height` to a spacing step. Running text reads `--line-height-prose` (a ratio, `1.5`), or takes the `.prose` class:
+`--line-height` is `--sp2`: one line of a single-line control. The page sets it and everything inherits it, so application components don't fight an irregular line height to fit the grid. Don't set `line-height` to a spacing step. Running text reads `--line-height-prose` (a ratio, `1.5`), or takes the `.prose` class. Headings are the app's: map the tags, with a display ratio, not `--line-height-prose`.
 
 ```css
 .Article {

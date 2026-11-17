@@ -116,8 +116,8 @@ export default {
 </script>
 
 <style scoped>
-/* The order, stated wherever these styles load first: the styles, then the components */
-@layer nightshade, nightshade-components;
+/* Nightshade's order, stated wherever these styles load first. */
+@layer nightshade, nightshade-docs, nightshade-components;
 
 @layer nightshade-components {
 
@@ -176,7 +176,7 @@ export default {
         background: color-mix(in srgb, var(--Toggle-knob-background), transparent var(--Toggle-knob-transparency));
         box-shadow: 0 1px 3px var(--Toggle-shadow), 0 1px 5px var(--Toggle-shadow);
 
-        transform: translate(calc(var(--Toggle-knob-offset) - var(--Toggle-border-size)), -50%);
+        transform: translate(var(--Toggle-knob-offset), -50%);
         transition: transform .3s, border-radius .3s;
     }
 
@@ -208,8 +208,7 @@ export default {
             calc(
                 var(--Toggle-width) -
                 var(--Toggle-knob-size) -
-                var(--Toggle-knob-offset) -
-                var(--Toggle-border-size)
+                var(--Toggle-knob-offset)
             ), -50%);
     }
 

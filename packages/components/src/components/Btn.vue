@@ -189,8 +189,8 @@ export default {
 </script>
 
 <style scoped>
-/* The order, stated wherever these styles load first: the styles, then the components */
-@layer nightshade, nightshade-components;
+/* Nightshade's order, stated wherever these styles load first. */
+@layer nightshade, nightshade-docs, nightshade-components;
 
 @layer nightshade-components {
 
@@ -228,7 +228,7 @@ export default {
 
         position: relative;
         margin: 0;
-        padding: 0 calc(var(--Btn-padding) - var(--Btn-border-size));
+        padding: 0 var(--Btn-padding);
         height: var(--Btn-size);
         line-height: var(--Btn-size);
         box-sizing: border-box;

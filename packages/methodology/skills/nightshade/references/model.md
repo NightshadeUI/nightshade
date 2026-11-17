@@ -54,19 +54,38 @@ A component that must work in any tone (a button, an input) reads roles and the 
 
 ### Component variables
 
-`--<Component>-*`, defaulted on the component's root class from roles and the size context. They are the component's public knobs. See [components.md](components.md).
+`--<Component>-*`, defaulted on the component's root class from roles and the size context. They are how the control is written, not a public token family. See [components.md](components.md).
 
 ## Cascade layers
 
-Nightshade's styles sit in `layer(nightshade)`, the standard components in `nightshade-components`. Put your system in a layer after both, and your CSS always wins without specificity fights:
+CSS cascade layers, not the token tiers. Later layers win, at any specificity. Unlayered CSS beats every named layer; don't use that to win over Nightshade.
+
+Nightshade's names, weakest first. Do not rename them, do not skip them:
+
+| Layer | Package | Holds |
+|-------|---------|-------|
+| `nightshade` | `@nightshadeui/stylesheets` | scales, settings, context, roles, reset, utilities |
+| `nightshade-docs` | `@nightshadeui/docs` | the docs theme. Empty until that package loads. |
+| `nightshade-components` | `@nightshadeui/components` | standard controls |
+
+Then libraries you wrap (`primevue`, …), then yours (`acme`, `ubio`, `site`).
+
+The first `@layer` statement in the document is the order. A name first mentioned later is **appended**. Nightshade's files all state the three names above, so whichever of them loads first still reserves `nightshade-docs` in the middle. If **your** `@layer` is first and you skip `nightshade-docs`, that layer lands last and beats you.
+
+State the full list **before any `@import`**, Nightshade's three then yours:
 
 ```css
-@layer nightshade, nightshade-components, acme;
+@layer nightshade, nightshade-docs, nightshade-components, acme;
 
 @import '@nightshadeui/stylesheets';
 @import './palette.css' layer(acme);
+@import './type.css' layer(acme);
 @import './roles.css' layer(acme);
 ```
+
+An app that wants a different order declares `@layer` before it imports you. Stay in the layers: `:root`, the heading ladder and wrappers belong in yours. Same-layer, a class beats an element (`.page-title` over `h1`).
+
+Nightshade does not map `h1`–`h6`. You do, in your layer, with display line-heights as ratios. Don't copy the Nightshade website's `type.css` or its fonts: that site is an app.
 
 ## Where things go
 
@@ -74,7 +93,8 @@ Nightshade's styles sit in `layer(nightshade)`, the standard components in `nigh
 |--------|-------|
 | A hue, the curves, a new tone | the palette spec, then regenerate |
 | `--sp`, `--radius-m`, `--font-*` | your `:root` |
+| `h1`–`h6` (size and a display line-height) | your stylesheets; Nightshade does not map tags |
 | What a surface or border means | your `:root`, reassigning the role |
 | A region's tone or density | a context class on the region |
-| One component's padding or radius | its variables, on your own class |
+| A control's padding or radius | `--<Component>-*` on that control's root class |
 | Defaults for every control | `$nightshade.defaults` |

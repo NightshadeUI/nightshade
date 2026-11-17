@@ -1,17 +1,16 @@
 <template>
     <span
-        class="RoleLabel tone-base"
-        :class="{ 'RoleLabel-end': end }"
-        :title="title">
+        class="RoleLabel"
+        :class="{ 'RoleLabel-end': end }">
         <span class="RoleHead">
             <span
                 class="Swatch"
                 :style="swatchStyle" />
-            <code class="RoleName">{{ label.role }}</code>
+            <code class="RoleName">--tone-{{ label.role }}</code>
         </span>
         <span
             v-if="label.step"
-            class="RoleStep">
+            class="RoleStep tone-base">
             <RoleStep :step="label.step" />
         </span>
     </span>
@@ -21,7 +20,10 @@
 import RoleStep from './RoleStep.vue';
 
 /**
- * One role's label: its swatch and name (`--tone-` left out), and the step it reads below.
+ * One role's label: the variable you write (`--tone-fill`), and below it the context
+ * step that role reads (`--tone-500`). Hover the chip for the scale variable.
+ * The swatch follows the figure's tone; the step chip stays on `tone-base` so its
+ * chrome doesn't re-tone with the card.
  */
 export default {
 
@@ -36,10 +38,6 @@ export default {
     },
 
     computed: {
-
-        title() {
-            return `--tone-${this.label.role}`;
-        },
 
         swatchStyle() {
             return { background: `var(--tone-${this.label.role})` };

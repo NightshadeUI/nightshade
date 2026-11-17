@@ -85,6 +85,8 @@ Every tone your styles define, at every size, in both schemes. The playground ba
 
 ## Variables
 
+Defaulted on `.Toggle` and `.Checkbox` from roles and the size context, the same way every control is written.
+
 | Variable | Default |
 |----------|---------|
 | `--Toggle-size`, `--Checkbox-size` | `--input-minor-height` |
