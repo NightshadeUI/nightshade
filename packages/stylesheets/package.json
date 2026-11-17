@@ -1,6 +1,6 @@
 {
     "name": "@nightshadeui/stylesheets",
-    "version": "3.11.0",
+    "version": "3.12.0",
     "description": "Nightshade styles: scales, context and roles as CSS variables, plus base and utilities",
     "author": "Boris Okunskiy",
     "license": "ISC",
