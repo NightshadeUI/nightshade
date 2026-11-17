@@ -23,4 +23,6 @@ export default defineConfig({
 
 `cssLayerOrder(['acme'])` states the order (Nightshade's three, then yours) ahead of every stylesheet: first in each CSS file the build emits, and in `index.html` for dev. Apps use it; libraries don't.
 
+CSS that a library injects at runtime (CodeMirror's `<style>` tags) is unlayered, and no plugin can put it in a layer: it beats every layer. Style that library's elements through its own theme API (CodeMirror's `EditorView.theme()`), reading your variables, rather than with CSS in a component. That's by design: `cssLayer()` has no opt-out for unlayered blocks.
+
 The `nightshade` umbrella re-exports the same plugins as `nightshade/vite`.

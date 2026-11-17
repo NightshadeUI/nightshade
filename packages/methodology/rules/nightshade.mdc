@@ -63,5 +63,5 @@ These are the always-on rules. For the token catalog, the palette workflow, comp
 
 ## Process
 
-- After touching CSS, run `npx nightshade-methodology tokens <dir>` and fix what it reports.
+- After touching CSS, run `npx nightshade-methodology tokens <dir>…` on the directories you touched (it takes several) and fix what it reports.
 - After changing the palette spec, regenerate `palette.css` and check both color schemes.

@@ -5,7 +5,8 @@
  * `examples` are the one or two names whose specified values illustrate the family.
  */
 
-export type VariableTier = 'raw' | 'context' | 'role' | 'component';
+/** The public tiers. Component variables are how a component is written, not tokens: no group holds them. */
+export type VariableTier = 'raw' | 'context' | 'role';
 
 /**
  * How it goes when you override it, for Nightshade's own docs:
@@ -44,7 +45,7 @@ export interface VariableGroup {
 }
 
 export interface VariableTierInfo {
-    id: Exclude<VariableTier, 'component'>;
+    id: VariableTier;
     title: string;
     short: string;
     note: string;

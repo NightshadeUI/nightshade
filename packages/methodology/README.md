@@ -30,7 +30,7 @@ It sits alongside `@flexent/methodology`: each package manages only its own bloc
 ```sh
 npx nightshade-methodology sync [root]     # install or refresh the rules and skill
 npx nightshade-methodology check [root]    # exit 1 if they are missing or stale (for CI)
-npx nightshade-methodology tokens [dir]    # report CSS that breaks the variable grammar
+npx nightshade-methodology tokens [dir…]   # report CSS that breaks the variable grammar, in every directory given
 ```
 
 `tokens` reads `.css`, `.scss` and the `<style>` blocks of `.vue` files. It flags `light-dark()` outside scales, context and roles, component variables read with fallbacks, `-color` and `-surface` suffixes on component variables, one-word roles, and 2.x variables. It doesn't flag ramp steps: single-tone components may read them, and whether a component is multi-tone is a judgment call.

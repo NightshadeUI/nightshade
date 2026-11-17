@@ -19,7 +19,7 @@ Nightshade is a seed for an application-owned design system: principles, styles 
 3. **Pick the variable from the vocabulary.** Read [references/tokens.md](references/tokens.md) for the full catalog with defaults. Decide first whether the component is multi-tone (it must work in any tone, like a button) or single-tone (one color scheme, like most app components). Multi-tone components read roles and the context ramp (`--tone-<step>`). Single-tone components may read ramp steps directly. Add a role only when every tone can answer it.
 4. **Write components in the grammar.** Root-class defaults, role-named color locals, property-named value locals, shared states, context classes for `tone` and `size`. Details and a template: [references/components.md](references/components.md).
 5. **Check before you report done:**
-   - run `node <this-skill>/scripts/check-tokens.mjs <dir>` (or `npx nightshade-methodology tokens <dir>`) on the directories you touched, and fix what you introduced;
+   - run `node <this-skill>/scripts/check-tokens.mjs <dir>…` (or `npx nightshade-methodology tokens <dir>…`) on the directories you touched, all in one run, and fix what you introduced;
    - if you changed the palette spec, regenerate `palette.css` ([references/palette.md](references/palette.md));
    - check light and dark: every ramp step is `light-dark()`, so a role that reads right in one scheme reads right in both, while a literal color doesn't.
 

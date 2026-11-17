@@ -187,12 +187,12 @@ export default {
             return VARIABLE_STANCES;
         },
 
-        /** Nightshade's groups, then the system's own. Component knobs are not public tokens. */
+        /** Nightshade's groups, then the system's own. */
         groups() {
             const groups = [
                 ...VARIABLE_GROUPS,
                 ...this.siteManager.config.variableGroups ?? [],
-            ].filter(group => group.tier !== 'component');
+            ];
             return groups.map(group => ({
                 ...group,
                 note: this.usageView ? group.usageNote ?? group.note : group.note,

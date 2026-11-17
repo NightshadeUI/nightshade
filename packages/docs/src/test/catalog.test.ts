@@ -4,7 +4,7 @@ import { dirname, join } from 'node:path';
 import { describe, it } from 'node:test';
 import { fileURLToPath } from 'node:url';
 
-import { readExampleNames, VARIABLE_GROUPS, VARIABLE_TIERS } from '../catalog/variables.js';
+import { readExampleNames, VARIABLE_GROUPS } from '../catalog/variables.js';
 
 const STYLESHEETS = join(dirname(fileURLToPath(import.meta.url)), '../../../stylesheets');
 
@@ -37,12 +37,6 @@ describe('variable catalog', () => {
             }
         }
         assert.deepEqual(stray, []);
-    });
-
-    it('has no component groups: knobs are not public tokens', () => {
-        const components = VARIABLE_GROUPS.filter(group => group.tier === 'component');
-        assert.deepEqual(components.map(group => group.id), []);
-        assert.equal(VARIABLE_TIERS.some(tier => (tier.id as string) === 'component'), false);
     });
 
 });

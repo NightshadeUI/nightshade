@@ -2,7 +2,7 @@
 // Nightshade methodology token check: flags CSS that breaks the variable grammar or picks a scheme by hand.
 // Ramp steps (`--color-*`) are not flagged: single-tone components may read them,
 // and only you know which components are multi-tone.
-// Usage: node check-tokens.mjs [root=.]   Exit code 1 when anything is flagged.
+// Usage: node check-tokens.mjs [dir…=.]   Checks every directory given. Exit code 1 when anything is flagged.
 // Reads .css, .scss and the <style> blocks of .vue files. Generated `palette.css` files are skipped.
 // A .vue style block never writes `@layer`: the `cssLayer()` Vite plugin does.
 import { readdirSync, readFileSync } from 'node:fs';
@@ -32,7 +32,7 @@ const LEGACY = new RegExp([
     '--overlay-surface\\b',
     '--color-[a-z-]+-text\\b',
 ].join('|'));
-const root = process.argv[2] ?? '.';
+const roots = process.argv.length > 2 ? process.argv.slice(2) : ['.'];
 const findings = [];
 
 function walk(dir) {
@@ -54,7 +54,7 @@ function checkFile(file) {
         }
         for (const match of css.matchAll(DECLARATION)) {
             const line = source.slice(0, offset + match.index).split('\n').length;
-            checkDeclaration(`${relative(root, file)}:${line}`, match[1], match[2]);
+            checkDeclaration(`${relative('.', file)}:${line}`, match[1], match[2]);
         }
     }
 }
@@ -108,7 +108,7 @@ function checkVueLayer(file, source, css, offset) {
     const match = /@layer\b/.exec(css);
     if (match) {
         const line = source.slice(0, offset + match.index).split('\n').length;
-        report(`${relative(root, file)}:${line}`, 'a component writes @layer: cssLayer() from nightshade/vite puts SFC styles in a layer');
+        report(`${relative('.', file)}:${line}`, 'a component writes @layer: cssLayer() from nightshade/vite puts SFC styles in a layer');
     }
 }
 
@@ -116,7 +116,9 @@ function report(at, message) {
     findings.push(`${at}: ${message}`);
 }
 
-walk(root);
+for (const root of roots) {
+    walk(root);
+}
 for (const finding of findings) {
     console.info(finding);
 }
