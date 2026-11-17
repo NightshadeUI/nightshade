@@ -1,3 +1,4 @@
+import { cssLayer } from '@nightshadeui/components/vite';
 import vue from '@vitejs/plugin-vue';
 import { Features } from 'lightningcss';
 import { defineConfig } from 'vite';
@@ -23,22 +24,10 @@ export default defineConfig({
         }
     },
     plugins: [
+        cssLayer('nightshade-components'),
         vue({}),
         dts({
             include: ['src/**'],
         }),
-        {
-            name: 'css-layer',
-            enforce: 'pre',
-            transform(code, id) {
-                if (!id.endsWith('.vue')) {
-                    return;
-                }
-                return code.replace(/<style(\s+[^>]*)?>([\s\S]*?)<\/style>/g,
-                    (_, tag, css) => {
-                        return `<style${tag}>@layer nightshade-components {${css}}</style>`;
-                    });
-            },
-        }
     ],
 });

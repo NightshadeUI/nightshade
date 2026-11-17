@@ -164,38 +164,34 @@ export default {
 </script>
 
 <style scoped>
-@layer nightshade-components {
+.Tooltip {
+    --Tooltip-padding: var(--sp1) var(--sp1-5);
+    --Tooltip-gap: var(--sp0-5);
+    --Tooltip-width: var(--sp40);
+    --Tooltip-title: var(--text-base);
+    --Tooltip-text: var(--text-subtle);
 
-    .Tooltip {
-        --Tooltip-padding: var(--sp1) var(--sp1-5);
-        --Tooltip-gap: var(--sp0-5);
-        --Tooltip-width: var(--sp40);
-        --Tooltip-title: var(--text-base);
-        --Tooltip-text: var(--text-subtle);
+    display: flex;
+    flex-flow: column;
+    gap: var(--Tooltip-gap);
+    width: max-content;
+    max-width: var(--Tooltip-width);
+    padding: var(--Tooltip-padding);
 
-        display: flex;
-        flex-flow: column;
-        gap: var(--Tooltip-gap);
-        width: max-content;
-        max-width: var(--Tooltip-width);
-        padding: var(--Tooltip-padding);
+    font-size: var(--font-size-s);
+}
 
-        font-size: var(--font-size-s);
-    }
+.Title {
+    font-weight: var(--font-weight-bold);
+    color: var(--Tooltip-title);
+}
 
-    .Title {
-        font-weight: var(--font-weight-bold);
-        color: var(--Tooltip-title);
-    }
+.Text {
+    color: var(--Tooltip-text);
+}
 
-    .Text {
-        color: var(--Tooltip-text);
-    }
-
-    /* A lone text is the whole message */
-    .Text:first-child {
-        color: var(--Tooltip-title);
-    }
-
+/* A lone text is the whole message */
+.Text:first-child {
+    color: var(--Tooltip-title);
 }
 </style>

@@ -21,27 +21,23 @@ export default {
 </script>
 
 <style scoped>
-@layer nightshade-components {
+.Filler {
+    --Filler-border: var(--border-base);
 
-    .Filler {
-        --Filler-border: var(--border-base);
+    flex: 1;
+    min-width: 0;
+    min-height: 0;
+}
 
-        flex: 1;
-        min-width: 0;
-        min-height: 0;
-    }
+.Filler-dotted {
+    border-bottom: 2px dotted var(--Filler-border);
+}
 
-    .Filler-dotted {
-        border-bottom: 2px dotted var(--Filler-border);
-    }
+.Filler-dashed {
+    border-bottom: 2px dashed var(--Filler-border);
+}
 
-    .Filler-dashed {
-        border-bottom: 2px dashed var(--Filler-border);
-    }
-
-    .Filler-solid {
-        border-bottom: 2px solid var(--Filler-border);
-    }
-
+.Filler-solid {
+    border-bottom: 2px solid var(--Filler-border);
 }
 </style>

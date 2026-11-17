@@ -13,6 +13,10 @@
         "./css": {
             "types": "./css.d.ts",
             "default": "./index.css"
+        },
+        "./vite": {
+            "types": "./vite.d.mts",
+            "import": "./vite.mjs"
         }
     },
     "dependencies": {

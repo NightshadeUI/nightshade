@@ -189,200 +189,196 @@ export default {
 </script>
 
 <style scoped>
-@layer nightshade-components {
+.Btn {
+    --Btn-size: var(--input-major-height);
+    --Btn-padding: var(--input-major-padding);
+    --Btn-gap: var(--input-gap);
+    --Btn-font-size: var(--input-font-size);
 
-    .Btn {
-        --Btn-size: var(--input-major-height);
-        --Btn-padding: var(--input-major-padding);
-        --Btn-gap: var(--input-gap);
-        --Btn-font-size: var(--input-font-size);
+    --Btn-text: var(--tone-fill-text);
 
-        --Btn-text: var(--tone-fill-text);
+    --Btn-outline: transparent;
 
-        --Btn-outline: transparent;
+    --Btn-fill: var(--tone-fill);
+    --Btn-fill-top: var(--tone-fill-top);
+    --Btn-fill-bottom: var(--tone-fill-bottom);
+    --Btn-background: linear-gradient(
+        to bottom,
+        var(--Btn-fill-top),
+        var(--Btn-fill-bottom)
+    );
 
-        --Btn-fill: var(--tone-fill);
-        --Btn-fill-top: var(--tone-fill-top);
-        --Btn-fill-bottom: var(--tone-fill-bottom);
-        --Btn-background: linear-gradient(
-            to bottom,
-            var(--Btn-fill-top),
-            var(--Btn-fill-bottom)
-        );
+    --Btn-border-size: 0px;
+    --Btn-border: transparent;
+    --Btn-radius: var(--radius-m);
 
-        --Btn-border-size: 0px;
-        --Btn-border: transparent;
-        --Btn-radius: var(--radius-m);
+    --Btn-shadow: var(--tone-shadow);
+    --Btn-box-shadow:
+        0 1px 1px var(--Btn-shadow),
+        0 1px 5px var(--shadow-medium);
+    --Btn-text-shadow: 0 1px 1px var(--text-shadow-auto);
 
-        --Btn-shadow: var(--tone-shadow);
-        --Btn-box-shadow:
-            0 1px 1px var(--Btn-shadow),
-            0 1px 5px var(--shadow-medium);
-        --Btn-text-shadow: 0 1px 1px var(--text-shadow-auto);
+    -webkit-appearance: none;
+    appearance: none;
 
-        -webkit-appearance: none;
-        appearance: none;
+    position: relative;
+    margin: 0;
+    padding: 0 var(--Btn-padding);
+    height: var(--Btn-size);
+    line-height: var(--Btn-size);
+    box-sizing: border-box;
 
-        position: relative;
-        margin: 0;
-        padding: 0 var(--Btn-padding);
-        height: var(--Btn-size);
-        line-height: var(--Btn-size);
-        box-sizing: border-box;
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    gap: var(--Btn-gap);
 
-        display: inline-flex;
-        align-items: center;
-        justify-content: flex-start;
-        flex-shrink: 0;
-        gap: var(--Btn-gap);
+    border: var(--Btn-border-size) solid var(--Btn-border);
+    border-radius: var(--Btn-radius);
 
-        border: var(--Btn-border-size) solid var(--Btn-border);
-        border-radius: var(--Btn-radius);
+    color: var(--Btn-text);
+    text-shadow: var(--Btn-text-shadow);
+    outline: var(--input-outline-size) solid var(--Btn-outline);
+    outline-offset: var(--input-outline-offset);
+    background: var(--Btn-background);
+    box-shadow: var(--Btn-box-shadow);
 
-        color: var(--Btn-text);
-        text-shadow: var(--Btn-text-shadow);
-        outline: var(--input-outline-size) solid var(--Btn-outline);
-        outline-offset: var(--input-outline-offset);
-        background: var(--Btn-background);
-        box-shadow: var(--Btn-box-shadow);
+    cursor: pointer;
+    user-select: none;
 
-        cursor: pointer;
-        user-select: none;
+    font-family: inherit;
+    font-size: var(--Btn-font-size);
 
-        font-family: inherit;
-        font-size: var(--Btn-font-size);
+    transition: color .3s, outline .3s, filter .3s, border-radius .3s;
+}
 
-        transition: color .3s, outline .3s, filter .3s, border-radius .3s;
-    }
+.Btn::after {
+    content: '';
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: var(--Btn-radius);
 
-    .Btn::after {
-        content: '';
-        position: absolute;
-        z-index: 1;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        border-radius: var(--Btn-radius);
+    background: var(--input-hover-overlay);
+    mix-blend-mode: color-dodge;
+    pointer-events: none;
+    opacity: 0;
+}
 
-        background: var(--input-hover-overlay);
-        mix-blend-mode: color-dodge;
-        pointer-events: none;
-        opacity: 0;
-    }
+.Label {
+    line-height: var(--Btn-size);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
-    .Label {
-        line-height: var(--Btn-size);
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
+.Icon {
+    width: var(--sp2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--Btn-font-size);
+}
 
-    .Icon {
-        width: var(--sp2);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: var(--Btn-font-size);
-    }
+.Btn-iconPos-right .Icon {
+    order: 100;
+}
 
-    .Btn-iconPos-right .Icon {
-        order: 100;
-    }
+/* States */
 
-    /* States */
+.Btn:focus, .Btn:active, .Btn:hover {
+    transition: none;
+}
 
-    .Btn:focus, .Btn:active, .Btn:hover {
-        transition: none;
-    }
+.Btn:not(.Btn-disabled):hover::after, .Btn.Btn-forceHover::after {
+    opacity: 1;
+}
 
-    .Btn:not(.Btn-disabled):hover::after, .Btn.Btn-forceHover::after {
-        opacity: 1;
-    }
+.Btn:not(.Btn-disabled):focus-visible, .Btn.Btn-forceFocus {
+    z-index: 10;
+    --Btn-outline: var(--tone-focus-outline);
+    --Btn-border: var(--tone-focus-border);
+}
 
-    .Btn:not(.Btn-disabled):focus-visible, .Btn.Btn-forceFocus {
-        z-index: 10;
-        --Btn-outline: var(--tone-focus-outline);
-        --Btn-border: var(--tone-focus-border);
-    }
+.Btn:not(.Btn-disabled):active, .Btn.Btn-forceActive {
+    padding-top: 1px;
+    box-shadow:
+        0 6px 12px var(--shadow-light) inset,
+        0 1px 2px var(--shadow-medium) inset;
+}
 
-    .Btn:not(.Btn-disabled):active, .Btn.Btn-forceActive {
-        padding-top: 1px;
-        box-shadow:
-            0 6px 12px var(--shadow-light) inset,
-            0 1px 2px var(--shadow-medium) inset;
-    }
+.Btn-disabled {
+    opacity: var(--input-disabled-opacity);
+    filter: var(--input-disabled-filter);
+    cursor: not-allowed;
+}
 
-    .Btn-disabled {
-        opacity: var(--input-disabled-opacity);
-        filter: var(--input-disabled-filter);
-        cursor: not-allowed;
-    }
+/* Styles */
 
-    /* Styles */
+.Btn-round {
+    --Btn-radius: calc(.5 * var(--Btn-size));
+}
 
-    .Btn-round {
-        --Btn-radius: calc(.5 * var(--Btn-size));
-    }
+.Btn-outline {
+    --Btn-border: var(--tone-border);
+    --Btn-border-size: var(--input-border-size);
+}
 
-    .Btn-outline {
-        --Btn-border: var(--tone-border);
-        --Btn-border-size: var(--input-border-size);
-    }
+.Btn-ghost {
+    --Btn-fill: transparent;
+    --Btn-fill-top: transparent;
+    --Btn-fill-bottom: transparent;
+    --Btn-border: var(--tone-text);
+    --Btn-text: var(--tone-text);
+    --Btn-text-shadow: none;
+    --Btn-box-shadow: none;
+}
 
-    .Btn-ghost {
-        --Btn-fill: transparent;
-        --Btn-fill-top: transparent;
-        --Btn-fill-bottom: transparent;
-        --Btn-border: var(--tone-text);
-        --Btn-text: var(--tone-text);
-        --Btn-text-shadow: none;
-        --Btn-box-shadow: none;
-    }
+.Btn-flat {
+    --Btn-fill-top: var(--Btn-fill);
+    --Btn-fill-bottom: var(--Btn-fill);
+    --Btn-text-shadow: none;
+    --Btn-box-shadow: none;
+}
 
-    .Btn-flat {
-        --Btn-fill-top: var(--Btn-fill);
-        --Btn-fill-bottom: var(--Btn-fill);
-        --Btn-text-shadow: none;
-        --Btn-box-shadow: none;
-    }
+.Btn-translucent {
+    --Btn-background: linear-gradient(
+        to bottom,
+        color-mix(in srgb, var(--Btn-fill-top), transparent var(--translucency-mix-light)),
+        color-mix(in srgb, var(--Btn-fill-bottom), transparent var(--translucency-mix-light))
+    );
+    --Btn-box-shadow:
+        0 1px 1px var(--Btn-shadow),
+        0 1px 5px var(--shadow-medium),
+        0 0 3px var(--translucency-highlight) inset;
 
-    .Btn-translucent {
-        --Btn-background: linear-gradient(
-            to bottom,
-            color-mix(in srgb, var(--Btn-fill-top), transparent var(--translucency-mix-light)),
-            color-mix(in srgb, var(--Btn-fill-bottom), transparent var(--translucency-mix-light))
-        );
-        --Btn-box-shadow:
-            0 1px 1px var(--Btn-shadow),
-            0 1px 5px var(--shadow-medium),
-            0 0 3px var(--translucency-highlight) inset;
+    backdrop-filter: blur(var(--translucency-blur));
+}
 
-        backdrop-filter: blur(var(--translucency-blur));
-    }
+.Btn-flat.Btn-translucent {
+    --Btn-box-shadow: 0 0 3px var(--translucency-highlight) inset;
+}
 
-    .Btn-flat.Btn-translucent {
-        --Btn-box-shadow: 0 0 3px var(--translucency-highlight) inset;
-    }
+.Btn-ghost.Btn-translucent {
+    --Btn-background: transparent;
+    --Btn-box-shadow: none;
+    backdrop-filter: none;
+}
 
-    .Btn-ghost.Btn-translucent {
-        --Btn-background: transparent;
-        --Btn-box-shadow: none;
-        backdrop-filter: none;
-    }
+.Btn-square {
+    padding-left: 0;
+    padding-right: 0;
+    width: var(--Btn-size);
+    justify-content: center;
+}
 
-    .Btn-square {
-        padding-left: 0;
-        padding-right: 0;
-        width: var(--Btn-size);
-        justify-content: center;
-    }
-
-    .Btn-block {
-        flex: 1 1 auto;
-        display: flex;
-        justify-content: center;
-    }
-
+.Btn-block {
+    flex: 1 1 auto;
+    display: flex;
+    justify-content: center;
 }
 </style>

@@ -53,26 +53,22 @@ export default {
 </script>
 
 <style scoped>
-@layer nightshade-components {
+.ModalOverlay {
+    --ModalOverlay-background: var(--surface-overlay);
 
-    .ModalOverlay {
-        --ModalOverlay-background: var(--surface-overlay);
+    position: fixed;
+    z-index: 2000;
+    inset: 0;
+    pointer-events: none;
+}
 
-        position: fixed;
-        z-index: 2000;
-        inset: 0;
-        pointer-events: none;
-    }
+.ModalOverlay-enabled {
+    pointer-events: auto;
+    overscroll-behavior: none;
+    overflow: auto;
+}
 
-    .ModalOverlay-enabled {
-        pointer-events: auto;
-        overscroll-behavior: none;
-        overflow: auto;
-    }
-
-    .ModalOverlay-shown {
-        background: var(--ModalOverlay-background);
-    }
-
+.ModalOverlay-shown {
+    background: var(--ModalOverlay-background);
 }
 </style>

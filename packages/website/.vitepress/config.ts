@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
+import { cssLayer } from '@nightshadeui/components/vite';
 import { defineDocsConfig } from '@nightshadeui/docs/config';
 
 const { version } = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
@@ -222,6 +223,12 @@ export default defineDocsConfig({
     },
     vite: {
         publicDir: fileURLToPath(new URL('../public', import.meta.url)),
+        // The site compiles the components' and the canvas' sources: they keep their layer. The rest is the site's.
+        plugins: [
+            cssLayer('nightshade-components', { dir: new URL('../../components/src/', import.meta.url) }),
+            cssLayer('nightshade-components', { dir: new URL('../../canvas/src/', import.meta.url) }),
+            cssLayer('site'),
+        ],
         resolve: {
             // The site reads the components' sources, and so does the docs theme it extends: one copy of each.
             alias: [

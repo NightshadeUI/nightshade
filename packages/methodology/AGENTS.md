@@ -18,8 +18,8 @@ These are the always-on rules. For the token catalog, the palette workflow, comp
 ## Cascade layers
 
 - Nightshade's names, weakest first: `nightshade`, `nightshade-docs`, `nightshade-components`. Then libraries you wrap, then yours. Do not rename them, do not skip them.
-- The first `@layer` in the document is the order. State it **once**, in your CSS entry, before any `@import`: `@layer nightshade, nightshade-docs, nightshade-components, acme`. A skipped name, first mentioned later, is appended.
-- Components put their CSS in a named layer. They never list the order.
+- The first `@layer` in the document is the order. State it **once**, in your CSS entry, before any `@import`: `@layer nightshade, nightshade-docs, nightshade-components, acme`. A skipped name, first mentioned later, is appended. In dev a component's style loads before the entry, and a build can link a chunk's CSS first, so a Vite app adds `cssLayerOrder(['acme'])` from `nightshade/vite`: it states the order ahead of every stylesheet.
+- Vue components never write `@layer`. `cssLayer('acme')` from `nightshade/vite` (or `@nightshadeui/components/vite`), before `vue()` in the Vite plugins, puts every SFC `<style>` in the layer. A component library uses its own layer, as Nightshade's use `nightshade-components`. Components never list the order.
 - Stay in the layers. Unlayered CSS beats every layer; don't unlayer to win.
 
 ## Color

@@ -55,7 +55,7 @@ Need a look the standard control doesn't have? Write it on the grammar: `--AcmeA
 
 ## 6. Ship it as a package
 
-Put your CSS in its own cascade layer after Nightshade's and publish it. Apps then depend on your system, not on Nightshade directly. Nightshade's names, then yours, **once**, in that entry, before any `@import`. Components sit in your layer; they never list the order. [model.md](../model.md#cascade-layers).
+Put your CSS in its own cascade layer after Nightshade's and publish it. Apps then depend on your system, not on Nightshade directly. Nightshade's names, then yours, **once**, in that entry, before any `@import`. Components land in your layer through `cssLayer('acme')` in the package's Vite build; they never write `@layer` or list the order. [model.md](../model.md#cascade-layers).
 
 ```css
 @layer nightshade, nightshade-docs, nightshade-components, acme;

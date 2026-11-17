@@ -72,6 +72,25 @@ Then libraries you wrap (`primevue`, …), then yours (`acme`, `ubio`, `site`).
 
 The first `@layer` statement in the document is the order. Declare it **once**, in your CSS entry, before any `@import`. Components and the docs theme put styles in their named layer; they never list the order. A name first mentioned later is **appended**. If you skip `nightshade-docs`, that layer lands last and the docs theme beats you.
 
+In a Vite app the entry rarely loads first: in dev a component's style is injected before it, and a build can link a code-split chunk's CSS first (VitePress links its bundle before any `head` entry). That stylesheet then names your layer first, the weakest. `cssLayerOrder()` states the order ahead of every stylesheet: first in each CSS file the build emits, and in `index.html` for dev.
+
+Vue components never write `@layer`. The `cssLayer()` Vite plugin wraps every SFC `<style>` in one, at build time and on hot updates. Put both before `vue()`:
+
+```ts
+import vue from '@vitejs/plugin-vue';
+import { cssLayer, cssLayerOrder } from 'nightshade/vite'; // or '@nightshadeui/components/vite'
+
+export default defineConfig({
+    plugins: [
+        cssLayerOrder(['acme']), // Nightshade's three, then yours
+        cssLayer('acme'),
+        vue(),
+    ],
+});
+```
+
+It takes every SFC outside `node_modules`. `cssLayer('x', { dir })` takes only the SFCs under `dir`, for sources another layer owns. A block that already opens with `@layer` is left alone, so list narrower plugins first. A component library layers its own (Nightshade's packages use `cssLayer('nightshade-components')`) and never lists the order: `cssLayerOrder` is for apps. The docs theme's config adds both for a docs site: `nightshade-docs` for its files, and Nightshade's order, after which the site's one layer comes last.
+
 Nightshade's three, then yours:
 
 ```css

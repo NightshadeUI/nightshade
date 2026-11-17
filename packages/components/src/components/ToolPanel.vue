@@ -33,49 +33,45 @@ export default {
 </script>
 
 <style scoped>
-@layer nightshade-components {
+.ToolPanel {
+    --ToolPanel-size: var(--input-major-height);
+    --ToolPanel-padding: var(--input-minor-padding);
+    --ToolPanel-gap: var(--input-gap);
 
-    .ToolPanel {
-        --ToolPanel-size: var(--input-major-height);
-        --ToolPanel-padding: var(--input-minor-padding);
-        --ToolPanel-gap: var(--input-gap);
+    --ToolPanel-background: var(--surface-deep);
 
-        --ToolPanel-background: var(--surface-deep);
+    --ToolPanel-border-size: 0px;
+    --ToolPanel-border: var(--border-deep);
+    --ToolPanel-radius: var(--radius-m);
 
-        --ToolPanel-border-size: 0px;
-        --ToolPanel-border: var(--border-deep);
-        --ToolPanel-radius: var(--radius-m);
+    --ToolPanel-shadow: var(--shadow-light);
+    --ToolPanel-box-shadow: 0 1px 1px var(--ToolPanel-shadow) inset, 0 0 5px var(--ToolPanel-shadow) inset;
 
-        --ToolPanel-shadow: var(--shadow-light);
-        --ToolPanel-box-shadow: 0 1px 1px var(--ToolPanel-shadow) inset, 0 0 5px var(--ToolPanel-shadow) inset;
+    display: flex;
+    align-items: center;
+    gap: var(--ToolPanel-gap);
+    padding: var(--ToolPanel-padding);
+    min-height: var(--ToolPanel-size);
 
-        display: flex;
-        align-items: center;
-        gap: var(--ToolPanel-gap);
-        padding: var(--ToolPanel-padding);
-        min-height: var(--ToolPanel-size);
+    border: var(--ToolPanel-border-size) solid var(--ToolPanel-border);
+    border-radius: var(--ToolPanel-radius);
+    box-shadow: var(--ToolPanel-box-shadow);
+    background: var(--ToolPanel-background);
 
-        border: var(--ToolPanel-border-size) solid var(--ToolPanel-border);
-        border-radius: var(--ToolPanel-radius);
-        box-shadow: var(--ToolPanel-box-shadow);
-        background: var(--ToolPanel-background);
+    transition: color .3s, background-color .3s, border-radius .3s, filter .3s;
+}
 
-        transition: color .3s, background-color .3s, border-radius .3s, filter .3s;
-    }
+/* Styles */
 
-    /* Styles */
+.ToolPanel-round {
+    --ToolPanel-radius: calc(.5 * var(--ToolPanel-size));
+}
 
-    .ToolPanel-round {
-        --ToolPanel-radius: calc(.5 * var(--ToolPanel-size));
-    }
+.ToolPanel-outline {
+    --ToolPanel-border-size: var(--input-border-size);
+}
 
-    .ToolPanel-outline {
-        --ToolPanel-border-size: var(--input-border-size);
-    }
-
-    .ToolPanel-flat {
-        --ToolPanel-box-shadow: none;
-    }
-
+.ToolPanel-flat {
+    --ToolPanel-box-shadow: none;
 }
 </style>

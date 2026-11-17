@@ -48,30 +48,26 @@ export default {
 </script>
 
 <style scoped>
-@layer nightshade-components {
+.HGroup {
+    --HGroup-gap: var(--sp1);
 
-    .HGroup {
-        --HGroup-gap: var(--sp1);
-
-        display: flex;
-        gap: var(--HGroup-gap);
-        flex-flow: row nowrap;
-    }
-
-    .HGroup-align-stretch { align-items: stretch; }
-    .HGroup-align-baseline { align-items: baseline; }
-    .HGroup-align-center { align-items: center; }
-    .HGroup-align-start { align-items: flex-start; }
-    .HGroup-align-end { align-items: flex-end; }
-
-    .HGroup-justify-center { justify-content: center; }
-    .HGroup-justify-start { justify-content: flex-start; }
-    .HGroup-justify-end { justify-content: flex-end; }
-    .HGroup-justify-space-around { justify-content: space-around; }
-    .HGroup-justify-space-between { justify-content: space-between; }
-    .HGroup-justify-space-evenly { justify-content: space-evenly; }
-
-    .HGroup-wrap { flex-wrap: wrap; }
-
+    display: flex;
+    gap: var(--HGroup-gap);
+    flex-flow: row nowrap;
 }
+
+.HGroup-align-stretch { align-items: stretch; }
+.HGroup-align-baseline { align-items: baseline; }
+.HGroup-align-center { align-items: center; }
+.HGroup-align-start { align-items: flex-start; }
+.HGroup-align-end { align-items: flex-end; }
+
+.HGroup-justify-center { justify-content: center; }
+.HGroup-justify-start { justify-content: flex-start; }
+.HGroup-justify-end { justify-content: flex-end; }
+.HGroup-justify-space-around { justify-content: space-around; }
+.HGroup-justify-space-between { justify-content: space-between; }
+.HGroup-justify-space-evenly { justify-content: space-evenly; }
+
+.HGroup-wrap { flex-wrap: wrap; }
 </style>

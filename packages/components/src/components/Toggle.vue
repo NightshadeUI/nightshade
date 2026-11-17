@@ -116,126 +116,122 @@ export default {
 </script>
 
 <style scoped>
-@layer nightshade-components {
+.Toggle {
+    --Toggle-size: var(--input-minor-height);
+    --Toggle-width: calc(1.618 * var(--Toggle-size));
+    --Toggle-knob-offset: var(--input-minor-padding);
+    --Toggle-knob-size: calc(var(--Toggle-size) - 2 * var(--Toggle-knob-offset));
+    --Toggle-knob-radius: calc(var(--Toggle-radius) - 0.5 * var(--Toggle-knob-offset));
 
-    .Toggle {
-        --Toggle-size: var(--input-minor-height);
-        --Toggle-width: calc(1.618 * var(--Toggle-size));
-        --Toggle-knob-offset: var(--input-minor-padding);
-        --Toggle-knob-size: calc(var(--Toggle-size) - 2 * var(--Toggle-knob-offset));
-        --Toggle-knob-radius: calc(var(--Toggle-radius) - 0.5 * var(--Toggle-knob-offset));
+    --Toggle-outline: transparent;
 
-        --Toggle-outline: transparent;
+    --Toggle-background: var(--surface-deep);
+    --Toggle-knob-background: var(--surface-knob);
+    --Toggle-knob-transparency: 0%;
 
-        --Toggle-background: var(--surface-deep);
-        --Toggle-knob-background: var(--surface-knob);
-        --Toggle-knob-transparency: 0%;
+    --Toggle-border-size: 0px;
+    --Toggle-border: transparent;
+    --Toggle-radius: var(--radius-m);
 
-        --Toggle-border-size: 0px;
-        --Toggle-border: transparent;
-        --Toggle-radius: var(--radius-m);
+    --Toggle-box-shadow: 0 1px 3px var(--Toggle-shadow) inset, 0 0 5px -1px var(--Toggle-shadow) inset;
+    --Toggle-shadow: var(--shadow-light);
 
-        --Toggle-box-shadow: 0 1px 3px var(--Toggle-shadow) inset, 0 0 5px -1px var(--Toggle-shadow) inset;
-        --Toggle-shadow: var(--shadow-light);
+    display: block;
+    position: relative;
+    width: var(--Toggle-width);
+    height: var(--Toggle-size);
 
-        display: block;
-        position: relative;
-        width: var(--Toggle-width);
-        height: var(--Toggle-size);
+    border: var(--Toggle-border-size) solid var(--Toggle-border);
+    border-radius: var(--Toggle-radius);
 
-        border: var(--Toggle-border-size) solid var(--Toggle-border);
-        border-radius: var(--Toggle-radius);
+    background: var(--Toggle-background);
+    outline: var(--input-outline-size) solid var(--Toggle-outline);
+    outline-offset: var(--input-outline-offset);
+    background-clip: border-box;
+    box-shadow: var(--Toggle-box-shadow);
 
-        background: var(--Toggle-background);
-        outline: var(--input-outline-size) solid var(--Toggle-outline);
-        outline-offset: var(--input-outline-offset);
-        background-clip: border-box;
-        box-shadow: var(--Toggle-box-shadow);
+    cursor: pointer;
+    user-select: none;
 
-        cursor: pointer;
-        user-select: none;
+    transition: background-color .3s, border-radius .3s;
+}
 
-        transition: background-color .3s, border-radius .3s;
-    }
+.Toggle input {
+    display: none;
+}
 
-    .Toggle input {
-        display: none;
-    }
+.Toggle::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: var(--Toggle-knob-size);
+    height: var(--Toggle-knob-size);
+    border-radius: var(--Toggle-knob-radius);
+    background: color-mix(in srgb, var(--Toggle-knob-background), transparent var(--Toggle-knob-transparency));
+    box-shadow: 0 1px 3px var(--Toggle-shadow), 0 1px 5px var(--Toggle-shadow);
 
-    .Toggle::before {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 0;
-        width: var(--Toggle-knob-size);
-        height: var(--Toggle-knob-size);
-        border-radius: var(--Toggle-knob-radius);
-        background: color-mix(in srgb, var(--Toggle-knob-background), transparent var(--Toggle-knob-transparency));
-        box-shadow: 0 1px 3px var(--Toggle-shadow), 0 1px 5px var(--Toggle-shadow);
+    transform: translate(var(--Toggle-knob-offset), -50%);
+    transition: transform .3s, border-radius .3s;
+}
 
-        transform: translate(var(--Toggle-knob-offset), -50%);
-        transition: transform .3s, border-radius .3s;
-    }
+/* States */
 
-    /* States */
+.Toggle-disabled {
+    cursor: not-allowed;
+    opacity: var(--input-disabled-opacity);
+    filter: var(--input-disabled-filter);
+}
 
-    .Toggle-disabled {
-        cursor: not-allowed;
-        opacity: var(--input-disabled-opacity);
-        filter: var(--input-disabled-filter);
-    }
+.Toggle:not(.Toggle-disabled):hover, .Toggle.Toggle-forceHover {
+    filter: var(--input-hover-filter);
+}
 
-    .Toggle:not(.Toggle-disabled):hover, .Toggle.Toggle-forceHover {
-        filter: var(--input-hover-filter);
-    }
+.Toggle:not(.Toggle-disabled):focus-visible, .Toggle.Toggle-forceFocus {
+    z-index: 10;
+    --Toggle-outline: var(--tone-focus-outline);
+    --Toggle-border: var(--tone-focus-border);
+}
 
-    .Toggle:not(.Toggle-disabled):focus-visible, .Toggle.Toggle-forceFocus {
-        z-index: 10;
-        --Toggle-outline: var(--tone-focus-outline);
-        --Toggle-border: var(--tone-focus-border);
-    }
+.Toggle-active {
+    --Toggle-background: var(--tone-fill);
+    --Toggle-knob-background: var(--tone-fill-text);
+}
 
-    .Toggle-active {
-        --Toggle-background: var(--tone-fill);
-        --Toggle-knob-background: var(--tone-fill-text);
-    }
+.Toggle-active::before {
+    transform: translate(
+        calc(
+            var(--Toggle-width) -
+            var(--Toggle-knob-size) -
+            var(--Toggle-knob-offset)
+        ), -50%);
+}
 
-    .Toggle-active::before {
-        transform: translate(
-            calc(
-                var(--Toggle-width) -
-                var(--Toggle-knob-size) -
-                var(--Toggle-knob-offset)
-            ), -50%);
-    }
+/* Styles */
 
-    /* Styles */
+.Toggle-round {
+    --Toggle-radius: calc(.5 * var(--Toggle-size));
+}
 
-    .Toggle-round {
-        --Toggle-radius: calc(.5 * var(--Toggle-size));
-    }
+.Toggle-outline {
+    --Toggle-border: var(--tone-border);
+    --Toggle-border-size: var(--input-border-size);
+}
 
-    .Toggle-outline {
-        --Toggle-border: var(--tone-border);
-        --Toggle-border-size: var(--input-border-size);
-    }
+.Toggle-flat {
+    --Toggle-shadow: transparent;
+    --Toggle-box-shadow: none;
+}
 
-    .Toggle-flat {
-        --Toggle-shadow: transparent;
-        --Toggle-box-shadow: none;
-    }
+.Toggle-translucent {
+    --Toggle-knob-transparency: var(--translucency-mix-medium);
+}
 
-    .Toggle-translucent {
-        --Toggle-knob-transparency: var(--translucency-mix-medium);
-    }
-
-    .Toggle-translucent::before {
-        box-shadow:
-            0 0 2px var(--shadow-medium),
-            0 1px 5px var(--Toggle-shadow),
-            0 0 3px var(--translucency-highlight) inset;
-        backdrop-filter: blur(var(--translucency-blur));
-    }
-
+.Toggle-translucent::before {
+    box-shadow:
+        0 0 2px var(--shadow-medium),
+        0 1px 5px var(--Toggle-shadow),
+        0 0 3px var(--translucency-highlight) inset;
+    backdrop-filter: blur(var(--translucency-blur));
 }
 </style>

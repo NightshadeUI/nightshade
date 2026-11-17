@@ -58,76 +58,72 @@ export default {
 </script>
 
 <style scoped>
-@layer nightshade-components {
+.Tab {
+    --Tab-size: var(--input-major-height);
+    --Tab-cap-size: var(--input-major-height);
+    --Tab-font-size: var(--input-font-size);
 
-    .Tab {
-        --Tab-size: var(--input-major-height);
-        --Tab-cap-size: var(--input-major-height);
-        --Tab-font-size: var(--input-font-size);
+    --Tab-background: var(--tone-fill);
+    --Tab-text: var(--tone-fill-text);
 
-        --Tab-background: var(--tone-fill);
-        --Tab-text: var(--tone-fill-text);
+    --Tab-shadow: var(--shadow-medium);
+    --Tab-filter: drop-shadow(0 0 .5px var(--Tab-shadow));
 
-        --Tab-shadow: var(--shadow-medium);
-        --Tab-filter: drop-shadow(0 0 .5px var(--Tab-shadow));
+    display: flex;
+    cursor: pointer;
+    position: relative;
 
-        display: flex;
-        cursor: pointer;
-        position: relative;
+    color: var(--Tab-text);
+    filter: var(--Tab-filter);
 
-        color: var(--Tab-text);
-        filter: var(--Tab-filter);
+    font-size: var(--Tab-font-size);
+}
 
-        font-size: var(--Tab-font-size);
-    }
+.TabCap, .Content {
+    position: relative;
+    z-index: 2;
+}
 
-    .TabCap, .Content {
-        position: relative;
-        z-index: 2;
-    }
+.Content {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    background: var(--Tab-background);
+}
 
-    .Content {
-        min-width: 0;
-        display: flex;
-        align-items: center;
-        background: var(--Tab-background);
-    }
+.TabLabel {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
-    .TabLabel {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
+.Tab-h {
+    flex-flow: row;
+    height: var(--Tab-size);
+}
 
-    .Tab-h {
-        flex-flow: row;
-        height: var(--Tab-size);
-    }
+.Tab-v {
+    flex-flow: column;
+    width: var(--Tab-size);
+}
 
-    .Tab-v {
-        flex-flow: column;
-        width: var(--Tab-size);
-    }
+.Tab-v .Content {
+    writing-mode: vertical-lr;
+    text-orientation: sideways-right;
+    transform: rotate(180deg);
+    transform-origin: 50% 50%;
+}
 
-    .Tab-v .Content {
-        writing-mode: vertical-lr;
-        text-orientation: sideways-right;
-        transform: rotate(180deg);
-        transform-origin: 50% 50%;
-    }
+.TabCap {
+    flex: 0 0 var(--Tab-cap-size);
+    fill: var(--Tab-background);
+}
 
-    .TabCap {
-        flex: 0 0 var(--Tab-cap-size);
-        fill: var(--Tab-background);
-    }
+.Tab-h .TabCap {
+    width: var(--Tab-cap-size);
+}
 
-    .Tab-h .TabCap {
-        width: var(--Tab-cap-size);
-    }
-
-    .Tab-v .TabCap {
-        height: var(--Tab-cap-size);
-    }
-
+.Tab-v .TabCap {
+    height: var(--Tab-cap-size);
 }
 </style>

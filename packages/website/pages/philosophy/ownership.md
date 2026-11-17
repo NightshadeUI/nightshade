@@ -76,7 +76,7 @@ Need a look the standard control doesn't have? Write it on the [grammar](/compon
 
 ## Ship it as your package
 
-Put your CSS in its own cascade layer after Nightshade's, and publish it. Apps depend on your system, not on Nightshade directly. Nightshade's names, then yours, before any `@import`. The first `@layer` in the document is the order: [Tokens](/styles/#cascade-layers).
+Put your CSS in its own cascade layer after Nightshade's, and publish it. Apps depend on your system, not on Nightshade directly. Nightshade's names, then yours, before any `@import`. The first `@layer` in the document is the order: [Tokens](/styles/#cascade-layers). Your components land in your layer through `cssLayer('acme')` in the package's Vite build; they never write `@layer`.
 
 ```css
 @layer nightshade, nightshade-docs, nightshade-components, acme;

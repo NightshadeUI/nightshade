@@ -435,260 +435,256 @@ export default {
 </script>
 
 <style scoped>
-@layer nightshade-components {
+.Slider {
+    --Slider-ratio: 0;
+    --Slider-inset-position: calc(
+        var(--Slider-knob-size) / 2 + var(--Slider-ratio) * (100% - var(--Slider-knob-size))
+    );
 
-    .Slider {
-        --Slider-ratio: 0;
-        --Slider-inset-position: calc(
-            var(--Slider-knob-size) / 2 + var(--Slider-ratio) * (100% - var(--Slider-knob-size))
-        );
+    --Slider-track-height: calc(var(--input-minor-height) - var(--sp));
+    --Slider-knob-size: var(--input-minor-height);
 
-        --Slider-track-height: calc(var(--input-minor-height) - var(--sp));
-        --Slider-knob-size: var(--input-minor-height);
+    --Slider-outline: transparent;
 
-        --Slider-outline: transparent;
+    --Slider-track-background: var(--surface-deep);
+    --Slider-fill-background: var(--tone-fill);
+    --Slider-knob-background: var(--surface-knob);
+    --Slider-knob-transparency: 0%;
 
-        --Slider-track-background: var(--surface-deep);
-        --Slider-fill-background: var(--tone-fill);
-        --Slider-knob-background: var(--surface-knob);
-        --Slider-knob-transparency: 0%;
+    --Slider-border-size: 0px;
+    --Slider-border: transparent;
+    --Slider-radius: var(--radius-m);
+    --Slider-knob-radius: var(--radius-m);
 
-        --Slider-border-size: 0px;
-        --Slider-border: transparent;
-        --Slider-radius: var(--radius-m);
-        --Slider-knob-radius: var(--radius-m);
+    --Slider-shadow: var(--shadow-light);
+    --Slider-track-box-shadow: 0 1px 3px var(--Slider-shadow) inset, 0 0 5px -1px var(--Slider-shadow) inset;
+    --Slider-knob-box-shadow: 0 0 3px var(--Slider-shadow), 0 1px 5px var(--Slider-shadow);
 
-        --Slider-shadow: var(--shadow-light);
-        --Slider-track-box-shadow: 0 1px 3px var(--Slider-shadow) inset, 0 0 5px -1px var(--Slider-shadow) inset;
-        --Slider-knob-box-shadow: 0 0 3px var(--Slider-shadow), 0 1px 5px var(--Slider-shadow);
+    --Slider-tooltip-background: var(--surface-raised);
+    --Slider-tooltip-text: var(--text-base);
+    --Slider-tooltip-shadow: var(--shadow-light);
 
-        --Slider-tooltip-background: var(--surface-raised);
-        --Slider-tooltip-text: var(--text-base);
-        --Slider-tooltip-shadow: var(--shadow-light);
+    position: relative;
+    display: block;
+    width: 100%;
 
-        position: relative;
-        display: block;
-        width: 100%;
+    outline: 0;
+    cursor: pointer;
+    touch-action: none;
+    user-select: none;
+}
 
-        outline: 0;
-        cursor: pointer;
-        touch-action: none;
-        user-select: none;
-    }
+.HitArea {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    touch-action: none;
+}
 
-    .HitArea {
-        position: absolute;
-        inset: 0;
-        z-index: 0;
-        touch-action: none;
-    }
+.TrackArea {
+    position: relative;
+    z-index: 1;
+    height: var(--Slider-knob-size);
+    pointer-events: none;
+}
 
-    .TrackArea {
-        position: relative;
-        z-index: 1;
-        height: var(--Slider-knob-size);
-        pointer-events: none;
-    }
+.Track {
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: var(--Slider-track-height);
+    transform: translateY(-50%);
+    overflow: hidden;
 
-    .Track {
-        position: absolute;
-        z-index: 1;
-        top: 50%;
-        left: 0;
-        right: 0;
-        height: var(--Slider-track-height);
-        transform: translateY(-50%);
-        overflow: hidden;
+    border: var(--Slider-border-size) solid var(--Slider-border);
+    border-radius: var(--Slider-radius);
+    outline: var(--input-outline-size) solid var(--Slider-outline);
+    outline-offset: var(--input-outline-offset);
+    background: var(--Slider-track-background);
+    box-shadow: var(--Slider-track-box-shadow);
 
-        border: var(--Slider-border-size) solid var(--Slider-border);
-        border-radius: var(--Slider-radius);
-        outline: var(--input-outline-size) solid var(--Slider-outline);
-        outline-offset: var(--input-outline-offset);
-        background: var(--Slider-track-background);
-        box-shadow: var(--Slider-track-box-shadow);
+    transition: filter .3s, border-radius .3s;
+}
 
-        transition: filter .3s, border-radius .3s;
-    }
+.Fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
 
-    .Fill {
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 100%;
+    border-radius: inherit;
+    background: var(--Slider-fill-background);
 
-        border-radius: inherit;
-        background: var(--Slider-fill-background);
+    pointer-events: none;
+}
 
-        pointer-events: none;
-    }
+.Fill.Slider-fill-track {
+    width: var(--Slider-inset-position);
+}
 
-    .Fill.Slider-fill-track {
-        width: var(--Slider-inset-position);
-    }
+.Knob {
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    left: var(--Slider-inset-position);
+    width: var(--Slider-knob-size);
+    height: var(--Slider-knob-size);
+    transform: translate(-50%, -50%);
 
-    .Knob {
-        position: absolute;
-        z-index: 2;
-        top: 50%;
-        left: var(--Slider-inset-position);
-        width: var(--Slider-knob-size);
-        height: var(--Slider-knob-size);
-        transform: translate(-50%, -50%);
+    border-radius: var(--Slider-knob-radius);
+    background: color-mix(in srgb, var(--Slider-knob-background), transparent var(--Slider-knob-transparency));
+    box-shadow: var(--Slider-knob-box-shadow);
+    outline: var(--input-outline-size) solid var(--Slider-outline);
 
-        border-radius: var(--Slider-knob-radius);
-        background: color-mix(in srgb, var(--Slider-knob-background), transparent var(--Slider-knob-transparency));
-        box-shadow: var(--Slider-knob-box-shadow);
-        outline: var(--input-outline-size) solid var(--Slider-outline);
+    transition: border-radius .3s;
+}
 
-        transition: border-radius .3s;
-    }
+.Tooltip {
+    --Slider-tooltip-background: var(--tone-fill);
+    --Slider-tooltip-text: var(--tone-fill-text);
+    --Slider-tooltip-height: var(--sp3);
+    --Bubble-background: var(--Slider-tooltip-background);
+    --Bubble-shadow: var(--Slider-tooltip-shadow);
+    --Bubble-arrow-size: 8px;
 
-    .Tooltip {
-        --Slider-tooltip-background: var(--tone-fill);
-        --Slider-tooltip-text: var(--tone-fill-text);
-        --Slider-tooltip-height: var(--sp3);
-        --Bubble-background: var(--Slider-tooltip-background);
-        --Bubble-shadow: var(--Slider-tooltip-shadow);
-        --Bubble-arrow-size: 8px;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
 
-        top: 0;
-        left: 50%;
-        transform: translateX(-50%);
-    }
+.TooltipContent {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    height: var(--Slider-tooltip-height);
+    padding: 0 var(--sp1);
 
-    .TooltipContent {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-sizing: border-box;
-        height: var(--Slider-tooltip-height);
-        padding: 0 var(--sp1);
+    font-size: var(--font-size-s);
+    color: var(--Slider-tooltip-text);
+    white-space: nowrap;
+}
 
-        font-size: var(--font-size-s);
-        color: var(--Slider-tooltip-text);
-        white-space: nowrap;
-    }
+.TooltipBody {
+    cursor: text;
+}
 
-    .TooltipBody {
-        cursor: text;
-    }
+.TooltipInput {
+    -webkit-appearance: none;
+    -moz-appearance: textfield;
+    appearance: textfield;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    text-align: center;
+    cursor: text;
+    user-select: text;
+}
 
-    .TooltipInput {
-        -webkit-appearance: none;
-        -moz-appearance: textfield;
-        appearance: textfield;
-        box-sizing: border-box;
-        width: 100%;
-        height: 100%;
-        margin: 0;
-        padding: 0;
-        border: 0;
-        outline: 0;
-        background: transparent;
-        color: inherit;
-        font: inherit;
-        text-align: center;
-        cursor: text;
-        user-select: text;
-    }
+.TooltipInput::-webkit-outer-spin-button,
+.TooltipInput::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
 
-    .TooltipInput::-webkit-outer-spin-button,
-    .TooltipInput::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-    }
+.Scale {
+    position: relative;
+    z-index: 1;
+    margin-top: var(--sp1);
+    height: var(--sp3);
+}
 
-    .Scale {
-        position: relative;
-        z-index: 1;
-        margin-top: var(--sp1);
-        height: var(--sp3);
-    }
+.Tick {
+    position: absolute;
+    left: calc(var(--Slider-knob-size) / 2 + var(--Slider-ratio) * (100% - var(--Slider-knob-size)));
+    transform: translateX(-50%);
+    text-align: center;
+}
 
-    .Tick {
-        position: absolute;
-        left: calc(var(--Slider-knob-size) / 2 + var(--Slider-ratio) * (100% - var(--Slider-knob-size)));
-        transform: translateX(-50%);
-        text-align: center;
-    }
+.Mark {
+    width: 1px;
+    height: var(--sp1);
+    margin: 0 auto;
+    background: var(--tone-border);
+}
 
-    .Mark {
-        width: 1px;
-        height: var(--sp1);
-        margin: 0 auto;
-        background: var(--tone-border);
-    }
+.Label {
+    margin-top: var(--sp0-25);
 
-    .Label {
-        margin-top: var(--sp0-25);
+    font-size: var(--font-size-xs);
+    color: var(--text-base);
+    white-space: nowrap;
+}
 
-        font-size: var(--font-size-xs);
-        color: var(--text-base);
-        white-space: nowrap;
-    }
+/* States */
 
-    /* States */
+.Slider-disabled {
+    cursor: not-allowed;
+    opacity: var(--input-disabled-opacity);
+    filter: var(--input-disabled-filter);
+}
 
-    .Slider-disabled {
-        cursor: not-allowed;
-        opacity: var(--input-disabled-opacity);
-        filter: var(--input-disabled-filter);
-    }
+.Slider-disabled .HitArea {
+    pointer-events: none;
+}
 
-    .Slider-disabled .HitArea {
-        pointer-events: none;
-    }
+.Slider:not(.Slider-disabled):hover .Track,
+.Slider.Slider-forceHover .Track {
+    filter: var(--input-hover-filter);
+}
 
-    .Slider:not(.Slider-disabled):hover .Track,
-    .Slider.Slider-forceHover .Track {
-        filter: var(--input-hover-filter);
-    }
+.Slider:not(.Slider-disabled):focus-visible,
+.Slider.Slider-forceFocus {
+    --Slider-outline: var(--tone-focus-outline);
+    --Slider-border: var(--tone-focus-border);
+}
 
-    .Slider:not(.Slider-disabled):focus-visible,
-    .Slider.Slider-forceFocus {
-        --Slider-outline: var(--tone-focus-outline);
-        --Slider-border: var(--tone-focus-border);
-    }
+/* Styles */
 
-    /* Styles */
+.Slider-round {
+    --Slider-radius: calc(.5 * var(--Slider-track-height));
+    --Slider-knob-radius: calc(.5 * var(--Slider-knob-size));
+}
 
-    .Slider-round {
-        --Slider-radius: calc(.5 * var(--Slider-track-height));
-        --Slider-knob-radius: calc(.5 * var(--Slider-knob-size));
-    }
+.Slider-outline {
+    --Slider-border: var(--tone-border);
+    --Slider-border-size: var(--input-border-size);
+}
 
-    .Slider-outline {
-        --Slider-border: var(--tone-border);
-        --Slider-border-size: var(--input-border-size);
-    }
+.Slider-flat {
+    --Slider-track-box-shadow: none;
+}
 
-    .Slider-flat {
-        --Slider-track-box-shadow: none;
-    }
+.Slider-translucent {
+    --Slider-knob-box-shadow:
+        0 0 2px var(--shadow-medium),
+        0 1px 5px var(--shadow-light),
+        0 0 3px var(--translucency-highlight) inset;
+    --Slider-knob-transparency: var(--translucency-mix-heavy);
+}
 
-    .Slider-translucent {
-        --Slider-knob-box-shadow:
-            0 0 2px var(--shadow-medium),
-            0 1px 5px var(--shadow-light),
-            0 0 3px var(--translucency-highlight) inset;
-        --Slider-knob-transparency: var(--translucency-mix-heavy);
-    }
+.Slider-translucent .Knob {
+    backdrop-filter: blur(var(--translucency-blur));
+}
 
-    .Slider-translucent .Knob {
-        backdrop-filter: blur(var(--translucency-blur));
-    }
+.Fill.Slider-fill-inset {
+    top: var(--input-minor-padding);
+    left: calc(var(--Slider-knob-size) / 2);
+    width: calc(var(--Slider-ratio) * (100% - var(--Slider-knob-size)));
+    height: calc(100% - 2 * var(--input-minor-padding));
+    border-radius: var(--Slider-radius);
+}
 
-    .Fill.Slider-fill-inset {
-        top: var(--input-minor-padding);
-        left: calc(var(--Slider-knob-size) / 2);
-        width: calc(var(--Slider-ratio) * (100% - var(--Slider-knob-size)));
-        height: calc(100% - 2 * var(--input-minor-padding));
-        border-radius: var(--Slider-radius);
-    }
-
-    .Fill.Slider-fill-none {
-        display: none;
-    }
-
+.Fill.Slider-fill-none {
+    display: none;
 }
 </style>

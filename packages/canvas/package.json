@@ -29,5 +29,8 @@
         "@flexent/init-decorator": "^2.22.0",
         "mesh-ioc": "^4.3.1",
         "nanoevent": "^1.0.0"
+    },
+    "devDependencies": {
+        "@nightshadeui/components": "3.9.0"
     }
 }

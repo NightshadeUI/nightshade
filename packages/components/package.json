@@ -16,12 +16,18 @@
             "types": "./css.d.ts",
             "default": "./dist/components.css"
         },
+        "./vite": {
+            "types": "./vite.d.mts",
+            "import": "./vite.mjs"
+        },
         "./src": "./src/index.ts"
     },
     "files": [
         "dist",
         "src",
-        "css.d.ts"
+        "css.d.ts",
+        "vite.mjs",
+        "vite.d.mts"
     ],
     "scripts": {
         "build:watch": "vite build --watch",
@@ -29,10 +35,14 @@
     },
     "peerDependencies": {
         "vue": "^3.5.22",
-        "vue-router": "^4.6.4"
+        "vue-router": "^4.6.4",
+        "vite": ">=6"
     },
     "peerDependenciesMeta": {
         "vue-router": {
+            "optional": true
+        },
+        "vite": {
             "optional": true
         }
     },

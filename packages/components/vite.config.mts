@@ -5,6 +5,8 @@ import { Features } from 'lightningcss';
 import { defineConfig, Plugin } from 'vite';
 import dts from 'vite-plugin-dts';
 
+import { cssLayer } from './vite.mjs';
+
 /**
  * Each module imports the CSS of the components it holds, so importing one component brings only its styles.
  * `components.css` still holds them all, for apps that link every style at once.
@@ -69,6 +71,7 @@ export default defineConfig({
         },
     },
     plugins: [
+        cssLayer('nightshade-components'),
         vue({}),
         dts({
             include: ['src/**'],

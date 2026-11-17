@@ -27,5 +27,8 @@
         "@nightshadeui/util": "3.9.0",
         "nanoevent": "^1.0.0",
         "simplex-noise": "^4.0.3"
+    },
+    "devDependencies": {
+        "@nightshadeui/components": "3.9.0"
     }
 }

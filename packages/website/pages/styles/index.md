@@ -90,7 +90,7 @@ Nightshade's names, weakest first. Do not rename them, do not skip them:
 | `nightshade-docs` | `@nightshadeui/docs` | the docs theme. Empty until that package loads. |
 | `nightshade-components` | `@nightshadeui/components` | standard controls |
 
-Then libraries you wrap, then yours. The first `@layer` statement in the document is the order. Declare it **once**, in your CSS entry, before any `@import`. Components sit in a named layer; they never list the order. A name first mentioned later is appended.
+Then libraries you wrap, then yours. The first `@layer` statement in the document is the order. Declare it **once**, in your CSS entry, before any `@import`. Components sit in a named layer; they never list the order. A name first mentioned later is appended. In a Vite app the entry rarely loads first, so `cssLayerOrder()` (below) states the order ahead of every stylesheet.
 
 ```css
 @layer nightshade, nightshade-docs, nightshade-components, acme;
@@ -99,6 +99,23 @@ Then libraries you wrap, then yours. The first `@layer` statement in the documen
 @import './palette.css' layer(acme);
 @import './type.css' layer(acme);
 ```
+
+Vue components never write `@layer`. `cssLayer()` from `nightshade/vite` (or `@nightshadeui/components/vite`) puts every SFC `<style>` in your layer, at build time and on hot updates. `cssLayerOrder()` states the order ahead of every stylesheet: in dev a component's style loads before your entry, and a build can link a chunk's CSS first. Put both before `vue()`:
+
+```ts
+import vue from '@vitejs/plugin-vue';
+import { cssLayer, cssLayerOrder } from 'nightshade/vite';
+
+export default defineConfig({
+    plugins: [
+        cssLayerOrder(['acme']), // Nightshade's three, then yours
+        cssLayer('acme'),
+        vue(),
+    ],
+});
+```
+
+It takes every SFC outside `node_modules`. `cssLayer('x', { dir })` takes only those under `dir`, for sources another layer owns; list it first. A block that already opens with `@layer` is left alone.
 
 A prototype can skip the list and write an unlayered `:root`; it will win, and then fight the next unlayered file. A system stays in the layers. [Growing your own](/philosophy/ownership#ship-it-as-your-package).
 
