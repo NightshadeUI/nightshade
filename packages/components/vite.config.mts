@@ -1,11 +1,10 @@
 import { dirname, relative } from 'node:path';
 
+import { cssLayer } from '@nightshadeui/vite';
 import vue from '@vitejs/plugin-vue';
 import { Features } from 'lightningcss';
 import { defineConfig, Plugin } from 'vite';
 import dts from 'vite-plugin-dts';
-
-import { cssLayer } from './vite.mjs';
 
 /**
  * Each module imports the CSS of the components it holds, so importing one component brings only its styles.

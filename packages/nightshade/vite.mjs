@@ -1,1 +1,1 @@
-export * from '@nightshadeui/components/vite';
+export * from '@nightshadeui/vite';

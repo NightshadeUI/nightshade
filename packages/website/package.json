@@ -23,6 +23,7 @@
         "@nightshadeui/particle-system": "3.10.0",
         "@nightshadeui/scroller": "3.10.0",
         "@nightshadeui/stylesheets": "3.10.0",
-        "@nightshadeui/util": "3.10.0"
+        "@nightshadeui/util": "3.10.0",
+        "@nightshadeui/vite": "3.10.0"
     }
 }

@@ -100,7 +100,7 @@ Then libraries you wrap, then yours. The first `@layer` statement in the documen
 @import './type.css' layer(acme);
 ```
 
-Vue components never write `@layer`. `cssLayer()` from `nightshade/vite` (or `@nightshadeui/components/vite`) puts every SFC `<style>` in your layer, at build time and on hot updates. `cssLayerOrder()` states the order ahead of every stylesheet: in dev a component's style loads before your entry, and a build can link a chunk's CSS first. Put both before `vue()`:
+Vue components never write `@layer`. `cssLayer()` from `nightshade/vite` (or `@nightshadeui/vite`) puts every SFC `<style>` in your layer, at build time and on hot updates. `cssLayerOrder()` states the order ahead of every stylesheet: in dev a component's style loads before your entry, and a build can link a chunk's CSS first. Put both before `vue()`:
 
 ```ts
 import vue from '@vitejs/plugin-vue';

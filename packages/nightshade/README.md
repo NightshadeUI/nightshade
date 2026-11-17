@@ -1,6 +1,6 @@
 # nightshade
 
-The Nightshade umbrella: `@nightshadeui/stylesheets` and `@nightshadeui/components` in one dependency.
+The Nightshade umbrella: `@nightshadeui/stylesheets`, `@nightshadeui/components` and `@nightshadeui/vite` in one dependency.
 
 ```bash
 npm i nightshade
@@ -24,4 +24,4 @@ export default defineConfig({
 });
 ```
 
-See [@nightshadeui/stylesheets](https://www.npmjs.com/package/@nightshadeui/stylesheets) and [@nightshadeui/components](https://www.npmjs.com/package/@nightshadeui/components).
+See [@nightshadeui/stylesheets](https://www.npmjs.com/package/@nightshadeui/stylesheets), [@nightshadeui/components](https://www.npmjs.com/package/@nightshadeui/components) and [@nightshadeui/vite](https://www.npmjs.com/package/@nightshadeui/vite).

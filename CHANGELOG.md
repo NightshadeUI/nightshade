@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-- `@nightshadeui/components/vite` (and `nightshade/vite`): two Vite plugins.
+- `@nightshadeui/vite` (and `nightshade/vite`): two Vite plugins. They used to live on `@nightshadeui/components/vite`; import from `@nightshadeui/vite` instead.
   - `cssLayer(layer, { dir })` puts every SFC `<style>` in a cascade layer, so components never write `@layer`. It wraps each style block's own module, so hot updates stay in the layer (wrapping the SFC source lost them: a style-only update reloads the block from disk). VitePress pages count too. Without `dir` it takes every SFC outside `node_modules`; a block that already opens with `@layer` is left alone. The standard components, the canvas and the particle system build with it, and no longer write `@layer nightshade-components` by hand; their CSS is unchanged.
   - `cssLayerOrder(layers)` states the order (Nightshade's three, then `layers`) ahead of every stylesheet: first in each CSS file a build emits, and in `index.html` for dev. Without it, the first stylesheet to name a layer sets the order, and in a Vite app that is rarely the CSS entry.
 - `@nightshadeui/docs`: `defineDocsConfig` adds `cssLayer('nightshade-docs')` for the theme's own components, which sat outside every layer, and `cssLayerOrder()`. The website's bundle named `site` and `nightshade-components` before `nightshade`, in dev and in the build, so the standard controls were weaker than the base styles.

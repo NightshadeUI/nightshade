@@ -1,4 +1,4 @@
-import { cssLayer } from '@nightshadeui/components/vite';
+import { cssLayer } from '@nightshadeui/vite';
 import vue from '@vitejs/plugin-vue';
 import { Features } from 'lightningcss';
 import { defineConfig } from 'vite';

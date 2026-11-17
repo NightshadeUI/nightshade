@@ -1,4 +1,4 @@
-import { cssLayer, cssLayerOrder } from '@nightshadeui/components/vite';
+import { cssLayer, cssLayerOrder } from '@nightshadeui/vite';
 import { Features } from 'lightningcss';
 import { createCssVariablesTheme } from 'shiki/core';
 import { mergeConfig, UserConfig } from 'vitepress';

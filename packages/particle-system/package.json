@@ -29,6 +29,6 @@
         "simplex-noise": "^4.0.3"
     },
     "devDependencies": {
-        "@nightshadeui/components": "3.10.0"
+        "@nightshadeui/vite": "3.10.0"
     }
 }

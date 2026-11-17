@@ -45,6 +45,7 @@
         "@nightshadeui/components": "3.10.0",
         "@nightshadeui/stylesheets": "3.10.0",
         "@nightshadeui/util": "3.10.0",
+        "@nightshadeui/vite": "3.10.0",
         "lightningcss": "^1.33.0",
         "shiki": "^4.6.0"
     }

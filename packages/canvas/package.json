@@ -31,6 +31,6 @@
         "nanoevent": "^1.0.0"
     },
     "devDependencies": {
-        "@nightshadeui/components": "3.10.0"
+        "@nightshadeui/vite": "3.10.0"
     }
 }

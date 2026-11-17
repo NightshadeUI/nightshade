@@ -20,7 +20,7 @@ These are the always-on rules. For the token catalog, the palette workflow, comp
 
 - Nightshade's names, weakest first: `nightshade`, `nightshade-docs`, `nightshade-components`. Then libraries you wrap, then yours. Do not rename them, do not skip them.
 - The first `@layer` in the document is the order. State it **once**, in your CSS entry, before any `@import`: `@layer nightshade, nightshade-docs, nightshade-components, acme`. A skipped name, first mentioned later, is appended. In dev a component's style loads before the entry, and a build can link a chunk's CSS first, so a Vite app adds `cssLayerOrder(['acme'])` from `nightshade/vite`: it states the order ahead of every stylesheet.
-- Vue components never write `@layer`. `cssLayer('acme')` from `nightshade/vite` (or `@nightshadeui/components/vite`), before `vue()` in the Vite plugins, puts every SFC `<style>` in the layer. A component library uses its own layer, as Nightshade's use `nightshade-components`. Components never list the order.
+- Vue components never write `@layer`. `cssLayer('acme')` from `nightshade/vite` (or `@nightshadeui/vite`), before `vue()` in the Vite plugins, puts every SFC `<style>` in the layer. A component library uses its own layer, as Nightshade's use `nightshade-components`. Components never list the order.
 - Stay in the layers. Unlayered CSS beats every layer; don't unlayer to win.
 
 ## Color
@@ -128,6 +128,7 @@ Principles → styles (`stylesheets`) → the app's own system. Simplicity is th
 - Other opt-ins: `canvas`, `particle-system`, `scroller`. The unfinished `content-editor` prototype is parked in `.archive/`, outside the workspaces.
 - Docs theme (opt-in): `docs`, a VitePress theme for an app's own design-system site: the frame, a landing, `defineDocsConfig` and live references (variables, palette, tones, scales) that read the site's styles. Sites configure it through `themeConfig` and extend it with `extends: DocsTheme`. It knows nothing about Nightshade's own site. Its frame is single-tone, like an app's: it may read `base` and `primary` steps, and any other ramp (`secondary` included) only with a fallback to one of them. It ships sources, which the site's Vite compiles (`defineDocsConfig` keeps them out of pre-bundling).
 - Utility: `util` (geometry helpers, `dom/` input classes, `readStored`/`writeStored`). Framework-free.
+- Vite plugins: `vite` (`cssLayer`, `cssLayerOrder` for cascade layers). Re-exported as `nightshade/vite`.
 - Distribution: `nightshade`, a thin umbrella package. No runtime logic here.
 - Methodology: `methodology`, the rules and the `nightshade` skill for apps grown from the seed. Its `AGENTS.md` is the source of the Nightshade methodology block above (synced with `npx nightshade-methodology sync`). When the model, tokens or grammar change, update it and the skill references with them.
 - Website: `website`, the VitePress documentation site (private). It is an app grown from the seed, built on the `docs` theme: its navigation is its `themeConfig`, and the Palette Studio, the look playground and the opt-in demos are its own.

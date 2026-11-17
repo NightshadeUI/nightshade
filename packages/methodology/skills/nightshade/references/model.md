@@ -78,7 +78,7 @@ Vue components never write `@layer`. The `cssLayer()` Vite plugin wraps every SF
 
 ```ts
 import vue from '@vitejs/plugin-vue';
-import { cssLayer, cssLayerOrder } from 'nightshade/vite'; // or '@nightshadeui/components/vite'
+import { cssLayer, cssLayerOrder } from 'nightshade/vite'; // or '@nightshadeui/vite'
 
 export default defineConfig({
     plugins: [

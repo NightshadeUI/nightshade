@@ -1,8 +1,8 @@
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
-import { cssLayer } from '@nightshadeui/components/vite';
 import { defineDocsConfig } from '@nightshadeui/docs/config';
+import { cssLayer } from '@nightshadeui/vite';
 
 const { version } = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'));
 

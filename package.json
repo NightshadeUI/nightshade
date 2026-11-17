@@ -34,6 +34,7 @@
         "@nightshadeui/scroller": "./packages/scroller",
         "@nightshadeui/stylesheets": "./packages/stylesheets",
         "@nightshadeui/util": "./packages/util",
+        "@nightshadeui/vite": "./packages/vite",
         "@nightshadeui/website": "./packages/website"
     },
     "devDependencies": {

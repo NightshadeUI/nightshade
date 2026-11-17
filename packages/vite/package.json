@@ -1,0 +1,27 @@
+{
+    "name": "@nightshadeui/vite",
+    "version": "3.10.0",
+    "description": "Vite plugins for Nightshade cascade layers: cssLayer and cssLayerOrder",
+    "author": "Boris Okunskiy",
+    "license": "ISC",
+    "type": "module",
+    "sideEffects": false,
+    "exports": {
+        ".": {
+            "types": "./index.d.mts",
+            "import": "./index.mjs"
+        }
+    },
+    "files": [
+        "index.mjs",
+        "index.d.mts"
+    ],
+    "peerDependencies": {
+        "vite": ">=6"
+    },
+    "peerDependenciesMeta": {
+        "vite": {
+            "optional": true
+        }
+    }
+}
