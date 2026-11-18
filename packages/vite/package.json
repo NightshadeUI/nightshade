@@ -1,6 +1,6 @@
 {
     "name": "@nightshadeui/vite",
-    "version": "3.14.1",
+    "version": "3.14.2",
     "description": "Vite plugins for Nightshade cascade layers: cssLayer and cssLayerOrder",
     "author": "Boris Okunskiy",
     "license": "ISC",
