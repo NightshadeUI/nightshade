@@ -1,6 +1,6 @@
 # Recipe: growing your own system
 
-How to turn the seed into an organization's design system, one tier at a time, without forking it.
+How to turn the seed into an organization's design system, one tier at a time, without forking it. Once it ships, it is its apps' design system: they follow it, import from it rather than from `@nightshadeui/*`, and bring their gaps to it, not to Nightshade ([model.md](../model.md#whose-system)).
 
 ## 1. Start from a palette spec
 
@@ -55,7 +55,7 @@ Need a look the standard control doesn't have? Write it on the grammar: `--AcmeA
 
 ## 6. Ship it as a package
 
-Put your CSS in its own cascade layer after Nightshade's and publish it. Apps then depend on your system, not on Nightshade directly. Nightshade's names, then yours, **once**, in that entry, before any `@import`. Components land in your layer through `cssLayer('acme')` in the package's Vite build; they never write `@layer` or list the order. [model.md](../model.md#cascade-layers).
+Put your CSS in its own cascade layer after Nightshade's and publish it. Apps then depend on your system, not on Nightshade directly. Nightshade's names, then yours, **once**, in that entry, before any `@import`. Components land in your layer through `cssLayer('acme')` in the package's Vite build; they never write `@layer` or list the order. Apps state your order first in their `index.html`, add their own layers after yours if they want any, and can leave their own CSS unlayered. [model.md](../model.md#cascade-layers).
 
 ```css
 @layer nightshade, nightshade-docs, nightshade-components, acme;

@@ -7,7 +7,9 @@ const NIGHTSHADE_LAYERS = ['nightshade', 'nightshade-docs', 'nightshade-componen
  * weakest first, then the app's. Otherwise the first stylesheet to name a layer sets the order, and
  * that is rarely the CSS entry: in dev a component's style loads first, and in a build a code-split
  * chunk (or a VitePress bundle) can. It prepends the statement to every CSS file the build emits, and
- * to `index.html` for dev. Apps use it; component libraries never list the order.
+ * to `index.html` for dev. For sites with no `index.html` of their own, such as VitePress (the docs
+ * theme uses it); an app states the order first in its `index.html` instead, and component libraries
+ * never list it.
  *
  * @param {string[]} [layers] The app's own layers, after Nightshade's: `['primevue', 'acme']`.
  * @returns {import('vite').Plugin}

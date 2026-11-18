@@ -80,7 +80,7 @@ The palette isn't in that list: import your own generated `palette.css` next to 
 
 ## Cascade layers
 
-CSS cascade layers, not the token tiers. Later layers win, at any specificity. Unlayered CSS beats every named layer; don't use that to win over Nightshade.
+CSS cascade layers, not the token tiers. Later layers win, at any specificity. Unlayered CSS beats every named layer: a system never uses that to win over Nightshade, and an app's own CSS gets it for free (below).
 
 Nightshade's names, weakest first. Do not rename them, do not skip them:
 
@@ -90,7 +90,13 @@ Nightshade's names, weakest first. Do not rename them, do not skip them:
 | `nightshade-docs` | `@nightshadeui/docs` | the docs theme. Empty until that package loads. |
 | `nightshade-components` | `@nightshadeui/components` | standard controls |
 
-Then libraries you wrap, then yours. The first `@layer` statement in the document is the order. Declare it **once**, in your CSS entry, before any `@import`. Components sit in a named layer; they never list the order. A name first mentioned later is appended. In a Vite app the entry rarely loads first, so `cssLayerOrder()` (below) states the order ahead of every stylesheet.
+Then libraries you wrap, then yours. The first `@layer` statement in the document is the order. Declare it **once**, in your CSS entry, before any `@import`. Components sit in a named layer; they never list the order. A name first mentioned later is appended. In an app the entry rarely loads first (in dev a component's style is injected before it), so the app also states the order first in `<head>`, in `index.html`:
+
+```html
+<style>@layer nightshade, nightshade-docs, nightshade-components, acme;</style>
+```
+
+The system's CSS entry states it too:
 
 ```css
 @layer nightshade, nightshade-docs, nightshade-components, acme;
@@ -100,24 +106,22 @@ Then libraries you wrap, then yours. The first `@layer` statement in the documen
 @import './type.css' layer(acme);
 ```
 
-Vue components never write `@layer`. `cssLayer()` from `nightshade/vite` (or `@nightshadeui/vite`) puts every SFC `<style>` in your layer, at build time and on hot updates. `cssLayerOrder()` states the order ahead of every stylesheet: in dev a component's style loads before your entry, and a build can link a chunk's CSS first. Put both before `vue()`:
+A system's or library's Vue components never write `@layer`. `cssLayer()` from `nightshade/vite` (or `@nightshadeui/vite`) puts every SFC `<style>` in its layer, at build time and on hot updates. Put it before `vue()`, in the package's build:
 
 ```ts
 import vue from '@vitejs/plugin-vue';
-import { cssLayer, cssLayerOrder } from 'nightshade/vite';
+import { cssLayer } from 'nightshade/vite';
 
 export default defineConfig({
-    plugins: [
-        cssLayerOrder(['acme']), // Nightshade's three, then yours
-        cssLayer('acme'),
-        vue(),
-    ],
+    plugins: [cssLayer('acme'), vue()],
 });
 ```
 
-It takes every SFC outside `node_modules`. `cssLayer('x', { dir })` takes only those under `dir`, for sources another layer owns; list it first. A block that already opens with `@layer` is left alone.
+It takes every SFC outside `node_modules`. `cssLayer('x', { dir })` takes only those under `dir`: a system's folder inside an app, or sources another layer owns; list it first. A block that already opens with `@layer` is left alone. A site with no `index.html` of its own (VitePress) states the order with `cssLayerOrder()` from the same package; the [docs theme](/opt-ins/docs) does.
 
 A prototype can skip the list and write an unlayered `:root`; it will win, and then fight the next unlayered file. A system stays in the layers. [Growing your own](/philosophy/ownership#ship-it-as-your-package).
+
+**An app's own CSS**, its pages and components, needs no layer: unlayered, it beats the system, with no plugin. Its broad element rules (a reset, `button { … }`) go in a layer of its own, named after the system's in the `index.html` statement, or they beat the system's components too.
 
 ## Taking only some of it
 

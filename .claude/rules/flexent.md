@@ -1,0 +1,1 @@
+../../.agents/flexent/RULES.md

@@ -13,6 +13,7 @@ export function cssLayer(layer: string, options?: CssLayerOptions): Plugin;
 
 /**
  * A Vite plugin that states the cascade layer order (Nightshade's, then `layers`) ahead of every
- * stylesheet: first in each CSS file the build emits, and in `index.html` for dev.
+ * stylesheet: first in each CSS file the build emits, and in `index.html` for dev. For sites with no
+ * `index.html` of their own (VitePress); an app states the order first in its `index.html` instead.
  */
 export function cssLayerOrder(layers?: string[]): Plugin;

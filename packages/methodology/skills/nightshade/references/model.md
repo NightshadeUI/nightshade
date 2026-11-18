@@ -2,6 +2,15 @@
 
 Nightshade is not a design system. It is the seed one grows from. The app decides what grows next, and owns all of it.
 
+## Whose system
+
+Every app has one design system, and follows it:
+
+- **An app grown from Nightshade directly:** Nightshade plus the app's own palette spec, `:root`, stylesheets and components. The app changes them itself.
+- **An app on a system grown from Nightshade** (`@acme/design`): that system. Its tokens, components, docs and project rules come first. The app imports from it, not from `@nightshadeui/*`, states its layer order, and takes a gap to it: a prop, a token, a component. Meanwhile the app's own CSS can cover it.
+
+A gap is never a change to Nightshade on one app's or one system's behalf. The system owns what it grows, and decides what, if anything, is worth proposing upstream.
+
 ## What's in the seed
 
 | Piece | Package | What it gives you |
@@ -58,7 +67,7 @@ A component that must work in any tone (a button, an input) reads roles and the 
 
 ## Cascade layers
 
-CSS cascade layers, not the token tiers. Later layers win, at any specificity. Unlayered CSS beats every named layer; don't use that to win over Nightshade.
+CSS cascade layers, not the token tiers. Later layers win, at any specificity. Unlayered CSS beats every named layer: a system never uses that to win over Nightshade, and an app's own CSS gets it for free ([below](#the-apps-css)).
 
 Nightshade's names, weakest first. Do not rename them, do not skip them:
 
@@ -72,24 +81,26 @@ Then libraries you wrap (`primevue`, …), then yours (`acme`, `ubio`, `site`).
 
 The first `@layer` statement in the document is the order. Declare it **once**, in your CSS entry, before any `@import`. Components and the docs theme put styles in their named layer; they never list the order. A name first mentioned later is **appended**. If you skip `nightshade-docs`, that layer lands last and the docs theme beats you.
 
-In a Vite app the entry rarely loads first: in dev a component's style is injected before it, and a build can link a code-split chunk's CSS first (VitePress links its bundle before any `head` entry). That stylesheet then names your layer first, the weakest. `cssLayerOrder()` states the order ahead of every stylesheet: first in each CSS file the build emits, and in `index.html` for dev.
+In an app the entry rarely loads first: in dev a component's style is injected before it, and that stylesheet then names its layer first, the weakest. So the app states the order first in `<head>`, in `index.html`. An inline `<style>` there comes before every stylesheet the build links or injects:
 
-Vue components never write `@layer`. The `cssLayer()` Vite plugin wraps every SFC `<style>` in one, at build time and on hot updates. Put both before `vue()`:
+```html
+<style>@layer nightshade, nightshade-docs, nightshade-components, acme;</style>
+```
+
+A site with no `index.html` of its own needs a plugin instead: VitePress links its bundle before any `head` entry. `cssLayerOrder(['acme'])` from `nightshade/vite` states the order first in each CSS file the build emits, and in the page for dev. The docs theme's config adds it with Nightshade's three; a site adds another with its own names after them.
+
+A system's or library's Vue components never write `@layer`. The `cssLayer()` Vite plugin wraps every SFC `<style>` in one, at build time and on hot updates. Put it before `vue()`, in the package's build:
 
 ```ts
 import vue from '@vitejs/plugin-vue';
-import { cssLayer, cssLayerOrder } from 'nightshade/vite'; // or '@nightshadeui/vite'
+import { cssLayer } from 'nightshade/vite'; // or '@nightshadeui/vite'
 
 export default defineConfig({
-    plugins: [
-        cssLayerOrder(['acme']), // Nightshade's three, then yours
-        cssLayer('acme'),
-        vue(),
-    ],
+    plugins: [cssLayer('acme'), vue()],
 });
 ```
 
-It takes every SFC outside `node_modules`. `cssLayer('x', { dir })` takes only the SFCs under `dir`, for sources another layer owns. A block that already opens with `@layer` is left alone, so list narrower plugins first. A component library layers its own (Nightshade's packages use `cssLayer('nightshade-components')`) and never lists the order: `cssLayerOrder` is for apps. The docs theme's config adds both for a docs site: `nightshade-docs` for its files, and Nightshade's order, after which the site's one layer comes last.
+It takes every SFC outside `node_modules`. `cssLayer('x', { dir })` takes only the SFCs under `dir`: a system's folder inside an app, or sources another layer owns. A block that already opens with `@layer` is left alone, so list narrower plugins first. A component library layers its own (Nightshade's packages use `cssLayer('nightshade-components')`) and never lists the order.
 
 Nightshade's three, then yours:
 
@@ -102,7 +113,16 @@ Nightshade's three, then yours:
 @import './roles.css' layer(acme);
 ```
 
-An app that wants a different order declares `@layer` before it imports you. Stay in the layers: `:root`, the heading ladder and wrappers belong in yours. Same-layer, a class beats an element (`.page-title` over `h1`).
+An app that wants a different order declares `@layer` before it imports you. The system stays in its layers: `:root`, the heading ladder and wrappers belong in yours. Same-layer, a class beats an element (`.page-title` over `h1`).
+
+### The app's CSS
+
+An app's own CSS, its pages and components, needs no layer. Unlayered, it beats the system, which is what an app wants: no plugin, no `@layer` in components. Two things go in layers of the app's own, named after the system's in the same `index.html` statement (`…, acme, reset, base`):
+
+- broad element rules (a reset, `button { … }`): unlayered, they'd beat the system's components too;
+- anything the app wants ordered under its components.
+
+The app's unlayered CSS beats its own layers. A system never names or requires an app's layer, and an app never reuses the system's names.
 
 Nightshade does not map `h1`–`h6`, or size `pre` and `code`. You do, in your layer, with line-heights as ratios. Map `pre` app-wide, and inline `code` only inside running text (`p > code`): a bare `code` rule in your layer beats the `<code>` labels of components in lower layers. Don't copy the Nightshade website's `type.css` or its fonts: that site is an app.
 

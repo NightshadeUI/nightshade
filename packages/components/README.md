@@ -18,6 +18,6 @@ app.component('HGroup', HGroup);
 
 `standardComponents` maps every name to its component, to register them all. Set app-wide defaults with `app.provide('$nightshade', reactive({ defaults: { round: true } }))`. Each control's `--<Component>-*` locals are how it is written, not a restyle API.
 
-Their CSS sits in the `nightshade-components` layer. Your own components land in yours through `cssLayer()` from `@nightshadeui/vite` (or `nightshade/vite`).
+Their CSS sits in the `nightshade-components` layer. A system's components land in its layer through `cssLayer()` from `@nightshadeui/vite` (or `nightshade/vite`); an app's own can stay unlayered.
 
 `RouterBtn` needs `vue-router`. Overlays teleport into an element with `id="overlays"`.

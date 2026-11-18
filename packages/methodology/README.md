@@ -14,7 +14,10 @@ On install, the package writes into the project that ran `npm install`:
 
 | Path | What | Read by |
 |------|------|---------|
-| `AGENTS.md` | always-on rules, in a managed block between `<!-- nightshade-methodology:begin -->` and `<!-- nightshade-methodology:end -->`; the rest of the file is yours | Codex, Cursor, GitHub Copilot, Gemini CLI, and most other agents |
+| `.agents/nightshade/RULES.md` | the always-on rules, the one document the others point to; rewritten on every sync | (through the entries below) |
+| `AGENTS.md` | one line, `[Nightshade] Follow .agents/nightshade/RULES.md`, appended near the end (or updated where you moved it); the rest of the file is yours | Codex, GitHub Copilot, Gemini CLI, and most other agents |
+| `.claude/rules/nightshade.md` | a link to `RULES.md`, loaded on every session | Claude Code |
+| `.cursor/rules/nightshade.mdc` | `RULES.md` as an always-on rule | Cursor |
 | `.agents/skills/nightshade/` | the `nightshade` Agent Skill: token catalog, palette, components, recipes, token checker | Codex, Cursor, GitHub Copilot, and other Agent Skills tools |
 | `.claude/skills/nightshade` | a link to the skill above, available as `/nightshade` | Claude Code |
 | `CLAUDE.md` | `@AGENTS.md`, created only when missing | Claude Code, which doesn't read `AGENTS.md` on its own |
@@ -23,7 +26,7 @@ Commit these files. Agents that read the repository without installing anything 
 
 The install step is skipped in CI, for global installs, and when `NIGHTSHADE_METHODOLOGY_SKIP=1` is set. pnpm and Yarn don't run install scripts by default; with those, run `npx nightshade-methodology sync` once after installing or upgrading.
 
-It sits alongside `@flexent/methodology`: each package manages only its own block in `AGENTS.md`.
+It sits alongside `@flexent/methodology`: each package upserts only its own line in `AGENTS.md`, and the two lines sit together. Projects that installed an earlier version get its managed block removed from `AGENTS.md` on the next sync.
 
 ## Commands
 
@@ -35,7 +38,7 @@ npx nightshade-methodology tokens [dir…]   # report CSS that breaks the variab
 
 `tokens` reads `.css`, `.scss` and the `<style>` blocks of `.vue` files. It flags `light-dark()` outside scales, context and roles, component variables read with fallbacks, `-color` and `-surface` suffixes on component variables, one-word roles, and 2.x variables. It doesn't flag ramp steps: single-tone components may read them, and whether a component is multi-tone is a judgment call.
 
-Upgrading the package and running `sync` refreshes the skill and the managed block, and leaves your own `AGENTS.md` sections and `CLAUDE.md` untouched.
+Upgrading the package and running `sync` refreshes `RULES.md`, the Cursor rule and the skill. It touches `AGENTS.md` only to add its line, and never rewrites `CLAUDE.md`.
 
 ## Other tools
 

@@ -25,7 +25,7 @@ Color knobs feed value knobs, which keeps geometry in one place:
 
 ## Writing a component
 
-The CSS lands in your cascade layer through the `cssLayer()` Vite plugin ([model.md](model.md#cascade-layers)): don't write `@layer` in the component, and don't list Nightshade's order there. The app's CSS entry does that once. The order inside a scoped style block is: base, then states, then looks and modifiers.
+A system's or library's component CSS lands in its cascade layer through the `cssLayer()` Vite plugin ([model.md](model.md#cascade-layers)): don't write `@layer` in the component, and don't list Nightshade's order there. The system's CSS entry does that once. An app's own components need neither: their CSS can stay unlayered ([model.md](model.md#the-apps-css)). The order inside a scoped style block is: base, then states, then looks and modifiers.
 
 ```vue
 <template>

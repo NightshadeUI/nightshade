@@ -15,12 +15,17 @@ npm i nightshade
 import { Btn, InputText } from 'nightshade'; /* each component brings its own CSS */
 ```
 
+```html
+<!-- index.html, first in <head>: the layer order -->
+<style>@layer nightshade, nightshade-docs, nightshade-components, acme;</style>
+```
+
 ```ts
-// vite.config.ts: the layer order ahead of every stylesheet, and your components' styles in your layer
-import { cssLayer, cssLayerOrder } from 'nightshade/vite';
+// vite.config.ts, for a system's or library's components: their styles in its layer
+import { cssLayer } from 'nightshade/vite';
 
 export default defineConfig({
-    plugins: [cssLayerOrder(['acme']), cssLayer('acme'), vue()],
+    plugins: [cssLayer('acme'), vue()],
 });
 ```
 
