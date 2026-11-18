@@ -58,6 +58,7 @@ h2 {
     margin: var(--sp1-5) 0 0;
     font-size: var(--font-size-xl);
     font-weight: 600;
+    line-height: 1.5;
 }
 
 .Text {
