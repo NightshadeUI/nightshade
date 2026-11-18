@@ -1,3 +1,5 @@
+/* Font Awesome in the theme's layer: unlayered, its classes would beat every layer, the site's own included */
+@import '@fortawesome/fontawesome-free/css/all.css' layer(nightshade-docs);
 @import '@nightshadeui/stylesheets/transitions';
 @import '@nightshadeui/stylesheets/kbd';
 

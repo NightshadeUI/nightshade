@@ -202,8 +202,7 @@ export const VARIABLE_GROUPS: VariableGroup[] = [
                 name: '--font-size-<step>',
                 members: FONT_SIZE_STEPS.map(step => `--font-size-${step}`),
                 examples: ['--font-size-m', '--font-size-xl'],
-                about: 'The type scale: 8, 10, 12, 14, 16, 20, 24, 40, 88px. --font-size-m is body, xxxl is h1. ' +
-                    'Set each at :root; none is derived from another.',
+                about: `The type scale, smallest to largest. --font-size picks the body step; headings take the large ones. Set each at :root; none is derived from another.`,
                 stance: 'specify',
                 preview: 'font',
                 sample: '--font-size-xl',
