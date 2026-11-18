@@ -1,6 +1,6 @@
 {
     "name": "@nightshadeui/particle-system",
-    "version": "3.14.0",
+    "version": "3.14.1",
     "description": "Nightshade particle system component",
     "author": "Boris Okunskiy",
     "license": "ISC",
@@ -24,11 +24,11 @@
         "vue": "^3.5.22"
     },
     "dependencies": {
-        "@nightshadeui/util": "3.14.0",
+        "@nightshadeui/util": "3.14.1",
         "nanoevent": "^1.0.0",
         "simplex-noise": "^4.0.3"
     },
     "devDependencies": {
-        "@nightshadeui/vite": "3.14.0"
+        "@nightshadeui/vite": "3.14.1"
     }
 }
