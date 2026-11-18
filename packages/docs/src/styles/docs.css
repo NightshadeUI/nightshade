@@ -2,8 +2,8 @@
 @import '@nightshadeui/stylesheets/kbd';
 
 /*
- * Frame and article chrome, in `nightshade-docs`. Not a heading ladder: the site maps
- * `h1`–`h6`. Prose rules stop at demos and live references.
+ * Frame and article chrome, in `nightshade-docs`. Not a type ladder: the site maps
+ * `h1`–`h6`, `pre` and `code`. Prose rules stop at demos and live references.
  * Layer order is the app's: this file only sits in `nightshade-docs`.
  */
 @layer nightshade-docs {
@@ -193,7 +193,6 @@
             padding: var(--sp0-25) var(--sp0-5);
             border-radius: var(--radius-s);
             background: var(--surface-shade);
-            font-size: var(--font-size-s);
             color: var(--text-base);
             overflow-wrap: break-word;
         }
@@ -213,7 +212,6 @@
             padding: var(--sp2-5) var(--sp3);
             overflow-x: auto;
             font-family: var(--font-monospace);
-            font-size: var(--font-size-s);
         }
 
         div[class*='language-'] code {

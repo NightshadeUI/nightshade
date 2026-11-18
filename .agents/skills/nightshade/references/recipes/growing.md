@@ -67,12 +67,15 @@ Put your CSS in its own cascade layer after Nightshade's and publish it. Apps th
 ```
 
 ```css
-/* type.css — yours, in your layer. Display line-heights are ratios. */
+/* type.css — yours, in your layer. Line-heights are ratios. */
 h1 { font-size: var(--font-size-xxxl); line-height: 1.2; }
 h2 { font-size: var(--font-size-xxl);  line-height: 1.2; }
+
+pre { font-size: var(--font-size-xs); line-height: 1.5; }
+:is(p, li, td, th) > code { font-size: var(--font-size-s); }
 ```
 
-Ship the look too: export the `$nightshade.defaults` your system wants (`{ flat: true }`), and have every app provide them once at its root. Map `h1`–`h6` in that layer, so apps and the docs site inherit the ladder. Nightshade does not. Stay in the layers.
+Ship the look too: export the `$nightshade.defaults` your system wants (`{ flat: true }`), and have every app provide them once at its root. Map `h1`–`h6`, `pre` and inline `code` in that layer, so apps and the docs site inherit the ladder. Nightshade does not. Stay in the layers.
 
 ## 7. Give it a site
 

@@ -67,7 +67,7 @@ Single values, in `settings/`. Same tier as the scales; some pick a step of one.
 | `--line-height-main|alt|monospace` | `--line-height`; set one where a face needs its own |
 | `--line-height-prose` | `1.5`, a ratio, for running text (`.prose`) |
 
-Nightshade does not map `h1`–`h6`. The app (or the system grown from the seed) maps tags to `--font-size-*` and sets a display line-height, a ratio, in its cascade layer. Don't scope the ladder to `.Prose` only. Layer order: [model.md](model.md#cascade-layers).
+Nightshade does not map `h1`–`h6`. The app (or the system grown from the seed) maps tags to `--font-size-*` and sets a display line-height, a ratio, in its cascade layer. Don't scope the ladder to `.Prose` only. Code is the app's too: `pre` takes a size step and a ratio app-wide, inline `code` a step inside running text (`p > code`), never the bare tag. Layer order: [model.md](model.md#cascade-layers).
 
 ### Controls
 

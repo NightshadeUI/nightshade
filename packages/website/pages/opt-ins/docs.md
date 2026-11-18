@@ -73,7 +73,7 @@ The variable reference speaks to the apps built on the system: the public tokens
 
 The theme brings no styles of its own beyond the frame (its CSS, Font Awesome, the `kbd` and `transitions` modules), and registers no controls. Import your styles, and register the components your pages use: your own, and the standard ones you pick.
 
-The theme's CSS sits in `nightshade-docs`: `defineDocsConfig` adds `cssLayer('nightshade-docs')` for the theme's own components, and `cssLayerOrder()` so Nightshade's order comes ahead of every stylesheet. Add `cssLayer('yours')` to `vite.plugins` for the site's; with several layers of your own, also `cssLayerOrder([...])`. It does not map `h1`–`h6`: your system does, in its layer. Declare that order once in your entry (`@layer nightshade, nightshade-docs, nightshade-components, yours`) before any `@import`. Prose rules (article margins, the `h2` border, links, tables) stop at `<Demo>` and the live references. Don't copy this site's `type.css`.
+The theme's CSS sits in `nightshade-docs`: `defineDocsConfig` adds `cssLayer('nightshade-docs')` for the theme's own components, and `cssLayerOrder()` so Nightshade's order comes ahead of every stylesheet. Add `cssLayer('yours')` to `vite.plugins` for the site's; with several layers of your own, also `cssLayerOrder([...])`. It does not size `h1`–`h6`, `pre` or `code`: your system does, in its layer. Declare that order once in your entry (`@layer nightshade, nightshade-docs, nightshade-components, yours`) before any `@import`. Prose rules (article margins, the `h2` border, links, tables) stop at `<Demo>` and the live references. Don't copy this site's `type.css`.
 
 ```ts
 // docs/.vitepress/theme/index.ts

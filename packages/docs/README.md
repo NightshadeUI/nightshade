@@ -66,7 +66,7 @@ export default {
 } satisfies Theme;
 ```
 
-Import your stylesheets (Nightshade's, your palette and your `:root`). The heading ladder lives there: the theme does not map `h1`–`h6`. Declare cascade order once in that entry (`@layer nightshade, nightshade-docs, nightshade-components, yours`) before any `@import`. The theme brings only what its frame needs (its own CSS, Font Awesome, the `kbd` and `transitions` modules), so the site looks like your system. It registers no controls: register the components your pages use, your own and the standard ones you pick. Its CSS sits in the `nightshade-docs` layer, and its prose rules stop at `<Demo>` and the live references, so those look the way they would in an app. To wrap the frame, set `Layout` to a component that renders `<DocsLayout>`; its `header-actions` slot adds buttons to the header.
+Import your stylesheets (Nightshade's, your palette and your `:root`). The type ladder lives there: the theme does not size `h1`–`h6`, `pre` or `code`. Declare cascade order once in that entry (`@layer nightshade, nightshade-docs, nightshade-components, yours`) before any `@import`. The theme brings only what its frame needs (its own CSS, Font Awesome, the `kbd` and `transitions` modules), so the site looks like your system. It registers no controls: register the components your pages use, your own and the standard ones you pick. Its CSS sits in the `nightshade-docs` layer, and its prose rules stop at `<Demo>` and the live references, so those look the way they would in an app. To wrap the frame, set `Layout` to a component that renders `<DocsLayout>`; its `header-actions` slot adds buttons to the header.
 
 ## Layouts
 

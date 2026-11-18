@@ -104,7 +104,7 @@ Nightshade's three, then yours:
 
 An app that wants a different order declares `@layer` before it imports you. Stay in the layers: `:root`, the heading ladder and wrappers belong in yours. Same-layer, a class beats an element (`.page-title` over `h1`).
 
-Nightshade does not map `h1`–`h6`. You do, in your layer, with display line-heights as ratios. Don't copy the Nightshade website's `type.css` or its fonts: that site is an app.
+Nightshade does not map `h1`–`h6`, or size `pre` and `code`. You do, in your layer, with line-heights as ratios. Map `pre` app-wide, and inline `code` only inside running text (`p > code`): a bare `code` rule in your layer beats the `<code>` labels of components in lower layers. Don't copy the Nightshade website's `type.css` or its fonts: that site is an app.
 
 ## Where things go
 
@@ -113,6 +113,7 @@ Nightshade does not map `h1`–`h6`. You do, in your layer, with display line-he
 | A hue, the curves, a new tone | the palette spec, then regenerate |
 | `--sp`, `--radius-m`, `--font-*` | your `:root` |
 | `h1`–`h6` (size and a display line-height) | your cascade layer; Nightshade does not map tags |
+| `pre` and inline `code` (size and a line-height) | your cascade layer, next to the headings |
 | What a surface or border means | your `:root`, reassigning the role |
 | A region's tone or density | a context class on the region |
 | A control's padding or radius | `--<Component>-*` on that control's root class |

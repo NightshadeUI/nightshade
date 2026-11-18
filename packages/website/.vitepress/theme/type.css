@@ -1,6 +1,6 @@
 /*
- * This site's heading ladder, in the `site` layer. Nightshade the library does not
- * map tags; this website does, for itself. Type only: each page keeps its own spacing.
+ * This site's type ladder, in the `site` layer: headings and code. Nightshade the library
+ * does not map tags; this website does, for itself. Type only: each page keeps its own spacing.
  */
 h1,
 h2 {
@@ -40,4 +40,17 @@ h6 {
     line-height: 1.35;
     letter-spacing: .08em;
     text-transform: uppercase;
+}
+
+/*
+ * Code blocks: a size step and a ratio, app-wide. Inline code is mapped in running text only:
+ * a bare `code` rule here would beat the docs theme's own `<code>` labels.
+ */
+pre {
+    font-size: var(--font-size-xs);
+    line-height: 1.5;
+}
+
+:is(p, li, td, th, .custom-block-title) > code {
+    font-size: var(--font-size-s);
 }

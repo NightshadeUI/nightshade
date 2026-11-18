@@ -20,6 +20,13 @@ This site sets them to Source Sans 3, Fraunces and Source Code Pro.
 
 Each step is a simple `px`. `--font-size-m` is body text; `--font-size-xxxl` is h1. Nightshade's styles don't map tags to the type scale: the app (or the system grown from the seed) does that, in its cascade layer, with display line-heights as ratios. Map the whole site, not only `.Prose`, or titles outside articles inherit `--line-height` (`--sp2`) and clip. This site maps them for itself; don't copy its `type.css` or its font tags.
 
+Code is the same. Nightshade sets the monospace face on `pre` and `code`, not their size. Map code blocks for the whole app, and inline code inside running text only: a bare `code` rule in your layer would beat the `<code>` labels that components in lower layers draw.
+
+```css
+pre { font-size: var(--font-size-xs); line-height: 1.5; }
+:is(p, li, td, th) > code { font-size: var(--font-size-s); }
+```
+
 <TypeScale />
 
 ```css
