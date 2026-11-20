@@ -52,7 +52,7 @@ export default {
     props: {
         title: { type: String },
         text: { type: String },
-        dir: { type: String, default: 'top' },
+        dir: { type: String, default: 'v' },
         align: { type: String, default: 'center' },
         anchorEl: { default: null },
     },

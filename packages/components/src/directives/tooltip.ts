@@ -1,12 +1,15 @@
 import { createVNode, Directive, DirectiveBinding, render } from 'vue';
 
 import Tooltip from '../components/Tooltip.vue';
+import { PopupAlign, PopupDir } from '../types/PopupPlacement.js';
 
 export interface TooltipOptions {
     title?: string;
     text?: string;
-    dir?: string;
-    align?: string;
+    /** `v` by default: above or below, wherever there's room */
+    dir?: PopupDir;
+    /** `center` by default */
+    align?: PopupAlign;
 }
 
 export type TooltipValue = string | TooltipOptions | null | undefined;
@@ -17,7 +20,7 @@ export type TooltipValue = string | TooltipOptions | null | undefined;
 const containers = new WeakMap<HTMLElement, HTMLElement>();
 
 /**
- * `v-tooltip="'Saves the draft'"` or `v-tooltip="{ title: 'Save', text: 'Saves the draft' }"`.
+ * `v-tooltip="'Saves the draft'"` or `v-tooltip="{ title: 'Save', text: 'Saves the draft', dir: 'right' }"`.
  * The directive renders a `Tooltip` anchored to its element; use `Tooltip` directly for rich content.
  */
 export const vTooltip: Directive<HTMLElement, TooltipValue> = {

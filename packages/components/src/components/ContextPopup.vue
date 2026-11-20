@@ -19,11 +19,13 @@
 
 <script>
 import { nightshadeMixin } from '../helpers/props.js';
+import Bubble from './Bubble.vue';
 import ModalOverlay from './ModalOverlay.vue';
 
 export default {
 
     components: {
+        Bubble,
         ModalOverlay,
     },
 

@@ -234,7 +234,7 @@ app.directive('tooltip', vTooltip);
 </Btn>
 ```
 
-`dir` is `top` (the default), `bottom`, `left`, `right`, or `v` and `h` to pick the side with more room; `align` is `center` (the default), `start` or `end`.
+`dir` is `v` (the default) or `h` to pick the side with more room, or `top`, `bottom`, `left`, `right`; `align` is `center` (the default), `start`, `end` or `auto`. `v-tooltip` takes both in its object, and the `PopupDir` and `PopupAlign` types name them.
 
 | Variable | Default |
 | --- | --- |
