@@ -1,6 +1,6 @@
 {
     "name": "@nightshadeui/website",
-    "version": "3.15.0",
+    "version": "3.16.0",
     "description": "The Nightshade website: philosophy, foundations, components, tools and extensions",
     "private": true,
     "type": "module",
@@ -16,14 +16,14 @@
         "vue": "^3.5.45"
     },
     "dependencies": {
-        "@nightshadeui/canvas": "3.15.0",
-        "@nightshadeui/docs": "3.15.0",
-        "@nightshadeui/components": "3.15.0",
-        "@nightshadeui/palette-generator": "3.15.0",
-        "@nightshadeui/particle-system": "3.15.0",
-        "@nightshadeui/scroller": "3.15.0",
-        "@nightshadeui/stylesheets": "3.15.0",
-        "@nightshadeui/util": "3.15.0",
-        "@nightshadeui/vite": "3.15.0"
+        "@nightshadeui/canvas": "3.16.0",
+        "@nightshadeui/docs": "3.16.0",
+        "@nightshadeui/components": "3.16.0",
+        "@nightshadeui/palette-generator": "3.16.0",
+        "@nightshadeui/particle-system": "3.16.0",
+        "@nightshadeui/scroller": "3.16.0",
+        "@nightshadeui/stylesheets": "3.16.0",
+        "@nightshadeui/util": "3.16.0",
+        "@nightshadeui/vite": "3.16.0"
     }
 }
